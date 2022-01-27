@@ -1,0 +1,374 @@
+﻿<UserControl x:Class="DaesungEntCleanOven.View.RealtimeTrendGraphPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
+             mc:Ignorable="d" Background="White" FontSize="11" FontFamily="Century Gothic"
+             DataContextChanged="UserControl_DataContextChanged"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.Resources>
+            <Style x:Key="multiRowLabelStyle1" TargetType="{x:Type s:DefaultTickLabel}">
+                <Setter Property="HorizontalAnchorPoint" Value="Right"/>
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding AxisLabels[0].Label}" Foreground="{Binding AxisLabels[0].Color}"/>
+                                <TextBlock Text="{Binding AxisLabels[1].Label}" Foreground="{Binding AxisLabels[1].Color}" Grid.Row="1"/>
+                                <TextBlock Text="{Binding AxisLabels[2].Label}" Foreground="{Binding AxisLabels[2].Color}" Grid.Row="2"/>
+                                <TextBlock Text="{Binding AxisLabels[3].Label}" Foreground="{Binding AxisLabels[3].Color}" Grid.Row="3"/>
+                                <TextBlock Text="{Binding AxisLabels[4].Label}" Foreground="{Binding AxisLabels[4].Color}" Grid.Row="4"/>
+                            </Grid>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="multiRowLabelStyle2" TargetType="{x:Type s:DefaultTickLabel}">
+                <Setter Property="HorizontalAnchorPoint" Value="Right"/>
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding AxisLabels[0].Label}" Foreground="{Binding AxisLabels[0].Color}"/>
+                                <TextBlock Text="{Binding AxisLabels[1].Label}" Foreground="{Binding AxisLabels[1].Color}" Grid.Row="1"/>
+                                <TextBlock Text="{Binding AxisLabels[2].Label}" Foreground="{Binding AxisLabels[2].Color}" Grid.Row="2"/>
+                                <TextBlock Text="{Binding AxisLabels[3].Label}" Foreground="{Binding AxisLabels[3].Color}" Grid.Row="3"/>
+                            </Grid>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!--TREND CHART #1-->
+        <s:SciChartSurface Grid.Row="0" Margin="0" Padding="20,5,0,5" RenderableSeries="{s:SeriesBinding TrendSeriesGrp1}" x:Name="chart1">            
+            <s:SciChartSurface.XAxis>
+                <s:DateTimeAxis x:Name="xAxis1"
+                                Visibility="Visible"                                                
+                                AutoTicks="False"                                
+                                DrawMajorBands="False"  
+                                DrawMajorGridLines="True"
+                                DrawMajorTicks="True"
+                                DrawMinorGridLines="True"
+                                DrawMinorTicks="True"                                
+                                FontFamily="Century Gothic"
+                                FontSize="9"
+                                TitleFontSize="9"
+                                TitleFontWeight="Normal"
+                                BorderThickness="0,1,0,0"
+                                BorderBrush="Gray"    
+                                />                
+            </s:SciChartSurface.XAxis>
+            <s:SciChartSurface.YAxes>
+                <s:NumericAxis Id="y1"
+                               AxisAlignment="Left"                               
+                               VisibleRange="0,400"
+                               Visibility="Visible"
+                               AutoTicks="False"
+                               MajorDelta="200"
+                               MinorDelta="40"
+                               TickTextBrush="Red"    
+                               DrawLabels="True"                               
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="True"
+                               DrawMinorGridLines="True"
+                               DrawMinorTicks="True"
+                               Margin="5,0,0,0"
+                               BorderThickness="0,0,1,0"
+                               BorderBrush="Red"
+                               GrowBy="0.1, 0.1"                                     
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"                                 
+                               TextFormatting="0.0"                                 
+                               TickLabelStyle="{StaticResource multiRowLabelStyle1}"
+                               x:Name="yaxis11"
+                               />
+                <s:NumericAxis Id="y2" 
+                               AxisAlignment="Left"                               
+                               VisibleRange="0,100"
+                               Visibility="Collapsed"
+                               AutoTicks="False"
+                               MajorDelta="50"              
+                               MinorDelta="10"
+                               TickTextBrush="Orange"                                      
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="False"
+                               DrawMinorGridLines="False"
+                               DrawMinorTicks="True"    
+                               
+                               BorderThickness="0,0,1,0"
+                               BorderBrush="Orange"
+                               GrowBy="0.1, 0.1"                                     
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"                                 
+                               TextFormatting="0.0"
+                               x:Name="yaxis12"
+                               />
+                <s:NumericAxis Id="y3"      
+                               AxisAlignment="Left"
+                               VisibleRange="-150,150"
+                               Visibility="Collapsed"                   
+                               AutoTicks="False"
+                               MajorDelta="150"
+                               MinorDelta="30"
+                               TickTextBrush="Lime"
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="False"
+                               DrawMinorGridLines="False"
+                               DrawMinorTicks="True"    
+                               
+                               BorderThickness="0,0,1,0"
+                               BorderBrush="Lime"
+                               GrowBy="0.1, 0.1"                                     
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"                                 
+                               TextFormatting="0.0"
+                               x:Name="yaxis13"
+                               />
+                <s:NumericAxis Id="y4"      
+                               AxisAlignment="Left"
+                               VisibleRange="0,60"
+                               Visibility="Collapsed"      
+                               AutoTicks="False"
+                               MajorDelta="30"
+                               MinorDelta="6"
+                               TickTextBrush="Aqua"                               
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="False"
+                               DrawMinorGridLines="False"
+                               DrawMinorTicks="True"    
+                               
+                               BorderThickness="0,0,1,0"
+                               BorderBrush="Aqua"
+                               GrowBy="0.1, 0.1"                                     
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"                                 
+                               TextFormatting="0.0"
+                               x:Name="yaxis14"
+                               />
+                <s:NumericAxis Id="y5"        
+                               AxisAlignment="Left"
+                               VisibleRange="0,600"                               
+                               Visibility="Collapsed"                        
+                               AutoTicks="False"
+                               MajorDelta="300"
+                               MinorDelta="60"
+                               TickTextBrush="Magenta"                                                                                         
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="False"
+                               DrawMinorGridLines="False"
+                               DrawMinorTicks="True"    
+                               
+                               BorderThickness="0,0,1,0"
+                               BorderBrush="Magenta"
+                               GrowBy="0.1, 0.1"                                     
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"                                 
+                               TextFormatting="0.0"
+                               x:Name="yaxis15"
+                               />
+            </s:SciChartSurface.YAxes>
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                    <s:CursorModifier/>
+                    <s:LegendModifier Orientation="Vertical" HorizontalAlignment="Right" LegendItemTemplate="{StaticResource sciLegendItemTemplate}"/>
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+        </s:SciChartSurface>
+        <ScrollBar Grid.Row="1" Height="18" Orientation="Horizontal" Margin="2" Minimum="0" x:Name="scrollbar1" ValueChanged="Scrollbar1_ValueChanged"
+                   SmallChange="1" LargeChange="10"/>        
+
+        <!--TREND CHART #2-->
+        <s:SciChartSurface Grid.Row="3" Margin="0" Padding="26,5,0,5" RenderableSeries="{s:SeriesBinding TrendSeriesGrp2}" x:Name="chart2">
+            <s:SciChartSurface.XAxis>            
+                <s:DateTimeAxis x:Name="xAxis2"
+                                Visibility="Visible"                                                
+                                AutoTicks="False"                                
+                                DrawMajorBands="False"  
+                                DrawMajorGridLines="True"
+                                DrawMajorTicks="True"
+                                DrawMinorGridLines="True"
+                                DrawMinorTicks="True"                                
+                                FontFamily="Century Gothic"
+                                FontSize="9"
+                                TitleFontSize="9"
+                                TitleFontWeight="Normal"
+                                BorderThickness="0,1,0,0"
+                                BorderBrush="Gray"    
+                                />
+            </s:SciChartSurface.XAxis>
+            <s:SciChartSurface.YAxes>
+                <s:NumericAxis Id="y1"                               
+                               AxisAlignment="Left"                               
+                               VisibleRange="0,400"
+                               Visibility="Visible"
+                               AutoTicks="False"
+                               MajorDelta="200"
+                               MinorDelta="40"
+                               TickTextBrush="Red"    
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="True"
+                               DrawMinorGridLines="True"
+                               DrawMinorTicks="True"    
+                               
+                               Margin="5,0,0,0"
+                               BorderThickness="0,0,1,0"
+                               BorderBrush="Red"
+                               GrowBy="0.1, 0.1"                                     
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"                                 
+                               TextFormatting="0.0"                                 
+                               TickLabelStyle="{StaticResource multiRowLabelStyle2}"
+                               x:Name="yaxis21"
+                               />
+                <s:NumericAxis Id="y2" 
+                               AxisAlignment="Left"                               
+                               VisibleRange="0,1000"
+                               Visibility="Collapsed"
+                               AutoTicks="False"
+                               MajorDelta="500"
+                               MinorDelta="100"
+                               TickTextBrush="Yellow"     
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="False"
+                               DrawMinorGridLines="False"
+                               DrawMinorTicks="True"    
+                               
+                               Margin="5,0,0,0"
+                               BorderThickness="0,0,1,0"
+                               BorderBrush="Yellow"
+                               GrowBy="0.1, 0.1"                                     
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"                                 
+                               TextFormatting="0.0"  
+                               x:Name="yaxis22"
+                               />
+                <s:NumericAxis Id="y3"      
+                               AxisAlignment="Left"
+                               VisibleRange="0,1000"
+                               Visibility="Collapsed"                   
+                               AutoTicks="False"
+                               MajorDelta="500"
+                               MinorDelta="100"
+                               TickTextBrush="Magenta"                               
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="False"
+                               DrawMinorGridLines="False"
+                               DrawMinorTicks="True"    
+                               
+                               Margin="5,0,0,0"
+                               BorderThickness="0,0,1,0"
+                               BorderBrush="Magenta"
+                               GrowBy="0.1, 0.1"                                     
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"                                 
+                               TextFormatting="0.0"  
+                               x:Name="yaxis23"
+                               />
+                <s:NumericAxis Id="y4"      
+                               AxisAlignment="Left"
+                               VisibleRange="0,1000"
+                               Visibility="Collapsed"      
+                               AutoTicks="False"
+                               MajorDelta="500"
+                               MinorDelta="100"
+                               TickTextBrush="Green"
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="False"
+                               DrawMinorGridLines="False"
+                               DrawMinorTicks="True"    
+                               
+                               Margin="5,0,0,0"
+                               BorderThickness="0,0,1,0"
+                               BorderBrush="Green"
+                               GrowBy="0.1, 0.1"                                     
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"                                 
+                               TextFormatting="0.0"  
+                               x:Name="yaxis24"
+                               />
+               
+            </s:SciChartSurface.YAxes>
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                    <s:CursorModifier/>
+                    <s:LegendModifier Orientation="Vertical" HorizontalAlignment="Right" LegendItemTemplate="{StaticResource sciLegendItemTemplate}"/>
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+        </s:SciChartSurface>
+        <ScrollBar Grid.Row="4" Height="18" Orientation="Horizontal" Margin="2" Minimum="0" x:Name="scrollbar2" ValueChanged="Scrollbar2_ValueChanged"
+                   SmallChange="1" LargeChange="10"/>
+        
+        <Grid Grid.Row="5" Margin="2,3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="파일명" Style="{StaticResource CaptionTextBox}" Background="SteelBlue" Margin="0"/>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding TrendDataSaveName, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" HorizontalContentAlignment="Left" Padding="5,2" Foreground="Black"/>
+            <TextBox Grid.Column="8" Text="운전 패턴" Style="{StaticResource CaptionTextBox}" Background="SteelBlue" Margin="0"/>
+            <TextBox Grid.Column="9" Text="{Binding UsePatternNo, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Foreground="Black"/>
+        </Grid>
+    
+    </Grid>
+</UserControl>

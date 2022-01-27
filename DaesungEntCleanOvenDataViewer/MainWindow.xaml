@@ -1,0 +1,204 @@
+﻿<dx:DXWindow x:Class="DaesungEntCleanOvenDataViewer.MainWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking" 
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
+             WindowState="Maximized" WindowStartupLocation="CenterScreen" 
+             SnapsToDevicePixels="True" FontFamily="Century Gothic"
+             Title="측정 데이터 로그 뷰어" Height="350" Width="1041" Icon="{dx:DXImage Image=Chart2_16x16.png}">
+
+    <Grid Margin="5">
+        <Grid.Resources>
+            <Style x:Key="multiRowLabelStyle" TargetType="{x:Type s:DefaultTickLabel}">
+                <Setter Property="HorizontalAnchorPoint" Value="Right"/>
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding AxisLabels[0].Label}" Foreground="{Binding AxisLabels[0].Color}"/>
+                                <TextBlock Text="{Binding AxisLabels[1].Label}" Foreground="{Binding AxisLabels[1].Color}" Grid.Row="1"/>
+                                <TextBlock Text="{Binding AxisLabels[2].Label}" Foreground="{Binding AxisLabels[2].Color}" Grid.Row="2"/>
+                                <TextBlock Text="{Binding AxisLabels[3].Label}" Foreground="{Binding AxisLabels[3].Color}" Grid.Row="3"/>
+                                <TextBlock Text="{Binding AxisLabels[4].Label}" Foreground="{Binding AxisLabels[4].Color}" Grid.Row="4"/>
+                                <TextBlock Text="{Binding AxisLabels[5].Label}" Foreground="{Binding AxisLabels[5].Color}" Grid.Row="5"/>
+                                <TextBlock Text="{Binding AxisLabels[6].Label}" Foreground="{Binding AxisLabels[6].Color}" Grid.Row="6"/>
+                                <TextBlock Text="{Binding AxisLabels[7].Label}" Foreground="{Binding AxisLabels[7].Color}" Grid.Row="7"/>
+                            </Grid>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="1" x:Name="tboxFileName" Margin="2" HorizontalContentAlignment="Left" Padding="5,2" IsReadOnly="True" VerticalContentAlignment="Center"/>
+            <dx:SimpleButton Grid.Column="0" Width="100" Glyph="{dx:DXImage Image=LoadFrom_16x16.png}" Content="파일 열기" Margin="2" Click="OpenFileButton_Click" MinHeight="26"/>
+            <dx:SimpleButton Grid.Column="2" Width="100" Glyph="{dx:DXImage Image=IDE_16x16.png}" Content="차트 설정" Margin="2" Click="OpenChartSetupButton_Click"  MinHeight="26"/>
+        </Grid>
+        <!--<s:SciChartSurface x:Name="chartTrend" Grid.Row="1" Margin="2" Padding="37,5,0,5" RenderableSeries="{s:SeriesBinding RenderableSeries}">-->
+        <s:SciChartSurface x:Name="chartTrend" Grid.Row="1" Margin="2" Padding="37,5,0,5">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="PreviewMouseDown" Command="{Binding OpenEditorDlgCommand}" CommandParameter="1"/>
+            </dxmvvm:Interaction.Behaviors>
+            <s:SciChartSurface.XAxis>
+                <s:DateTimeAxis x:Name="xAxis"
+                                Visibility="Visible"                                                
+                                AutoTicks="False"                                
+                                DrawMajorBands="False"  
+                                DrawMajorGridLines="True"
+                                DrawMajorTicks="True"
+                                DrawMinorGridLines="False"
+                                DrawMinorTicks="False"
+                                
+                                FontFamily="Century Gothic"
+                                FontSize="9"
+                                TitleFontSize="9"
+                                TitleFontWeight="Normal"
+                                BorderThickness="0,1,0,0"
+                                BorderBrush="Gray"    
+                                />
+            </s:SciChartSurface.XAxis>
+            <s:SciChartSurface.YAxes>
+                <s:NumericAxis Id="y1"            
+                               AxisAlignment="Left"                               
+                               VisibleRange="0,400"
+                               Visibility="Visible"
+                               AutoTicks="False"                                  
+                               MajorDelta="100"
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="True"
+                               DrawMajorTicks="True"                                  
+                               MinorDelta="20"
+                               DrawMinorGridLines="True"
+                               DrawMinorTicks="True"                                      
+                               Margin="5,0,0,0"
+                               BorderThickness="0,0,1,0"
+                               BorderBrush="Gray"
+                               GrowBy="0.1, 0.1"                                     
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"                                 
+                               TextFormatting="0.0"
+                               TickTextBrush="Red"     
+                               TickLabelStyle="{StaticResource multiRowLabelStyle}"
+                               x:Name="yaxis1"
+                               />
+                <s:NumericAxis Id="y2" 
+                               AxisAlignment="Left"                               
+                               VisibleRange="0,100"
+                               Visibility="Collapsed"
+                               AutoTicks="False"
+                               MajorDelta="25"
+                               MinorDelta="5"
+                               TickTextBrush="Lime"                                
+                               DrawLabels="True"
+                               DrawMajorBands="False"
+                               DrawMajorGridLines="False"
+                               DrawMajorTicks="False"
+                               DrawMinorGridLines="False"
+                               DrawMinorTicks="False"
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               x:Name="yaxis2"
+                               />
+                <s:NumericAxis Id="y3"      
+                               AxisAlignment="Left"
+                               VisibleRange="-150,150"
+                               Visibility="Collapsed"                   
+                               AutoTicks="False"
+                               MajorDelta="75"
+                               MinorDelta="15"
+                               TickTextBrush="Aqua"
+                               x:Name="yaxis3"
+                               />
+                <s:NumericAxis Id="y4"      
+                               AxisAlignment="Left"
+                               VisibleRange="0,60"
+                               Visibility="Collapsed"      
+                               AutoTicks="False"
+                               MajorDelta="15"
+                               MinorDelta="3"
+                               TickTextBrush="Yellow"
+                               x:Name="yaxis4"
+                               />
+                <s:NumericAxis Id="y5"        
+                               AxisAlignment="Left"
+                               VisibleRange="0,600"                               
+                               Visibility="Collapsed"                        
+                               AutoTicks="False"
+                               MajorDelta="150"
+                               MinorDelta="30"
+                               TickTextBrush="Magenta"
+                               x:Name="yaxis5"
+                               />
+                <s:NumericAxis Id="y6"        
+                               AxisAlignment="Left"
+                               VisibleRange="0,1000"                               
+                               Visibility="Collapsed"                        
+                               AutoTicks="False"
+                               MajorDelta="250"
+                               MinorDelta="50"
+                               TickTextBrush="RoyalBlue"
+                               x:Name="yaxis6"
+                               />
+                <s:NumericAxis Id="y7"        
+                               AxisAlignment="Left"
+                               VisibleRange="0,1000"                               
+                               Visibility="Collapsed"                        
+                               AutoTicks="False"
+                               MajorDelta="250"
+                               MinorDelta="50"
+                               TickTextBrush="Green"
+                               x:Name="yaxis7"
+                               />
+                <s:NumericAxis Id="y8"        
+                               AxisAlignment="Left"
+                               VisibleRange="0,1000"                               
+                               Visibility="Collapsed"                        
+                               AutoTicks="False"
+                               MajorDelta="250"
+                               MinorDelta="50"
+                               TickTextBrush="Pink"
+                               x:Name="yaxis8"
+                               />
+            </s:SciChartSurface.YAxes>
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                    <s:LegendModifier Orientation="Vertical" HorizontalAlignment="Right" LegendItemTemplate="{StaticResource sciLegendItemTemplate}"/>
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+        </s:SciChartSurface>
+        <ScrollBar Grid.Row="2" Height="20" Orientation="Horizontal" Margin="2" Minimum="0" ValueChanged="ScrollBar_ValueChanged" x:Name="scrollbar"
+                   SmallChange="1" LargeChange="10"/>
+    </Grid>
+
+
+</dx:DXWindow>

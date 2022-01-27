@@ -1,0 +1,673 @@
+﻿<UserControl x:Class="DaesungEntCleanOven.View.PatternConfigurationPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
+             mc:Ignorable="d" Background="White" SnapsToDevicePixels="True" FontFamily="Century Gothic"
+             d:DesignHeight="900" d:DesignWidth="1280">
+    <Grid Margin="5">
+        <Grid.Resources>
+            <Style x:Key="multiRowLabelStyle" TargetType="{x:Type s:DefaultTickLabel}">
+                <Setter Property="HorizontalAnchorPoint" Value="Right"/>
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding AxisLabels[0].Label}" Foreground="{Binding AxisLabels[0].Color}"/>
+                                <TextBlock Text="{Binding AxisLabels[1].Label}" Foreground="{Binding AxisLabels[1].Color}" Grid.Row="1"/>
+                                <TextBlock Text="{Binding AxisLabels[2].Label}" Foreground="{Binding AxisLabels[2].Color}" Grid.Row="2"/>
+                                <TextBlock Text="{Binding AxisLabels[3].Label}" Foreground="{Binding AxisLabels[3].Color}" Grid.Row="3"/>
+                                <TextBlock Text="{Binding AxisLabels[4].Label}" Foreground="{Binding AxisLabels[4].Color}" Grid.Row="4"/>
+                            </Grid>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--PATTERN GRP #1-->
+        <s:SciChartSurface Grid.Row="0" Margin="0" Padding="43,5,0,5" RenderableSeries="{s:SeriesBinding Group1Series}" x:Name="chartGrp1">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="PreviewMouseDown" Command="{Binding OpenEditorDlgCommand}" CommandParameter="1"/>
+            </dxmvvm:Interaction.Behaviors>
+            <s:SciChartSurface.XAxis>
+                <s:NumericAxis 
+                               Visibility="Collapsed"
+                               VisibleRange="0,15"
+                               AutoTicks="True"
+                               MaxAutoTicks="15"                               
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="True"
+                               DrawMinorGridLines="False"
+                               
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"
+                               BorderThickness="0,1,0,0"
+                               BorderBrush="Gray"                               
+                               />
+            </s:SciChartSurface.XAxis>
+            <s:SciChartSurface.YAxes>
+                <s:NumericAxis Id="y1"                               
+                               AxisAlignment="Left"                               
+                               VisibleRange="0,400"
+                               Visibility="Visible"
+                               AutoTicks="False"
+                               MajorDelta="400"
+                               MinorDelta="40"
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="True"
+                               DrawMinorGridLines="True"
+                               DrawMinorTicks="True"    
+                               
+                               Margin="5,0,0,0"
+                               BorderThickness="0,0,1,0"
+                               BorderBrush="Gray"
+                               GrowBy="0.1, 0.1"                                     
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"                                 
+                               TextFormatting="0.0"
+                               TickTextBrush="Red"      
+                               TickLabelStyle="{StaticResource multiRowLabelStyle}"
+                               x:Name="yaxis11"
+                               />                
+                <s:NumericAxis Id="y2" 
+                               AxisAlignment="Left"                               
+                               VisibleRange="-150,150"
+                               Visibility="Collapsed"
+                               AutoTicks="False"
+                               MajorDelta="300"
+                               MinorDelta="30"
+                               TickTextBrush="Lime"                                
+                               x:Name="yaxis12"
+                               />
+                <s:NumericAxis Id="y3"      
+                               AxisAlignment="Left"
+                               VisibleRange="0,60"
+                               Visibility="Collapsed"                   
+                               AutoTicks="False"
+                               MajorDelta="60"
+                               MinorDelta="6"
+                               TickTextBrush="Aqua"
+                               x:Name="yaxis13"
+                               />
+                <s:NumericAxis Id="y4"      
+                               AxisAlignment="Left"
+                               VisibleRange="0,60"
+                               Visibility="Collapsed"      
+                               AutoTicks="False"
+                               MajorDelta="60"
+                               MinorDelta="6"
+                               TickTextBrush="Yellow"
+                               x:Name="yaxis14"
+                               />
+                <s:NumericAxis Id="y5"        
+                               AxisAlignment="Left"
+                               VisibleRange="0,600"                               
+                               Visibility="Collapsed"                        
+                               AutoTicks="False"
+                               MajorDelta="600"
+                               MinorDelta="60"
+                               TickTextBrush="Magenta"
+                               x:Name="yaxis15"
+                               />
+            </s:SciChartSurface.YAxes>
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                    <s:CursorModifier/>
+                    <s:LegendModifier Orientation="Vertical" HorizontalAlignment="Right" LegendItemTemplate="{StaticResource sciLegendItemTemplate}"/>
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+        </s:SciChartSurface>
+        <Grid Grid.Row="1" Margin="0,3,0,0">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="PreviewMouseDown" Command="{Binding OpenEditorDlgCommand}" CommandParameter="1"/>
+            </dxmvvm:Interaction.Behaviors>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>                
+                <ColumnDefinition/>
+                
+                <ColumnDefinition/>                
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>               
+                <ColumnDefinition/>
+                
+                <ColumnDefinition/>                
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>                
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Row="0" Grid.Column="0" Text="온도(℃)" Style="{StaticResource CaptionTextBox}" Background="Red" Margin="0"  FontSize="11"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Text="차압 챔버&#xa;(mmH20)" Style="{StaticResource CaptionTextBox}" Background="Lime" Foreground="Black" Margin="0,-1,0,0" FontSize="9"/>
+            <TextBox Grid.Row="2" Grid.Column="0" Text="모터 챔버(Hz)" Style="{StaticResource CaptionTextBox}" Background="Aqua" Foreground="Black" Margin="0,-1,0,0"  FontSize="11"/>
+            <TextBox Grid.Row="3" Grid.Column="0" Text="모터 쿨링(Hz)" Style="{StaticResource CaptionTextBox}" Background="Yellow" Foreground="Black" Margin="0,-1,0,0"  FontSize="11"/>
+            <TextBox Grid.Row="4" Grid.Column="0" Text="MFC(l/min)" Style="{StaticResource CaptionTextBox}" Background="Magenta" Margin="0,-1,0,0"  FontSize="11"/>
+            <TextBox Grid.Row="5" Grid.Column="0" Text="세그 시간" Style="{StaticResource CaptionTextBox}" Background="RoyalBlue" Margin="0,-1,0,0" FontSize="11"/>
+            <TextBox Grid.Row="6" Grid.Column="0" Text="TS" Style="{StaticResource CaptionTextBox}" Background="LightSkyBlue" Foreground="Black" Margin="0,-1,0,0" FontSize="11"/>
+            <TextBox Grid.Row="7" Grid.Column="0" Text="SEG NO" Style="{StaticResource CaptionTextBox}" Background="Green" Foreground="White" Margin="0,-1,0,0" FontSize="11"/>
+
+            <!--SEG #01-->
+            <TextBox Grid.Row="0" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[0].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[0].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[0].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[0].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[0].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[0].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[0].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[0].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #02-->
+            <TextBox Grid.Row="0" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[1].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[1].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[1].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[1].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[1].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[1].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[1].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[1].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #03-->
+            <TextBox Grid.Row="0" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[2].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[2].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[2].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[2].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[2].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[2].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[2].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[2].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #04-->
+            <TextBox Grid.Row="0" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[3].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[3].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[3].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[3].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[3].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[3].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[3].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[3].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #05-->
+            <TextBox Grid.Row="0" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[4].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[4].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[4].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[4].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[4].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[4].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[4].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[4].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #06-->
+            <TextBox Grid.Row="0" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[5].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[5].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[5].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[5].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[5].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[5].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[5].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[5].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #07-->
+            <TextBox Grid.Row="0" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[6].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[6].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[6].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[6].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[6].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[6].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[6].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[6].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #08-->
+            <TextBox Grid.Row="0" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[7].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[7].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[7].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[7].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[7].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[7].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[7].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[7].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #09-->
+            <TextBox Grid.Row="0" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[8].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[8].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[8].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[8].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[8].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[8].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[8].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[8].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #10-->
+            <TextBox Grid.Row="0" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[9].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[9].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[9].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[9].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[9].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[9].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[9].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[9].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #11-->
+            <TextBox Grid.Row="0" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[10].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[10].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[10].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[10].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[10].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[10].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[10].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[10].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #12-->
+            <TextBox Grid.Row="0" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[11].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[11].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[11].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[11].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[11].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[11].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[11].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[11].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #13-->
+            <TextBox Grid.Row="0" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[12].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[12].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[12].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[12].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[12].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[12].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[12].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[12].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #14-->
+            <TextBox Grid.Row="0" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[13].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[13].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[13].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[13].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[13].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[13].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[13].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[13].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #15-->
+            <TextBox Grid.Row="0" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[14].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[14].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[14].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[14].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[14].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[14].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[14].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[14].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+        </Grid>
+
+        <!--PATTERN GRP #2-->
+        <s:SciChartSurface Grid.Row="3" Margin="0" Padding="43,5,0,5" RenderableSeries="{s:SeriesBinding Group2Series}" x:Name="chartGrp2">        
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="PreviewMouseDown" Command="{Binding OpenEditorDlgCommand}" CommandParameter="2"/>
+            </dxmvvm:Interaction.Behaviors>
+            <s:SciChartSurface.XAxis>
+                <s:NumericAxis 
+                               Visibility="Collapsed"
+                               VisibleRange="0,15"
+                               AutoTicks="True"
+                               MaxAutoTicks="15"                               
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="True"
+                               DrawMinorGridLines="False"
+                               
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"
+                               BorderThickness="0,1,0,0"
+                               BorderBrush="Gray"                               
+                               />
+            </s:SciChartSurface.XAxis>
+            <s:SciChartSurface.YAxes>
+                <s:NumericAxis Id="y1"                               
+                               AxisAlignment="Left"                               
+                               VisibleRange="0,400"
+                               Visibility="Visible"
+                               AutoTicks="False"
+                               MajorDelta="400"
+                               MinorDelta="40"
+                               DrawMajorBands="False"                               
+                               DrawMajorGridLines="True"
+                               DrawMinorGridLines="True"
+                               DrawMinorTicks="True"    
+                               
+                               Margin="5,0,0,0"
+                               BorderThickness="0,0,1,0"
+                               BorderBrush="Gray"
+                               GrowBy="0.1, 0.1"                                     
+                               FontFamily="Century Gothic"
+                               FontSize="9"
+                               TitleFontSize="9"
+                               TitleFontWeight="Normal"                                 
+                               TextFormatting="0.0"
+                               TickTextBrush="Red"                       
+                               TickLabelStyle="{StaticResource multiRowLabelStyle}"
+                               x:Name="yaxis21"
+                               />
+                <s:NumericAxis Id="y2" 
+                               AxisAlignment="Left"                               
+                               VisibleRange="-150,150"
+                               Visibility="Collapsed"
+                               AutoTicks="False"
+                               MajorDelta="300"
+                               MinorDelta="30"
+                               TickTextBrush="Lime"                                
+                               x:Name="yaxis22"
+                               />
+                <s:NumericAxis Id="y3"      
+                               AxisAlignment="Left"
+                               VisibleRange="0,60"
+                               Visibility="Collapsed"                   
+                               AutoTicks="False"
+                               MajorDelta="60"
+                               MinorDelta="6"
+                               TickTextBrush="Aqua"
+                               x:Name="yaxis23"
+                               />
+                <s:NumericAxis Id="y4"      
+                               AxisAlignment="Left"
+                               VisibleRange="0,60"
+                               Visibility="Collapsed"      
+                               AutoTicks="False"
+                               MajorDelta="60"
+                               MinorDelta="6"
+                               TickTextBrush="Yellow"
+                               x:Name="yaxis24"
+                               />
+                <s:NumericAxis Id="y5"        
+                               AxisAlignment="Left"
+                               VisibleRange="0,600"                               
+                               Visibility="Collapsed"                        
+                               AutoTicks="False"
+                               MajorDelta="600"
+                               MinorDelta="60"
+                               TickTextBrush="Magenta"
+                               x:Name="yaxis25"
+                               />
+            </s:SciChartSurface.YAxes>
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                    <s:CursorModifier/>
+                    <s:LegendModifier Orientation="Vertical" HorizontalAlignment="Right" LegendItemTemplate="{StaticResource sciLegendItemTemplate}"/>
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+        </s:SciChartSurface>
+        <Grid Grid.Row="4" Margin="0,3,0,0">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="PreviewMouseDown" Command="{Binding OpenEditorDlgCommand}" CommandParameter="2"/>
+            </dxmvvm:Interaction.Behaviors>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Row="0" Grid.Column="0" Text="온도(℃)" Style="{StaticResource CaptionTextBox}" Background="Red" Margin="0"  FontSize="11"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Text="차압 챔버&#xa;(mmH20)" Style="{StaticResource CaptionTextBox}" Background="Lime" Foreground="Black" Margin="0,-1,0,0" FontSize="9"/>
+            <TextBox Grid.Row="2" Grid.Column="0" Text="모터 챔버(Hz)" Style="{StaticResource CaptionTextBox}" Background="Aqua" Foreground="Black" Margin="0,-1,0,0"  FontSize="11"/>
+            <TextBox Grid.Row="3" Grid.Column="0" Text="모터 쿨링(Hz)" Style="{StaticResource CaptionTextBox}" Background="Yellow" Foreground="Black" Margin="0,-1,0,0"  FontSize="11"/>
+            <TextBox Grid.Row="4" Grid.Column="0" Text="MFC(l/min)" Style="{StaticResource CaptionTextBox}" Background="Magenta" Margin="0,-1,0,0"  FontSize="11"/>
+            <TextBox Grid.Row="5" Grid.Column="0" Text="세그 시간" Style="{StaticResource CaptionTextBox}" Background="RoyalBlue" Margin="0,-1,0,0" FontSize="11"/>
+            <TextBox Grid.Row="6" Grid.Column="0" Text="TS" Style="{StaticResource CaptionTextBox}" Background="LightSkyBlue" Foreground="Black" Margin="0,-1,0,0" FontSize="11"/>
+            <TextBox Grid.Row="7" Grid.Column="0" Text="SEG NO" Style="{StaticResource CaptionTextBox}" Background="Green" Foreground="White" Margin="0,-1,0,0" FontSize="11"/>
+
+            <!--SEG #16-->
+            <TextBox Grid.Row="0" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[15].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[15].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[15].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[15].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[15].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[15].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[15].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="1" FontWeight="Bold" Text="{Binding Segments[15].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #17-->
+            <TextBox Grid.Row="0" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[16].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[16].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[16].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[16].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[16].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[16].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[16].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="2" FontWeight="Bold" Text="{Binding Segments[16].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #18-->
+            <TextBox Grid.Row="0" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[17].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[17].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[17].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[17].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[17].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[17].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[17].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="3" FontWeight="Bold" Text="{Binding Segments[17].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #19-->
+            <TextBox Grid.Row="0" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[18].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[18].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[18].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[18].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[18].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[18].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[18].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="4" FontWeight="Bold" Text="{Binding Segments[18].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #20-->
+            <TextBox Grid.Row="0" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[19].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[19].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[19].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[19].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[19].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[19].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[19].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="5" FontWeight="Bold" Text="{Binding Segments[19].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #21-->
+            <TextBox Grid.Row="0" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[20].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[20].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[20].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[20].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[20].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[20].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[20].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="6" FontWeight="Bold" Text="{Binding Segments[20].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #22-->
+            <TextBox Grid.Row="0" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[21].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[21].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[21].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[21].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[21].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[21].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[21].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="7" FontWeight="Bold" Text="{Binding Segments[21].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #23-->
+            <TextBox Grid.Row="0" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[22].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[22].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[22].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[22].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[22].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[22].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[22].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="8" FontWeight="Bold" Text="{Binding Segments[22].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #24-->
+            <TextBox Grid.Row="0" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[23].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[23].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[23].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[23].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[23].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[23].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[23].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="9" FontWeight="Bold" Text="{Binding Segments[23].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #25-->
+            <TextBox Grid.Row="0" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[24].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[24].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[24].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[24].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[24].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[24].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[24].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="10" FontWeight="Bold" Text="{Binding Segments[24].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #26-->
+            <TextBox Grid.Row="0" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[25].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[25].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[25].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[25].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[25].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[25].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[25].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="11" FontWeight="Bold" Text="{Binding Segments[25].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #27-->
+            <TextBox Grid.Row="0" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[26].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[26].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[26].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[26].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[26].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[26].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[26].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="12" FontWeight="Bold" Text="{Binding Segments[26].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #28-->
+            <TextBox Grid.Row="0" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[27].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[27].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[27].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[27].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[27].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[27].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[27].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="13" FontWeight="Bold" Text="{Binding Segments[27].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #29-->
+            <TextBox Grid.Row="0" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[28].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[28].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[28].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[28].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[28].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[28].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[28].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="14" FontWeight="Bold" Text="{Binding Segments[28].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+
+            <!--SEG #30-->
+            <TextBox Grid.Row="0" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[29].Temperature, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,0,0,0"/>
+            <TextBox Grid.Row="1" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[29].DifferencePressureChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[29].MotorChamber, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="3" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[29].MotorCooling, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="4" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[29].MFC, Mode=OneWay, StringFormat=F1}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="5" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[29].FormattedDurationTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="6" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[29].FormattedTimeSignal, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Background="#FFDDDDDD" Foreground="Black" Margin="-1,-1,0,0"/>
+            <TextBox Grid.Row="7" Grid.Column="15" FontWeight="Bold" Text="{Binding Segments[29].No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Foreground="Black" Margin="-1,-1,0,0"/>
+        </Grid>
+
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="패턴 정보" Style="{StaticResource CaptionTextBox}" Background="SteelBlue" Margin="0"/>
+            <TextBox Grid.Column="1" Text="{Binding Description, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Grid.ColumnSpan="5" Foreground="Black" HorizontalContentAlignment="Left" Padding="10,2"/>
+            <TextBox Grid.Column="14" Text="운전 패턴" Style="{StaticResource CaptionTextBox}" Background="SteelBlue" Margin="0"/>
+            <TextBox Grid.Column="15" Text="{Binding No, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Foreground="Black" FontWeight="Bold"/>
+            <dx:SimpleButton Grid.Column="8" Grid.ColumnSpan="4" Content="패턴 읽기" Margin="0" Glyph="{dx:DXImage Image=Open2_16x16.png}" Command="{Binding OpenPatternSelectDlgCommand}"/>
+            <dx:SimpleButton Grid.Column="10" Grid.ColumnSpan="2" Content="바코드 등록" Command="{Binding RegisterBarCodeCommand}" Glyph="{dx:DXImage Image=Barcode2_16x16.png}" Margin="0" Visibility="Collapsed"/>
+        </Grid> 
+    </Grid>
+</UserControl>

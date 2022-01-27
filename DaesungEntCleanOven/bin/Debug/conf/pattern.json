@@ -1,0 +1,287 @@
+{
+	"conditions" : [
+		{"idx": 0, "name": "use", "w.addr": "D2401", "r.addr": "D2501", "scale": 1 },
+		{"idx": 1, "name": "diff_press_chamber_sv", "w.addr": "D2402", "r.addr": "D2502", "scale": 10 },
+		{"idx": 2, "name": "diff_press_init_mv", "w.addr": "D2403", "r.addr": "D2503", "scale": 10},
+		{"idx": 3, "name": "diff_press_manu_ctl_time", "w.addr": "D2404", "r.addr": "D2504", "scale": 1 },
+		{"idx": 4, "name": "motor_chamber_sv", "w.addr": "D2405", "r.addr": "D2505", "scale": 10},
+		{"idx": 5, "name": "o2_target", "w.addr": "D2406", "r.addr": "D2506", "scale": 1 },
+		{"idx": 6, "name": "o2_target_chk_time", "w.addr": "D2407", "r.addr": "D2507", "scale": 1 },
+		{"idx": 7, "name": "mfc_sv", "w.addr": "D2408", "r.addr": "D2508", "scale": 10 },
+		{"idx": 8, "name": "exhaust_valve_open", "w.addr": "D2412", "r.addr": "D2512", "scale": 1 },
+		{"idx": 9, "name": "wait_temp_after_close", "w.addr": "D2411", "r.addr": "D2511", "scale": 10 }
+	],
+	
+	"segments" : {
+		"SEG01" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2011", "r.addr": "D2611", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2012", "r.addr": "D2612", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2013", "r.addr": "D2613", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2014", "r.addr": "D2614", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2015", "r.addr": "D2615", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2019", "r.addr": "D2619", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2017", "r.addr": "D2521", "scale": 1}
+		],	
+		"SEG02" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2021", "r.addr": "D2621", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2022", "r.addr": "D2622", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2023", "r.addr": "D2623", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2024", "r.addr": "D2624", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2025", "r.addr": "D2625", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2029", "r.addr": "D2629", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2027", "r.addr": "D2522", "scale": 1 }			
+		],
+		"SEG03" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2031", "r.addr": "D2631", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2032", "r.addr": "D2632", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2033", "r.addr": "D2633", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2034", "r.addr": "D2634", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2035", "r.addr": "D2635", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2039", "r.addr": "D2639", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2037", "r.addr": "D2523", "scale": 1 }		
+		],		
+		"SEG04" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2041", "r.addr": "D2641", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2042", "r.addr": "D2642", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2043", "r.addr": "D2643", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2044", "r.addr": "D2644", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2045", "r.addr": "D2645", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2049", "r.addr": "D2649", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2047", "r.addr": "D2524", "scale": 1 }			
+		],		
+		"SEG05" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2051", "r.addr": "D2651", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2052", "r.addr": "D2652", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2053", "r.addr": "D2653", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2054", "r.addr": "D2654", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2055", "r.addr": "D2655", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2059", "r.addr": "D2059", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2057", "r.addr": "D2525", "scale": 1 }			
+		],		
+		"SEG06" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2061", "r.addr": "D2661", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2062", "r.addr": "D2662", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2063", "r.addr": "D2663", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2064", "r.addr": "D2664", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2065", "r.addr": "D2665", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2069", "r.addr": "D2669", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2067", "r.addr": "D2526", "scale": 1 }			
+		],		
+		"SEG07" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2071", "r.addr": "D2671", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2072", "r.addr": "D2672", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2073", "r.addr": "D2673", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2074", "r.addr": "D2674", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2075", "r.addr": "D2675", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2079", "r.addr": "D2679", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2077", "r.addr": "D2527", "scale": 1 }			
+		],		
+		"SEG08" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2081", "r.addr": "D2681", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2082", "r.addr": "D2682", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2083", "r.addr": "D2683", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2084", "r.addr": "D2684", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2085", "r.addr": "D2685", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2089", "r.addr": "D2089", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2087", "r.addr": "D2528", "scale": 1 }			
+		],		
+		"SEG09" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2091", "r.addr": "D2691", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2092", "r.addr": "D2692", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2093", "r.addr": "D2693", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2094", "r.addr": "D2694", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2095", "r.addr": "D2695", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2099", "r.addr": "D2699", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2097", "r.addr": "D2529", "scale": 1 }			
+		],		
+		"SEG10" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2101", "r.addr": "D2701", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2102", "r.addr": "D2702", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2103", "r.addr": "D2703", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2104", "r.addr": "D2704", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2105", "r.addr": "D2705", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2109", "r.addr": "D2709", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2107", "r.addr": "D2530", "scale": 1 }		
+		],		
+		"SEG11" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2111", "r.addr": "D2711", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2112", "r.addr": "D2712", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2113", "r.addr": "D2713", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2114", "r.addr": "D2714", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2115", "r.addr": "D2715", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2119", "r.addr": "D2719", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2117", "r.addr": "D2531", "scale": 1 }			
+		],		
+		"SEG12" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2121", "r.addr": "D2721", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2122", "r.addr": "D2722", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2123", "r.addr": "D2723", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2124", "r.addr": "D2724", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2125", "r.addr": "D2725", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2129", "r.addr": "D2729", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2127", "r.addr": "D2532", "scale": 1 }			
+		],		
+		"SEG13" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2131", "r.addr": "D2731", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2132", "r.addr": "D2732", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2133", "r.addr": "D2733", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2134", "r.addr": "D2734", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2135", "r.addr": "D2735", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2139", "r.addr": "D2739", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2137", "r.addr": "D2533", "scale": 1 }			
+		],	
+		"SEG14" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2141", "r.addr": "D2741", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2142", "r.addr": "D2742", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2143", "r.addr": "D2743", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2144", "r.addr": "D2744", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2145", "r.addr": "D2745", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2149", "r.addr": "D2749", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2147", "r.addr": "D2534", "scale": 1 }			
+		],		
+		"SEG15" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2151", "r.addr": "D2751", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2152", "r.addr": "D2752", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2153", "r.addr": "D2753", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2154", "r.addr": "D2754", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2155", "r.addr": "D2755", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2159", "r.addr": "D2759", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2157", "r.addr": "D2535", "scale": 1 }			
+		],		
+		"SEG16" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2161", "r.addr": "D2761", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2162", "r.addr": "D2762", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2163", "r.addr": "D2763", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2164", "r.addr": "D2764", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2165", "r.addr": "D2765", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2169", "r.addr": "D2769", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2167", "r.addr": "D2536", "scale": 1 }		
+		],		
+		"SEG17" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2171", "r.addr": "D2771", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2172", "r.addr": "D2772", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2173", "r.addr": "D2773", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2174", "r.addr": "D2774", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2175", "r.addr": "D2775", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2179", "r.addr": "D2779", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2177", "r.addr": "D2537", "scale": 1 }			
+		],		
+		"SEG18" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2181", "r.addr": "D2781", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2182", "r.addr": "D2782", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2183", "r.addr": "D2783", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2184", "r.addr": "D2784", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2185", "r.addr": "D2785", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2189", "r.addr": "D2789", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2187", "r.addr": "D2538", "scale": 1 }			
+		],		
+		"SEG19" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2191", "r.addr": "D2791", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2192", "r.addr": "D2792", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2193", "r.addr": "D2793", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2194", "r.addr": "D2794", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2195", "r.addr": "D2795", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2199", "r.addr": "D2799", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2197", "r.addr": "D2539", "scale": 1 }			
+		],		
+		"SEG20" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2201", "r.addr": "D2801", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2202", "r.addr": "D2802", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2203", "r.addr": "D2803", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2204", "r.addr": "D2804", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2205", "r.addr": "D2805", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2209", "r.addr": "D2809", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2207", "r.addr": "D2540", "scale": 1 }			
+		],		
+		"SEG21" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2211", "r.addr": "D2811", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2212", "r.addr": "D2812", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2213", "r.addr": "D2813", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2214", "r.addr": "D2814", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2215", "r.addr": "D2815", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2219", "r.addr": "D2819", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2217", "r.addr": "D2541", "scale": 1 }			
+		],		
+		"SEG22" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2221", "r.addr": "D2821", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2222", "r.addr": "D2822", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2223", "r.addr": "D2823", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2224", "r.addr": "D2824", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2225", "r.addr": "D2825", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2229", "r.addr": "D2829", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2227", "r.addr": "D2542", "scale": 1 }			
+		],		
+		"SEG23" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2231", "r.addr": "D2831", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2232", "r.addr": "D2832", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2233", "r.addr": "D2833", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2234", "r.addr": "D2834", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2235", "r.addr": "D2835", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2239", "r.addr": "D2839", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2237", "r.addr": "D2543", "scale": 1 }			
+		],		
+		"SEG24" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2241", "r.addr": "D2841", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2242", "r.addr": "D2842", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2243", "r.addr": "D2843", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2244", "r.addr": "D2844", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2245", "r.addr": "D2845", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2249", "r.addr": "D2849", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2247", "r.addr": "D2544", "scale": 1 }			
+		],		
+		"SEG25" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2251", "r.addr": "D2851", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2252", "r.addr": "D2852", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2253", "r.addr": "D2853", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2254", "r.addr": "D2854", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2255", "r.addr": "D2855", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2259", "r.addr": "D2859", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2257", "r.addr": "D2545", "scale": 1 }			
+		],		
+		"SEG26" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2261", "r.addr": "D2861", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2262", "r.addr": "D2862", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2263", "r.addr": "D2863", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2264", "r.addr": "D2864", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2265", "r.addr": "D2865", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2269", "r.addr": "D2869", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2267", "r.addr": "D2546", "scale": 1 }			
+		],		
+		"SEG27" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2271", "r.addr": "D2871", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2272", "r.addr": "D2872", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2273", "r.addr": "D2873", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2274", "r.addr": "D2874", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2275", "r.addr": "D2875", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2279", "r.addr": "D2879", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2277", "r.addr": "D2547", "scale": 1 }			
+		],		
+		"SEG28" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2281", "r.addr": "D2881", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2282", "r.addr": "D2882", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2283", "r.addr": "D2883", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2284", "r.addr": "D2884", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2285", "r.addr": "D2885", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2289", "r.addr": "D2889", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2287", "r.addr": "D2548", "scale": 1 }			
+		],		
+		"SEG29" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2291", "r.addr": "D2891", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2292", "r.addr": "D2892", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2293", "r.addr": "D2893", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2294", "r.addr": "D2894", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2295", "r.addr": "D2895", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2299", "r.addr": "D2899", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2297", "r.addr": "D2549", "scale": 1 }			
+		],		
+		"SEG30" : [
+			{"idx": 0, "name": "temp", "w.addr": "D2301", "r.addr": "D2901", "scale": 10 },
+			{"idx": 1, "name": "diff_press_chamber", "w.addr": "D2302", "r.addr": "D2902", "scale": 10 },
+			{"idx": 2, "name": "motor_chamber", "w.addr": "D2303", "r.addr": "D2903", "scale": 10 },
+			{"idx": 3, "name": "motor_cooling", "w.addr": "D2304", "r.addr": "D2904", "scale": 10 },
+			{"idx": 4, "name": "mfc", "w.addr": "D2305", "r.addr": "D2905", "scale": 10 },
+			{"idx": 5, "name": "segtime", "w.addr": "D2309", "r.addr": "D2909", "scale": 1 },
+			{"idx": 6, "name": "time_signal", "w.addr": "D2307", "r.addr": "D2550", "scale": 1 }			
+		],		
+	}
+}

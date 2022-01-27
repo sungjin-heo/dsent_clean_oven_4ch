@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8F5E88FD-BA6C-4997-AA82-196A065E0453}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DaesungEntCleanOven4</RootNamespace>
+    <AssemblyName>DaesungEntCleanOven4</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>chamber-1.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Xpf.Core.v17.1" />
+    <Reference Include="DevExpress.Data.v17.1" />
+    <Reference Include="DevExpress.Xpf.Docking.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Ribbon.v17.1" />
+    <Reference Include="DevExpress.Printing.v17.1.Core" />
+    <Reference Include="DevExpress.Images.v17.1">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Mvvm.v17.1" />
+    <Reference Include="DevExpress.Xpf.Themes.DXStyle.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.Office2016DarkGraySE.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.Office2016White.v17.1" />
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SciChart.Charting, Version=6.3.0.13476, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL" />
+    <Reference Include="SciChart.Core, Version=6.3.0.13476, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL" />
+    <Reference Include="SciChart.Data, Version=6.3.0.13476, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL" />
+    <Reference Include="SciChart.Drawing, Version=6.3.0.13476, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\System.Net.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Equipment\Pattern.cs" />
+    <Compile Include="Equipment\ZoneParameters.cs" />
+    <Compile Include="Equipment\Alarm.cs" />
+    <Compile Include="Model\Item.cs" />
+    <Compile Include="Model\Pattern.cs" />
+    <Compile Include="Model\PatternCompare.cs" />
+    <Compile Include="Model\PatternMetadata.cs" />
+    <Compile Include="Model\Segment.cs" />
+    <Compile Include="mod_dev\Comm\IMessage.cs" />
+    <Compile Include="mod_dev\Comm\IMessageDecoder.cs" />
+    <Compile Include="mod_dev\Comm\MessageTracer.cs" />
+    <Compile Include="mod_dev\Comm\SerialSession.cs" />
+    <Compile Include="mod_dev\Comm\TcpSession.cs" />
+    <Compile Include="mod_dev\Comm\SessionAsyncResult.cs" />
+    <Compile Include="mod_dev\Comm\SessionException.cs" />
+    <Compile Include="mod_dev\CustomControls\Indicator.cs" />
+    <Compile Include="mod_dev\Device\CMT\Analyzer.cs" />
+    <Compile Include="mod_dev\Device\CMT\SessionMessageDecoder.cs" />
+    <Compile Include="mod_dev\Device\CMT\SessionMessage.cs" />
+    <Compile Include="mod_dev\Device\Yokogawa\PLC\SessionMessage.cs" />
+    <Compile Include="mod_dev\Device\Yokogawa\PLC\YokogawaSequenceCpu.cs" />
+    <Compile Include="mod_dev\Device\Yokogawa\PLC\YokogawaSequenceEth.cs" />
+    <Compile Include="mod_dev\Device\Yokogawa\PLC\YokogawaSequnece.cs" />
+    <Compile Include="mod_dev\Device\Yokogawa\PLC\SessionMessageDecoder.cs" />
+    <Compile Include="mod_dev\Resource\Converter\BooleanToGreenLampConverter.cs" />
+    <Compile Include="mod_dev\Resource\Converter\BooleanToOpacityConverter.cs" />
+    <Compile Include="mod_dev\Resource\Converter\BooleanToRedLampConverter.cs" />
+    <Compile Include="mod_dev\Resource\Converter\ColorToBrushConverter.cs" />
+    <Compile Include="mod_dev\Resource\Converter\EnumToBooleanConverter.cs" />
+    <Compile Include="mod_dev\Resource\Converter\EnumToVisibilityConverter.cs" />
+    <Compile Include="mod_dev\Resource\Converter\MyDateTimeLabelProvider.cs" />
+    <Compile Include="mod_dev\Resource\Converter\MyNumericLabelProvider.cs" />
+    <Compile Include="mod_dev\Resource\Converter\NullToVisibilityConverter.cs" />
+    <Compile Include="mod_dev\Resource\Converter\RedToGreenLampConverter.cs" />
+    <Compile Include="mod_dev\Resource\Converter\TimeToLogStringConverter.cs" />
+    <Compile Include="mod_dev\Util\CRC16.cs" />
+    <Compile Include="Equipment\CleanOven.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\G.cs" />
+    <Compile Include="ViewModel\ItemViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Equipment\O2Analyzer.cs" />
+    <Compile Include="ViewModel\PatternViewModel.cs" />
+    <Compile Include="ViewModel\RegNumeric.cs" />
+    <Compile Include="ViewModel\RegRelay.cs" />
+    <Compile Include="Equipment\Segment.cs" />
+    <Compile Include="ViewModel\SegmentViewModel.cs" />
+    <Compile Include="View\AlarmHistoryDlg.xaml.cs">
+      <DependentUpon>AlarmHistoryDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlarmParameterSetupDlg.xaml.cs">
+      <DependentUpon>AlarmParameterSetupDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AutoTuneDlg.xaml.cs">
+      <DependentUpon>AutoTuneDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\BarcodeReigsterDlg.xaml.cs">
+      <DependentUpon>BarcodeReigsterDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ColoredMultiRowLabelProvider.cs" />
+    <Compile Include="View\CustomDateTimeLabelProvider.cs" />
+    <Compile Include="View\DifferenceChamberInitSetupDlg.xaml.cs">
+      <DependentUpon>DifferenceChamberInitSetupDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InitializeScreen.xaml.cs">
+      <DependentUpon>InitializeScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\IoListDlg.xaml.cs">
+      <DependentUpon>IoListDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LogDataViewerDlg.xaml.cs">
+      <DependentUpon>LogDataViewerDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ManualControlDlg.xaml.cs">
+      <DependentUpon>ManualControlDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\None.xaml.cs">
+      <DependentUpon>None.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ParameterRangeSetupDlg.xaml.cs">
+      <DependentUpon>ParameterRangeSetupDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ParameterZoneSetupDlg.xaml.cs">
+      <DependentUpon>ParameterZoneSetupDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Password.xaml.cs">
+      <DependentUpon>Password.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PasswordSettingDlg.xaml.cs">
+      <DependentUpon>PasswordSettingDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PatternConfigurationPanel.xaml.cs">
+      <DependentUpon>PatternConfigurationPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PatternSelectDlg.xaml.cs">
+      <DependentUpon>PatternSelectDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PatternSelectDlgBarcode.xaml.cs">
+      <DependentUpon>PatternSelectDlgBarcode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PatternSetupDlg.xaml.cs">
+      <DependentUpon>PatternSetupDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PatternTimeSignalSetupDlg.xaml.cs">
+      <DependentUpon>PatternTimeSignalSetupDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlarmRealtimeDlg.xaml.cs">
+      <DependentUpon>AlarmRealtimeDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProgressWindow.xaml.cs">
+      <DependentUpon>ProgressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Question.xaml.cs">
+      <DependentUpon>Question.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RealtimeTrendGraphPanel.xaml.cs">
+      <DependentUpon>RealtimeTrendGraphPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SystemDiagram.xaml.cs">
+      <DependentUpon>SystemDiagram.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SystemOperatePanel.xaml.cs">
+      <DependentUpon>SystemOperatePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TrendSaveIntervalSetupDlg.xaml.cs">
+      <DependentUpon>TrendSaveIntervalSetupDlg.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Log\Logger.cs" />
+    <Compile Include="Log\LogTextboxBehavior.cs" />
+    <Compile Include="Log\MessageTracer.cs" />
+    <Compile Include="Log\Setup.cs" />
+    <Compile Include="Log\TextBoxLogAppender.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="mod_dev\CustomControls\CustomControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="mod_dev\Resource\Converter\Converter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="mod_dev\Resource\Icon\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="mod_dev\Resource\Style\Controls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="mod_dev\Resource\Style\Editor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="mod_dev\Resource\Style\TypeButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlarmHistoryDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AlarmParameterSetupDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AutoTuneDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BarcodeReigsterDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DifferenceChamberInitSetupDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InitializeScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\IoListDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LogDataViewerDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ManualControlDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\None.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ParameterRangeSetupDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ParameterZoneSetupDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Password.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PasswordSettingDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PatternConfigurationPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PatternSelectDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PatternSelectDlgBarcode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PatternSetupDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PatternTimeSignalSetupDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AlarmRealtimeDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProgressWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Question.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\RealtimeTrendGraphPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SystemDiagram.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SystemOperatePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TrendSaveIntervalSetupDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="mod_dev\Util\BitConverterEx.cs" />
+    <Compile Include="mod_dev\Util\Colors.cs" />
+    <Compile Include="mod_dev\Util\EnumerationExtension.cs" />
+    <Compile Include="mod_dev\Util\Helper.cs" />
+    <Compile Include="mod_dev\Util\Numeric.cs" />
+    <Compile Include="mod_dev\Util\NumericUnitFormatter.cs" />
+    <Compile Include="mod_dev\Util\Option.cs" />
+    <Compile Include="mod_dev\Util\Options.cs" />
+    <Compile Include="mod_dev\Util\TextBoxInputDoneBehavior.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\barcode-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\disconnect-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="chamber-1.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

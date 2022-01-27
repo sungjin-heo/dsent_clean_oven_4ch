@@ -1,0 +1,199 @@
+﻿<Window x:Class="DaesungEntCleanOven.View.ParameterZoneSetupDlg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:u="clr-namespace:Util"         
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic" 
+        mc:Ignorable="d" Icon="{dx:DXImage Image=Format_16x16.png}"  ResizeMode="NoResize"
+        Title="Setup - Zone Parameter" Height="453" Width="800">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed">
+            <!--<Image Source="../Image/xxx.png" Stretch="Uniform" Margin="10,4"/>-->
+            <TextBlock>
+                <Run Text="######################################################################"/>
+                <LineBreak/>
+                <Run Text="######################################################################"/>
+                <LineBreak/>
+                <Run Text="######################################################################"/>
+            </TextBlock>
+        </StackPanel>
+        <Rectangle Grid.Row="1" Fill="LightGray" Height="1" Margin="4,2"/>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="2,4,2,2">
+                <TextBlock Text="ZONE 선택"/>
+                <ComboBox Width="200" SelectedIndex="{Binding SelectedZoneParameterIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="cmbZoneParameter" IsSynchronizedWithCurrentItem="True"/>
+
+            </StackPanel>
+            <GroupBox Grid.Row="1" Header="파라미터" Margin="2" DataContext="{Binding SelectedZoneParameter}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Row="0"  Grid.Column="0" Text="FL" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="1"  Grid.Column="0" Text="SC" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="2"  Grid.Column="0" Text="CT" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="4"  Grid.Column="0" Text="BS" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="5"  Grid.Column="0" Text="X1" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="6"  Grid.Column="0" Text="Y1" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="7"  Grid.Column="0" Text="X2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="8"  Grid.Column="0" Text="Y2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="9"  Grid.Column="0" Text="X3" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="10" Grid.Column="0" Text="Y3" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="0"  Grid.Column="1" Text="{Binding Items[5].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="1"  Grid.Column="1" Text="{Binding Items[6].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="2"  Grid.Column="1" Text="{Binding Items[7].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="4"  Grid.Column="1" Text="{Binding Items[8].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="5"  Grid.Column="1" Text="{Binding Items[9].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="6"  Grid.Column="1" Text="{Binding Items[10].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="7"  Grid.Column="1" Text="{Binding Items[11].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="8"  Grid.Column="1" Text="{Binding Items[12].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="9"  Grid.Column="1" Text="{Binding Items[13].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Items[14].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBlock Grid.Row="0"  Grid.Column="2" Text="(0 : OFF, 1 ~ 120 sec)"/>
+                    <TextBlock Grid.Row="1"  Grid.Column="2" Text="(0 : OFF, 1 : ON"/>
+                    <TextBlock Grid.Row="2"  Grid.Column="2" Text="(0.5 ~ 120.0 sec)"/>
+                    <TextBlock Grid.Row="4"  Grid.Column="2" Text="(℃ or Other Unit)"/>
+                    <TextBlock Grid.Row="5"  Grid.Column="2" Text="(SL ~ SH의 -5.0 ~ 105.0 %)"/>
+                    <TextBlock Grid.Row="6"  Grid.Column="2" Text="-(SH - SL) ~ (SH - SL)"/>
+                    <TextBlock Grid.Row="7"  Grid.Column="2" Text="(SL ~ SH의 -5.0 ~ 105.0 %)"/>
+                    <TextBlock Grid.Row="8"  Grid.Column="2" Text="-(SH - SL) ~ (SH - SL)"/>
+                    <TextBlock Grid.Row="9"  Grid.Column="2" Text="(SL ~ SH의 -5.0 ~ 105.0 %)"/>
+                    <TextBlock Grid.Row="10" Grid.Column="2" Text="-(SH - SL) ~ (SH - SL)"/>
+
+
+                    <TextBox Grid.Row="0"  Grid.Column="4" Text="P"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="1"  Grid.Column="4" Text="I"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="2"  Grid.Column="4" Text="D"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="4"  Grid.Column="4" Text="MR" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="5"  Grid.Column="4" Text="OH" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="6"  Grid.Column="4" Text="OL" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <TextBox Grid.Row="0"  Grid.Column="5" Text="{Binding Items[15].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="1"  Grid.Column="5" Text="{Binding Items[16].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="2"  Grid.Column="5" Text="{Binding Items[17].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="4"  Grid.Column="5" Text="{Binding Items[18].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="5"  Grid.Column="5" Text="{Binding Items[19].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBox Grid.Row="6"  Grid.Column="5" Text="{Binding Items[20].FormattedValue, Mode=TwoWay}">
+                        <dxmvvm:Interaction.Behaviors>
+                            <u:TextBoxInputDoneBehavior/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </TextBox>
+                    <TextBlock Grid.Row="0"  Grid.Column="6" Text="(0.1 ~ 999.9%)"/>
+                    <TextBlock Grid.Row="1"  Grid.Column="6" Text="(0 : OFF, 1 ~ 6000 sec"/>
+                    <TextBlock Grid.Row="2"  Grid.Column="6" Text="(0 : OFF, 1 ~ 6000 sec)"/>
+                    <TextBlock Grid.Row="4"  Grid.Column="6" Text="(-5.0 ~ 105.0 %)"/>
+                    <TextBlock Grid.Row="5"  Grid.Column="6" Text="(-5.0 ~ 105.0 %)"/>
+                    <TextBlock Grid.Row="6"  Grid.Column="6" Text="(-5.0 ~ 105.0 %)"/>
+
+                </Grid>
+            </GroupBox>
+
+        </Grid>
+        
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="2,4,2,2">
+            <dx:SimpleButton Content="닫기" Width="140" Glyph="{dx:DXImage Image=Close_16x16.png}" IsCancel="True" Click="CloseButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

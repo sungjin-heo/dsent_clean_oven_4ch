@@ -1,0 +1,827 @@
+﻿<Window x:Class="DaesungEntCleanOven.View.AlarmParameterSetupDlg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:u="clr-namespace:Util"         
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Icon="{dx:DXImage Image=GaugeStyleFullCircular_16x16.png}"
+        WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic" FontSize="11"  ResizeMode="NoResize"
+        mc:Ignorable="d"
+        Title="경보 등급 및 기타 설정" Height="584" Width="1240">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed">
+            <!--<Image Source="../Image/xxx.png" Stretch="Uniform" Margin="10,4"/>-->
+            <TextBlock>
+                <Run Text="######################################################################"/>
+                <LineBreak/>
+                <Run Text="######################################################################"/>
+                <LineBreak/>
+                <Run Text="######################################################################"/>
+            </TextBlock>
+        </StackPanel>
+        <Rectangle Grid.Row="1" Fill="LightGray" Height="1" Margin="4"/>
+        <Grid Grid.Row="2">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="FontFamily" Value="Century Gothic"/>
+                    <Setter Property="Margin" Value="2"/>
+                    <Setter Property="Padding" Value="1"/>
+                    <Setter Property="MinHeight" Value="24"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="SnapsToDevicePixels" Value="True"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="10"/>
+
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="10"/>
+
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10"/>
+
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--GRP #1-->
+            <TextBox Grid.Row="0" Grid.Column="0" Text="경보 항목" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="레벨" Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>
+            <TextBox Grid.Row="0" Grid.Column="2" Text="지연 시간" Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>
+            <TextBox Grid.Row="0" Grid.Column="3" Text="설정 값" Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>
+
+            <TextBox Grid.Row="1"  Grid.Column="0" Text="온도 : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>
+            <TextBox Grid.Row="1"  Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[0].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="1"  Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[1].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="1"  Grid.Column="3" FontWeight="Bold" Text="{Binding AlertSettings[2].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="2"  Grid.Column="0" Text="온도 : 편차 상하한 #1" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="2"  Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[3].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="2"  Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[4].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="2"  Grid.Column="3" FontWeight="Bold" Text="{Binding AlertSettings[5].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="3"  Grid.Column="0" Text="온도 : 편차 상하한 #2" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="3"  Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[6].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="3"  Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[7].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="3"  Grid.Column="3" FontWeight="Bold" Text="{Binding AlertSettings[8].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="4"  Grid.Column="0" Text="온도 : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="4"  Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[9].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="4"  Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[10].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="5"  Grid.Column="0" Text="챔버 OT : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="5"  Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[11].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="5"  Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[12].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="5"  Grid.Column="3" FontWeight="Bold" Text="{Binding AlertSettings[13].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="6"  Grid.Column="0" Text="챔버 OT : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="6"  Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[14].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="6"  Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[15].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="7"  Grid.Column="0" Text="히터 OT : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="7"  Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[16].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="7"  Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[17].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="7"  Grid.Column="3" FontWeight="Bold" Text="{Binding AlertSettings[18].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="8"  Grid.Column="0" Text="히터 OT : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="8"  Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[19].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="8"  Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[20].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="9"  Grid.Column="0" Text="차압 챔버 : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="9"  Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[21].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="9"  Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[22].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="9"  Grid.Column="3" FontWeight="Bold" Text="{Binding AlertSettings[23].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="10"  Grid.Column="0" Text="차압 챔버 : 편차 상하한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="10" Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[24].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="10" Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[25].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="10" Grid.Column="3" FontWeight="Bold" Text="{Binding AlertSettings[26].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="11" Grid.Column="0" Text="차압 챔버 : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="11" Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[27].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="11" Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[28].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="12" Grid.Column="0" Text="차압 필터 : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="12" Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[29].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="12" Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[30].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="12" Grid.Column="3" FontWeight="Bold" Text="{Binding AlertSettings[31].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="13" Grid.Column="0" Text="차압 필터 : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="13" Grid.Column="1" FontWeight="Bold" Text="{Binding AlertSettings[32].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="13" Grid.Column="2" FontWeight="Bold" Text="{Binding AlertSettings[33].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <!--GRP #2-->
+            <TextBox Grid.Row="0" Grid.Column="5" Text="경보 항목" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="0" Grid.Column="6" Text="레벨" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="0" Grid.Column="7" Text="지연 시간" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="0" Grid.Column="8" Text="설정 값" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+
+            <TextBox Grid.Row="1"  Grid.Column="5" Text="모터 챔버 : 편차 상하한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="1"  Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[34].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="1"  Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[35].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="1"  Grid.Column="8" FontWeight="Bold" Text="{Binding AlertSettings[36].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="2"  Grid.Column="5" Text="모터 챔버 : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="2"  Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[37].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="2"  Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[38].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="3"  Grid.Column="5" Text="쿨링 챔버 : 편차 상하한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="3"  Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[39].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="3"  Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[40].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="3"  Grid.Column="8" FontWeight="Bold" Text="{Binding AlertSettings[41].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="4"  Grid.Column="5" Text="쿨링 챔버 : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="4"  Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[42].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="4"  Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[43].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="5"  Grid.Column="5" Text="내부 온도 #1 : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="5"  Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[44].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="5"  Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[45].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="5"  Grid.Column="8" FontWeight="Bold" Text="{Binding AlertSettings[46].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="6"  Grid.Column="5" Text="내부 온도 #1 : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="6"  Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[47].FormattedValue, Mode=TwoWay}">
+                  <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="6"  Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[48].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="7"  Grid.Column="5" Text="내부 온도 #2 : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="7"  Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[49].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="7"  Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[50].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="7"  Grid.Column="8" FontWeight="Bold" Text="{Binding AlertSettings[51].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="8"  Grid.Column="5" Text="내부 온도 #2 : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="8"  Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[52].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="8"  Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[53].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="9"  Grid.Column="5" Text="내부 온도 #3 : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="9"  Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[54].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="9"  Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[55].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="9"  Grid.Column="8" FontWeight="Bold" Text="{Binding AlertSettings[56].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="10" Grid.Column="5" Text="내부 온도 #3 : 편차 상하한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="10" Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[57].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="10" Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[58].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="11" Grid.Column="5" Text="내부 온도 #4 : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="11" Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[59].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="11" Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[60].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="11" Grid.Column="8" FontWeight="Bold" Text="{Binding AlertSettings[61].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="12" Grid.Column="5" Text="내부 온도 #4 : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="12" Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[62].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="12" Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[63].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="13" Grid.Column="5" Text="MFC : 편차 상하한" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="13" Grid.Column="6" FontWeight="Bold" Text="{Binding AlertSettings[64].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="13" Grid.Column="7" FontWeight="Bold" Text="{Binding AlertSettings[65].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="13" Grid.Column="8" FontWeight="Bold" Text="{Binding AlertSettings[66].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <!--GRP #3-->
+            <TextBox Grid.Row="0" Grid.Column="10" Text="경보 항목" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="0" Grid.Column="11" Text="레벨" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="0" Grid.Column="12" Text="지연 시간" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+
+            <TextBox Grid.Row="1"  Grid.Column="10" Text="비상 정지 스위치 ON" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="1"  Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[67].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="1"  Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[68].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="2"  Grid.Column="10" Text="메인 히터 EOCR 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="2"  Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[69].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="2"  Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[70].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="3"  Grid.Column="10" Text="챔버 블로워 모터 EOCR 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="3"  Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[71].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="3"  Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[72].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="4"  Grid.Column="10" Text="냉각 블로워 모터 EOCR 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="4"  Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[73].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="4"  Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[74].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="5"  Grid.Column="10" Text="챔버 블로워 모터 인버터 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="5"  Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[75].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="5"  Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[76].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="6"  Grid.Column="10" Text="냉각 블로워 모터 인버터 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="6"  Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[77].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="6"  Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[78].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="7"  Grid.Column="10" Text="도어 잠금(Lock) 이상" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="7"  Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[79].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="7"  Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[80].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="8"  Grid.Column="10" Text="도어 잠금 해제(Unlock) 이상" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="8"  Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[81].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="8"  Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[82].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="9"  Grid.Column="10" Text="운전 중 도어 열림 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="9"  Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[83].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="9"  Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[84].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="10" Grid.Column="10" Text="도어 열림 중 시간 초과" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="10" Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[85].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="10" Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[86].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="11" Grid.Column="10" Text="도어 닫힘 중 시간 초과" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="11" Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[87].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="11" Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[88].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="12" Grid.Column="10" Text="운전 불가 상태 중 운전 시도" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="12" Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[89].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="12" Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[90].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="13" Grid.Column="10" Text="O2 분석기 통신 이상" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="13" Grid.Column="11" FontWeight="Bold" Text="{Binding AlertSettings[91].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="13" Grid.Column="12" FontWeight="Bold" Text="{Binding AlertSettings[92].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            
+            <!--GRP #4-->
+            <TextBox Grid.Row="0" Grid.Column="14" Text="경보 항목" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="0" Grid.Column="15" Text="레벨" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="0" Grid.Column="16" Text="지연 시간" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+
+            <TextBox Grid.Row="1"  Grid.Column="14" Text="에어 압력 낮음" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="1"  Grid.Column="15" FontWeight="Bold" Text="{Binding AlertSettings[93].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="1"  Grid.Column="16" FontWeight="Bold" Text="{Binding AlertSettings[94].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="2"  Grid.Column="14" Text="N2 압력 낮음" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="2"  Grid.Column="15" FontWeight="Bold" Text="{Binding AlertSettings[95].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="2"  Grid.Column="16" FontWeight="Bold" Text="{Binding AlertSettings[96].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="3"  Grid.Column="14" Text="냉각 압력 낮음" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="3"  Grid.Column="15" FontWeight="Bold" Text="{Binding AlertSettings[97].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="3"  Grid.Column="16" FontWeight="Bold" Text="{Binding AlertSettings[98].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="4"  Grid.Column="14" Text="SSR 바이메탈 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="4"  Grid.Column="15" FontWeight="Bold" Text="{Binding AlertSettings[99].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="4"  Grid.Column="16" FontWeight="Bold" Text="{Binding AlertSettings[100].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="5"  Grid.Column="14" Text="배기 센서 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="5"  Grid.Column="15" FontWeight="Bold" Text="{Binding AlertSettings[101].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="5"  Grid.Column="16" FontWeight="Bold" Text="{Binding AlertSettings[102].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="6"  Grid.Column="14" Text="리크(Leak) 센서 #1 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="6"  Grid.Column="15" FontWeight="Bold" Text="{Binding AlertSettings[103].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="6"  Grid.Column="16" FontWeight="Bold" Text="{Binding AlertSettings[104].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="7"  Grid.Column="14" Text="리크(Leak) 센서 #2 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="7"  Grid.Column="15" FontWeight="Bold" Text="{Binding AlertSettings[105].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="7"  Grid.Column="16" FontWeight="Bold" Text="{Binding AlertSettings[106].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="8"  Grid.Column="14" Text="도어 구역 센서 경보 (100ms)" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="8"  Grid.Column="15" FontWeight="Bold" Text="{Binding AlertSettings[107].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="8"  Grid.Column="16" FontWeight="Bold" Text="{Binding AlertSettings[108].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="9"  Grid.Column="14" Text="스모크 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="9"  Grid.Column="15" FontWeight="Bold" Text="{Binding AlertSettings[109].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="9"  Grid.Column="16" FontWeight="Bold" Text="{Binding AlertSettings[110].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="10" Grid.Column="14" Text="챔버 퍼지 타임 초과" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="10" Grid.Column="15" FontWeight="Bold" Text="{Binding AlertSettings[111].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+            <TextBox Grid.Row="10" Grid.Column="16" FontWeight="Bold" Text="{Binding AlertSettings[112].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="11" Grid.Column="14" Text="도어 열림 기준온도(설정 이하)" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="11" Grid.Column="15" Grid.ColumnSpan="2" FontWeight="Bold" Text="{Binding AlertSettings[113].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBox Grid.Row="12" Grid.Column="14" Text="경보 재발생 확인 시간" HorizontalContentAlignment="Left" Padding="10,2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="12" Grid.Column="15" Grid.ColumnSpan="2" FontWeight="Bold" Text="{Binding AlertSettings[114].FormattedValue, Mode=TwoWay}">
+                <dxmvvm:Interaction.Behaviors>
+                    <u:TextBoxInputDoneBehavior/>
+                </dxmvvm:Interaction.Behaviors>
+            </TextBox>
+
+            <TextBlock Grid.Row="13" Grid.Column="14" Text="(0 = OFF / 1 ~ 600 sec)"/>
+
+        </Grid>
+        <Rectangle Grid.Row="3" Fill="LightGray" Height="1" Margin="4"/>
+        <Grid Grid.Row="5" HorizontalAlignment="Left" Width="300">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Row="0" Grid.Column="0" Text="경보 레벨" Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Text="0" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="2" Grid.Column="0" Text="1" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="3" Grid.Column="0" Text="2" IsReadOnly="True" IsTabStop="False"/>
+
+            <TextBox Grid.Row="0" Grid.Column="1" Text="동작" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="경보 동작 없음" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="경보 동작" IsReadOnly="True" IsTabStop="False"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="경보 동작 &amp; 운전 정지" IsReadOnly="True" IsTabStop="False"/>
+        </Grid>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="310,2,0,0" Height="60">
+            <Border BorderBrush="Black" BorderThickness="1" Background="Red">
+                <TextBlock VerticalAlignment="Center" Foreground="White" Margin="30,0">
+                    <Run Text="지연 시간 단위 = 초(sec) / '0' 설정 시 즉시 동작"/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <Run Text="(주의 : 도어 구역 센서 경보 = 100 msec)"/>
+                </TextBlock>
+            </Border>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4,0" Height="48">
+            <dx:SimpleButton Content="닫기" Width="140" Glyph="{dx:DXImage Image=Close_16x16.png}" IsCancel="True" Click="CloseButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
