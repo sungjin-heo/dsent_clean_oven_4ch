@@ -7,17 +7,21 @@ using SciChart.Data.Model;
 using System.Globalization;
 using SciChart.Charting.Model.DataSeries;
 using SciChart.Charting.Model.ChartSeries;
+using DaesungEntCleanOven4.Equipment;
 
-namespace DaesungEntCleanOven.ViewModel
+namespace DaesungEntCleanOven4.ViewModel
 {
-    public class RegNumeric : ItemViewModel<double>
+    internal class RegNumeric : ItemViewModel<double>
     {
         protected readonly string DecimalFormat;
         protected readonly IDataSeries<DateTime, double> DataSeries;
         public static bool IsContainsUnit { get; set; }
-        public RegNumeric(string Name, string Unit, int Scale, string ReadAddr, string WriteAddr, string Description = "")
+        public RegNumeric(Device.Yokogawa.PLC.YokogawaSequenceEth plc, string Name, string Unit, int Scale, string ReadAddr, string WriteAddr, string Description = "")
             : base(Name, Unit, Scale)
         {
+            this.plc = plc;
+            this.LatencyQueryItems = (plc as CleanOven).Channel.LatencyQueryItems;
+            this.CleanOvenLatencyQueryInterval = (plc as CleanOven).Channel.CleanOvenLatencyQueryInterval;
             this.ReadAddress = ReadAddr;
             this.WriteAddress = WriteAddr;
             this.Description = Description;
@@ -36,7 +40,6 @@ namespace DaesungEntCleanOven.ViewModel
                 if (IsReadOnly)
                 {
                     base.Value = value;
-                    //DataSeries.Append(DateTime.Now, ScaledValue);
                 }
                 else
                 {
@@ -44,16 +47,16 @@ namespace DaesungEntCleanOven.ViewModel
                     {
                         string Response = string.Empty;
                         short Tmp = (short)(value * base.Scale);
-                        Response = (string)G.CleanOven.WriteWord(WriteAddress, Tmp);
+                        Response = (string)plc.WriteWord(WriteAddress, Tmp);
                         if (!Response.Contains("OK"))
                             throw new Exception(string.Format("Return Error for WriteWord(),  WriteAddress : {0}, WriteValue : {1}", WriteAddress, Tmp));
 
-                        if (G.LatencyQueryItems.Contains(this.Name))
-                            System.Threading.Thread.Sleep(G.CleanOvenLatencyQueryInterval);
+                        if (LatencyQueryItems.Contains(this.Name))
+                            System.Threading.Thread.Sleep(CleanOvenLatencyQueryInterval);
 
                         if (!string.IsNullOrEmpty(ReadAddress))
                         {
-                            Response = (string)G.CleanOven.ReadWord(ReadAddress, 1);
+                            Response = (string)plc.ReadWord(ReadAddress, 1);
                             if (!Response.Contains("OK"))
                                 throw new Exception(string.Format("Return Error for ReadWord(),  ReadAddress : {0}, Count : 1", WriteAddress));
                             base.Value = short.Parse(Response.Substring(4, 4), NumberStyles.HexNumber);
@@ -95,5 +98,10 @@ namespace DaesungEntCleanOven.ViewModel
         {
             base.Value = value;
         }
+
+        // 4채널 확장을 위해 어쩔수 없이....ㅠㅠ
+        private Device.Yokogawa.PLC.YokogawaSequenceEth plc { get; set; }
+        private int CleanOvenLatencyQueryInterval { get; set; }
+        private string[] LatencyQueryItems { get; set; }
     }
 }

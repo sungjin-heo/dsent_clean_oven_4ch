@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DaesungEntCleanOven.View" 
-             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="DaesungEntCleanOven.View.SystemDiagram"
+             xmlns:local="clr-namespace:DaesungEntCleanOven4.View" 
+             xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="DaesungEntCleanOven4.View.SystemDiagram"
              mc:Ignorable="d" FontFamily="Century Gothic" Background="Transparent" FontSize="11" SnapsToDevicePixels="True"
              Height="630" Width="906">
     <Canvas Margin="0.747,0,-0.747,0" OpacityMask="Black">
@@ -1165,7 +1165,7 @@
         <Rectangle Height="62.943" Canvas.Left="454.509" Stroke="#FF1A9100" StrokeThickness="3" Canvas.Top="140.5" Width="62.414" StrokeDashArray="2 1"/>
         <Path Data="M496.753,126.5 L526.509,164.749" Height="41.249" Canvas.Left="423.753" Stretch="Fill" Stroke="#FF1A9100" StrokeThickness="3" Canvas.Top="127.5" Width="32.756"/>
         <Ellipse Fill="Red" Height="35.78" Canvas.Left="309.504" Stroke="Red" StrokeThickness="1" Canvas.Top="408.864" Width="35.78"/>
-        <Ellipse Fill="{Binding IoY[12].Value, Mode=OneWay, Converter={StaticResource BooleanToBlueBrushConverter}}" Height="27.81" Canvas.Left="313.475" Stroke="#FF020202" StrokeThickness="3" Canvas.Top="412.835" Width="27.81" x:Name="valvePCW"/>
+        <Ellipse Fill="{Binding IoY[5].Value, Mode=OneWay, Converter={StaticResource BooleanToBlueBrushConverter}}" Height="27.81" Canvas.Left="313.475" Stroke="#FF020202" StrokeThickness="3" Canvas.Top="412.835" Width="27.81" x:Name="valvePCW"/>
         <Ellipse Fill="Red" Height="35.78" Canvas.Left="212.514" Stroke="Red" StrokeThickness="1" Canvas.Top="289.939" Width="35.78"/>
         <Ellipse Fill="{Binding IoY[9].Value, Mode=OneWay, Converter={StaticResource BooleanToBlueBrushReverseConverter}}" Height="27.81" Canvas.Left="216.485" Stroke="#FF020202" StrokeThickness="3" Canvas.Top="293.91" Width="27.81" x:Name="valveBypass"/>
         <Ellipse Fill="Red" Height="35.78" Canvas.Left="263.178" Stroke="Red" StrokeThickness="1" Canvas.Top="350.914" Width="35.78"/>
@@ -1173,7 +1173,7 @@
         <Rectangle Height="25" Canvas.Left="48" Stroke="Black" StrokeThickness="1" Canvas.Top="22" Width="159" Fill="#FF026468"/>
         <TextBlock Height="14" Canvas.Left="81" Margin="0" Text="N2 CLEAN OVEN" Canvas.Top="27" Width="105" FontWeight="Bold" Foreground="White"/>
         <Ellipse Fill="Red" Height="35.78" Canvas.Left="274.472" Stroke="Red" StrokeThickness="1" Canvas.Top="489.851" Width="35.78"/>
-        <Ellipse Fill="{Binding IoY[13].Value, Converter={StaticResource BooleanToBlueBrushConverter}, Mode=OneWay}" Height="27.81" Canvas.Left="278.443" Stroke="#FF020202" StrokeThickness="3" Canvas.Top="493.822" Width="27.81" x:Name="valvePCW_Copy"/>
+        <Ellipse Fill="{Binding IoY[6].Value, Converter={StaticResource BooleanToBlueBrushConverter}, Mode=OneWay}" Height="27.81" Canvas.Left="278.443" Stroke="#FF020202" StrokeThickness="3" Canvas.Top="493.822" Width="27.81" x:Name="valvePCW_Copy"/>
         <TextBlock Height="17.611" Canvas.Left="311.253" Margin="0" TextWrapping="Wrap" Canvas.Top="481.138" Width="35.781" FontWeight="Bold" Text="EVA"/>
 
 

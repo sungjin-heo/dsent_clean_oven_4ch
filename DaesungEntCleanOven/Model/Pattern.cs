@@ -7,11 +7,11 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Diagnostics;
 using System.IO;
-using DaesungEntCleanOven.ViewModel;
+using DaesungEntCleanOven4.ViewModel;
 
-namespace DaesungEntCleanOven.Model
+namespace DaesungEntCleanOven4.Model
 {
-    class Pattern : ICloneable
+    internal class Pattern : ICloneable
     {
         public static Model.Pattern LoadFrom(string path)
         {
@@ -103,7 +103,8 @@ namespace DaesungEntCleanOven.Model
             xDoc.Add(xRoot);
             xDoc.Save(path);
         }
-        
+        public readonly int MAX_SEGMENT_CNT = 30;
+
         public Pattern(bool autoSegCreate = true)
         {
             this.Segments = new List<Segment>();
@@ -115,12 +116,11 @@ namespace DaesungEntCleanOven.Model
             this.Name = "NO-NAME";
             this.WaitTemperatureAfterClose = 50.0;
         }
-        public readonly int MAX_SEGMENT_CNT = 30;
-        public List<Segment> Segments { get; protected set; }
-        public int SegmentCount { get { return Segments.Count; } }
+        public List<Segment> Segments { get; private set; }
+        public int SegmentCount => Segments.Count;
         public int No { get; set; }
         public string Name { get; set; }
-        public string Description { get { return string.Format("패턴 번호 : {0}, 패턴 명 : {1}", No, Name); } }
+        public string Description => string.Format("패턴 번호 : {0}, 패턴 명 : {1}", No, Name);
         public int StartConditionUsage { get; set; }
         public double DifferencePressChamberSv { get; set; }
         public double DifferencePressChamberInitMv { get; set; }
@@ -133,7 +133,8 @@ namespace DaesungEntCleanOven.Model
         public double WaitTemperatureAfterClose { get; set; }
         public object Clone()
         {
-            var pattern = new Pattern(false) {
+            Pattern pattern = new Pattern(false) 
+            {
                 No = this.No,
                 Name = this.Name
             };
@@ -147,7 +148,7 @@ namespace DaesungEntCleanOven.Model
             pattern.MFCSv = MFCSv;
             pattern.ExhaustValveOpenSetting = ExhaustValveOpenSetting;
             pattern.WaitTemperatureAfterClose = WaitTemperatureAfterClose;
-            foreach (var Seg in Segments)
+            foreach (Segment Seg in Segments)
                 pattern.Segments.Add((Segment)Seg.Clone());
             return pattern;
         }
@@ -155,7 +156,7 @@ namespace DaesungEntCleanOven.Model
         {
             if (obj is Pattern y)
             {
-                if (object.ReferenceEquals(this, y))
+                if (ReferenceEquals(this, y))
                     return true;
 
                 if (Name == y.Name

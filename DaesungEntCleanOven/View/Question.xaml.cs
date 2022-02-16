@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DaesungEntCleanOven.View
+namespace DaesungEntCleanOven4.View
 {
     /// <summary>
     /// Interaction logic for Question.xaml

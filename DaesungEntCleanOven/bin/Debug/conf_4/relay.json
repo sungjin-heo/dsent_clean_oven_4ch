@@ -1,0 +1,755 @@
+{
+  "relays": [
+    {
+      "idx": 0,
+      "name": "pattern_ctl",
+      "w.addr": null,
+      "r.addr": "I45001"
+    },
+    {
+      "idx": 1,
+      "name": "pattern_hold",
+      "w.addr": "I46011",
+      "r.addr": "I46011"
+    },
+    {
+      "idx": 2,
+      "name": "pattern_advance",
+      "w.addr": "I46012",
+      "r.addr": null
+    },
+    {
+      "idx": 3,
+      "name": "prog_init_run",
+      "w.addr": null,
+      "r.addr": "I45025"
+    },
+    {
+      "idx": 4,
+      "name": "prog_run",
+      "w.addr": null,
+      "r.addr": "I45027"
+    },
+    {
+      "idx": 5,
+      "name": "prog_closing",
+      "w.addr": null,
+      "r.addr": "I45029"
+    },
+    {
+      "idx": 6,
+      "name": "prog_close",
+      "w.addr": null,
+      "r.addr": "I45017"
+    },
+    {
+      "idx": 7,
+      "name": "fix_run",
+      "w.addr": null,
+      "r.addr": "I45021"
+    },
+    {
+      "idx": 8,
+      "name": "auto_tune_state",
+      "w.addr": null,
+      "r.addr": null,
+      "desc": "discard, use D10011"
+    },
+    {
+      "idx": 9,
+      "name": "alert",
+      "w.addr": null,
+      "r.addr": "I45099"
+    },
+    {
+      "idx": 10,
+      "name": "manctl_door_open",
+      "w.addr": "I45301",
+      "r.addr": "I45642"
+    },
+    {
+      "idx": 11,
+      "name": "manctl_door_close",
+      "w.addr": "I45302",
+      "r.addr": "I45641"
+    },
+    {
+      "idx": 12,
+      "name": "manctl_door_lock",
+      "w.addr": "I45303",
+      "r.addr": "I45505"
+    },
+    {
+      "idx": 13,
+      "name": "manctl_door_unlock",
+      "w.addr": "I45304",
+      "r.addr": "I45506"
+    },
+    {
+      "idx": 14,
+      "name": "manctl_n2_inp_valve",
+      "w.addr": "I45309",
+      "r.addr": "I45709"
+    },
+    {
+      "idx": 15,
+      "name": "manctl_n2_bypass_valve",
+      "w.addr": "I45310",
+      "r.addr": "I45710"
+    },
+    {
+      "idx": 16,
+      "name": "manctl_force_exhaust_valve_close",
+      "w.addr": "I45311",
+      "r.addr": "I45711"
+    },
+    {
+      "idx": 17,
+      "name": "manctl_o2_analyzer_valve",
+      "w.addr": "I45312",
+      "r.addr": "I45712"
+    },
+    {
+      "idx": 18,
+      "name": "manctl_cooling_water_valve",
+      "w.addr": "I45313",
+      "r.addr": "I45713"
+    },
+    {
+      "idx": 19,
+      "name": "manctl_main_heater",
+      "w.addr": "I45325",
+      "r.addr": "I45725"
+    },
+    {
+      "idx": 20,
+      "name": "manctl_cooling_fan",
+      "w.addr": "I45327",
+      "r.addr": "I45727"
+    },
+    {
+      "idx": 21,
+      "name": "manctl_motor_chamber",
+      "w.addr": "I45329",
+      "r.addr": "I45729"
+    },
+    {
+      "idx": 22,
+      "name": "auto_tune_on",
+      "w.addr": "I47011",
+      "r.addr": null
+    },
+    {
+      "idx": 23,
+      "name": "auto_tune_off",
+      "w.addr": "I47012",
+      "r.addr": null
+    },
+    {
+      "idx": 24,
+      "name": "도어 열기 가능 /불가",
+      "w.addr": null,
+      "r.addr": "I45509"
+    },
+    {
+      "idx": 25,
+      "name": "온도 : 절대 상한 L1",
+      "w.addr": null,
+      "r.addr": "I49101"
+    },
+    {
+      "idx": 26,
+      "name": "온도 : 편차 상하한 #1 L1",
+      "w.addr": null,
+      "r.addr": "I49102"
+    },
+    {
+      "idx": 27,
+      "name": "온도 : 편차 상한한 #2 L1",
+      "w.addr": null,
+      "r.addr": "I49103"
+    },
+    {
+      "idx": 28,
+      "name": "온도 : 센서 오픈 L1",
+      "w.addr": null,
+      "r.addr": "I49104"
+    },
+    {
+      "idx": 29,
+      "name": "챔버 OT : 절대 상한 L1",
+      "w.addr": null,
+      "r.addr": "I49106"
+    },
+    {
+      "idx": 30,
+      "name": "챔버 OT : 센서 오픈 L1",
+      "w.addr": null,
+      "r.addr": "I49107"
+    },
+    {
+      "idx": 31,
+      "name": "히터 OT : 절대 상한 L1",
+      "w.addr": null,
+      "r.addr": "I49109"
+    },
+    {
+      "idx": 32,
+      "name": "히터 OT : 센서 오픈 L1",
+      "w.addr": null,
+      "r.addr": "I49110"
+    },
+    {
+      "idx": 33,
+      "name": "차압 챔버 : 절대 상한 L1",
+      "w.addr": null,
+      "r.addr": "I49112"
+    },
+    {
+      "idx": 34,
+      "name": "차압 챔버 : 편차 상하한 L1",
+      "w.addr": null,
+      "r.addr": "I49113"
+    },
+    {
+      "idx": 35,
+      "name": "차압 챔버 : 센서 오픈 L1",
+      "w.addr": null,
+      "r.addr": "I49114"
+    },
+    {
+      "idx": 36,
+      "name": "차압 필터 : 절대 상한 L1",
+      "w.addr": null,
+      "r.addr": "I49116"
+    },
+    {
+      "idx": 37,
+      "name": "차압 필터 : 센서 오픈 L1",
+      "w.addr": null,
+      "r.addr": "I49117"
+    },
+    {
+      "idx": 38,
+      "name": "모터 챔버 : 편차 상하한 L1",
+      "w.addr": null,
+      "r.addr": "I49119"
+    },
+    {
+      "idx": 39,
+      "name": "모터 챔버 : 센서 오픈 L1",
+      "w.addr": null,
+      "r.addr": "I49120"
+    },
+    {
+      "idx": 40,
+      "name": "쿨링 챔버 : 편차 상하한 L1",
+      "w.addr": null,
+      "r.addr": "I49122"
+    },
+    {
+      "idx": 41,
+      "name": "쿨링 챔버 : 센서 오픈 L1",
+      "w.addr": null,
+      "r.addr": "I49123"
+    },
+    {
+      "idx": 42,
+      "name": "내부 온도 #1 : 절대 상한 L1",
+      "w.addr": null,
+      "r.addr": "I49125"
+    },
+    {
+      "idx": 43,
+      "name": "내부 온도 #1 : 센서 오픈 L1",
+      "w.addr": null,
+      "r.addr": "I49126"
+    },
+    {
+      "idx": 44,
+      "name": "내부 온도 #2 : 절대 상한 L1",
+      "w.addr": null,
+      "r.addr": "I49127"
+    },
+    {
+      "idx": 45,
+      "name": "내부 온도 #2 : 센서 오픈 L1",
+      "w.addr": null,
+      "r.addr": "I49128"
+    },
+    {
+      "idx": 46,
+      "name": "내부 온도 #3 : 절대 상한 L1",
+      "w.addr": null,
+      "r.addr": "I49129"
+    },
+    {
+      "idx": 47,
+      "name": "내부 온도 #3 : 센서 오픈 L1",
+      "w.addr": null,
+      "r.addr": "I49130"
+    },
+    {
+      "idx": 48,
+      "name": "내부 온도 #4 : 절대 상한 L1",
+      "w.addr": null,
+      "r.addr": "I49131"
+    },
+    {
+      "idx": 49,
+      "name": "내부 온도 #4 : 센서 오픈 L1",
+      "w.addr": null,
+      "r.addr": "I49132"
+    },
+    {
+      "idx": 50,
+      "name": "MFC : 편차 상하한 L1",
+      "w.addr": null,
+      "r.addr": "I49134"
+    },
+    {
+      "idx": 51,
+      "name": "비상 정지 스위치 ON L1",
+      "w.addr": null,
+      "r.addr": "I49351"
+    },
+    {
+      "idx": 52,
+      "name": "메인 히터 EOCR 경보 L1",
+      "w.addr": null,
+      "r.addr": "I49352"
+    },
+    {
+      "idx": 53,
+      "name": "챔버 블로워 모터 EOCR 경보 L1",
+      "w.addr": null,
+      "r.addr": "I49353"
+    },
+    {
+      "idx": 54,
+      "name": "냉각 블로워 모터 EOCR 경보 L1",
+      "w.addr": null,
+      "r.addr": "I49354"
+    },
+    {
+      "idx": 55,
+      "name": "챔버 블로워 모터 인버터 경보 L1",
+      "w.addr": null,
+      "r.addr": "I49355"
+    },
+    {
+      "idx": 56,
+      "name": "냉각 블로워 모터 인버터 경보 L1",
+      "w.addr": null,
+      "r.addr": "I49356"
+    },
+    {
+      "idx": 57,
+      "name": "도어 잠금(Lock) 이상 L1",
+      "w.addr": null,
+      "r.addr": "I49358"
+    },
+    {
+      "idx": 58,
+      "name": "도어 자금 해제(Unlock) 이상 L1",
+      "w.addr": null,
+      "r.addr": "I49359"
+    },
+    {
+      "idx": 59,
+      "name": "운전 중 도어 열림 경보 L1",
+      "w.addr": null,
+      "r.addr": "I49360"
+    },
+    {
+      "idx": 60,
+      "name": "도어 열림 중 시간 초과 L1",
+      "w.addr": null,
+      "r.addr": "I49361"
+    },
+    {
+      "idx": 61,
+      "name": "도어 닫힘 중 시간 초과 L1",
+      "w.addr": null,
+      "r.addr": "I49362"
+    },
+    {
+      "idx": 62,
+      "name": "운전 불가 상태 중 운전 시도 L1",
+      "w.addr": null,
+      "r.addr": "I49364"
+    },
+    {
+      "idx": 63,
+      "name": "O2 분석기 / MFC 통신 이상 L1",
+      "w.addr": null,
+      "r.addr": "I49366"
+    },
+    {
+      "idx": 64,
+      "name": "에어 압력 낮음 L1",
+      "w.addr": null,
+      "r.addr": "I49367"
+    },
+    {
+      "idx": 65,
+      "name": "N2 압력 낮음 L1",
+      "w.addr": null,
+      "r.addr": "I49368"
+    },
+    {
+      "idx": 66,
+      "name": "냉각 압력 낮음 L1",
+      "w.addr": null,
+      "r.addr": "I49369"
+    },
+    {
+      "idx": 67,
+      "name": "SSR 바이메탈 경보 L1",
+      "w.addr": null,
+      "r.addr": "I49370"
+    },
+    {
+      "idx": 68,
+      "name": "배기 센서 경보 L1",
+      "w.addr": null,
+      "r.addr": "I49371"
+    },
+    {
+      "idx": 69,
+      "name": "리크(Leak) 센서 #1 경보 L1",
+      "w.addr": null,
+      "r.addr": "I49372"
+    },
+    {
+      "idx": 70,
+      "name": "리크(Leak) 센서 #2 경보 L1",
+      "w.addr": null,
+      "r.addr": "I49373"
+    },
+    {
+      "idx": 71,
+      "name": "도어 구역 센서 경보 L1",
+      "w.addr": null,
+      "r.addr": "I49374"
+    },
+    {
+      "idx": 72,
+      "name": "스모크 경보 L1",
+      "w.addr": null,
+      "r.addr": "I49375"
+    },
+    {
+      "idx": 73,
+      "name": "챔버 퍼지 타임 초과 L1",
+      "w.addr": null,
+      "r.addr": "I49376"
+    },
+    {
+      "idx": 74,
+      "name": "온도 : 절대 상한 L2",
+      "w.addr": null,
+      "r.addr": "I49201"
+    },
+    {
+      "idx": 75,
+      "name": "온도 : 편차 상하한 #1 L2",
+      "w.addr": null,
+      "r.addr": "I49202"
+    },
+    {
+      "idx": 76,
+      "name": "온도 : 편차 상한한 #2 L2",
+      "w.addr": null,
+      "r.addr": "I49203"
+    },
+    {
+      "idx": 77,
+      "name": "온도 : 센서 오픈 L2",
+      "w.addr": null,
+      "r.addr": "I49204"
+    },
+    {
+      "idx": 78,
+      "name": "챔버 OT : 절대 상한 L2",
+      "w.addr": null,
+      "r.addr": "I49206"
+    },
+    {
+      "idx": 79,
+      "name": "챔버 OT : 센서 오픈 L2",
+      "w.addr": null,
+      "r.addr": "I49207"
+    },
+    {
+      "idx": 80,
+      "name": "히터 OT : 절대 상한 L2",
+      "w.addr": null,
+      "r.addr": "I49209"
+    },
+    {
+      "idx": 81,
+      "name": "히터 OT : 센서 오픈 L2",
+      "w.addr": null,
+      "r.addr": "I49210"
+    },
+    {
+      "idx": 82,
+      "name": "차압 챔버 : 절대 상한 L2",
+      "w.addr": null,
+      "r.addr": "I49212"
+    },
+    {
+      "idx": 83,
+      "name": "차압 챔버 : 편차 상하한 L2",
+      "w.addr": null,
+      "r.addr": "I49213"
+    },
+    {
+      "idx": 84,
+      "name": "차압 챔버 : 센서 오픈 L2",
+      "w.addr": null,
+      "r.addr": "I49214"
+    },
+    {
+      "idx": 85,
+      "name": "차압 필터 : 절대 상한 L2",
+      "w.addr": null,
+      "r.addr": "I49216"
+    },
+    {
+      "idx": 86,
+      "name": "차압 필터 : 센서 오픈 L2",
+      "w.addr": null,
+      "r.addr": "I49217"
+    },
+    {
+      "idx": 87,
+      "name": "모터 챔버 : 편차 상하한 L2",
+      "w.addr": null,
+      "r.addr": "I49219"
+    },
+    {
+      "idx": 88,
+      "name": "모터 챔버 : 센서 오픈 L2",
+      "w.addr": null,
+      "r.addr": "I49220"
+    },
+    {
+      "idx": 89,
+      "name": "쿨링 챔버 : 편차 상하한 L2",
+      "w.addr": null,
+      "r.addr": "I49222"
+    },
+    {
+      "idx": 90,
+      "name": "쿨링 챔버 : 센서 오픈 L2",
+      "w.addr": null,
+      "r.addr": "I49223"
+    },
+    {
+      "idx": 91,
+      "name": "내부 온도 #1 : 절대 상한 L2",
+      "w.addr": null,
+      "r.addr": "I49225"
+    },
+    {
+      "idx": 92,
+      "name": "내부 온도 #1 : 센서 오픈 L2",
+      "w.addr": null,
+      "r.addr": "I49226"
+    },
+    {
+      "idx": 93,
+      "name": "내부 온도 #2 : 절대 상한 L2",
+      "w.addr": null,
+      "r.addr": "I49227"
+    },
+    {
+      "idx": 94,
+      "name": "내부 온도 #2 : 센서 오픈 L2",
+      "w.addr": null,
+      "r.addr": "I49228"
+    },
+    {
+      "idx": 95,
+      "name": "내부 온도 #3 : 절대 상한 L2",
+      "w.addr": null,
+      "r.addr": "I49229"
+    },
+    {
+      "idx": 96,
+      "name": "내부 온도 #3 : 센서 오픈 L2",
+      "w.addr": null,
+      "r.addr": "I49230"
+    },
+    {
+      "idx": 97,
+      "name": "내부 온도 #4 : 절대 상한 L2",
+      "w.addr": null,
+      "r.addr": "I49231"
+    },
+    {
+      "idx": 98,
+      "name": "내부 온도 #4 : 센서 오픈 L2",
+      "w.addr": null,
+      "r.addr": "I49232"
+    },
+    {
+      "idx": 99,
+      "name": "MFC : 편차 상하한 L2",
+      "w.addr": null,
+      "r.addr": "I49234"
+    },
+    {
+      "idx": 100,
+      "name": "비상 정지 스위치 ON L2",
+      "w.addr": null,
+      "r.addr": "I49401"
+    },
+    {
+      "idx": 101,
+      "name": "메인 히터 EOCR 경보 L2",
+      "w.addr": null,
+      "r.addr": "I49402"
+    },
+    {
+      "idx": 102,
+      "name": "챔버 블로워 모터 EOCR 경보 L2",
+      "w.addr": null,
+      "r.addr": "I49403"
+    },
+    {
+      "idx": 103,
+      "name": "냉각 블로워 모터 EOCR 경보 L2",
+      "w.addr": null,
+      "r.addr": "I49404"
+    },
+    {
+      "idx": 104,
+      "name": "챔버 블로워 모터 인버터 경보 L2",
+      "w.addr": null,
+      "r.addr": "I49405"
+    },
+    {
+      "idx": 105,
+      "name": "냉각 블로워 모터 인버터 경보 L2",
+      "w.addr": null,
+      "r.addr": "I49406"
+    },
+    {
+      "idx": 106,
+      "name": "도어 잠금(Lock) 이상 L2",
+      "w.addr": null,
+      "r.addr": "I49408"
+    },
+    {
+      "idx": 107,
+      "name": "도어 자금 해제(Unlock) 이상 L2",
+      "w.addr": null,
+      "r.addr": "I49409"
+    },
+    {
+      "idx": 108,
+      "name": "운전 중 도어 열림 경보 L2",
+      "w.addr": null,
+      "r.addr": "I49410"
+    },
+    {
+      "idx": 109,
+      "name": "도어 열림 중 시간 초과 L2",
+      "w.addr": null,
+      "r.addr": "I49411"
+    },
+    {
+      "idx": 110,
+      "name": "도어 닫힘 중 시간 초과 L2",
+      "w.addr": null,
+      "r.addr": "I49412"
+    },
+    {
+      "idx": 111,
+      "name": "운전 불가 상태 중 운전 시도 L2",
+      "w.addr": null,
+      "r.addr": "I49414"
+    },
+    {
+      "idx": 112,
+      "name": "O2 분석기 / MFC 통신 이상 L2",
+      "w.addr": null,
+      "r.addr": "I49416"
+    },
+    {
+      "idx": 113,
+      "name": "에어 압력 낮음 L2",
+      "w.addr": null,
+      "r.addr": "I49417"
+    },
+    {
+      "idx": 114,
+      "name": "N2 압력 낮음 L2",
+      "w.addr": null,
+      "r.addr": "I49418"
+    },
+    {
+      "idx": 115,
+      "name": "냉각 압력 낮음 L2",
+      "w.addr": null,
+      "r.addr": "I49419"
+    },
+    {
+      "idx": 116,
+      "name": "SSR 바이메탈 경보 L2",
+      "w.addr": null,
+      "r.addr": "I49420"
+    },
+    {
+      "idx": 117,
+      "name": "배기 센서 경보 L2",
+      "w.addr": null,
+      "r.addr": "I49421"
+    },
+    {
+      "idx": 118,
+      "name": "리크(Leak) 센서 #1 경보 L2",
+      "w.addr": null,
+      "r.addr": "I49422"
+    },
+    {
+      "idx": 119,
+      "name": "리크(Leak) 센서 #2 경보 L2",
+      "w.addr": null,
+      "r.addr": "I49423"
+    },
+    {
+      "idx": 120,
+      "name": "도어 구역 센서 경보 L2",
+      "w.addr": null,
+      "r.addr": "I49424"
+    },
+    {
+      "idx": 121,
+      "name": "스모크 경보 L2",
+      "w.addr": null,
+      "r.addr": "I49425"
+    },
+    {
+      "idx": 122,
+      "name": "챔버 퍼지 타임 초과 L2",
+      "w.addr": null,
+      "r.addr": "I49426"
+    },
+    {
+      "idx": 123,
+      "name": "패턴 전송 완료",
+      "w.addr": "I45051",
+      "r.addr": null
+    },
+    {
+      "idx": 124,
+      "name": "manctl_eva_valve",
+      "w.addr": "I45314",
+      "r.addr": "I45714"
+    }
+  ]
+}

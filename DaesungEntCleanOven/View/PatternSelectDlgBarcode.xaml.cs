@@ -11,9 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using DaesungEntCleanOven.ViewModel;
+using DaesungEntCleanOven4.ViewModel;
 
-namespace DaesungEntCleanOven.View
+namespace DaesungEntCleanOven4.View
 {
     /// <summary>
     /// PatternSelectDlgBarcode.xaml에 대한 상호 작용 논리
@@ -27,27 +27,30 @@ namespace DaesungEntCleanOven.View
             tboxScanCode.Focus();
             tboxScanCode.SelectAll();
         }
-        void SearchButton_Click(object sender, RoutedEventArgs e)
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             this.PatternNo = null;
-
-            string ScanCode = tboxScanCode.Text;
-            if (!string.IsNullOrEmpty(ScanCode))
+            if (this.DataContext is ChannelViewModel Ch)
             {
-                var query = (from metaData in G.PatternMetaDatas
-                             where metaData.Name == ScanCode
-                             select metaData).ToArray();
-
-                if (query == null || query.Length == 0)
-                    tboxSearchResult.Text = "현재 바코드에 등록된 패턴을 찾을 수 없습니다.";
-                else
+                string ScanCode = tboxScanCode.Text;
+                if (!string.IsNullOrEmpty(ScanCode))
                 {
-                    tboxSearchResult.Text = string.Format("패턴 번호 : {0}, 패턴 명 : {1}", query[0].No, query[0].Name);
-                    this.PatternNo = query[0].No;
+                    var query = (from metaData in Ch.PatternMetaDatas
+                                 where metaData.Name == ScanCode
+                                 select metaData).ToArray();
+
+                    if (query == null || query.Length == 0)
+                        tboxSearchResult.Text = "현재 바코드에 등록된 패턴을 찾을 수 없습니다.";
+                    else
+                    {
+                        tboxSearchResult.Text = string.Format("패턴 번호 : {0}, 패턴 명 : {1}", query[0].No, query[0].Name);
+                        this.PatternNo = query[0].No;
+                    }
                 }
             }
+
         }
-        void ApplyPatternButton_Click(object sender, RoutedEventArgs e)
+        private void ApplyPatternButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
             Close();

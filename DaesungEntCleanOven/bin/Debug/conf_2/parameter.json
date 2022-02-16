@@ -1,0 +1,1790 @@
+{
+  "temperature": [
+    {
+      "idx": 0,
+      "name": "RH",
+      "w.addr": "D24031",
+      "r.addr": "D25183",
+      "scale": 10
+    },
+    {
+      "idx": 1,
+      "name": "RL",
+      "w.addr": "D24032",
+      "r.addr": "D25184",
+      "scale": 10
+    },
+    {
+      "idx": 2,
+      "name": "SH",
+      "w.addr": null,
+      "r.addr": "D25186",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "SL",
+      "w.addr": null,
+      "r.addr": "D25187",
+      "scale": 10
+    },
+    {
+      "idx": 4,
+      "name": "SDP",
+      "w.addr": null,
+      "r.addr": "D25188",
+      "scale": 1
+    },
+    {
+      "idx": 5,
+      "name": "FL",
+      "w.addr": "D24002",
+      "r.addr": "D25114",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "SC",
+      "w.addr": "D24009",
+      "r.addr": "D25121",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "CT",
+      "w.addr": "D24019",
+      "r.addr": "D25134",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "BS",
+      "w.addr": "D24001",
+      "r.addr": "D25113",
+      "scale": 10
+    },
+    {
+      "idx": 9,
+      "name": "X1",
+      "w.addr": "D24003",
+      "r.addr": "D25115",
+      "scale": 10
+    },
+    {
+      "idx": 10,
+      "name": "Y1",
+      "w.addr": "D24004",
+      "r.addr": "D25116",
+      "scale": 10
+    },
+    {
+      "idx": 11,
+      "name": "X2",
+      "w.addr": "D24005",
+      "r.addr": "D25117",
+      "scale": 10
+    },
+    {
+      "idx": 12,
+      "name": "Y2",
+      "w.addr": "D24006",
+      "r.addr": "D25118",
+      "scale": 10
+    },
+    {
+      "idx": 13,
+      "name": "X3",
+      "w.addr": "D24007",
+      "r.addr": "D25119",
+      "scale": 10
+    },
+    {
+      "idx": 14,
+      "name": "Y3",
+      "w.addr": "D24008",
+      "r.addr": "D25120",
+      "scale": 10
+    },
+    {
+      "idx": 15,
+      "name": "P",
+      "w.addr": "D24020",
+      "r.addr": "D25141",
+      "scale": 10
+    },
+    {
+      "idx": 16,
+      "name": "I",
+      "w.addr": "D24021",
+      "r.addr": "D25142",
+      "scale": 1
+    },
+    {
+      "idx": 17,
+      "name": "D",
+      "w.addr": "D24022",
+      "r.addr": "D25143",
+      "scale": 1
+    },
+    {
+      "idx": 18,
+      "name": "MR",
+      "w.addr": "D24025",
+      "r.addr": "D25146",
+      "scale": 10
+    },
+    {
+      "idx": 19,
+      "name": "OH",
+      "w.addr": "D24023",
+      "r.addr": "D25144",
+      "scale": 10
+    },
+    {
+      "idx": 20,
+      "name": "OL",
+      "w.addr": "D24024",
+      "r.addr": "D25145",
+      "scale": 10
+    }
+  ],
+  "chamber_ot": [
+    {
+      "idx": 0,
+      "name": "RH",
+      "w.addr": "D24081",
+      "r.addr": "D25283",
+      "scale": 10
+    },
+    {
+      "idx": 1,
+      "name": "RL",
+      "w.addr": "D24082",
+      "r.addr": "D25284",
+      "scale": 10
+    },
+    {
+      "idx": 2,
+      "name": "SH",
+      "w.addr": null,
+      "r.addr": "D25286",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "SL",
+      "w.addr": null,
+      "r.addr": "D25287",
+      "scale": 10
+    },
+    {
+      "idx": 4,
+      "name": "SDP",
+      "w.addr": null,
+      "r.addr": "D25288",
+      "scale": 1
+    },
+    {
+      "idx": 5,
+      "name": "FL",
+      "w.addr": "D24052",
+      "r.addr": "D25214",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "SC",
+      "w.addr": "D24059",
+      "r.addr": "D25221",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "CT",
+      "w.addr": "D24069",
+      "r.addr": "D25234",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "BS",
+      "w.addr": "D24051",
+      "r.addr": "D25213",
+      "scale": 10
+    },
+    {
+      "idx": 9,
+      "name": "X1",
+      "w.addr": "D24053",
+      "r.addr": "D25215",
+      "scale": 10
+    },
+    {
+      "idx": 10,
+      "name": "Y1",
+      "w.addr": "D24054",
+      "r.addr": "D25216",
+      "scale": 10
+    },
+    {
+      "idx": 11,
+      "name": "X2",
+      "w.addr": "D24055",
+      "r.addr": "D25217",
+      "scale": 10
+    },
+    {
+      "idx": 12,
+      "name": "Y2",
+      "w.addr": "D24056",
+      "r.addr": "D25218",
+      "scale": 10
+    },
+    {
+      "idx": 13,
+      "name": "X3",
+      "w.addr": "D24057",
+      "r.addr": "D25219",
+      "scale": 10
+    },
+    {
+      "idx": 14,
+      "name": "Y3",
+      "w.addr": "D24058",
+      "r.addr": "D25220",
+      "scale": 10
+    },
+    {
+      "idx": 15,
+      "name": "P",
+      "w.addr": "D24070",
+      "r.addr": "D25241",
+      "scale": 10
+    },
+    {
+      "idx": 16,
+      "name": "I",
+      "w.addr": "D24071",
+      "r.addr": "D25242",
+      "scale": 1
+    },
+    {
+      "idx": 17,
+      "name": "D",
+      "w.addr": "D24072",
+      "r.addr": "D25243",
+      "scale": 1
+    },
+    {
+      "idx": 18,
+      "name": "MR",
+      "w.addr": "D24075",
+      "r.addr": "D25246",
+      "scale": 10
+    },
+    {
+      "idx": 19,
+      "name": "OH",
+      "w.addr": "D24073",
+      "r.addr": "D25244",
+      "scale": 10
+    },
+    {
+      "idx": 20,
+      "name": "OL",
+      "w.addr": "D24074",
+      "r.addr": "D25245",
+      "scale": 10
+    }
+  ],
+  "heater_ot": [
+    {
+      "idx": 0,
+      "name": "RH",
+      "w.addr": "D24131",
+      "r.addr": "D25383",
+      "scale": 10
+    },
+    {
+      "idx": 1,
+      "name": "RL",
+      "w.addr": "D24132",
+      "r.addr": "D25384",
+      "scale": 10
+    },
+    {
+      "idx": 2,
+      "name": "SH",
+      "w.addr": null,
+      "r.addr": "D25386",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "SL",
+      "w.addr": null,
+      "r.addr": "D25387",
+      "scale": 10
+    },
+    {
+      "idx": 4,
+      "name": "SDP",
+      "w.addr": null,
+      "r.addr": "D25388",
+      "scale": 1
+    },
+    {
+      "idx": 5,
+      "name": "FL",
+      "w.addr": "D24102",
+      "r.addr": "D25314",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "SC",
+      "w.addr": "D24109",
+      "r.addr": "D25321",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "CT",
+      "w.addr": "D24119",
+      "r.addr": "D25334",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "BS",
+      "w.addr": "D24101",
+      "r.addr": "D25313",
+      "scale": 10
+    },
+    {
+      "idx": 9,
+      "name": "X1",
+      "w.addr": "D24103",
+      "r.addr": "D25315",
+      "scale": 10
+    },
+    {
+      "idx": 10,
+      "name": "Y1",
+      "w.addr": "D24104",
+      "r.addr": "D25316",
+      "scale": 10
+    },
+    {
+      "idx": 11,
+      "name": "X2",
+      "w.addr": "D24105",
+      "r.addr": "D25317",
+      "scale": 10
+    },
+    {
+      "idx": 12,
+      "name": "Y2",
+      "w.addr": "D24106",
+      "r.addr": "D25318",
+      "scale": 10
+    },
+    {
+      "idx": 13,
+      "name": "X3",
+      "w.addr": "D24107",
+      "r.addr": "D25319",
+      "scale": 10
+    },
+    {
+      "idx": 14,
+      "name": "Y3",
+      "w.addr": "D24108",
+      "r.addr": "D25320",
+      "scale": 10
+    },
+    {
+      "idx": 15,
+      "name": "P",
+      "w.addr": "D24120",
+      "r.addr": "D25341",
+      "scale": 10
+    },
+    {
+      "idx": 16,
+      "name": "I",
+      "w.addr": "D24121",
+      "r.addr": "D25342",
+      "scale": 1
+    },
+    {
+      "idx": 17,
+      "name": "D",
+      "w.addr": "D24122",
+      "r.addr": "D25343",
+      "scale": 1
+    },
+    {
+      "idx": 18,
+      "name": "MR",
+      "w.addr": "D24125",
+      "r.addr": "D25346",
+      "scale": 10
+    },
+    {
+      "idx": 19,
+      "name": "OH",
+      "w.addr": "D24123",
+      "r.addr": "D25344",
+      "scale": 10
+    },
+    {
+      "idx": 20,
+      "name": "OL",
+      "w.addr": "D24124",
+      "r.addr": "D25345",
+      "scale": 10
+    }
+  ],
+  "different_pressure_chamber": [
+    {
+      "idx": 0,
+      "name": "RH",
+      "w.addr": "D24181",
+      "r.addr": "D25483",
+      "scale": 100
+    },
+    {
+      "idx": 1,
+      "name": "RL",
+      "w.addr": "D24182",
+      "r.addr": "D25484",
+      "scale": 100
+    },
+    {
+      "idx": 2,
+      "name": "SH",
+      "w.addr": "D24184",
+      "r.addr": "D25486",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "SL",
+      "w.addr": "D24185",
+      "r.addr": "D25487",
+      "scale": 10
+    },
+    {
+      "idx": 4,
+      "name": "SDP",
+      "w.addr": "D24186",
+      "r.addr": "D25488",
+      "scale": 1
+    },
+    {
+      "idx": 5,
+      "name": "FL",
+      "w.addr": "D24152",
+      "r.addr": "D25414",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "SC",
+      "w.addr": "D24159",
+      "r.addr": "D25421",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "CT",
+      "w.addr": "D24169",
+      "r.addr": "D25434",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "BS",
+      "w.addr": "D24151",
+      "r.addr": "D25413",
+      "scale": 10
+    },
+    {
+      "idx": 9,
+      "name": "X1",
+      "w.addr": "D24153",
+      "r.addr": "D25415",
+      "scale": 10
+    },
+    {
+      "idx": 10,
+      "name": "Y1",
+      "w.addr": "D24154",
+      "r.addr": "D25416",
+      "scale": 10
+    },
+    {
+      "idx": 11,
+      "name": "X2",
+      "w.addr": "D24155",
+      "r.addr": "D25417",
+      "scale": 10
+    },
+    {
+      "idx": 12,
+      "name": "Y2",
+      "w.addr": "D24156",
+      "r.addr": "D25418",
+      "scale": 10
+    },
+    {
+      "idx": 13,
+      "name": "X3",
+      "w.addr": "D24157",
+      "r.addr": "D25419",
+      "scale": 10
+    },
+    {
+      "idx": 14,
+      "name": "Y3",
+      "w.addr": "D24158",
+      "r.addr": "D25420",
+      "scale": 10
+    },
+    {
+      "idx": 15,
+      "name": "P",
+      "w.addr": "D24170",
+      "r.addr": "D25441",
+      "scale": 10
+    },
+    {
+      "idx": 16,
+      "name": "I",
+      "w.addr": "D24171",
+      "r.addr": "D25442",
+      "scale": 1
+    },
+    {
+      "idx": 17,
+      "name": "D",
+      "w.addr": "D24172",
+      "r.addr": "D25443",
+      "scale": 1
+    },
+    {
+      "idx": 18,
+      "name": "MR",
+      "w.addr": "D24175",
+      "r.addr": "D25446",
+      "scale": 10
+    },
+    {
+      "idx": 19,
+      "name": "OH",
+      "w.addr": "D24173",
+      "r.addr": "D25444",
+      "scale": 10
+    },
+    {
+      "idx": 20,
+      "name": "OL",
+      "w.addr": "D24174",
+      "r.addr": "D25445",
+      "scale": 10
+    }
+  ],
+  "mfc": [
+    {
+      "idx": 0,
+      "name": "RH",
+      "w.addr": "D24231",
+      "r.addr": "D25583",
+      "scale": 100
+    },
+    {
+      "idx": 1,
+      "name": "RL",
+      "w.addr": "D24232",
+      "r.addr": "D25584",
+      "scale": 100
+    },
+    {
+      "idx": 2,
+      "name": "SH",
+      "w.addr": "D24234",
+      "r.addr": "D25586",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "SL",
+      "w.addr": "D24235",
+      "r.addr": "D25587",
+      "scale": 10
+    },
+    {
+      "idx": 4,
+      "name": "SDP",
+      "w.addr": "D24236",
+      "r.addr": "D25588",
+      "scale": 1
+    },
+    {
+      "idx": 5,
+      "name": "FL",
+      "w.addr": "D24202",
+      "r.addr": "D25514",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "SC",
+      "w.addr": "D24209",
+      "r.addr": "D25521",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "CT",
+      "w.addr": "D24219",
+      "r.addr": "D25534",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "BS",
+      "w.addr": "D24201",
+      "r.addr": "D25513",
+      "scale": 10
+    },
+    {
+      "idx": 9,
+      "name": "X1",
+      "w.addr": "D24203",
+      "r.addr": "D25515",
+      "scale": 10
+    },
+    {
+      "idx": 10,
+      "name": "Y1",
+      "w.addr": "D24204",
+      "r.addr": "D25516",
+      "scale": 10
+    },
+    {
+      "idx": 11,
+      "name": "X2",
+      "w.addr": "D24205",
+      "r.addr": "D25517",
+      "scale": 10
+    },
+    {
+      "idx": 12,
+      "name": "Y2",
+      "w.addr": "D24206",
+      "r.addr": "D25518",
+      "scale": 10
+    },
+    {
+      "idx": 13,
+      "name": "X3",
+      "w.addr": "D24207",
+      "r.addr": "D25519",
+      "scale": 10
+    },
+    {
+      "idx": 14,
+      "name": "Y3",
+      "w.addr": "D24208",
+      "r.addr": "D25520",
+      "scale": 10
+    },
+    {
+      "idx": 15,
+      "name": "P",
+      "w.addr": "D24220",
+      "r.addr": "D25541",
+      "scale": 10
+    },
+    {
+      "idx": 16,
+      "name": "I",
+      "w.addr": "D24221",
+      "r.addr": "D25542",
+      "scale": 1
+    },
+    {
+      "idx": 17,
+      "name": "D",
+      "w.addr": "D24222",
+      "r.addr": "D25543",
+      "scale": 1
+    },
+    {
+      "idx": 18,
+      "name": "MR",
+      "w.addr": "D24225",
+      "r.addr": "D25546",
+      "scale": 10
+    },
+    {
+      "idx": 19,
+      "name": "OH",
+      "w.addr": "D24223",
+      "r.addr": "D25544",
+      "scale": 10
+    },
+    {
+      "idx": 20,
+      "name": "OL",
+      "w.addr": "D24224",
+      "r.addr": "D25545",
+      "scale": 10
+    }
+  ],
+  "different_pressure_filter": [
+    {
+      "idx": 0,
+      "name": "RH",
+      "w.addr": "D24281",
+      "r.addr": "D25683",
+      "scale": 100
+    },
+    {
+      "idx": 1,
+      "name": "RL",
+      "w.addr": "D24282",
+      "r.addr": "D25684",
+      "scale": 100
+    },
+    {
+      "idx": 2,
+      "name": "SH",
+      "w.addr": "D24284",
+      "r.addr": "D25686",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "SL",
+      "w.addr": "D24285",
+      "r.addr": "D25687",
+      "scale": 10
+    },
+    {
+      "idx": 4,
+      "name": "SDP",
+      "w.addr": "D24286",
+      "r.addr": "D25688",
+      "scale": 1
+    },
+    {
+      "idx": 5,
+      "name": "FL",
+      "w.addr": "D24252",
+      "r.addr": "D25614",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "SC",
+      "w.addr": "D24259",
+      "r.addr": "D25621",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "CT",
+      "w.addr": "D24269",
+      "r.addr": "D25634",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "BS",
+      "w.addr": "D24251",
+      "r.addr": "D25613",
+      "scale": 10
+    },
+    {
+      "idx": 9,
+      "name": "X1",
+      "w.addr": "D24253",
+      "r.addr": "D25615",
+      "scale": 10
+    },
+    {
+      "idx": 10,
+      "name": "Y1",
+      "w.addr": "D24254",
+      "r.addr": "D25616",
+      "scale": 10
+    },
+    {
+      "idx": 11,
+      "name": "X2",
+      "w.addr": "D24255",
+      "r.addr": "D25617",
+      "scale": 10
+    },
+    {
+      "idx": 12,
+      "name": "Y2",
+      "w.addr": "D24256",
+      "r.addr": "D25618",
+      "scale": 10
+    },
+    {
+      "idx": 13,
+      "name": "X3",
+      "w.addr": "D24257",
+      "r.addr": "D25619",
+      "scale": 10
+    },
+    {
+      "idx": 14,
+      "name": "Y3",
+      "w.addr": "D24258",
+      "r.addr": "D25620",
+      "scale": 10
+    },
+    {
+      "idx": 15,
+      "name": "P",
+      "w.addr": "D24270",
+      "r.addr": "D25641",
+      "scale": 10
+    },
+    {
+      "idx": 16,
+      "name": "I",
+      "w.addr": "D24271",
+      "r.addr": "D25642",
+      "scale": 1
+    },
+    {
+      "idx": 17,
+      "name": "D",
+      "w.addr": "D24272",
+      "r.addr": "D25643",
+      "scale": 1
+    },
+    {
+      "idx": 18,
+      "name": "MR",
+      "w.addr": "D24275",
+      "r.addr": "D25646",
+      "scale": 10
+    },
+    {
+      "idx": 19,
+      "name": "OH",
+      "w.addr": "D24273",
+      "r.addr": "D25644",
+      "scale": 10
+    },
+    {
+      "idx": 20,
+      "name": "OL",
+      "w.addr": "D24274",
+      "r.addr": "D25645",
+      "scale": 10
+    }
+  ],
+  "motor_chamber": [
+    {
+      "idx": 0,
+      "name": "RH",
+      "w.addr": "D24331",
+      "r.addr": "D25783",
+      "scale": 100
+    },
+    {
+      "idx": 1,
+      "name": "RL",
+      "w.addr": "D24332",
+      "r.addr": "D25784",
+      "scale": 100
+    },
+    {
+      "idx": 2,
+      "name": "SH",
+      "w.addr": "D24334",
+      "r.addr": "D25786",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "SL",
+      "w.addr": "D24335",
+      "r.addr": "D25787",
+      "scale": 10
+    },
+    {
+      "idx": 4,
+      "name": "SDP",
+      "w.addr": "D24336",
+      "r.addr": "D25788",
+      "scale": 1
+    },
+    {
+      "idx": 5,
+      "name": "FL",
+      "w.addr": "D24302",
+      "r.addr": "D25714",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "SC",
+      "w.addr": "D24309",
+      "r.addr": "D25721",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "CT",
+      "w.addr": "D24319",
+      "r.addr": "D25734",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "BS",
+      "w.addr": "D24301",
+      "r.addr": "D25713",
+      "scale": 10
+    },
+    {
+      "idx": 9,
+      "name": "X1",
+      "w.addr": "D24303",
+      "r.addr": "D25715",
+      "scale": 10
+    },
+    {
+      "idx": 10,
+      "name": "Y1",
+      "w.addr": "D24304",
+      "r.addr": "D25716",
+      "scale": 10
+    },
+    {
+      "idx": 11,
+      "name": "X2",
+      "w.addr": "D24305",
+      "r.addr": "D25717",
+      "scale": 10
+    },
+    {
+      "idx": 12,
+      "name": "Y2",
+      "w.addr": "D24306",
+      "r.addr": "D25718",
+      "scale": 10
+    },
+    {
+      "idx": 13,
+      "name": "X3",
+      "w.addr": "D24307",
+      "r.addr": "D25719",
+      "scale": 10
+    },
+    {
+      "idx": 14,
+      "name": "Y3",
+      "w.addr": "D24308",
+      "r.addr": "D25720",
+      "scale": 10
+    },
+    {
+      "idx": 15,
+      "name": "P",
+      "w.addr": "D24320",
+      "r.addr": "D25741",
+      "scale": 10
+    },
+    {
+      "idx": 16,
+      "name": "I",
+      "w.addr": "D24321",
+      "r.addr": "D25742",
+      "scale": 1
+    },
+    {
+      "idx": 17,
+      "name": "D",
+      "w.addr": "D24322",
+      "r.addr": "D25743",
+      "scale": 1
+    },
+    {
+      "idx": 18,
+      "name": "MR",
+      "w.addr": "D24325",
+      "r.addr": "D25746",
+      "scale": 10
+    },
+    {
+      "idx": 19,
+      "name": "OH",
+      "w.addr": "D24323",
+      "r.addr": "D25744",
+      "scale": 10
+    },
+    {
+      "idx": 20,
+      "name": "OL",
+      "w.addr": "D24324",
+      "r.addr": "D25745",
+      "scale": 10
+    }
+  ],
+  "motor_cooling": [
+    {
+      "idx": 0,
+      "name": "RH",
+      "w.addr": "D24381",
+      "r.addr": "D25883",
+      "scale": 100
+    },
+    {
+      "idx": 1,
+      "name": "RL",
+      "w.addr": "D24382",
+      "r.addr": "D25884",
+      "scale": 100
+    },
+    {
+      "idx": 2,
+      "name": "SH",
+      "w.addr": "D24384",
+      "r.addr": "D25886",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "SL",
+      "w.addr": "D24385",
+      "r.addr": "D25887",
+      "scale": 10
+    },
+    {
+      "idx": 4,
+      "name": "SDP",
+      "w.addr": "D24386",
+      "r.addr": "D25888",
+      "scale": 1
+    },
+    {
+      "idx": 5,
+      "name": "FL",
+      "w.addr": "D24352",
+      "r.addr": "D25814",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "SC",
+      "w.addr": "D24359",
+      "r.addr": "D25821",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "CT",
+      "w.addr": "D24369",
+      "r.addr": "D25834",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "BS",
+      "w.addr": "D24351",
+      "r.addr": "D25813",
+      "scale": 10
+    },
+    {
+      "idx": 9,
+      "name": "X1",
+      "w.addr": "D24353",
+      "r.addr": "D25815",
+      "scale": 10
+    },
+    {
+      "idx": 10,
+      "name": "Y1",
+      "w.addr": "D24354",
+      "r.addr": "D25816",
+      "scale": 10
+    },
+    {
+      "idx": 11,
+      "name": "X2",
+      "w.addr": "D24355",
+      "r.addr": "D25817",
+      "scale": 10
+    },
+    {
+      "idx": 12,
+      "name": "Y2",
+      "w.addr": "D24356",
+      "r.addr": "D25818",
+      "scale": 10
+    },
+    {
+      "idx": 13,
+      "name": "X3",
+      "w.addr": "D24357",
+      "r.addr": "D25819",
+      "scale": 10
+    },
+    {
+      "idx": 14,
+      "name": "Y3",
+      "w.addr": "D24358",
+      "r.addr": "D25820",
+      "scale": 10
+    },
+    {
+      "idx": 15,
+      "name": "P",
+      "w.addr": "D24370",
+      "r.addr": "D25841",
+      "scale": 10
+    },
+    {
+      "idx": 16,
+      "name": "I",
+      "w.addr": "D24371",
+      "r.addr": "D25842",
+      "scale": 1
+    },
+    {
+      "idx": 17,
+      "name": "D",
+      "w.addr": "D24372",
+      "r.addr": "D25843",
+      "scale": 1
+    },
+    {
+      "idx": 18,
+      "name": "MR",
+      "w.addr": "D24375",
+      "r.addr": "D25846",
+      "scale": 10
+    },
+    {
+      "idx": 19,
+      "name": "OH",
+      "w.addr": "D24373",
+      "r.addr": "D25844",
+      "scale": 10
+    },
+    {
+      "idx": 20,
+      "name": "OL",
+      "w.addr": "D24374",
+      "r.addr": "D25845",
+      "scale": 10
+    }
+  ],
+  "inner_temp_1": [
+    {
+      "idx": 0,
+      "name": "RH",
+      "w.addr": "D24431",
+      "r.addr": "D25983",
+      "scale": 10
+    },
+    {
+      "idx": 1,
+      "name": "RL",
+      "w.addr": "D24432",
+      "r.addr": "D25984",
+      "scale": 10
+    },
+    {
+      "idx": 2,
+      "name": "SH",
+      "w.addr": null,
+      "r.addr": "D25986",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "SL",
+      "w.addr": null,
+      "r.addr": "D25987",
+      "scale": 10
+    },
+    {
+      "idx": 4,
+      "name": "SDP",
+      "w.addr": null,
+      "r.addr": "D25988",
+      "scale": 1
+    },
+    {
+      "idx": 5,
+      "name": "FL",
+      "w.addr": "D24402",
+      "r.addr": "D25914",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "SC",
+      "w.addr": "D24409",
+      "r.addr": "D25921",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "CT",
+      "w.addr": "D24419",
+      "r.addr": "D25934",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "BS",
+      "w.addr": "D24401",
+      "r.addr": "D25913",
+      "scale": 10
+    },
+    {
+      "idx": 9,
+      "name": "X1",
+      "w.addr": "D24403",
+      "r.addr": "D25915",
+      "scale": 10
+    },
+    {
+      "idx": 10,
+      "name": "Y1",
+      "w.addr": "D24404",
+      "r.addr": "D25916",
+      "scale": 10
+    },
+    {
+      "idx": 11,
+      "name": "X2",
+      "w.addr": "D24405",
+      "r.addr": "D25917",
+      "scale": 10
+    },
+    {
+      "idx": 12,
+      "name": "Y2",
+      "w.addr": "D24406",
+      "r.addr": "D25918",
+      "scale": 10
+    },
+    {
+      "idx": 13,
+      "name": "X3",
+      "w.addr": "D24407",
+      "r.addr": "D25919",
+      "scale": 10
+    },
+    {
+      "idx": 14,
+      "name": "Y3",
+      "w.addr": "D24408",
+      "r.addr": "D25920",
+      "scale": 10
+    },
+    {
+      "idx": 15,
+      "name": "P",
+      "w.addr": "D24420",
+      "r.addr": "D25941",
+      "scale": 10
+    },
+    {
+      "idx": 16,
+      "name": "I",
+      "w.addr": "D24421",
+      "r.addr": "D25942",
+      "scale": 1
+    },
+    {
+      "idx": 17,
+      "name": "D",
+      "w.addr": "D24422",
+      "r.addr": "D25943",
+      "scale": 1
+    },
+    {
+      "idx": 18,
+      "name": "MR",
+      "w.addr": "D24425",
+      "r.addr": "D25946",
+      "scale": 10
+    },
+    {
+      "idx": 19,
+      "name": "OH",
+      "w.addr": "D24423",
+      "r.addr": "D25944",
+      "scale": 10
+    },
+    {
+      "idx": 20,
+      "name": "OL",
+      "w.addr": "D24424",
+      "r.addr": "D25945",
+      "scale": 10
+    }
+  ],
+  "inner_temp_2": [
+    {
+      "idx": 0,
+      "name": "RH",
+      "w.addr": "D24481",
+      "r.addr": "D26083",
+      "scale": 10
+    },
+    {
+      "idx": 1,
+      "name": "RL",
+      "w.addr": "D24482",
+      "r.addr": "D26084",
+      "scale": 10
+    },
+    {
+      "idx": 2,
+      "name": "SH",
+      "w.addr": null,
+      "r.addr": "D26086",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "SL",
+      "w.addr": null,
+      "r.addr": "D26087",
+      "scale": 10
+    },
+    {
+      "idx": 4,
+      "name": "SDP",
+      "w.addr": null,
+      "r.addr": "D26088",
+      "scale": 1
+    },
+    {
+      "idx": 5,
+      "name": "FL",
+      "w.addr": "D24452",
+      "r.addr": "D26014",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "SC",
+      "w.addr": "D24459",
+      "r.addr": "D26021",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "CT",
+      "w.addr": "D24469",
+      "r.addr": "D26034",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "BS",
+      "w.addr": "D24451",
+      "r.addr": "D26013",
+      "scale": 10
+    },
+    {
+      "idx": 9,
+      "name": "X1",
+      "w.addr": "D24453",
+      "r.addr": "D26015",
+      "scale": 10
+    },
+    {
+      "idx": 10,
+      "name": "Y1",
+      "w.addr": "D24454",
+      "r.addr": "D26016",
+      "scale": 10
+    },
+    {
+      "idx": 11,
+      "name": "X2",
+      "w.addr": "D24455",
+      "r.addr": "D26017",
+      "scale": 10
+    },
+    {
+      "idx": 12,
+      "name": "Y2",
+      "w.addr": "D24456",
+      "r.addr": "D26018",
+      "scale": 10
+    },
+    {
+      "idx": 13,
+      "name": "X3",
+      "w.addr": "D24457",
+      "r.addr": "D26019",
+      "scale": 10
+    },
+    {
+      "idx": 14,
+      "name": "Y3",
+      "w.addr": "D24458",
+      "r.addr": "D26020",
+      "scale": 10
+    },
+    {
+      "idx": 15,
+      "name": "P",
+      "w.addr": "D24470",
+      "r.addr": "D26041",
+      "scale": 10
+    },
+    {
+      "idx": 16,
+      "name": "I",
+      "w.addr": "D24471",
+      "r.addr": "D26042",
+      "scale": 1
+    },
+    {
+      "idx": 17,
+      "name": "D",
+      "w.addr": "D24472",
+      "r.addr": "D26043",
+      "scale": 1
+    },
+    {
+      "idx": 18,
+      "name": "MR",
+      "w.addr": "D24475",
+      "r.addr": "D26046",
+      "scale": 10
+    },
+    {
+      "idx": 19,
+      "name": "OH",
+      "w.addr": "D24473",
+      "r.addr": "D26044",
+      "scale": 10
+    },
+    {
+      "idx": 20,
+      "name": "OL",
+      "w.addr": "D24474",
+      "r.addr": "D26045",
+      "scale": 10
+    }
+  ],
+  "inner_temp_3": [
+    {
+      "idx": 0,
+      "name": "RH",
+      "w.addr": "D24531",
+      "r.addr": "D26183",
+      "scale": 10
+    },
+    {
+      "idx": 1,
+      "name": "RL",
+      "w.addr": "D24532",
+      "r.addr": "D26184",
+      "scale": 10
+    },
+    {
+      "idx": 2,
+      "name": "SH",
+      "w.addr": null,
+      "r.addr": "D26186",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "SL",
+      "w.addr": null,
+      "r.addr": "D26187",
+      "scale": 10
+    },
+    {
+      "idx": 4,
+      "name": "SDP",
+      "w.addr": null,
+      "r.addr": "D26188",
+      "scale": 1
+    },
+    {
+      "idx": 5,
+      "name": "FL",
+      "w.addr": "D24502",
+      "r.addr": "D26114",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "SC",
+      "w.addr": "D24509",
+      "r.addr": "D26121",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "CT",
+      "w.addr": "D24519",
+      "r.addr": "D26134",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "BS",
+      "w.addr": "D24501",
+      "r.addr": "D26113",
+      "scale": 10
+    },
+    {
+      "idx": 9,
+      "name": "X1",
+      "w.addr": "D24503",
+      "r.addr": "D26115",
+      "scale": 10
+    },
+    {
+      "idx": 10,
+      "name": "Y1",
+      "w.addr": "D24504",
+      "r.addr": "D26116",
+      "scale": 10
+    },
+    {
+      "idx": 11,
+      "name": "X2",
+      "w.addr": "D24505",
+      "r.addr": "D26117",
+      "scale": 10
+    },
+    {
+      "idx": 12,
+      "name": "Y2",
+      "w.addr": "D24506",
+      "r.addr": "D26118",
+      "scale": 10
+    },
+    {
+      "idx": 13,
+      "name": "X3",
+      "w.addr": "D24507",
+      "r.addr": "D26119",
+      "scale": 10
+    },
+    {
+      "idx": 14,
+      "name": "Y3",
+      "w.addr": "D24508",
+      "r.addr": "D26120",
+      "scale": 10
+    },
+    {
+      "idx": 15,
+      "name": "P",
+      "w.addr": "D24520",
+      "r.addr": "D26141",
+      "scale": 10
+    },
+    {
+      "idx": 16,
+      "name": "I",
+      "w.addr": "D24521",
+      "r.addr": "D26142",
+      "scale": 1
+    },
+    {
+      "idx": 17,
+      "name": "D",
+      "w.addr": "D24522",
+      "r.addr": "D26143",
+      "scale": 1
+    },
+    {
+      "idx": 18,
+      "name": "MR",
+      "w.addr": "D24525",
+      "r.addr": "D26146",
+      "scale": 10
+    },
+    {
+      "idx": 19,
+      "name": "OH",
+      "w.addr": "D24523",
+      "r.addr": "D26144",
+      "scale": 10
+    },
+    {
+      "idx": 20,
+      "name": "OL",
+      "w.addr": "D24524",
+      "r.addr": "D26145",
+      "scale": 10
+    }
+  ],
+  "inner_temp_4": [
+    {
+      "idx": 0,
+      "name": "RH",
+      "w.addr": "D24581",
+      "r.addr": "D26283",
+      "scale": 10
+    },
+    {
+      "idx": 1,
+      "name": "RL",
+      "w.addr": "D24582",
+      "r.addr": "D26284",
+      "scale": 10
+    },
+    {
+      "idx": 2,
+      "name": "SH",
+      "w.addr": null,
+      "r.addr": "D26286",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "SL",
+      "w.addr": null,
+      "r.addr": "D26287",
+      "scale": 10
+    },
+    {
+      "idx": 4,
+      "name": "SDP",
+      "w.addr": null,
+      "r.addr": "D26288",
+      "scale": 1
+    },
+    {
+      "idx": 5,
+      "name": "FL",
+      "w.addr": "D24552",
+      "r.addr": "D26214",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "SC",
+      "w.addr": "D24559",
+      "r.addr": "D26221",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "CT",
+      "w.addr": "D24569",
+      "r.addr": "D26234",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "BS",
+      "w.addr": "D24551",
+      "r.addr": "D26213",
+      "scale": 10
+    },
+    {
+      "idx": 9,
+      "name": "X1",
+      "w.addr": "D24553",
+      "r.addr": "D26215",
+      "scale": 10
+    },
+    {
+      "idx": 10,
+      "name": "Y1",
+      "w.addr": "D24554",
+      "r.addr": "D26216",
+      "scale": 10
+    },
+    {
+      "idx": 11,
+      "name": "X2",
+      "w.addr": "D24555",
+      "r.addr": "D26217",
+      "scale": 10
+    },
+    {
+      "idx": 12,
+      "name": "Y2",
+      "w.addr": "D24556",
+      "r.addr": "D26218",
+      "scale": 10
+    },
+    {
+      "idx": 13,
+      "name": "X3",
+      "w.addr": "D24557",
+      "r.addr": "D26219",
+      "scale": 10
+    },
+    {
+      "idx": 14,
+      "name": "Y3",
+      "w.addr": "D24558",
+      "r.addr": "D26220",
+      "scale": 10
+    },
+    {
+      "idx": 15,
+      "name": "P",
+      "w.addr": "D24570",
+      "r.addr": "D26241",
+      "scale": 10
+    },
+    {
+      "idx": 16,
+      "name": "I",
+      "w.addr": "D24571",
+      "r.addr": "D26242",
+      "scale": 1
+    },
+    {
+      "idx": 17,
+      "name": "D",
+      "w.addr": "D24572",
+      "r.addr": "D26243",
+      "scale": 1
+    },
+    {
+      "idx": 18,
+      "name": "MR",
+      "w.addr": "D24575",
+      "r.addr": "D26246",
+      "scale": 10
+    },
+    {
+      "idx": 19,
+      "name": "OH",
+      "w.addr": "D24573",
+      "r.addr": "D26244",
+      "scale": 10
+    },
+    {
+      "idx": 20,
+      "name": "OL",
+      "w.addr": "D24574",
+      "r.addr": "D26245",
+      "scale": 10
+    }
+  ]
+}

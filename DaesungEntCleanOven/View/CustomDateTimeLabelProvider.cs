@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SciChart.Data.Model;
 using SciChart.Charting.Visuals.Axes.LabelProviders;
 
-namespace DaesungEntCleanOven.View
+namespace DaesungEntCleanOven4.View
 {
     public class CustomDateTimeLabelProvider : DateTimeLabelProvider
     {

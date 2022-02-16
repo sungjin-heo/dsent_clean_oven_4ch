@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DaesungEntCleanOven.ViewModel;
+using DaesungEntCleanOven4.ViewModel;
 
-namespace DaesungEntCleanOven.Equipment
+namespace DaesungEntCleanOven4.Equipment
 {
     class ZoneParameters
     {

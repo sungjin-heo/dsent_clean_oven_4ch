@@ -1,0 +1,32 @@
+{
+	"device": {
+		"clean_oven_chamber": {
+			"addr": "192.168.0.2",
+			"port": 12289,
+			"latency_query_interval": 300,
+			"latency_query_items": "RH,RL,SH,SL,SDP,FL,SC,CT,BS,X1,Y1 X2,Y2,X3,Y3,P,I,D,MR,OH,OL,manctl_n2_inp_valve,manctl_n2_bypass_valve,manctl_force_exhaust_valve_close,manctl_o2_analyzer_valve,manctl_cooling_water_valve,manctl_main_heater,manctl_cooling_fan,manctl_motor_chamber,manctl_eva_valve"
+		},
+		"analyzer": {
+			"id": 3,
+			"port": "COM3",
+			"baud_rate": 9600
+		}
+	},
+	"pattern": {
+		"dir": "D:\\APP\\DAESUNG-ENT\\CLEAN_OVEN\\CH3\\PATTERN",
+		"last_selected_pattern": 1
+	},
+	"log": {
+		"alarm": {
+			"dir": "D:\\APP\\DAESUNG-ENT\\CLEAN_OVEN\\CH3\\LOG\\ALARM"
+		},
+		"csv": {
+			"intv": 10,
+			"dir": "D:\\APP\\DAESUNG-ENT\\CLEAN_OVEN\\CH3\\LOG\\EXCEL"
+		},
+		"binary": {
+			"intv": 10,
+			"dir": "D:\\APP\\DAESUNG-ENT\\CLEAN_OVEN\\CH3\\LOG\\GRAPH"
+		}
+	}
+}

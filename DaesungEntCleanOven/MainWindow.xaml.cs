@@ -12,9 +12,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DevExpress.Xpf.Ribbon;
-using DaesungEntCleanOven.ViewModel;
+using DaesungEntCleanOven4.ViewModel;
 
-namespace DaesungEntCleanOven
+namespace DaesungEntCleanOven4
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -27,7 +27,7 @@ namespace DaesungEntCleanOven
         }
         void DXRibbonWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (this.DataContext is ViewModel.MainViewModel Model) {
+            if (this.DataContext is ViewModel.ChannelViewModel Model) {
                 Model.PropertyChanged += (s, arg) => {
                     switch (arg.PropertyName)
                     {
@@ -65,7 +65,6 @@ namespace DaesungEntCleanOven
                     }
                 };
             }
-
         }
     }
 }

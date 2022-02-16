@@ -1,0 +1,364 @@
+{
+  "numerics": [
+    {
+      "idx": 0,
+      "name": "temp_pv",
+      "w.addr": null,
+      "r.addr": "D38021",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 1,
+      "name": "temp_sv",
+      "w.addr": "D30041",
+      "r.addr": "D38022",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 2,
+      "name": "temp_tsv",
+      "w.addr": null,
+      "r.addr": "D38023",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 3,
+      "name": "temp_mv",
+      "w.addr": null,
+      "r.addr": "D38024",
+      "scale": 10,
+      "unit": "%"
+    },
+    {
+      "idx": 4,
+      "name": "pattern_no",
+      "w.addr": "D30079",
+      "r.addr": "D38009",
+      "scale": 1,
+      "unit": ""
+    },
+    {
+      "idx": 5,
+      "name": "seg_curr",
+      "w.addr": null,
+      "r.addr": "D38010",
+      "scale": 1,
+      "unit": ""
+    },
+    {
+      "idx": 6,
+      "name": "seg_counts",
+      "w.addr": null,
+      "r.addr": "D38011",
+      "scale": 1,
+      "unit": ""
+    },
+    {
+      "idx": 7,
+      "name": "seg_remain",
+      "w.addr": null,
+      "r.addr": "D38012",
+      "scale": 1,
+      "unit": ""
+    },
+    {
+      "idx": 8,
+      "name": "seg_duration",
+      "w.addr": null,
+      "r.addr": "D38014",
+      "scale": 1,
+      "unit": ""
+    },
+    {
+      "idx": 9,
+      "name": "total_run_time",
+      "w.addr": null,
+      "r.addr": "D38016",
+      "scale": 1,
+      "unit": ""
+    },
+    {
+      "idx": 10,
+      "name": "end_time",
+      "w.addr": null,
+      "r.addr": null,
+      "scale": 1,
+      "unit": ""
+    },
+    {
+      "idx": 11,
+      "name": "diff_press_chamber_pv",
+      "w.addr": null,
+      "r.addr": "D38027",
+      "scale": 10,
+      "unit": "mmH20"
+    },
+    {
+      "idx": 12,
+      "name": "diff_press_chamber_sv",
+      "w.addr": null,
+      "r.addr": "D38028",
+      "scale": 10,
+      "unit": "mmH20"
+    },
+    {
+      "idx": 13,
+      "name": "diff_press_chamber_mv",
+      "w.addr": null,
+      "r.addr": "D38029",
+      "scale": 10,
+      "unit": "%"
+    },
+    {
+      "idx": 14,
+      "name": "diff_press_filter_pv",
+      "w.addr": null,
+      "r.addr": "D38030",
+      "scale": 10,
+      "unit": "mmH20"
+    },
+    {
+      "idx": 15,
+      "name": "motor_chamber_pv",
+      "w.addr": null,
+      "r.addr": "D38033",
+      "scale": 10,
+      "unit": "Hz"
+    },
+    {
+      "idx": 16,
+      "name": "motor_chamber_sv",
+      "w.addr": null,
+      "r.addr": "D38034",
+      "scale": 10,
+      "unit": "Hz"
+    },
+    {
+      "idx": 17,
+      "name": "motor_chamber_mv",
+      "w.addr": null,
+      "r.addr": "D38035",
+      "scale": 10,
+      "unit": "%"
+    },
+    {
+      "idx": 18,
+      "name": "motor_cooling_pv",
+      "w.addr": null,
+      "r.addr": "D38036",
+      "scale": 10,
+      "unit": "Hz"
+    },
+    {
+      "idx": 19,
+      "name": "motor_cooling_sv",
+      "w.addr": null,
+      "r.addr": "D38037",
+      "scale": 10,
+      "unit": "Hz"
+    },
+    {
+      "idx": 20,
+      "name": "motor_cooling_mv",
+      "w.addr": null,
+      "r.addr": "D38038",
+      "scale": 10,
+      "unit": "%"
+    },
+    {
+      "idx": 21,
+      "name": "mfc_pv",
+      "w.addr": null,
+      "r.addr": "D30051",
+      "scale": 10,
+      "unit": "l/min"
+    },
+    {
+      "idx": 22,
+      "name": "mfc_sv",
+      "w.addr": null,
+      "r.addr": "D30052",
+      "scale": 10,
+      "unit": "l/min"
+    },
+    {
+      "idx": 23,
+      "name": "inner_temp1",
+      "w.addr": null,
+      "r.addr": "D30031",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 24,
+      "name": "inner_temp2",
+      "w.addr": null,
+      "r.addr": "D30032",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 25,
+      "name": "inner_temp3",
+      "w.addr": null,
+      "r.addr": "D30033",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 26,
+      "name": "inner_temp4",
+      "w.addr": null,
+      "r.addr": "D30034",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 27,
+      "name": "chamber_ot",
+      "w.addr": null,
+      "r.addr": "D30016",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 28,
+      "name": "heater_ot",
+      "w.addr": null,
+      "r.addr": "D30017",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 29,
+      "name": "o2_analyzer_temp",
+      "w.addr": "D30056",
+      "r.addr": "D30056",
+      "scale": 1,
+      "unit": "℃"
+    },
+    {
+      "idx": 30,
+      "name": "o2_analyzer_emf",
+      "w.addr": "D30057",
+      "r.addr": "D30057",
+      "scale": 1,
+      "unit": "mV"
+    },
+    {
+      "idx": 31,
+      "name": "o2_analyzer_concentration_ppm",
+      "w.addr": "D30058",
+      "r.addr": "D30058",
+      "scale": 1,
+      "unit": "ppm"
+    },
+    {
+      "idx": 32,
+      "name": "manctl_temp_sv",
+      "w.addr": "D30041",
+      "r.addr": "D38071",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 33,
+      "name": "manctl_diff_press_sv",
+      "w.addr": "D30042",
+      "r.addr": "D38072",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 34,
+      "name": "manctl_motor_chamber_sv",
+      "w.addr": "D30043",
+      "r.addr": "D38073",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 35,
+      "name": "manctl_motor_cooling_sv",
+      "w.addr": "D30044",
+      "r.addr": "D38074",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 36,
+      "name": "manctl_mfc_sv",
+      "w.addr": "D30048",
+      "r.addr": "D38078",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 37,
+      "name": "manctl_temp_sv_inc_rate",
+      "w.addr": "D30046",
+      "r.addr": "D38076",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 38,
+      "name": "manctl_temp_sv_dec_rate",
+      "w.addr": "D30047",
+      "r.addr": "D38077",
+      "scale": 10,
+      "unit": "℃"
+    },
+    {
+      "idx": 39,
+      "name": "auto_tune_state",
+      "w.addr": null,
+      "r.addr": "D40111",
+      "scale": 1,
+      "unit": ""
+    },
+    {
+      "idx": 40,
+      "name": "diff_press_chamber_init_mv",
+      "w.addr": "D30081",
+      "r.addr": "D38115",
+      "scale": 10,
+      "unit": "%"
+    },
+    {
+      "idx": 41,
+      "name": "diff_press_chamber_init_man_ctl_time",
+      "w.addr": "D30082",
+      "r.addr": "D38116",
+      "scale": 10,
+      "unit": "sec"
+    },
+    {
+      "idx": 42,
+      "name": "sysctl",
+      "w.addr": "D30099",
+      "r.addr": "D30099",
+      "scale": 1,
+      "unit": ""
+    },
+    {
+      "idx": 43,
+      "name": "mfc_mv",
+      "w.addr": null,
+      "r.addr": "D30054",
+      "scale": 10,
+      "unit": "%"
+    },
+    {
+      "idx": 44,
+      "name": "o2_analyzer_comm_err",
+      "w.addr": "D30059",
+      "r.addr": null,
+      "scale": 1,
+      "unit": ""
+    }
+  ]
+}

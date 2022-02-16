@@ -1,0 +1,217 @@
+﻿<UserControl x:Class="DaesungEntCleanOven4.View.ChannelSummaryPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cc="clr-namespace:CustomControls"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             mc:Ignorable="d" Background="White"
+             d:DesignHeight="415" d:DesignWidth="630">
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:EventToCommand EventName="PreviewMouseDoubleClick" Command="{Binding MoveToDetailViewCommand}" PassEventArgsToCommand="False"/>
+    </dxmvvm:Interaction.Behaviors>
+
+    <Grid DataContext="{Binding CleanOvenChamber}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--SYSTEM STATUS-->
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" 
+                     Text="{Binding FormattedCleanOvenStatus, Mode=OneWay}" 
+                     Style="{StaticResource CaptionTextBox}" Margin="0" HorizontalContentAlignment="Left" Padding="10,0,0,0"
+                     Background="#FF222222" Foreground="Gold" FontWeight="Normal" FontSize="12" IsReadOnly="True" FontFamily="휴먼엑스포"/>
+
+            <cc:Indicator Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,-1,0,0"
+                          RangeVisibility="Collapsed" Title="TEMP. PV" Foreground="Red" TitleColor="Black" TitleSize="11"
+                          FormattedValue="{Binding NumericValues[0].FormattedValue, Mode=OneWay}" Unit="℃" FontSize="36" UnitSize="12" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="1" Grid.Column="2" Text="SV" Style="{StaticResource CaptionTextBox}" Margin="-1,-1,0,0" Background="LightSteelBlue"  Foreground="Black"/>
+            <cc:Indicator Grid.Row="1" Grid.Column="3" Margin="-1,-1,0,0" 
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[1].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="2" Grid.Column="2" Text="TSV" Style="{StaticResource CaptionTextBox}" Margin="-1,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="2" Grid.Column="3" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[2].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="3" Grid.Column="2" Text="MV" Style="{StaticResource CaptionTextBox}" Margin="-1,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="3" Grid.Column="3" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[3].FormattedValue, Mode=OneWay}" Unit="%" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="4" Grid.Column="0" Text="패턴 정보" Style="{StaticResource CaptionTextBox}" Margin="0,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding FormattedPatten, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Margin="-1,-1,0,0"  Foreground="Black" HorizontalContentAlignment="Left" Padding="5,2" FontWeight="Bold"/>
+            
+            <TextBox Grid.Row="1" Grid.Column="4" Text="세그 먼트" Style="{StaticResource CaptionTextBox}" Margin="-1,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding FormattedSegment, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Margin="-1,-1,0,0"  Foreground="Black" FontWeight="Bold"/>
+            
+            <TextBox Grid.Row="2" Grid.Column="4" Text="총 운전시간" Style="{StaticResource CaptionTextBox}" Margin="-1,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding FormattedTotalRunTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Margin="-1,-1,0,0"  Foreground="Black" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="3" Grid.Column="4" Text="세그 시간" Style="{StaticResource CaptionTextBox}" Margin="-1,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <TextBox Grid.Row="3" Grid.Column="5" Text="{Binding FormattedSegmentTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Margin="-1,-1,0,0" Foreground="Black" FontWeight="Bold"/>
+            
+            <TextBox Grid.Row="4" Grid.Column="4" Text="종료 시간" Style="{StaticResource CaptionTextBox}" Margin="-1,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding FormattedCloseTime, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Margin="-1,-1,0,0" Foreground="Black" FontWeight="Bold"/>
+        </Grid>
+        
+        <!--MESUREMENT PARAMETERS-->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="3"/>
+
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="3"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Row="0" Grid.Column="0" Style="{StaticResource CaptionTextBox}" Margin="0" Background="LightSteelBlue" />
+            <TextBox Grid.Row="1" Grid.Column="0" Text="PV" Style="{StaticResource CaptionTextBox}" Margin="0,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <TextBox Grid.Row="2" Grid.Column="0" Text="SV" Style="{StaticResource CaptionTextBox}" Margin="0,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <TextBox Grid.Row="3" Grid.Column="0" Text="MV" Style="{StaticResource CaptionTextBox}" Margin="0,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
+
+            <TextBox Grid.Row="0" Grid.Column="1" Text="차압 챔버" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+
+            <cc:Indicator Grid.Row="1" Grid.Column="1" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[11].FormattedValue, Mode=OneWay}" Unit="mmH20" FontWeight="Bold" UnitSize="9"/>
+            <cc:Indicator Grid.Row="2" Grid.Column="1" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[12].FormattedValue, Mode=OneWay}" Unit="mmH20" FontWeight="Bold" UnitSize="9"/>
+            <cc:Indicator Grid.Row="3" Grid.Column="1" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[13].FormattedValue, Mode=OneWay}" Unit="%" FontWeight="Bold" UnitSize="9"/>
+
+            <TextBox Grid.Row="0" Grid.Column="2" Text="차압 필터" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="1" Grid.Column="2" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[14].FormattedValue, Mode=OneWay}" Unit="mmH20" FontWeight="Bold" UnitSize="9"/>
+            <cc:Indicator Grid.Row="2" Grid.Column="2" Margin="-1,-1,0,0" Background="#FFDDDDDD"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="" Unit="" FontWeight="Bold" UnitSize="9"/>
+            <cc:Indicator Grid.Row="3" Grid.Column="2" Margin="-1,-1,0,0" Background="#FFDDDDDD"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="" Unit="" FontWeight="Bold" UnitSize="9"/>
+
+            <TextBox Grid.Row="0" Grid.Column="3" Text="모터 챔버" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="1" Grid.Column="3" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[15].FormattedValue, Mode=OneWay}" Unit="Hz" FontWeight="Bold"/>
+            <cc:Indicator Grid.Row="2" Grid.Column="3" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[16].FormattedValue, Mode=OneWay}" Unit="Hz" FontWeight="Bold"/>
+            <cc:Indicator Grid.Row="3" Grid.Column="3" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[17].FormattedValue, Mode=OneWay}" Unit="%" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="0" Grid.Column="4" Text="모터 쿨링" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="1" Grid.Column="4" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[18].FormattedValue, Mode=OneWay}" Unit="Hz" FontWeight="Bold"/>
+            <cc:Indicator Grid.Row="2" Grid.Column="4" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[19].FormattedValue, Mode=OneWay}" Unit="Hz" FontWeight="Bold"/>
+            <cc:Indicator Grid.Row="3" Grid.Column="4" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[20].FormattedValue, Mode=OneWay}" Unit="%" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="0" Grid.Column="5" Text="MFC" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="1" Grid.Column="5" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[21].FormattedValue, Mode=OneWay}" Unit="l/min" FontWeight="Bold"/>
+            <cc:Indicator Grid.Row="2" Grid.Column="5" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[22].FormattedValue, Mode=OneWay}" Unit="l/min" FontWeight="Bold"/>
+            <cc:Indicator Grid.Row="3" Grid.Column="5" Margin="-1,-1,0,0"
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[43].FormattedValue, Mode=OneWay}" Unit="%" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="5" Grid.Column="0" Style="{StaticResource CaptionTextBox}" Margin="0" Background="LightSteelBlue"/>
+            <TextBox Grid.Row="6" Grid.Column="0" Text="PV" Style="{StaticResource CaptionTextBox}" Margin="0,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
+
+            <TextBox Grid.Row="5" Grid.Column="1" Text="내부 온도 #1" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="6" Grid.Column="1" Margin="-1,-1,0,0" 
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[23].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="5" Grid.Column="2" Text="내부 온도 #2" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="6" Grid.Column="2" Margin="-1,-1,0,0" 
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[24].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="5" Grid.Column="3" Text="내부 온도 #3" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="6" Grid.Column="3" Margin="-1,-1,0,0" 
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[25].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="5" Grid.Column="4" Text="내부 온도 #4" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="6" Grid.Column="4" Margin="-1,-1,0,0" 
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[26].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="8" Grid.Column="0" Style="{StaticResource CaptionTextBox}" Margin="0" Background="LightSteelBlue"/>
+            <TextBox Grid.Row="9" Grid.Column="0" Text="PV" Style="{StaticResource CaptionTextBox}" Margin="0,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
+
+            <TextBox Grid.Row="8" Grid.Column="1" Text="챔버 OT" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="9" Grid.Column="1" Margin="-1,-1,0,0" 
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[27].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="8" Grid.Column="2" Text="히터 OT" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="9" Grid.Column="2" Margin="-1,-1,0,0" 
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[28].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
+
+            <TextBox Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="3" Text="O2 분석기" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+            <cc:Indicator Grid.Row="9" Grid.Column="3" Margin="-1,-1,0,0" 
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[29].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
+            <cc:Indicator Grid.Row="9" Grid.Column="4" Margin="-1,-1,0,0" 
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[30].FormattedValue, Mode=OneWay}" Unit="mV" FontWeight="Bold"/>
+            <cc:Indicator Grid.Row="9" Grid.Column="5" Margin="-1,-1,0,0" 
+                          TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[31].FormattedValue, Mode=OneWay}" Unit="ppm" FontWeight="Bold"/>
+        </Grid>
+        
+        <!--ALARM & STATE-->
+        <UniformGrid Grid.Row="4" Rows="2" Columns="6" Height="48">
+            <cc:Lamp Margin="0,0,0,0"   Label="PROG-초기운전" FontSize="11" FalseStateBackground="WhiteSmoke" FalseStateForeground="Black"
+                     State="{Binding Relays[3].Value, Mode=OneWay}"/>
+            <cc:Lamp Margin="-1,0,0,0"  Label="PROG-운전" FontSize="11" FalseStateBackground="WhiteSmoke" FalseStateForeground="Black"
+                     State="{Binding Relays[4].Value, Mode=OneWay}"/>
+            <cc:Lamp Margin="-1,0,0,0"  Label="PROG-종료 중" FontSize="11" FalseStateBackground="WhiteSmoke" FalseStateForeground="Black"
+                     State="{Binding Relays[5].Value, Mode=OneWay}"/>
+            <cc:Lamp Margin="-1,0,0,0"  Label="PROG-정지" FontSize="11" FalseStateBackground="Green" FalseStateForeground="White" TrueStateBackground="Black"
+                     State="{Binding Relays[0].Value, Mode=OneWay}"/>
+            <cc:Lamp Margin="-1,0,0,0"  Label="FIX 운전" FontSize="11" FalseStateBackground="WhiteSmoke" FalseStateForeground="Black"
+                     State="{Binding Relays[7].Value, Mode=OneWay}"/>
+            <cc:Lamp Margin="-1,0,0,0"  Label="PROG-운전HOLD" FontSize="11" FalseStateBackground="WhiteSmoke" FalseStateForeground="Black"
+                     State="{Binding Relays[1].Value, Mode=OneWay}"/>
+            <cc:Lamp Margin="0,-1,0,0"  Label="오토튜닝" FontSize="11" FalseStateBackground="WhiteSmoke" FalseStateForeground="Black"
+                     State="{Binding IsAutoTune, Mode=OneWay}"/>
+            <cc:Lamp Margin="-1,-1,0,0" Label="POWER-ON" FontSize="11" FalseStateBackground="WhiteSmoke" FalseStateForeground="Black"
+                     State="{Binding IoY[33].Value, Mode=OneWay}"/>
+            <cc:Lamp Margin="-1,-1,0,0" Label="도어열기-가능" FontSize="11" FalseStateBackground="WhiteSmoke" FalseStateForeground="Black"
+                     State="{Binding Relays[24].Value, Mode=OneWay}"/>
+            <cc:Lamp Margin="-1,-1,0,0" Label="도어열기-불가" FontSize="11" FalseStateBackground="Red" FalseStateForeground="White" TrueStateBackground="WhiteSmoke" TrueStateForeground="Black"
+                     State="{Binding Relays[24].Value, Mode=OneWay}"/>
+            <cc:Lamp Margin="-1,-1,0,0" Label="경보" FontSize="11" FalseStateBackground="WhiteSmoke" FalseStateForeground="Black" TrueStateBackground="Red"
+                     State="{Binding Relays[9].Value, Mode=OneWay}"/>
+            <cc:Lamp Margin="-1,-1,0,0" Label="" FontSize="11" FalseStateBackground="LightGray" FalseStateForeground="Black"/>
+        </UniformGrid>
+
+    </Grid>
+</UserControl>

@@ -10,7 +10,7 @@
    -->
    
    <appender name="RollingFile" type="log4net.Appender.RollingFileAppender">
-       <file value="D:\DAESUNG-ENT\CLEAN_OVEN\LOG\SYS\sys.log" />
+       <file value="D:\APP\DAESUNG-ENT\CLEAN_OVEN\LOG\sys.log"/>
        <appendToFile value="true" />
        <datePattern value="-yyyy-MM-dd" />
        <rollingStyle value="Date" />

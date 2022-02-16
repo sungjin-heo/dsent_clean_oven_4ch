@@ -3,28 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DaesungEntCleanOven4.Equipment;
 
-namespace DaesungEntCleanOven.ViewModel
+namespace DaesungEntCleanOven4.ViewModel
 {
     class RegRelay : ItemViewModel<bool>
     {
-        public RegRelay(string Name, string ReadAddr)
-           : this(Name, ReadAddr, null, null)
+        public RegRelay(Device.Yokogawa.PLC.YokogawaSequenceEth plc, string Name, string ReadAddr)
+           : this(plc, Name, ReadAddr, null, null)
+        {
+            
+        }
+        public RegRelay(Device.Yokogawa.PLC.YokogawaSequenceEth plc, string Name, string ReadAddr, int? Offset)
+            : this(plc, Name, ReadAddr, null, Offset)
         {
         }
-        public RegRelay(string Name, string ReadAddr, int? Offset)
-            : this(Name, ReadAddr, null, Offset)
-        {
-        }
-        public RegRelay(string Name, string ReadAddr, string WriteAddr)
-            : this(Name, ReadAddr, WriteAddr, null)
+        public RegRelay(Device.Yokogawa.PLC.YokogawaSequenceEth plc, string Name, string ReadAddr, string WriteAddr)
+            : this(plc, Name, ReadAddr, WriteAddr, null)
         {
             this.ReadAddress = ReadAddr;
             this.WriteAddress = WriteAddr;
         }
-        public RegRelay(string Name, string ReadAddr, string WriteAddr, int? Offset)
+        public RegRelay(Device.Yokogawa.PLC.YokogawaSequenceEth plc, string Name, string ReadAddr, string WriteAddr, int? Offset)
             : base(Name)
         {
+            this.plc = plc;
+            this.LatencyQueryItems = (plc as CleanOven).Channel.LatencyQueryItems;
+            this.CleanOvenLatencyQueryInterval = (plc as CleanOven).Channel.CleanOvenLatencyQueryInterval;
             this.ReadAddress = ReadAddr;
             this.WriteAddress = WriteAddr;
             this.Offset = Offset;
@@ -43,16 +48,16 @@ namespace DaesungEntCleanOven.ViewModel
                     try
                     {
                         string Response = string.Empty;                        
-                        Response = (string)G.CleanOven.WriteBit(WriteAddress, value);
+                        Response = (string)plc.WriteBit(WriteAddress, value);
                         if (!Response.Contains("OK"))
                             throw new Exception(string.Format("Return Error for WriteBit(),  WriteAddress : {0}, WriteValue : {1}", WriteAddress, value));
 
-                        if (G.LatencyQueryItems.Contains(this.Name))
-                            System.Threading.Thread.Sleep(G.CleanOvenLatencyQueryInterval);
+                        if (LatencyQueryItems.Contains(this.Name))
+                            System.Threading.Thread.Sleep(CleanOvenLatencyQueryInterval);
 
                         if (!string.IsNullOrEmpty(ReadAddress))
                         {
-                            Response = (string)G.CleanOven.ReadBit(ReadAddress, 1);
+                            Response = (string)plc.ReadBit(ReadAddress, 1);
                             if (!Response.Contains("OK"))
                                 throw new Exception(string.Format("Return Error for ReadBit(),  ReadAddress : {0}, Count : 1", ReadAddress));
                             base.Value = Response[4] == '1';
@@ -82,5 +87,10 @@ namespace DaesungEntCleanOven.ViewModel
         {
             base.Value = value;
         }
+
+        // 4채널 확장을 위해 어쩔수 없이....ㅠㅠ
+        private Device.Yokogawa.PLC.YokogawaSequenceEth plc { get; set; }
+        private int CleanOvenLatencyQueryInterval { get; set; }
+        private string[] LatencyQueryItems { get; set; }
     }
 }

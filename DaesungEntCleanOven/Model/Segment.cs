@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 
-namespace DaesungEntCleanOven.Model
+namespace DaesungEntCleanOven4.Model
 {
-    class Segment : ICloneable
+    internal class Segment : ICloneable
     {
         public Segment(Model.Pattern pattern)
         {
@@ -23,9 +23,9 @@ namespace DaesungEntCleanOven.Model
             this.CoolingFanUsed = 0;
             this.CoolingChamberUsed = 0;
         }
-        public Model.Pattern Pattern { get; protected set; }
+        public Model.Pattern Pattern { get; private set; }
         public int No { get; set; }
-        public string Name { get { return string.Format("SEG #{0:d2}", No); } }
+        public string Name => string.Format("SEG #{0:d2}", No);
         public double Temperature { get; set; }
         public double DifferencePressureChamber { get; set; }
         public double MotorChamber { get; set; }
@@ -106,7 +106,7 @@ namespace DaesungEntCleanOven.Model
         {
             if (obj is Segment y)
             {
-                if (object.ReferenceEquals(this, y)) return true;
+                if (ReferenceEquals(this, y)) return true;
                 if (No == y.No
                     && Name == y.Name
                     && Temperature == y.Temperature

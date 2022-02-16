@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DaesungEntCleanOven.View
+namespace DaesungEntCleanOven4.View
 {
     /// <summary>
     /// ParameterZoneSetupDlg.xaml에 대한 상호 작용 논리
@@ -22,8 +22,13 @@ namespace DaesungEntCleanOven.View
         public ParameterZoneSetupDlg()
         {
             InitializeComponent();
+//             this.cmbZoneParameter.ItemsSource = new string[] {
+//                 "온도", "챔버  - OT", "히터 - OT", "차압 챔버", "MFC", "차압 필터", "모터 챔버", "모터 쿨링", "내부 온도 #1", "내부 온도 #2", "내부 온도 #3", "내부 온도 #4"
+//             };
+    
+            // MFC, 차압필터, 모터챔버는 모듈이 아날로그로 변경되어 파라미터 셋팅 불가하여 콤보박스에서 삭제.
             this.cmbZoneParameter.ItemsSource = new string[] {
-                "온도", "챔버  - OT", "히터 - OT", "차압 챔버", "MFC", "차압 필터", "모터 챔버", "모터 쿨링", "내부 온도 #1", "내부 온도 #2", "내부 온도 #3", "내부 온도 #4"
+                "온도", "챔버  - OT", "히터 - OT", "차압 챔버", "내부 온도 #1", "내부 온도 #2", "내부 온도 #3", "내부 온도 #4"
             };
         }
 

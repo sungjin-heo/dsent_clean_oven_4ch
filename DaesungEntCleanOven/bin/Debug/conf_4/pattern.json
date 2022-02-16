@@ -1,0 +1,1606 @@
+{
+  "conditions": [
+    {
+      "idx": 0,
+      "name": "use",
+      "w.addr": "D47401",
+      "r.addr": "D47501",
+      "scale": 1
+    },
+    {
+      "idx": 1,
+      "name": "diff_press_chamber_sv",
+      "w.addr": "D47402",
+      "r.addr": "D47502",
+      "scale": 10
+    },
+    {
+      "idx": 2,
+      "name": "diff_press_init_mv",
+      "w.addr": "D47403",
+      "r.addr": "D47503",
+      "scale": 10
+    },
+    {
+      "idx": 3,
+      "name": "diff_press_manu_ctl_time",
+      "w.addr": "D47404",
+      "r.addr": "D47504",
+      "scale": 1
+    },
+    {
+      "idx": 4,
+      "name": "motor_chamber_sv",
+      "w.addr": "D47405",
+      "r.addr": "D47505",
+      "scale": 10
+    },
+    {
+      "idx": 5,
+      "name": "o2_target",
+      "w.addr": "D47406",
+      "r.addr": "D47506",
+      "scale": 1
+    },
+    {
+      "idx": 6,
+      "name": "o2_target_chk_time",
+      "w.addr": "D47407",
+      "r.addr": "D47507",
+      "scale": 1
+    },
+    {
+      "idx": 7,
+      "name": "mfc_sv",
+      "w.addr": "D47408",
+      "r.addr": "D47508",
+      "scale": 10
+    },
+    {
+      "idx": 8,
+      "name": "exhaust_valve_open",
+      "w.addr": "D47412",
+      "r.addr": "D47512",
+      "scale": 1
+    },
+    {
+      "idx": 9,
+      "name": "wait_temp_after_close",
+      "w.addr": "D47411",
+      "r.addr": "D47511",
+      "scale": 10
+    }
+  ],
+  "segments": {
+    "SEG01": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47011",
+        "r.addr": "D47611",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47012",
+        "r.addr": "D47612",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47013",
+        "r.addr": "D47613",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47014",
+        "r.addr": "D47614",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47015",
+        "r.addr": "D47615",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47019",
+        "r.addr": "D47619",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47017",
+        "r.addr": "D47521",
+        "scale": 1
+      }
+    ],
+    "SEG02": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47021",
+        "r.addr": "D47621",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47022",
+        "r.addr": "D47622",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47023",
+        "r.addr": "D47623",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47024",
+        "r.addr": "D47624",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47025",
+        "r.addr": "D47625",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47029",
+        "r.addr": "D47629",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47027",
+        "r.addr": "D47522",
+        "scale": 1
+      }
+    ],
+    "SEG03": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47031",
+        "r.addr": "D47631",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47032",
+        "r.addr": "D47632",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47033",
+        "r.addr": "D47633",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47034",
+        "r.addr": "D47634",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47035",
+        "r.addr": "D47635",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47039",
+        "r.addr": "D47639",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47037",
+        "r.addr": "D47523",
+        "scale": 1
+      }
+    ],
+    "SEG04": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47041",
+        "r.addr": "D47641",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47042",
+        "r.addr": "D47642",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47043",
+        "r.addr": "D47643",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47044",
+        "r.addr": "D47644",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47045",
+        "r.addr": "D47645",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47049",
+        "r.addr": "D47649",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47047",
+        "r.addr": "D47524",
+        "scale": 1
+      }
+    ],
+    "SEG05": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47051",
+        "r.addr": "D47651",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47052",
+        "r.addr": "D47652",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47053",
+        "r.addr": "D47653",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47054",
+        "r.addr": "D47654",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47055",
+        "r.addr": "D47655",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47059",
+        "r.addr": "D47059",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47057",
+        "r.addr": "D47525",
+        "scale": 1
+      }
+    ],
+    "SEG06": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47061",
+        "r.addr": "D47661",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47062",
+        "r.addr": "D47662",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47063",
+        "r.addr": "D47663",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47064",
+        "r.addr": "D47664",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47065",
+        "r.addr": "D47665",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47069",
+        "r.addr": "D47669",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47067",
+        "r.addr": "D47526",
+        "scale": 1
+      }
+    ],
+    "SEG07": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47071",
+        "r.addr": "D47671",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47072",
+        "r.addr": "D47672",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47073",
+        "r.addr": "D47673",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47074",
+        "r.addr": "D47674",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47075",
+        "r.addr": "D47675",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47079",
+        "r.addr": "D47679",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47077",
+        "r.addr": "D47527",
+        "scale": 1
+      }
+    ],
+    "SEG08": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47081",
+        "r.addr": "D47681",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47082",
+        "r.addr": "D47682",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47083",
+        "r.addr": "D47683",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47084",
+        "r.addr": "D47684",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47085",
+        "r.addr": "D47685",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47089",
+        "r.addr": "D47089",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47087",
+        "r.addr": "D47528",
+        "scale": 1
+      }
+    ],
+    "SEG09": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47091",
+        "r.addr": "D47691",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47092",
+        "r.addr": "D47692",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47093",
+        "r.addr": "D47693",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47094",
+        "r.addr": "D47694",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47095",
+        "r.addr": "D47695",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47099",
+        "r.addr": "D47699",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47097",
+        "r.addr": "D47529",
+        "scale": 1
+      }
+    ],
+    "SEG10": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47101",
+        "r.addr": "D47701",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47102",
+        "r.addr": "D47702",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47103",
+        "r.addr": "D47703",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47104",
+        "r.addr": "D47704",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47105",
+        "r.addr": "D47705",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47109",
+        "r.addr": "D47709",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47107",
+        "r.addr": "D47530",
+        "scale": 1
+      }
+    ],
+    "SEG11": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47111",
+        "r.addr": "D47711",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47112",
+        "r.addr": "D47712",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47113",
+        "r.addr": "D47713",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47114",
+        "r.addr": "D47714",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47115",
+        "r.addr": "D47715",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47119",
+        "r.addr": "D47719",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47117",
+        "r.addr": "D47531",
+        "scale": 1
+      }
+    ],
+    "SEG12": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47121",
+        "r.addr": "D47721",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47122",
+        "r.addr": "D47722",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47123",
+        "r.addr": "D47723",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47124",
+        "r.addr": "D47724",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47125",
+        "r.addr": "D47725",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47129",
+        "r.addr": "D47729",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47127",
+        "r.addr": "D47532",
+        "scale": 1
+      }
+    ],
+    "SEG13": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47131",
+        "r.addr": "D47731",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47132",
+        "r.addr": "D47732",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47133",
+        "r.addr": "D47733",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47134",
+        "r.addr": "D47734",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47135",
+        "r.addr": "D47735",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47139",
+        "r.addr": "D47739",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47137",
+        "r.addr": "D47533",
+        "scale": 1
+      }
+    ],
+    "SEG14": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47141",
+        "r.addr": "D47741",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47142",
+        "r.addr": "D47742",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47143",
+        "r.addr": "D47743",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47144",
+        "r.addr": "D47744",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47145",
+        "r.addr": "D47745",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47149",
+        "r.addr": "D47749",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47147",
+        "r.addr": "D47534",
+        "scale": 1
+      }
+    ],
+    "SEG15": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47151",
+        "r.addr": "D47751",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47152",
+        "r.addr": "D47752",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47153",
+        "r.addr": "D47753",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47154",
+        "r.addr": "D47754",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47155",
+        "r.addr": "D47755",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47159",
+        "r.addr": "D47759",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47157",
+        "r.addr": "D47535",
+        "scale": 1
+      }
+    ],
+    "SEG16": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47161",
+        "r.addr": "D47761",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47162",
+        "r.addr": "D47762",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47163",
+        "r.addr": "D47763",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47164",
+        "r.addr": "D47764",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47165",
+        "r.addr": "D47765",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47169",
+        "r.addr": "D47769",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47167",
+        "r.addr": "D47536",
+        "scale": 1
+      }
+    ],
+    "SEG17": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47171",
+        "r.addr": "D47771",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47172",
+        "r.addr": "D47772",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47173",
+        "r.addr": "D47773",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47174",
+        "r.addr": "D47774",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47175",
+        "r.addr": "D47775",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47179",
+        "r.addr": "D47779",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47177",
+        "r.addr": "D47537",
+        "scale": 1
+      }
+    ],
+    "SEG18": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47181",
+        "r.addr": "D47781",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47182",
+        "r.addr": "D47782",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47183",
+        "r.addr": "D47783",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47184",
+        "r.addr": "D47784",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47185",
+        "r.addr": "D47785",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47189",
+        "r.addr": "D47789",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47187",
+        "r.addr": "D47538",
+        "scale": 1
+      }
+    ],
+    "SEG19": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47191",
+        "r.addr": "D47791",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47192",
+        "r.addr": "D47792",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47193",
+        "r.addr": "D47793",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47194",
+        "r.addr": "D47794",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47195",
+        "r.addr": "D47795",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47199",
+        "r.addr": "D47799",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47197",
+        "r.addr": "D47539",
+        "scale": 1
+      }
+    ],
+    "SEG20": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47201",
+        "r.addr": "D47801",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47202",
+        "r.addr": "D47802",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47203",
+        "r.addr": "D47803",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47204",
+        "r.addr": "D47804",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47205",
+        "r.addr": "D47805",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47209",
+        "r.addr": "D47809",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47207",
+        "r.addr": "D47540",
+        "scale": 1
+      }
+    ],
+    "SEG21": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47211",
+        "r.addr": "D47811",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47212",
+        "r.addr": "D47812",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47213",
+        "r.addr": "D47813",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47214",
+        "r.addr": "D47814",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47215",
+        "r.addr": "D47815",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47219",
+        "r.addr": "D47819",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47217",
+        "r.addr": "D47541",
+        "scale": 1
+      }
+    ],
+    "SEG22": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47221",
+        "r.addr": "D47821",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47222",
+        "r.addr": "D47822",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47223",
+        "r.addr": "D47823",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47224",
+        "r.addr": "D47824",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47225",
+        "r.addr": "D47825",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47229",
+        "r.addr": "D47829",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47227",
+        "r.addr": "D47542",
+        "scale": 1
+      }
+    ],
+    "SEG23": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47231",
+        "r.addr": "D47831",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47232",
+        "r.addr": "D47832",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47233",
+        "r.addr": "D47833",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47234",
+        "r.addr": "D47834",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47235",
+        "r.addr": "D47835",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47239",
+        "r.addr": "D47839",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47237",
+        "r.addr": "D47543",
+        "scale": 1
+      }
+    ],
+    "SEG24": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47241",
+        "r.addr": "D47841",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47242",
+        "r.addr": "D47842",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47243",
+        "r.addr": "D47843",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47244",
+        "r.addr": "D47844",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47245",
+        "r.addr": "D47845",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47249",
+        "r.addr": "D47849",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47247",
+        "r.addr": "D47544",
+        "scale": 1
+      }
+    ],
+    "SEG25": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47251",
+        "r.addr": "D47851",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47252",
+        "r.addr": "D47852",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47253",
+        "r.addr": "D47853",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47254",
+        "r.addr": "D47854",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47255",
+        "r.addr": "D47855",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47259",
+        "r.addr": "D47859",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47257",
+        "r.addr": "D47545",
+        "scale": 1
+      }
+    ],
+    "SEG26": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47261",
+        "r.addr": "D47861",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47262",
+        "r.addr": "D47862",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47263",
+        "r.addr": "D47863",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47264",
+        "r.addr": "D47864",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47265",
+        "r.addr": "D47865",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47269",
+        "r.addr": "D47869",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47267",
+        "r.addr": "D47546",
+        "scale": 1
+      }
+    ],
+    "SEG27": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47271",
+        "r.addr": "D47871",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47272",
+        "r.addr": "D47872",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47273",
+        "r.addr": "D47873",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47274",
+        "r.addr": "D47874",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47275",
+        "r.addr": "D47875",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47279",
+        "r.addr": "D47879",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47277",
+        "r.addr": "D47547",
+        "scale": 1
+      }
+    ],
+    "SEG28": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47281",
+        "r.addr": "D47881",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47282",
+        "r.addr": "D47882",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47283",
+        "r.addr": "D47883",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47284",
+        "r.addr": "D47884",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47285",
+        "r.addr": "D47885",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47289",
+        "r.addr": "D47889",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47287",
+        "r.addr": "D47548",
+        "scale": 1
+      }
+    ],
+    "SEG29": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47291",
+        "r.addr": "D47891",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47292",
+        "r.addr": "D47892",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47293",
+        "r.addr": "D47893",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47294",
+        "r.addr": "D47894",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47295",
+        "r.addr": "D47895",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47299",
+        "r.addr": "D47899",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47297",
+        "r.addr": "D47549",
+        "scale": 1
+      }
+    ],
+    "SEG30": [
+      {
+        "idx": 0,
+        "name": "temp",
+        "w.addr": "D47301",
+        "r.addr": "D47901",
+        "scale": 10
+      },
+      {
+        "idx": 1,
+        "name": "diff_press_chamber",
+        "w.addr": "D47302",
+        "r.addr": "D47902",
+        "scale": 10
+      },
+      {
+        "idx": 2,
+        "name": "motor_chamber",
+        "w.addr": "D47303",
+        "r.addr": "D47903",
+        "scale": 10
+      },
+      {
+        "idx": 3,
+        "name": "motor_cooling",
+        "w.addr": "D47304",
+        "r.addr": "D47904",
+        "scale": 10
+      },
+      {
+        "idx": 4,
+        "name": "mfc",
+        "w.addr": "D47305",
+        "r.addr": "D47905",
+        "scale": 10
+      },
+      {
+        "idx": 5,
+        "name": "segtime",
+        "w.addr": "D47309",
+        "r.addr": "D47909",
+        "scale": 1
+      },
+      {
+        "idx": 6,
+        "name": "time_signal",
+        "w.addr": "D47307",
+        "r.addr": "D47550",
+        "scale": 1
+      }
+    ]
+  }
+}

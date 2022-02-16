@@ -12,7 +12,7 @@ using log4net.Config;
 using log4net.Repository.Hierarchy;
 
 
-namespace DaesungEntCleanOven
+namespace DaesungEntCleanOven4
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -31,7 +31,7 @@ namespace DaesungEntCleanOven
         {
             if (IsApplicationRunning())
             {
-                string title = "대성ENT - N2 CLEAN OVEN";
+                string title = "대성ENT - 4CH. N2 CLEAN OVEN";
                 MessageBox.Show(string.Format("\"{0}\" 이미 실행 중입니다...", title), title, MessageBoxButton.OK, MessageBoxImage.Error);
                 Application.Current.Shutdown();
             }

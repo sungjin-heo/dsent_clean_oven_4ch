@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SciChart.Charting.Model.DataSeries;
 
-namespace DaesungEntCleanOven.View
+namespace DaesungEntCleanOven4.View
 {
     /// <summary>
     /// PatternConfigurationPanel.xaml에 대한 상호 작용 논리

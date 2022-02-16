@@ -11,9 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using DaesungEntCleanOven.ViewModel;
+using DaesungEntCleanOven4.ViewModel;
 
-namespace DaesungEntCleanOven.View
+namespace DaesungEntCleanOven4.View
 {
     /// <summary>
     /// PatternSelectDlg.xaml에 대한 상호 작용 논리
@@ -25,27 +25,32 @@ namespace DaesungEntCleanOven.View
         {
             InitializeComponent();
         }
-        void UnregisterBarcodeButton_Click(object sender, RoutedEventArgs e)
+        private void UnregisterBarcodeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (gridPatternMetaDatas.SelectedItem is Model.PatternMetadata metaData)
+            if (this.DataContext is ChannelViewModel Ch)
             {
-                if (string.IsNullOrEmpty(metaData.RegisteredScanCode))
-                    return;
-
-                var qDlg = new View.Question(string.Format("바코드 : {0}\r\n등록 패턴 번호 : {1}\r\n등록 해제 합니다.", metaData.RegisteredScanCode, metaData.No));
-                if ((bool)qDlg.ShowDialog())
+                if (gridPatternMetaDatas.SelectedItem is Model.PatternMetadata metaData)
                 {
-                    metaData.RegisteredScanCode = null;
-                    G.SavePatternMetaData();
-                    Close();
+                    if (string.IsNullOrEmpty(metaData.RegisteredScanCode))
+                        return;
+
+                    View.Question qDlg = new View.Question(string.Format("바코드 : {0}\r\n등록 패턴 번호 : {1}\r\n등록 해제 합니다.", metaData.RegisteredScanCode, metaData.No));
+                    if ((bool)qDlg.ShowDialog())
+                    {
+                        metaData.RegisteredScanCode = null;
+                        Ch.SavePatternMetaData();
+                        Close();
+                    }
                 }
             }
         }
-        void OpenButton_Click(object sender, RoutedEventArgs e)
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
             this.SelectedMetaData = gridPatternMetaDatas.SelectedItem as Model.PatternMetadata;
             Close();
         }
+
+      
     }
 }

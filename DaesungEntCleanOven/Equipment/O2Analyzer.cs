@@ -8,7 +8,7 @@ using System.Reflection;
 using Device.CMT;
 using Util;
 
-namespace DaesungEntCleanOven.Equipment
+namespace DaesungEntCleanOven4.Equipment
 {
     class O2Analyzer : Device.CMT.Analyzer
     {
@@ -396,7 +396,7 @@ namespace DaesungEntCleanOven.Equipment
             }
             catch (Exception ex)
             {
-                __Tracer.TraceError("Exception is Occured while to MakeMessage in Anaylzer : " + ex.Message);
+                __Tracer.TraceError("Exception is Occured while to MakeMessage in O2Anaylzer : " + ex.Message);
             }
             return null;
         }

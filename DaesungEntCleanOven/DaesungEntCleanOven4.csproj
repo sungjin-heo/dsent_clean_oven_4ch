@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -68,11 +70,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Release\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Expression.Drawing, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Expression.Drawing.3.0.0\lib\net45\Microsoft.Expression.Drawing.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Release\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SciChart.Charting, Version=6.3.0.13476, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL" />
     <Reference Include="SciChart.Core, Version=6.3.0.13476, Culture=neutral, PublicKeyToken=b55dd9efe817e823, processorArchitecture=MSIL" />
@@ -104,13 +107,27 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Equipment\Pattern.cs" />
+    <Compile Include="Equipment\Segment.cs" />
     <Compile Include="Equipment\ZoneParameters.cs" />
     <Compile Include="Equipment\Alarm.cs" />
+    <Compile Include="mod_dev\CustomControls\Lamp.cs" />
+    <Compile Include="Robostar\Ds4CommLib.cs" />
+    <Compile Include="Robostar\MpMessageClient.cs" />
+    <Compile Include="View0.xaml.cs">
+      <DependentUpon>View0.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View2.xaml.cs">
+      <DependentUpon>View2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View1.xaml.cs">
+      <DependentUpon>View1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Pattern.cs" />
     <Compile Include="Model\PatternCompare.cs" />
     <Compile Include="Model\PatternMetadata.cs" />
     <Compile Include="Model\Segment.cs" />
+    <Compile Include="mod_dev\Comm\CommunicateBase.cs" />
     <Compile Include="mod_dev\Comm\IMessage.cs" />
     <Compile Include="mod_dev\Comm\IMessageDecoder.cs" />
     <Compile Include="mod_dev\Comm\MessageTracer.cs" />
@@ -145,19 +162,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Resources1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\G.cs" />
     <Compile Include="ViewModel\ItemViewModel.cs" />
+    <Compile Include="ViewModel\ChannelViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Equipment\O2Analyzer.cs" />
     <Compile Include="ViewModel\PatternViewModel.cs" />
     <Compile Include="ViewModel\RegNumeric.cs" />
     <Compile Include="ViewModel\RegRelay.cs" />
-    <Compile Include="Equipment\Segment.cs" />
     <Compile Include="ViewModel\SegmentViewModel.cs" />
     <Compile Include="View\AlarmHistoryDlg.xaml.cs">
       <DependentUpon>AlarmHistoryDlg.xaml</DependentUpon>
@@ -170,6 +182,9 @@
     </Compile>
     <Compile Include="View\BarcodeReigsterDlg.xaml.cs">
       <DependentUpon>BarcodeReigsterDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ChannelSummaryPanel.xaml.cs">
+      <DependentUpon>ChannelSummaryPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ColoredMultiRowLabelProvider.cs" />
     <Compile Include="View\CustomDateTimeLabelProvider.cs" />
@@ -239,7 +254,18 @@
     <Compile Include="View\TrendSaveIntervalSetupDlg.xaml.cs">
       <DependentUpon>TrendSaveIntervalSetupDlg.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View0.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -252,10 +278,6 @@
     <Compile Include="Log\MessageTracer.cs" />
     <Compile Include="Log\Setup.cs" />
     <Compile Include="Log\TextBoxLogAppender.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Page Include="mod_dev\CustomControls\CustomControls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -293,6 +315,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\BarcodeReigsterDlg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ChannelSummaryPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -384,6 +410,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="mod_dev\Util\BitConverterEx.cs" />
@@ -407,6 +437,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>

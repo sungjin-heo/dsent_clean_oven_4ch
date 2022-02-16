@@ -121,9 +121,9 @@
     <value>DSENT1644</value>
   </data>
   <data name="AppCaption" xml:space="preserve">
-    <value>대성이앤티 - N2.클린오븐</value>
+    <value>대성이앤티 - N2.클린오븐 4채널</value>
   </data>
   <data name="AppVersion" xml:space="preserve">
-    <value>0.1.6</value>
+    <value>0.0.1</value>
   </data>
 </root>

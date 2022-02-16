@@ -20,14 +20,14 @@ using Newtonsoft.Json.Linq;
 using SciChart.Data.Model;
 using SciChart.Charting.Model.DataSeries;
 using SciChart.Charting.Model.ChartSeries;
-using DaesungEntCleanOven.Properties;
-using DaesungEntCleanOven.View;
-using DaesungEntCleanOven.ViewModel;
+using DaesungEntCleanOven4.Properties;
+using DaesungEntCleanOven4.View;
+using DaesungEntCleanOven4.ViewModel;
 using Device.Yokogawa.PLC;
 using Util;
 using Comm;
 
-namespace DaesungEntCleanOven.Equipment
+namespace DaesungEntCleanOven4.Equipment
 {
     // D99 번지 
     // 0 : STOP
@@ -37,102 +37,102 @@ namespace DaesungEntCleanOven.Equipment
 
     class CleanOven : Device.Yokogawa.PLC.YokogawaSequenceEth
     {
-        protected object SyncKey = new object();
-        protected System.IO.StreamWriter CsvWriter;
-        protected System.IO.BinaryWriter BinaryDataWriter;
-        protected System.Threading.Timer LogWriterTimer;
-        protected int __SelectedZoneParameterGrpIndex;
-        protected int __SelectedZoneParameterIndex;
-        protected bool __ManualCtrl;
-        protected double __AutoTuningCache;
-        public CleanOven(string Ip, int Port)
+        private object SyncKey = new object();
+        private System.IO.StreamWriter CsvWriter;
+        private System.IO.BinaryWriter BinaryDataWriter;
+        private System.Threading.Timer LogWriterTimer;
+        private int __SelectedZoneParameterGrpIndex;
+        private int __SelectedZoneParameterIndex;
+        private bool __ManualCtrl;
+        private double __AutoTuningCache;
+        
+
+        public CleanOven(string Ip, int Port, ChannelViewModel Ch)
            : base(Ip, Port, null)
         {
+            this.Channel = Ch ?? throw new ArgumentNullException("CleanOven's ChannelViewModel");
             this.RunCtlCommand = new DevExpress.Mvvm.DelegateCommand(RunCtl, CanRunCtl);
             this.ChangePatternCommand = new DevExpress.Mvvm.DelegateCommand(ChangePattern, CanChangePattern);
             this.HoldCommand = new DevExpress.Mvvm.DelegateCommand(Hold, CanHold);
             this.AdvancePatternCommand = new DevExpress.Mvvm.DelegateCommand(AdvancePattern, CanAdvancePattern);
             this.ClearAlarmHistoryCommand = new DevExpress.Mvvm.DelegateCommand(ClearAlarmHistory, CanClearAlarmHistory);
             this.AutoTuneCommand = new DevExpress.Mvvm.DelegateCommand(AutoTune, CanAutoTune);
-
-            if (!ConstructRegister())
+            if (!ConstructRegister(Ch.No))
                 throw new Exception("CleanOven Configuration Error.");
             this.SelectedZoneParameterGrpIndex = 0;
             this.SelectedZoneParameterIndex = 0;
         }
-        public DevExpress.Mvvm.DelegateCommand RunCtlCommand { get; protected set; }
-        public DevExpress.Mvvm.DelegateCommand ChangePatternCommand { get; protected set; }
-        public DevExpress.Mvvm.DelegateCommand HoldCommand { get; protected set; }
-        public DevExpress.Mvvm.DelegateCommand AdvancePatternCommand { get; protected set; }
-        public DevExpress.Mvvm.DelegateCommand ClearAlarmHistoryCommand { get; protected set; }
-        public DevExpress.Mvvm.DelegateCommand AutoTuneCommand { get; protected set; }
+        public DevExpress.Mvvm.DelegateCommand RunCtlCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand ChangePatternCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand HoldCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand AdvancePatternCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand ClearAlarmHistoryCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand AutoTuneCommand { get; private set; }
+
+        public bool IsInitialized { get; private set; }
+        public ChannelViewModel Channel { get; private set; }
+        public int ChannelNumber => Channel.No;
 
         // ORIGINAL DATA SOURCES...
-        public List<RegNumeric> NumericValues { get; protected set; }
-        public List<RegRelay> Relays { get; protected set; }
-        public List<ZoneParameters> Parameters { get; protected set; }
-        public Pattern PatternConf { get; protected set; }
-        public List<RegRelay> IoX { get; protected set; }
-        public List<RegRelay> IoY { get; protected set; }
-        public List<RegNumeric> AlertSettings { get; protected set; }
+        public List<RegNumeric> NumericValues { get; private set; }
+        public List<RegRelay> Relays { get; private set; }
+        public List<ZoneParameters> Parameters { get; private set; }
+        public Pattern PatternConf { get; private set; }
+        public List<RegRelay> IoX { get; private set; }
+        public List<RegRelay> IoY { get; private set; }
+        public List<RegNumeric> AlertSettings { get; private set; }
 
         // DATA REFERENCES FOR ORIGINAL DATA SOURCES..
-        public List<RegNumeric> CsvLoggingNumerics { get; protected set; }
-        public List<RegNumeric> BinaryLoggingNumerics { get; protected set; }
-        public List<RegNumeric> TrendSeriesGrp1Numerics { get; protected set; }
-        public List<RegNumeric> TrendSeriesGrp2Numerics { get; protected set; }
-        public List<IRenderableSeriesViewModel> TrendSeriesGrp1 { get; protected set; }
-        public List<IRenderableSeriesViewModel> TrendSeriesGrp2 { get; protected set; }
-        public List<ZoneParameters> SelectedZoneParameterGrp { get; protected set; }
-        public ZoneParameters SelectedZoneParameter { get; protected set; }
-        public List<RegRelay> IoXGrp1 { get; protected set; }
-        public List<RegRelay> IoXGrp2 { get; protected set; }
-        public List<RegRelay> IoYGrp1 { get; protected set; }
-        public List<RegRelay> IoYGrp2 { get; protected set; }
-        public List<Alarm> Alarms { get; protected set; }
-        public ObservableCollection<AlarmDescript> AlarmHistory { get; protected set; }
+        public List<RegNumeric> CsvLoggingNumerics { get; private set; }
+        public List<RegNumeric> BinaryLoggingNumerics { get; private set; }
+        public List<RegNumeric> TrendSeriesGrp1Numerics { get; private set; }
+        public List<RegNumeric> TrendSeriesGrp2Numerics { get; private set; }
+        public List<IRenderableSeriesViewModel> TrendSeriesGrp1 { get; private set; }
+        public List<IRenderableSeriesViewModel> TrendSeriesGrp2 { get; private set; }
+        public List<ZoneParameters> SelectedZoneParameterGrp { get; private set; }
+        public ZoneParameters SelectedZoneParameter { get; private set; }
+        public List<RegRelay> IoXGrp1 { get; private set; }
+        public List<RegRelay> IoXGrp2 { get; private set; }
+        public List<RegRelay> IoYGrp1 { get; private set; }
+        public List<RegRelay> IoYGrp2 { get; private set; }
+        public List<Alarm> Alarms { get; private set; }
+        public ObservableCollection<AlarmDescript> AlarmHistory { get; private set; }
         public System.Windows.Window AlarmDlg;
         public event EventHandler Started;
         public event EventHandler Stopped;
 
-        public bool IsRunning { get; protected set; }
-        public bool IsHold { get { return Relays[1].Value; } }
-        public bool IsFixRun { get { return Relays[7].Value; } }
-        public bool IsAutoTune
-        {
-            get
-            {
-                return __AutoTuningCache == 1;
-            }
-        }
-        public string TrendDataSaveName { get; protected set; }
-        public int UsePatternNo { get { return G.PatternForRun.No; } }
+        public bool IsRunning { get; private set; }
+        public bool IsHold => Relays[1].Value;
+        public bool IsFixRun => Relays[7].Value;
+        public bool IsAutoTune => __AutoTuningCache == 1;
+        public string TrendDataSaveName { get; private set; }
+        public int UsePatternNo => Channel.PatternForRun.No;
         public string FormattedCleanOvenStatus
         {
             get
             {
                 if (Relays[1].Value)
-                    return string.Format("TEMPERATURE : PROG. HOLD");
+                    return string.Format("CH.{0} - TEMPERATURE : PROG. HOLD", ChannelNumber);
                 else if (Relays[3].Value)
-                    return string.Format("TEMPERATURE : PROG. PRE-RUN");
+                    return string.Format("CH.{0} - TEMPERATURE : PROG. PRE-RUN", ChannelNumber);
                 else if (Relays[4].Value)
-                    return string.Format("TEMPERATURE : PROG. RUN");
+                    return string.Format("CH.{0} - TEMPERATURE : PROG. RUN", ChannelNumber);
                 else if (Relays[5].Value)
-                    return string.Format("TEMPERATURE : PROG. CLOSING");
+                    return string.Format("CH.{0} - TEMPERATURE : PROG. CLOSING", ChannelNumber);
                 else if (Relays[6].Value)
-                    return string.Format("TEMPERATURE : PROG. STOP");
+                    return string.Format("CH.{0} - TEMPERATURE : PROG. STOP", ChannelNumber);
                 else if (Relays[7].Value)
-                    return string.Format("TEMPERATURE : FIX. RUN");
+                    return string.Format("CH.{0} - TEMPERATURE : FIX. RUN", ChannelNumber);
                 else if (NumericValues[39].Value == 1)
-                    return string.Format("TEMPERATURE : AUTO-TUNE");
+                    return string.Format("CH.{0} - TEMPERATURE : AUTO-TUNE", ChannelNumber);
                 else if (NumericValues[42].Value == 0)
-                    return string.Format("TEMPERATURE : STOP");
+                    return string.Format("CH.{0} - TEMPERATURE : STOP", ChannelNumber);
 
-                return "TEMPERATURE : UNKNOWN";
+                return string.Format("CH.{0} - TEMPERATURE : UNKNOWN", ChannelNumber);
             }
         }
-        public string FormattedPatten { get { return string.Format("{0} : {1}", NumericValues[4].Value, G.PatternForRun.Name); } }
-        public string FormattedSegment { get { return string.Format("{0} / {1}", NumericValues[5].Value, NumericValues[6].Value); } }
+        public string FormattedPatten => string.Format("{0} : {1}", NumericValues[4].Value, Channel.PatternForRun.Name);
+        public string FormattedSegment => string.Format("{0} / {1}", NumericValues[5].Value, NumericValues[6].Value);
         public string FormattedSegmentTime
         {
             get
@@ -169,15 +169,15 @@ namespace DaesungEntCleanOven.Equipment
                 
                 int CurrSeg = (int)NumericValues[5].Value;
                 int SegTimes = 0;
-                foreach (var Seg in G.PatternForRun.Segments)
+                foreach (var Seg in Channel.PatternForRun.Segments)
                 {
                     if (Seg.No == CurrSeg)
                         SegTimes += (int)NumericValues[8].ScaledValue;
                     else if (Seg.No > CurrSeg)
                         SegTimes += Seg.ConvertedDurationTime;
                 }
-                var Now = DateTime.Now;
-                var endTime = Now.AddMinutes(SegTimes);
+                DateTime Now = DateTime.Now;
+                DateTime endTime = Now.AddMinutes(SegTimes);
                 return string.Format("{0:D4}.{1:D2}.{2:D2} {3:D2}:{4:D2}", endTime.Year, endTime.Month, endTime.Day, endTime.Hour, endTime.Minute);
             }
         }        
@@ -199,9 +199,15 @@ namespace DaesungEntCleanOven.Equipment
             get { return __SelectedZoneParameterIndex; }
             set
             {
-                if (value >= 0 && value <= 11)
+                // 파라미터 중, MFC, 차압챔버, 모터챔버, 모터쿨링 아이템들은 UI상에서 선택 불가하도록 변경되어서...
+                //if (value >= 0 && value <= 11)
+                if (value >= 0 && value <= 7)
                 {
-                    this.SelectedZoneParameter = Parameters[value];
+                    if (value >= 0 && value <= 3)
+                        this.SelectedZoneParameter = Parameters[value];
+                    else if (value >= 4 && value <= 7)
+                        this.SelectedZoneParameter = Parameters[value + 4];
+
                     __SelectedZoneParameterIndex = value;
                 }
                 RaisePropertiesChanged("SelectedZoneParameterIndex", "SelectedZoneParameter");
@@ -218,7 +224,7 @@ namespace DaesungEntCleanOven.Equipment
                     if (!(bool)Q.ShowDialog())
                         return;
 
-                    if (!IoY[17].Value)
+                    if (!IoY[7].Value)
                     {
                         Q = new Question("OVEN POWER MC가 OFF 상태입니다.");
                         Q.ShowDialog();
@@ -502,13 +508,13 @@ namespace DaesungEntCleanOven.Equipment
 
                 int nSeg = (int)NumericValues[5].Value;
                 if (nSeg > 0)
-                    return G.PatternForRun.Segments[nSeg - 1].DeviationAlarmUsed == 1;
+                    return Channel.PatternForRun.Segments[nSeg - 1].DeviationAlarmUsed == 1;
 
                 return false;
             }
         }
 
-        protected T[] GetChunk<T>(T[] Src, int Offset, int Cnt, ref int Index)
+        private T[] GetChunk<T>(T[] Src, int Offset, int Cnt, ref int Index)
         {
             T[] Tmp = null;
             if (Offset + Cnt < Src.Length)
@@ -525,7 +531,7 @@ namespace DaesungEntCleanOven.Equipment
             }
             return Tmp;
         }
-        protected bool ConstructRegister()
+        private bool ConstructRegister(int Ch)
         {
             try
             {
@@ -545,7 +551,7 @@ namespace DaesungEntCleanOven.Equipment
                 JToken jsonData;
 
                 // 1. NUMERIC DATA.
-                using (StreamReader Sr = System.IO.File.OpenText(@".\conf\numerics.json"))
+                using (StreamReader Sr = System.IO.File.OpenText(string.Format(@".\conf_{0}\numerics.json", Ch)))
                 {
                     using (JsonTextReader Jr = new JsonTextReader(Sr))
                     {
@@ -553,15 +559,15 @@ namespace DaesungEntCleanOven.Equipment
                     }
                 }
                 JToken[] Items = jsonData["numerics"].ToArray();
-                foreach (var Item in Items)
+                foreach (JToken Item in Items)
                 {
-                    var regNum = new RegNumeric((string)Item["name"], (string)Item["unit"], (int)Item["scale"],
+                    RegNumeric regNum = new RegNumeric(this, (string)Item["name"], (string)Item["unit"], (int)Item["scale"],
                         (string)Item["r.addr"], (string)Item["w.addr"]);
                     NumericValues.Add(regNum);
                 }
 
                 // 2. RELAY.
-                using (StreamReader Sr = System.IO.File.OpenText(@".\conf\relay.json"))
+                using (StreamReader Sr = System.IO.File.OpenText(string.Format(@".\conf_{0}\relay.json", Ch)))
                 {
                     using (JsonTextReader Jr = new JsonTextReader(Sr))
                     {
@@ -569,22 +575,22 @@ namespace DaesungEntCleanOven.Equipment
                     }
                 }
                 Items = jsonData["relays"].ToArray();
-                foreach (var Item in Items)
+                foreach (JToken Item in Items)
                 {
                     string rAddr = (string)Item["r.addr"];
                     if (!string.IsNullOrEmpty(rAddr) && rAddr.Contains('.'))
                     {
-                        var Token = rAddr.Split('.');
-                        if(Token.Length == 2)
+                        string[] Token = rAddr.Split('.');
+                        if (Token.Length == 2)
                         {
-                            var regRel = new RegRelay((string)Item["name"], Token[0], (string)Item["w.addr"]);
+                            RegRelay regRel = new RegRelay(this, (string)Item["name"], Token[0], (string)Item["w.addr"]);
                             regRel.Offset = int.Parse(Token[1]);
                             Relays.Add(regRel);
                         }
                     }
                     else
                     {
-                        var regRel = new RegRelay((string)Item["name"], (string)Item["r.addr"], (string)Item["w.addr"]);
+                        RegRelay regRel = new RegRelay(this, (string)Item["name"], (string)Item["r.addr"], (string)Item["w.addr"]);
                         Relays.Add(regRel);
                     }
                 }
@@ -592,27 +598,27 @@ namespace DaesungEntCleanOven.Equipment
                 // 3. ZONE PARAMETERS.
                 string[] zoneNames = new string[] { "temperature", "chamber_ot", "heater_ot", "different_pressure_chamber",
                     "mfc", "different_pressure_filter", "motor_chamber", "motor_cooling", "inner_temp_1", "inner_temp_2", "inner_temp_3", "inner_temp_4" };
-                using (StreamReader Sr = System.IO.File.OpenText(@".\conf\parameter.json"))
+                using (StreamReader Sr = System.IO.File.OpenText(string.Format(@".\conf_{0}\parameter.json", Ch)))
                 {
                     using (JsonTextReader Jr = new JsonTextReader(Sr))
                     {
                         jsonData = JToken.ReadFrom(Jr);
                     }
                 }
-                foreach (var zoneName in zoneNames)
+                foreach (string zoneName in zoneNames)
                 {
                     Items = jsonData[zoneName].ToArray();
-                    var zoneParameter = new ZoneParameters() { Name = zoneName };
-                    foreach (var Item in Items)
+                    ZoneParameters zoneParameter = new ZoneParameters() { Name = zoneName };
+                    foreach (JToken Item in Items)
                     {
-                        var regNum = new RegNumeric((string)Item["name"], "", (int)Item["scale"], (string)Item["r.addr"], (string)Item["w.addr"]);
+                        RegNumeric regNum = new RegNumeric(this, (string)Item["name"], "", (int)Item["scale"], (string)Item["r.addr"], (string)Item["w.addr"]);
                         zoneParameter.Items.Add(regNum);
                     }
                     Parameters.Add(zoneParameter);
                 }
 
                 // 4. PATTERN DATA.
-                using (StreamReader Sr = System.IO.File.OpenText(@".\conf\pattern.json"))
+                using (StreamReader Sr = System.IO.File.OpenText(string.Format(@".\conf_{0}\pattern.json", Ch)))
                 {
                     using (JsonTextReader Jr = new JsonTextReader(Sr))
                     {
@@ -620,20 +626,20 @@ namespace DaesungEntCleanOven.Equipment
                     }
                 }
                 Items = jsonData["conditions"].ToArray();
-                foreach (var Item in Items)
+                foreach (JToken Item in Items)
                 {
-                    var regNum = new RegNumeric((string)Item["name"], "", (int)Item["scale"],
+                    RegNumeric regNum = new RegNumeric(this, (string)Item["name"], "", (int)Item["scale"],
                        (string)Item["r.addr"], (string)Item["w.addr"]);
                     PatternConf.Conditions.Add(regNum);
                 }
                 for (int i = 0; i < 30; i++)
                 {
-                    var Seg = new Segment(i);
+                    Segment Seg = new Segment(i);
                     string segName = string.Format("SEG{0:D2}", i + 1);
                     Items = jsonData["segments"][segName].ToArray();
-                    foreach (var Item in Items)
+                    foreach (JToken Item in Items)
                     {
-                        var regNum = new RegNumeric((string)Item["name"], "", (int)Item["scale"],
+                        RegNumeric regNum = new RegNumeric(this, (string)Item["name"], "", (int)Item["scale"],
                             (string)Item["r.addr"], (string)Item["w.addr"]);
                         Seg.Add(regNum);
                     }
@@ -641,7 +647,7 @@ namespace DaesungEntCleanOven.Equipment
                 }
 
                 // 5. IO-X.
-                using (StreamReader Sr = System.IO.File.OpenText(@".\conf\io_x.json"))
+                using (StreamReader Sr = System.IO.File.OpenText(string.Format(@".\conf_{0}\io_x.json", Ch)))
                 {
                     using (JsonTextReader Jr = new JsonTextReader(Sr))
                     {
@@ -649,14 +655,14 @@ namespace DaesungEntCleanOven.Equipment
                     }
                 }
                 Items = jsonData["io_x"].ToArray();
-                foreach (var Item in Items)
+                foreach (JToken Item in Items)
                 {
-                    var regRel = new RegRelay((string)Item["name"], (string)Item["r.addr"], (int)Item["offset"]) { Description = (string)Item["descript"] };
+                    RegRelay regRel = new RegRelay(this, (string)Item["name"], (string)Item["r.addr"], (int)Item["offset"]) { Description = (string)Item["descript"] };
                     IoX.Add(regRel);
                 }
 
                 // 5. IO-Y.
-                using (StreamReader Sr = System.IO.File.OpenText(@".\conf\io_y.json"))
+                using (StreamReader Sr = System.IO.File.OpenText(string.Format(@".\conf_{0}\io_y.json", Ch)))
                 {
                     using (JsonTextReader Jr = new JsonTextReader(Sr))
                     {
@@ -664,14 +670,14 @@ namespace DaesungEntCleanOven.Equipment
                     }
                 }
                 Items = jsonData["io_y"].ToArray();
-                foreach (var Item in Items)
+                foreach (JToken Item in Items)
                 {
-                    var regRel = new RegRelay((string)Item["name"], (string)Item["r.addr"], (int)Item["offset"]) { Description = (string)Item["descript"] };
+                    RegRelay regRel = new RegRelay(this, (string)Item["name"], (string)Item["r.addr"], (int)Item["offset"]) { Description = (string)Item["descript"] };
                     IoY.Add(regRel);
                 }
 
                 // 6. ALERT SETUP PARAMETERS.
-                using (StreamReader Sr = System.IO.File.OpenText(@".\conf\alert_param_setup.json"))
+                using (StreamReader Sr = System.IO.File.OpenText(string.Format(@".\conf_{0}\alert_param_setup.json", Ch)))
                 {
                     using (JsonTextReader Jr = new JsonTextReader(Sr))
                     {
@@ -679,12 +685,12 @@ namespace DaesungEntCleanOven.Equipment
                     }
                 }
                 Items = jsonData["alert_param_setup"].ToArray();
-                foreach (var Item in Items)
+                foreach (JToken Item in Items)
                 {
-                    var regNum = new RegNumeric((string)Item["name"], "", (int)Item["scale"], (string)Item["r.addr"], (string)Item["w.addr"]);
+                    RegNumeric regNum = new RegNumeric(this, (string)Item["name"], "", (int)Item["scale"], (string)Item["r.addr"], (string)Item["w.addr"]);
                     AlertSettings.Add(regNum);
                 }
-                
+
                 // COPY LOG ITEM REFERENCE...    
                 int[] Index = new int[] { 0, 1, 3, 11, 14, 15, 18, 21, 23, 24, 25, 26, 27, 28, 29, 30, 31, 12, 13 };
                 for (int i = 0; i < Index.Length; i++)
@@ -701,9 +707,11 @@ namespace DaesungEntCleanOven.Equipment
                 this.IoYGrp2 = this.IoY.GetRange(32, IoY.Count - 32);
                 for (int i = 25; i < 74; i++)
                 {
-                    var alarm = new Alarm(Relays[i].Name, Relays[i], Relays[i + 49]);
-                    alarm.AlarmOccured += (s, e) => {
-                        Application.Current.Dispatcher.Invoke(() => {
+                    Alarm alarm = new Alarm(Relays[i].Name, Relays[i], Relays[i + 49]);
+                    alarm.AlarmOccured += (s, e) =>
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
                             this.AlarmHistory.Add((s as Alarm).GetDescript());
                             if (AlarmDlg == null)
                             {
@@ -711,10 +719,12 @@ namespace DaesungEntCleanOven.Equipment
                                 AlarmDlg.Closed += (snd, arg) => { AlarmDlg = null; };
                                 AlarmDlg.Show();
                             }
-                        });                        
+                        });
                     };
-                    alarm.AlarmCleared += (s, e) => {
-                        Application.Current.Dispatcher.Invoke(() => {
+                    alarm.AlarmCleared += (s, e) =>
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
                             this.AlarmHistory.Add((s as Alarm).GetDescript());
                         });
                     };
@@ -732,9 +742,9 @@ namespace DaesungEntCleanOven.Equipment
                 TrendSeriesGrp1Numerics = new List<RegNumeric>();
                 for (int i = 0; i < Index.Length; i++)
                 {
-                    var regNum = NumericValues[Index[i]];
+                    RegNumeric regNum = NumericValues[Index[i]];
                     TrendSeriesGrp1Numerics.Add(regNum);
-                    var Ln = regNum.SeriesViewModel;
+                    IRenderableSeriesViewModel Ln = regNum.SeriesViewModel;
                     Ln.YAxisId = yIds[i];
                     Ln.Stroke = sColor[i];
                     TrendSeriesGrp1.Add(Ln);
@@ -750,9 +760,9 @@ namespace DaesungEntCleanOven.Equipment
                 TrendSeriesGrp2Numerics = new List<RegNumeric>();
                 for (int i = 0; i < Index.Length; i++)
                 {
-                    var regNum = NumericValues[Index[i]];
+                    RegNumeric regNum = NumericValues[Index[i]];
                     TrendSeriesGrp2Numerics.Add(regNum);
-                    var Ln = regNum.SeriesViewModel;
+                    IRenderableSeriesViewModel Ln = regNum.SeriesViewModel;
                     Ln.YAxisId = yIds[i];
                     Ln.Stroke = sColor[i];
                     TrendSeriesGrp2.Add(Ln);
@@ -766,7 +776,7 @@ namespace DaesungEntCleanOven.Equipment
             }
             return false;
         }
-        protected void AlarmHistory_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void AlarmHistory_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             lock (this)
             {
@@ -779,7 +789,7 @@ namespace DaesungEntCleanOven.Equipment
                         {
                             DateTime Now = DateTime.Now;
                             string Name = string.Format("ALARM_LOG - {0:D4}{1:D2}{2:D2}.csv", Now.Year, Now.Month, Now.Day);
-                            string Path = System.IO.Path.Combine(G.AlarmStorageDir, Name);
+                            string Path = System.IO.Path.Combine(Channel.AlarmStorageDir, Name);
                             using (var Sw = new System.IO.StreamWriter(Path, true))
                             {
                                 Sw.WriteLine(Alarm.ToString());
@@ -789,26 +799,26 @@ namespace DaesungEntCleanOven.Equipment
                 }
             }
         }
-        protected override void ConnectionStateChanged(ConnectionState State)
-        {
-            if (base.ConnectState == State)
-                return;
-
-            switch (State)
-            {
-                case ConnectionState.Connecting:
-                case ConnectionState.Closed:
-                case ConnectionState.Retry:
-                    StopMonitor();
-                    break;
-                case ConnectionState.Connected:
-                    if (!IsInitialized)
-                        Initialize();
-                    StartMonitor();
-                    break;
-            }
-            base.ConnectionStateChanged(State);
-        }      
+//         protected override void ConnectionStateChanged(ConnectionState State)
+//         {
+//             if (base.ConnectState == State)
+//                 return;
+// 
+//             switch (State)
+//             {
+//                 case ConnectionState.Connecting:
+//                 case ConnectionState.Closed:
+//                 case ConnectionState.Retry:
+//                     StopMonitor();
+//                     break;
+//                 case ConnectionState.Connected:
+//                     if (!IsInitialized)
+//                         Initialize();
+//                     StartMonitor();
+//                     break;
+//             }
+//             base.ConnectionStateChanged(State);
+//         }      
         protected virtual void OnMonitorDataUpdated()
         {
             Application.Current.Dispatcher.Invoke(() => 
@@ -831,7 +841,7 @@ namespace DaesungEntCleanOven.Equipment
                 IsRunning = Relays[0].Value;
 
                 // OVEN POWER MC가 OFF 상태에선 수동 제어 불가.
-                if (!IoY[17].Value)
+                if (!IoY[7].Value)
                 {
                     if (ManualCtrl)
                     {
@@ -851,7 +861,7 @@ namespace DaesungEntCleanOven.Equipment
                             try
                             {
                                 var list = Parameters[0].Items.GetRange(15, 3);
-                                var r_addr = (from reg in list select reg.ReadAddress).ToArray();
+                                string[] r_addr = (from reg in list select reg.ReadAddress).ToArray();
                                 var Response = (string)ReadRandomWord(r_addr);
                                 if (!Response.Contains("OK") || (Response.Length - 4 != r_addr.Length * 4))
                                     throw new Exception("Fail to Update Temperature P,I,D Values");
@@ -873,8 +883,8 @@ namespace DaesungEntCleanOven.Equipment
 
                 try
                 {
-                    var Series1 = TrendSeriesGrp1[0].DataSeries as IXyDataSeries<DateTime, double>;
-                    var Series2 = TrendSeriesGrp2[0].DataSeries as IXyDataSeries<DateTime, double>;
+                    IXyDataSeries<DateTime, double> Series1 = TrendSeriesGrp1[0].DataSeries as IXyDataSeries<DateTime, double>;
+                    IXyDataSeries<DateTime, double> Series2 = TrendSeriesGrp2[0].DataSeries as IXyDataSeries<DateTime, double>;
                     if (Series1.HasValues)
                     {
                         DateTime Now = DateTime.Now;
@@ -912,8 +922,8 @@ namespace DaesungEntCleanOven.Equipment
             });
         }
 
-        protected CancellationTokenSource CancelTokenSource;
-        protected System.Threading.AutoResetEvent Waitor = new AutoResetEvent(false);
+        private CancellationTokenSource CancelTokenSource;
+        private System.Threading.AutoResetEvent Waitor = new AutoResetEvent(false);
         public async void StartMonitor()
         {
             try
@@ -969,7 +979,7 @@ namespace DaesungEntCleanOven.Equipment
                 Log.Logger.Dispatch("i", "CleanOven Monitor Aborted : " + ex.Message);
             }
         }
-        protected bool UpdateNumeric()
+        private bool UpdateNumeric()
         {
             try
             {
@@ -1019,7 +1029,7 @@ namespace DaesungEntCleanOven.Equipment
             }
             return false;
         }
-        protected bool UpdateNumericRo()
+        private bool UpdateNumericRo()
         {
             try
             {
@@ -1070,7 +1080,7 @@ namespace DaesungEntCleanOven.Equipment
             }
             return false;
         }
-        protected bool UpdateRelay()
+        private bool UpdateRelay()
         {
             try
             {
@@ -1120,7 +1130,7 @@ namespace DaesungEntCleanOven.Equipment
             }
             return false;
         }
-        protected bool UpdateRelayRo()
+        private bool UpdateRelayRo()
         {
             try
             {
@@ -1168,7 +1178,7 @@ namespace DaesungEntCleanOven.Equipment
             }
             return false;
         }
-        protected bool UpdateParameters()
+        private bool UpdateParameters()
         {
             try
             {
@@ -1176,11 +1186,11 @@ namespace DaesungEntCleanOven.Equipment
                 {
                     try
                     {
-                        foreach (var paramZone in Parameters)
+                        foreach (ZoneParameters paramZone in Parameters)
                         {
-                            var qryAddress = (from param in paramZone.Items
-                                              where !string.IsNullOrEmpty(param.ReadAddress)
-                                              select param.ReadAddress).ToArray();
+                            string[] qryAddress = (from param in paramZone.Items
+                                                   where !string.IsNullOrEmpty(param.ReadAddress)
+                                                   select param.ReadAddress).ToArray();
 
                             string Response = (string)ReadRandomWord(qryAddress);
                             if (!Response.Contains("OK") || (Response.Length - 4 != qryAddress.Length * 4))
@@ -1207,7 +1217,7 @@ namespace DaesungEntCleanOven.Equipment
             }
             return false;
         }
-        protected bool UpdateIoX()
+        private bool UpdateIoX()
         {
             try
             {
@@ -1215,7 +1225,7 @@ namespace DaesungEntCleanOven.Equipment
                 {
                     try
                     {
-                        var qryAddress = IoX.Select(o => o.ReadAddress).Distinct().ToArray();
+                        string[] qryAddress = IoX.Select(o => o.ReadAddress).Distinct().ToArray();
 
                         string Response = (string)ReadRandomWord(qryAddress);
                         if (!Response.Contains("OK") || (Response.Length - 4 != qryAddress.Length * 4))
@@ -1225,7 +1235,7 @@ namespace DaesungEntCleanOven.Equipment
                         for (int i = 0; i < qryAddress.Length; i++)
                             Cache.Add(qryAddress[i], ushort.Parse(Response.Substring((i + 1) * 4, 4), NumberStyles.HexNumber));
 
-                        foreach (var Io in IoX)
+                        foreach (RegRelay Io in IoX)
                             Io.Value = (Cache[Io.ReadAddress] & (0x01 << Io.Offset)) != 0;
 
                         Thread.Sleep(10);
@@ -1247,7 +1257,7 @@ namespace DaesungEntCleanOven.Equipment
             }
             return false;
         }
-        protected bool UpdateIoY()
+        private bool UpdateIoY()
         {
             try
             {
@@ -1255,7 +1265,7 @@ namespace DaesungEntCleanOven.Equipment
                 {
                     try
                     {
-                        var qryAddress = IoY.Select(o => o.ReadAddress).Distinct().ToArray();
+                        string[] qryAddress = IoY.Select(o => o.ReadAddress).Distinct().ToArray();
 
                         string Response = (string)ReadRandomWord(qryAddress);
                         if (!Response.Contains("OK") || (Response.Length - 4 != qryAddress.Length * 4))
@@ -1265,7 +1275,7 @@ namespace DaesungEntCleanOven.Equipment
                         for (int i = 0; i < qryAddress.Length; i++)
                             Cache.Add(qryAddress[i], short.Parse(Response.Substring((i + 1) * 4, 4), NumberStyles.HexNumber));
 
-                        foreach (var Io in IoY)
+                        foreach (RegRelay Io in IoY)
                             Io.Value = (Cache[Io.ReadAddress] & (0x01 << Io.Offset)) != 0;
 
                         Thread.Sleep(10);
@@ -1287,7 +1297,7 @@ namespace DaesungEntCleanOven.Equipment
             }
             return false;
         }
-        protected bool UpdateAlertSetupParameter()
+        private bool UpdateAlertSetupParameter()
         {
             try
             {
@@ -1336,17 +1346,17 @@ namespace DaesungEntCleanOven.Equipment
                 __Tracer.TraceError("Exception is Occured while to UpdateAlertSetupParameter : " + ex.Message);
             }
             return false;
-        }        
-        protected bool UpdatePattern()
+        }
+        private bool UpdatePattern()
         {
             try
             {
-                var model = G.PatternForRun;
+                PatternViewModel model = Channel.PatternForRun;
 
-                var condAddr = (from cond in PatternConf.Conditions
+                string[] condAddr = (from cond in PatternConf.Conditions
                                 select cond.WriteAddress).ToArray();
 
-                var condScale = (from cond in PatternConf.Conditions
+                int?[] condScale = (from cond in PatternConf.Conditions
                                  select cond.Scale).ToArray();
 
                 short[] condValues = new short[condAddr.Length];
@@ -1405,8 +1415,7 @@ namespace DaesungEntCleanOven.Equipment
             }
             return false;
         }
-
-        protected bool IsInitialized = false;
+        
         public void Initialize()
         {
             try
@@ -1439,18 +1448,18 @@ namespace DaesungEntCleanOven.Equipment
             if (!IsConnected || IsRunning)
                 return;
 
-            ProgressWindow.ShowWindow("대성ENT - N2 CLEAN OVEN", "패턴 데이터 전송 중...");
-            var T = Task<bool>.Run(() =>
-            {   
+            ProgressWindow.ShowWindow("대성ENT - N2 CLEAN OVEN", string.Format("채널.{0}, 패턴 데이터 전송 중...", ChannelNumber));
+            Task<bool> T = Task.Run(() =>
+            {
                 bool ret = false;
                 if (Monitor.TryEnter(SyncKey, 3000))
                 {
                     try
                     {
-                        var condAddr = (from cond in PatternConf.Conditions
+                        string[] condAddr = (from cond in PatternConf.Conditions
                                         select cond.WriteAddress).ToArray();
 
-                        var condScale = (from cond in PatternConf.Conditions
+                        int?[] condScale = (from cond in PatternConf.Conditions
                                          select cond.Scale).ToArray();
 
                         short[] condValues = new short[condAddr.Length];
@@ -1466,13 +1475,13 @@ namespace DaesungEntCleanOven.Equipment
                         condValues[9] = (short)(condScale[9] * model.WaitTemperatureAfterClose);
 
                         NumericValues[4].Value = model.No;
-                        WriteRandomWord(condAddr, condValues);
+                        _ = WriteRandomWord(condAddr, condValues);
 
                         string[] segAddr = new string[7];
                         short[] segValues = new short[7];
                         for (int i = 0; i < model.Segments.Count; i++)      // 30
                         {
-                            var Seg = PatternConf[i];
+                            Segment Seg = PatternConf[i];
                             for (int j = 0; j < segAddr.Length; j++)
                                 segAddr[j] = Seg[j].WriteAddress;
 
@@ -1483,7 +1492,7 @@ namespace DaesungEntCleanOven.Equipment
                             segValues[4] = (short)(Seg[4].Scale * model.Segments[i].MFC);
                             segValues[5] = (short)(Seg[5].Scale * model.Segments[i].ConvertedDurationTime);
                             segValues[6] = (short)(Seg[6].Scale * model.Segments[i].TimeSignalValue);
-                            WriteRandomWord(segAddr, segValues);
+                            _ = WriteRandomWord(segAddr, segValues);
                         }
                         Relays[123].Value = true;
                         ret = true;
@@ -1500,84 +1509,84 @@ namespace DaesungEntCleanOven.Equipment
                 return ret;
             });
 
-            var Res = await T;
+            bool Res = await T;
             ProgressWindow.CloseWindow();
             string Msg = Res ? "패턴 데이터 전송 완료" : "패턴 데이터 전송 실패";
             Question Q = new View.Question(Msg);
-            Q.ShowDialog();
+            _ = Q.ShowDialog();
         }
         public async void TransferPatternNoMsg(PatternViewModel model)
         {
             if (!IsConnected || IsRunning)
                 return;
-            await Task<bool>.Run(() =>
-            {
-                bool ret = false;
-                if (Monitor.TryEnter(SyncKey, 3000))
-                {
+            _ = await Task<bool>.Run(() =>
+              {
+                  bool ret = false;
+                  if (Monitor.TryEnter(SyncKey, 3000))
+                  {
 
-                    try
-                    {
-                        var condAddr = (from cond in PatternConf.Conditions
-                                        select cond.WriteAddress).ToArray();
+                      try
+                      {
+                          string[] condAddr = (from cond in PatternConf.Conditions
+                                          select cond.WriteAddress).ToArray();
 
-                        var condScale = (from cond in PatternConf.Conditions
-                                         select cond.Scale).ToArray();
+                          int?[] condScale = (from cond in PatternConf.Conditions
+                                           select cond.Scale).ToArray();
 
-                        short[] condValues = new short[condAddr.Length];
-                        condValues[0] = (short)(condScale[0] * model.StartConditionUsage);
-                        condValues[1] = (short)(condScale[1] * model.DifferencePressChamberSv);
-                        condValues[2] = (short)(condScale[2] * model.DifferencePressChamberInitMv);
-                        condValues[3] = (short)(condScale[3] * model.DifferencePressChamberManualCtlTime);
-                        condValues[4] = (short)(condScale[4] * model.MotorChamberSv);
-                        condValues[5] = (short)(condScale[5] * model.O2TargetValue);
-                        condValues[6] = (short)(condScale[6] * model.O2TargetReachCheckupTime);
-                        condValues[7] = (short)(condScale[7] * model.MFCSv);
-                        condValues[8] = (short)(condScale[8] * model.ExhaustValveOpenSetting);
-                        condValues[9] = (short)(condScale[9] * model.WaitTemperatureAfterClose);
+                          short[] condValues = new short[condAddr.Length];
+                          condValues[0] = (short)(condScale[0] * model.StartConditionUsage);
+                          condValues[1] = (short)(condScale[1] * model.DifferencePressChamberSv);
+                          condValues[2] = (short)(condScale[2] * model.DifferencePressChamberInitMv);
+                          condValues[3] = (short)(condScale[3] * model.DifferencePressChamberManualCtlTime);
+                          condValues[4] = (short)(condScale[4] * model.MotorChamberSv);
+                          condValues[5] = (short)(condScale[5] * model.O2TargetValue);
+                          condValues[6] = (short)(condScale[6] * model.O2TargetReachCheckupTime);
+                          condValues[7] = (short)(condScale[7] * model.MFCSv);
+                          condValues[8] = (short)(condScale[8] * model.ExhaustValveOpenSetting);
+                          condValues[9] = (short)(condScale[9] * model.WaitTemperatureAfterClose);
 
-                        NumericValues[4].Value = model.No;
-                        WriteRandomWord(condAddr, condValues);
+                          NumericValues[4].Value = model.No;
+                          WriteRandomWord(condAddr, condValues);
 
-                        string[] segAddr = new string[7];
-                        short[] segValues = new short[7];
-                        for (int i = 0; i < model.Segments.Count; i++)      // 30
+                          string[] segAddr = new string[7];
+                          short[] segValues = new short[7];
+                          for (int i = 0; i < model.Segments.Count; i++)      // 30
                         {
-                            var Seg = PatternConf[i];
-                            for (int j = 0; j < segAddr.Length; j++)
-                                segAddr[j] = Seg[j].WriteAddress;
+                              Segment Seg = PatternConf[i];
+                              for (int j = 0; j < segAddr.Length; j++)
+                                  segAddr[j] = Seg[j].WriteAddress;
 
-                            segValues[0] = (short)(Seg[0].Scale * model.Segments[i].Temperature);
-                            segValues[1] = (short)(Seg[1].Scale * model.Segments[i].DifferencePressureChamber);
-                            segValues[2] = (short)(Seg[2].Scale * model.Segments[i].MotorChamber);
-                            segValues[3] = (short)(Seg[3].Scale * model.Segments[i].MotorCooling);
-                            segValues[4] = (short)(Seg[4].Scale * model.Segments[i].MFC);
-                            segValues[5] = (short)(Seg[5].Scale * model.Segments[i].ConvertedDurationTime);
-                            segValues[6] = (short)(Seg[6].Scale * model.Segments[i].TimeSignalValue);
-                            WriteRandomWord(segAddr, segValues);
-                        }
-                        Relays[123].Value = true;
-                        ret = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Logger.Dispatch("e", "Exception is Occured while to Transfer pattern configuration : " + ex.Message);
-                    }
-                    finally
-                    {
-                        Monitor.Exit(SyncKey);
-                    }
-                }
-                return ret;
-            });
+                              segValues[0] = (short)(Seg[0].Scale * model.Segments[i].Temperature);
+                              segValues[1] = (short)(Seg[1].Scale * model.Segments[i].DifferencePressureChamber);
+                              segValues[2] = (short)(Seg[2].Scale * model.Segments[i].MotorChamber);
+                              segValues[3] = (short)(Seg[3].Scale * model.Segments[i].MotorCooling);
+                              segValues[4] = (short)(Seg[4].Scale * model.Segments[i].MFC);
+                              segValues[5] = (short)(Seg[5].Scale * model.Segments[i].ConvertedDurationTime);
+                              segValues[6] = (short)(Seg[6].Scale * model.Segments[i].TimeSignalValue);
+                              WriteRandomWord(segAddr, segValues);
+                          }
+                          Relays[123].Value = true;
+                          ret = true;
+                      }
+                      catch (Exception ex)
+                      {
+                          Log.Logger.Dispatch("e", "Exception is Occured while to Transfer pattern configuration : " + ex.Message);
+                      }
+                      finally
+                      {
+                          Monitor.Exit(SyncKey);
+                      }
+                  }
+                  return ret;
+              });
         }
         public async void TransferPatternWaitTemperatureAfterClose(PatternViewModel model)
         {
             if (!IsConnected)
                 return;
 
-            ProgressWindow.ShowWindow("대성ENT - N2 CLEAN OVEN", "패턴 데이터 전송 중...");
-            var T = Task<bool>.Run(() =>
+            ProgressWindow.ShowWindow("대성ENT - N2 CLEAN OVEN", string.Format("채널.{0}, 패턴 데이터 전송 중...", ChannelNumber));
+            Task<bool> T = Task.Run(() =>
             {
                 bool ret = false;
                 if (Monitor.TryEnter(SyncKey, 3000))
@@ -1587,7 +1596,7 @@ namespace DaesungEntCleanOven.Equipment
                         string addr = PatternConf.Conditions[9].WriteAddress;
                         int Scale = (int)PatternConf.Conditions[9].Scale;
                         short value = (short)(model.WaitTemperatureAfterClose * Scale);
-                        WriteWord(addr, value);
+                        _ = WriteWord(addr, value);
                         ret = true;
                     }
                     catch (Exception ex)
@@ -1602,13 +1611,13 @@ namespace DaesungEntCleanOven.Equipment
                 return ret;
             });
 
-            var Res = await T;
+            bool Res = await T;
             ProgressWindow.CloseWindow();
             string Msg = Res ? "패턴 데이터 전송 완료" : "패턴 데이터 전송 실패";
             View.Question Q = new View.Question(Msg);
-            Q.ShowDialog();
+            _ = Q.ShowDialog();
         }
-        protected void RunCtl()
+        private void RunCtl()
         {
             if (IsRunning)       
             {
@@ -1632,25 +1641,25 @@ namespace DaesungEntCleanOven.Equipment
             }
             else  
             {
-                string Message = string.Format("패턴 번호 : {0}\r\n패턴 명칭 : {1}\r\n프로그램 운전을 시작하겠습니까?", G.PatternForRun.No, G.PatternForRun.Name);
-                var Q = new View.Question(Message);
+                string Message = string.Format("패턴 번호 : {0}\r\n패턴 명칭 : {1}\r\n프로그램 운전을 시작하겠습니까?", Channel.PatternForRun.No, Channel.PatternForRun.Name);
+                View.Question Q = new View.Question(Message);
                 if (!(bool)Q.ShowDialog())
                     return;
 
-                if (G.PatternForRun.No == G.PatternForEdit.No)
+                if (Channel.PatternForRun.No == Channel.PatternForEdit.No)
                 {
-                    if (!G.PatternForRun.Equals(G.PatternForEdit))
+                    if (!Channel.PatternForRun.Equals(Channel.PatternForEdit))
                     {
-                        G.PatternForRun.Load(G.PatternForEdit.Model);
-                        TransferPatternNoMsg(G.PatternForRun);
+                        Channel.PatternForRun.Load(Channel.PatternForEdit.Model);
+                        TransferPatternNoMsg(Channel.PatternForRun);
                     }
                 }
 
                 // CURRETN : STOP STATE, SO START...
-                var First = DateTime.Now;
-                var Last = First.Add(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
+                DateTime First = DateTime.Now;
+                DateTime Last = First.Add(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
 
-                var xAxis = TrendSeriesGrp1[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals. Axes.DateTimeAxis;
+                SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = TrendSeriesGrp1[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals. Axes.DateTimeAxis;
                 xAxis.VisibleRange = new DateRange(First, Last);
                 xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
                 xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
@@ -1668,7 +1677,7 @@ namespace DaesungEntCleanOven.Equipment
                 {
                     try
                     {
-                        this.NumericValues[42].Value = (G.PatternForRun.StartConditionUsage == 1) ? 5 : 7;
+                        this.NumericValues[42].Value = (Channel.PatternForRun.StartConditionUsage == 1) ? 5 : 7;
                     }
                     finally
                     {
@@ -1676,17 +1685,17 @@ namespace DaesungEntCleanOven.Equipment
                     }
                 }
                 __ManualCtrl = false;
-                RaisePropertiesChanged("ManualCtrl"); 
+                RaisePropertiesChanged("ManualCtrl");
                 StartLOG();                
             }
         }
-        protected bool CanRunCtl()
+        private bool CanRunCtl()
         {
             return IsConnected/* && !IsHold;*/;
         }
-        protected void ChangePattern()
+        private void ChangePattern()
         {
-            var pwDlg = new View.Password();
+            View.Password pwDlg = new View.Password();
             if (!(bool)pwDlg.ShowDialog())
                 return;
 
@@ -1698,18 +1707,19 @@ namespace DaesungEntCleanOven.Equipment
                 return;
             }
 
-            var Dlg = new View.PatternSelectDlg() { DataContext = G.PatternMetaDatas };
+            // View.PatternSelectDlg Dlg = new View.PatternSelectDlg() { DataContext = Channel.PatternMetaDatas };
+            View.PatternSelectDlg Dlg = new View.PatternSelectDlg() { DataContext = Channel };
             if ((bool)Dlg.ShowDialog())
             {
                 if (Dlg.SelectedMetaData is Model.PatternMetadata metaData)
-                    G.SelectRunningPattern(metaData.No);
+                    Channel.SelectRunningPattern(metaData.No);
             }
         }
-        protected bool CanChangePattern()
+        private bool CanChangePattern()
         {
             return IsConnected;/* && !IsRunning;*/
         }
-        protected void Hold()
+        private void Hold()
         {
             bool State = this.IsHold;
             string Message = (State) ? "현재 세그먼트 HOLD를 해제 하겠습니까?" : "현재 세그먼트를 HOLD 하겠습니까?";
@@ -1729,11 +1739,11 @@ namespace DaesungEntCleanOven.Equipment
                 }
             }
         }
-        protected bool CanHold()
+        private bool CanHold()
         {
             return IsConnected/* && IsRunning;*/;
         }
-        protected void AdvancePattern()
+        private void AdvancePattern()
         {
             View.Question Q = new View.Question("다음 세그먼트로 진행 하겠습니까?");
             if (!(bool)Q.ShowDialog())
@@ -1752,21 +1762,21 @@ namespace DaesungEntCleanOven.Equipment
                 }
             }
         }
-        protected bool CanAdvancePattern()
+        private bool CanAdvancePattern()
         {
             return IsConnected /*&& IsRunning;*/;
         }
-        protected void ClearAlarmHistory()
+        private void ClearAlarmHistory()
         {
             var Q = new View.Question("알람 히스토리를 클리어 하시겠습니까?");
             if ((bool)Q.ShowDialog())
                 this.AlarmHistory.Clear();
         }
-        protected bool CanClearAlarmHistory()
+        private bool CanClearAlarmHistory()
         {
             return this.AlarmHistory.Count > 0;
         }
-        protected void AutoTune()
+        private void AutoTune()
         {
             var Message = IsAutoTune ? "오토튜닝을 정지하겠습니까?" : "오토튜닝을 시작하겠습니까?";
             View.Question Q = new View.Question(Message);
@@ -1788,11 +1798,11 @@ namespace DaesungEntCleanOven.Equipment
                 }
             }
         }
-        protected bool CanAutoTune()
+        private bool CanAutoTune()
         {
             return IsConnected;
         }        
-        protected void StartLOG()
+        private void StartLOG()
         {
             CloseLOG();
 
@@ -1819,32 +1829,32 @@ namespace DaesungEntCleanOven.Equipment
                 "O2_ppm(ppm)",
                 "차압챔버_SV(mmH2O)",
                 "차압챔버_MV(%)"
-            }; 
+            };
 
             // 1. CSV LOG.
-            var Sb = new StringBuilder();
+            StringBuilder Sb = new StringBuilder();
             for (int i = 0; i < Header.Length; i++)
-                Sb.AppendFormat("{0,15},", Header[i]);
+                _ = Sb.AppendFormat("{0,15},", Header[i]);
 
-            var Time = DateTime.Now;
-            string Name = string.Format("{0}_{1:D3}_{2}.csv", Helper.ToLogNameFormat(Time), G.PatternForRun.No, G.PatternForRun.Name);
-            string Path = System.IO.Path.Combine(G.CsvLogStorageDir, Name);
+            DateTime Time = DateTime.Now;
+            string Name = string.Format("{0}_{1:D3}_{2}.csv", Helper.ToLogNameFormat(Time), Channel.PatternForRun.No, Channel.PatternForRun.Name);
+            string Path = System.IO.Path.Combine(Channel.CsvLogStorageDir, Name);
             CsvWriter = new System.IO.StreamWriter(File.Open(Path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite), Encoding.Default);
             CsvWriter.WriteLine(Sb.ToString().TrimEnd(','));
 
             // 2. BINARY DATA LOG.
-            Name = string.Format("{0}_{1:D3}_{2}.dat", Helper.ToLogNameFormat(Time), G.PatternForRun.No, G.PatternForRun.Name);
+            Name = string.Format("{0}_{1:D3}_{2}.dat", Helper.ToLogNameFormat(Time), Channel.PatternForRun.No, Channel.PatternForRun.Name);
             this.TrendDataSaveName = Name;
-            Path = System.IO.Path.Combine(G.BinaryLogStorageDir, Name);            
+            Path = System.IO.Path.Combine(Channel.BinaryLogStorageDir, Name);            
             BinaryDataWriter = new System.IO.BinaryWriter(File.Open(Path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite));
             var Tmp = Encoding.ASCII.GetBytes("DAESUNG-ENT.N2-CLEANOVEN.V1");
             byte[] Buf = new byte[50];
             Array.Copy(Tmp, 0, Buf, 0, Tmp.Length);
             BinaryDataWriter.Write(Buf);
 
-            LogWriterTimer = new System.Threading.Timer(OnLogTimerCallback, null, 5000, (int)(G.BinaryLogSaveInterval * 1000));
+            LogWriterTimer = new System.Threading.Timer(OnLogTimerCallback, null, 5000, (int)(Channel.BinaryLogSaveInterval * 1000));
         }
-        protected void CloseLOG()
+        private void CloseLOG()
         {
             if (LogWriterTimer != null)
             {
@@ -1864,7 +1874,7 @@ namespace DaesungEntCleanOven.Equipment
                 BinaryDataWriter = null;
             }
         }
-        protected void OnLogTimerCallback(object state)
+        private void OnLogTimerCallback(object state)
         {
             try
             {
@@ -1891,6 +1901,7 @@ namespace DaesungEntCleanOven.Equipment
                 Log.Logger.Dispatch("e", "Exception is Occured in OnLogTimerCallback : {0}", ex.Message);
             }
         }       
+
         public void UpdateAnalyzerTemperature(double value)
         {
             if (Monitor.TryEnter(SyncKey, 3000))

@@ -14,9 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SciChart.Data.Model;
 using SciChart.Charting.Model.DataSeries;
-using DaesungEntCleanOven.ViewModel;
+using DaesungEntCleanOven4.ViewModel;
 
-namespace DaesungEntCleanOven.View
+namespace DaesungEntCleanOven4.View
 {
     /// <summary>
     /// RealtimeTrendGraphPanel.xaml에 대한 상호 작용 논리

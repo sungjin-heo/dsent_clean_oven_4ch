@@ -7,7 +7,7 @@ using SciChart.Charting.Visuals.Axes;
 using SciChart.Charting.Visuals.Axes.LabelProviders;
 using SciChart.Core.Extensions;
 
-namespace DaesungEntCleanOven.View
+namespace DaesungEntCleanOven4.View
 {
     class ColoredMultiRowLabelProvider : NumericLabelProvider
     {

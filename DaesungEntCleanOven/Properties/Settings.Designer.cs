@@ -34,5 +34,29 @@ namespace DaesungEntCleanOven4.Properties {
                 this["UserPassword"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.10")]
+        public string CimServerIpAddress {
+            get {
+                return ((string)(this["CimServerIpAddress"]));
+            }
+            set {
+                this["CimServerIpAddress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public string CimServerTcpPort {
+            get {
+                return ((string)(this["CimServerTcpPort"]));
+            }
+            set {
+                this["CimServerTcpPort"] = value;
+            }
+        }
     }
 }

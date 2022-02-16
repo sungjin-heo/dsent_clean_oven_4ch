@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DaesungEntCleanOven.Model
+namespace DaesungEntCleanOven4.Model
 {
     class PattenCompare : IEqualityComparer<Segment>
     {

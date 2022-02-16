@@ -1,4 +1,4 @@
-﻿<Window x:Class="DaesungEntCleanOven.View.ManualControlDlg"
+﻿<Window x:Class="DaesungEntCleanOven4.View.ManualControlDlg"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic"
         mc:Ignorable="d" Icon="{dx:DXImage Image=HandTool_16x16.png}"  ResizeMode="NoResize"
-        Title="수동 운전" Height="400" Width="600">
+        Title="수동 운전" Height="400" Width="900">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -29,7 +29,7 @@
             </TextBlock>
         </StackPanel>
         <Rectangle Grid.Row="1" Fill="LightGray" Height="1" Margin="4,2"/>
-        <UniformGrid Grid.Row="2" Columns="2" Margin="0,5,0,0">
+        <UniformGrid Grid.Row="2" Columns="3" Margin="0,5,0,0">
             <UniformGrid.Resources>
                 <Style TargetType="{x:Type CheckBox}">
                     <Setter Property="Margin" Value="3,0"/>
@@ -43,6 +43,7 @@
                     </Setter>
                 </Style>
             </UniformGrid.Resources>
+            
             <GroupBox Header="운전 조작" Margin="2,2,4,2">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -64,7 +65,16 @@
                     </Grid.ColumnDefinitions>
 
                     <CheckBox Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" IsHitTestVisible="False" 
-                              IsChecked="{Binding ElementName=ChkManualCtl, Path=IsChecked, Mode=OneWay}"/>
+                              IsChecked="{Binding ElementName=ChkManualCtl, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
                     <ToggleButton x:Name="ChkManualCtl" Grid.Column="1" Grid.Row="0" Content="수동 운전"  IsChecked="{Binding ManualCtrl}"/>
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="온도 SV" HorizontalAlignment="Right"/>
                     <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding NumericValues[32].FormattedValue, Mode=TwoWay}" IsEnabled="{Binding ManualCtrl}">
@@ -132,55 +142,136 @@
                         <ColumnDefinition Width="1.5*"/>
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" IsHitTestVisible="False"
-                              IsChecked="{Binding ElementName=ChkN2InpValve, Path=IsChecked, Mode=OneWay}"/>
+                    <CheckBox Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Center" IsHitTestVisible="False"
+                              IsChecked="{Binding ElementName=ChkN2InpValve, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
                     <ToggleButton x:Name="ChkN2InpValve" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Left" Padding="10,2" Content="N2 투입 밸브" 
                                   IsChecked="{Binding N2InputValve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <CheckBox Grid.Column="0" Grid.Row="1"  HorizontalAlignment="Right" IsHitTestVisible="False"
-                              IsChecked="{Binding ElementName=ChkN2BypassValve, Path=IsChecked, Mode=OneWay}"/>
+                              IsChecked="{Binding ElementName=ChkN2BypassValve, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
                     <ToggleButton x:Name="ChkN2BypassValve" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Left" Padding="10,2" Content="N2 바이패스 밸브" 
                                   IsChecked="{Binding N2BypassValve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <CheckBox Grid.Column="0" Grid.Row="2"  HorizontalAlignment="Right" IsHitTestVisible="False"
-                              IsChecked="{Binding ElementName=ChkForceExhaustValve, Path=IsChecked, Mode=OneWay}"/>
+                              IsChecked="{Binding ElementName=ChkForceExhaustValve, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
                     <ToggleButton x:Name="ChkForceExhaustValve" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Left" Padding="10,2" Content="강제 배기 밸브 잠금" 
                                   IsChecked="{Binding ForceExhaustValve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <CheckBox Grid.Column="0" Grid.Row="3"  HorizontalAlignment="Right" IsHitTestVisible="False"
-                              IsChecked="{Binding ElementName=ChkO2AnalyzerValve, Path=IsChecked, Mode=OneWay}"/>
+                              IsChecked="{Binding ElementName=ChkO2AnalyzerValve, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
                     <ToggleButton x:Name="ChkO2AnalyzerValve" Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Left" Padding="10,2" Content="산소 분석기 밸브" 
                                   IsChecked="{Binding O2AnalyzerValve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <CheckBox Grid.Column="0" Grid.Row="4"  HorizontalAlignment="Right" IsHitTestVisible="False"
-                              IsChecked="{Binding ElementName=ChkCoolingWaterValve, Path=IsChecked, Mode=OneWay}"/>
+                              IsChecked="{Binding ElementName=ChkCoolingWaterValve, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
                     <ToggleButton x:Name="ChkCoolingWaterValve" Grid.Column="1" Grid.Row="4" HorizontalContentAlignment="Left" Padding="10,2" Content="냉각수 밸브"
                                   IsChecked="{Binding CoolingWaterValve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <CheckBox Grid.Column="0" Grid.Row="5"  HorizontalAlignment="Right" IsHitTestVisible="False"
-                              IsChecked="{Binding ElementName=ChkMainHeater, Path=IsChecked, Mode=OneWay}"/>
+                              IsChecked="{Binding ElementName=ChkMainHeater, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
                     <ToggleButton x:Name="ChkMainHeater" Grid.Column="1" Grid.Row="5" HorizontalContentAlignment="Left" Padding="10,2" Content="메인 히터"
                                   IsChecked="{Binding MainHeaterValve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <CheckBox Grid.Column="0" Grid.Row="6"  HorizontalAlignment="Right" IsHitTestVisible="False"
-                              IsChecked="{Binding ElementName=ChkCoolingFan, Path=IsChecked, Mode=OneWay}"/>
+                              IsChecked="{Binding ElementName=ChkCoolingFan, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
                     <ToggleButton x:Name="ChkCoolingFan" Grid.Column="1" Grid.Row="6" HorizontalContentAlignment="Left" Padding="10,2" Content="냉각 팬"
                                   IsChecked="{Binding CoolingFanValve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <CheckBox Grid.Column="0" Grid.Row="7"  HorizontalAlignment="Right" IsHitTestVisible="False"
-                              IsChecked="{Binding ElementName=ChkMotorChamber, Path=IsChecked, Mode=OneWay}"/>
+                              IsChecked="{Binding ElementName=ChkMotorChamber, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
                     <ToggleButton x:Name="ChkMotorChamber" Grid.Column="1" Grid.Row="7" HorizontalContentAlignment="Left" Padding="10,2" Content="모터 챔버" 
                                   IsChecked="{Binding MotorChamberValve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <CheckBox Grid.Column="0" Grid.Row="8"  HorizontalAlignment="Right" IsHitTestVisible="False"
-                              IsChecked="{Binding ElementName=ChkEvaValve, Path=IsChecked, Mode=OneWay}"/>
+                              IsChecked="{Binding ElementName=ChkEvaValve, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
                     <ToggleButton x:Name="ChkEvaValve" Grid.Column="1" Grid.Row="8" HorizontalContentAlignment="Left" Padding="10,2" Content="EVA 밸브" 
                                   IsChecked="{Binding EvaValve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="도어 조작" Margin="4,2,2,2" IsEnabled="{Binding ManualCtrl}" Visibility="Collapsed">
+            <GroupBox Header="전원 및 도어 조작" Margin="4,2,2,2">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -199,17 +290,63 @@
                         <ColumnDefinition Width="1.5*"/>
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" IsHitTestVisible="False"
-                              IsChecked="{Binding ElementName=ChkDoorOpen, Path=IsChecked, Mode=OneWay}"/>
-                    <ToggleButton x:Name="ChkDoorOpen" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Left" Padding="10,2" Content="도어 오픈" 
+                    <CheckBox Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" VerticalAlignment="Center"  IsHitTestVisible="False"
+                              IsChecked="{Binding ElementName=ChkPowerOn, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
+                    <ToggleButton x:Name="ChkPowerOn" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Left" Padding="10,2" Content="파워 켜기" />
+                    <!--IsChecked="{Binding Relays[10].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+
+                    <CheckBox Grid.Column="0" Grid.Row="1"  HorizontalAlignment="Right" VerticalAlignment="Center" IsHitTestVisible="False"
+                              IsChecked="{Binding ElementName=ChkPowerOff, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
+                    <ToggleButton x:Name="ChkPowerOff" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Left" Padding="10,2" Content="파워 끄기" />
+                    <!--IsChecked="{Binding Relays[11].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+
+                    <CheckBox Grid.Column="0" Grid.Row="2"  HorizontalAlignment="Right" VerticalAlignment="Center" IsHitTestVisible="False"
+                              IsChecked="{Binding ElementName=ChkDoorOpen, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
+                    <ToggleButton x:Name="ChkDoorOpen" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Left" Padding="10,2" Content="도어 오픈" 
                                   IsChecked="{Binding Relays[10].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <CheckBox Grid.Column="0" Grid.Row="1"  HorizontalAlignment="Right" IsHitTestVisible="False"
-                              IsChecked="{Binding ElementName=ChkDoorClose, Path=IsChecked, Mode=OneWay}"/>
-                    <ToggleButton x:Name="ChkDoorClose" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Left" Padding="10,2" Content="도어 닫기" 
+                    <CheckBox Grid.Column="0" Grid.Row="3"  HorizontalAlignment="Right" VerticalAlignment="Center" IsHitTestVisible="False"
+                              IsChecked="{Binding ElementName=ChkDoorClose, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
+                        <CheckBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1.7" ScaleX="1.7"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </CheckBox.RenderTransform>
+                    </CheckBox>
+                    <ToggleButton x:Name="ChkDoorClose" Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Left" Padding="10,2" Content="도어 닫기" 
                                   IsChecked="{Binding Relays[11].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <CheckBox Grid.Column="0" Grid.Row="2"  HorizontalAlignment="Right" IsHitTestVisible="False"
+                    <!--<CheckBox Grid.Column="0" Grid.Row="2"  HorizontalAlignment="Right" IsHitTestVisible="False"
                               IsChecked="{Binding ElementName=ChkDoorLock, Path=IsChecked, Mode=OneWay}"/>
                     <ToggleButton x:Name="ChkDoorLock" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Left" Padding="10,2" Content="도어 락" 
                                   IsChecked="{Binding Relays[12].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -217,10 +354,11 @@
                     <CheckBox Grid.Column="0" Grid.Row="3"  HorizontalAlignment="Right" IsHitTestVisible="False"
                               IsChecked="{Binding ElementName=ChkDoorUnlock, Path=IsChecked, Mode=OneWay}"/>
                     <ToggleButton x:Name="ChkDoorUnlock" Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Left" Padding="10,2" Content="도어 락 해제" 
-                                  IsChecked="{Binding Relays[13].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                  IsChecked="{Binding Relays[13].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
 
                 </Grid>
             </GroupBox>
+            
         </UniformGrid>        
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="4,0">
             <dx:SimpleButton Content="닫기" Width="140" Glyph="{dx:DXImage Image=Close_16x16.png}" IsCancel="True" Click="CloseButton_Click"/>
