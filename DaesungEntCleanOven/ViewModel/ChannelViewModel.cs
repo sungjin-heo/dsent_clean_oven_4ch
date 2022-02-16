@@ -70,9 +70,6 @@ namespace DaesungEntCleanOven4.ViewModel
             CleanOvenLatencyQueryInterval = (int)json["device"]["clean_oven_chamber"]["latency_query_interval"];
             CleanOvenLatencyQueryItems = (string)json["device"]["clean_oven_chamber"]["latency_query_items"];
             LatencyQueryItems = CleanOvenLatencyQueryItems.Split(',');
-            AnalyzerId = (byte)json["device"]["analyzer"]["id"];
-            AnalyzerPort = (string)json["device"]["analyzer"]["port"];
-            AnalyzerBaudrate = (int)json["device"]["analyzer"]["baud_rate"];
             PatternStorageDir = (string)json["pattern"]["dir"];
             LastestSelectedPatternNo = (int)json["pattern"]["last_selected_pattern"];
             CsvLogStorageDir = (string)json["log"]["csv"]["dir"];
@@ -128,30 +125,6 @@ namespace DaesungEntCleanOven4.ViewModel
             };
             this.CleanOvenChamber.Started += (s, e) => { MonitorTimeWatch.Restart(); };
             this.CleanOvenChamber.Stopped += (s, e) => { MonitorTimeWatch.Stop(); };
-
-            this.Analyzer = new Equipment.O2Analyzer(AnalyzerPort, AnalyzerBaudrate, AnalyzerId);
-            this.Analyzer.MonitorDataUpdated += Analyzer_MonitorDataUpdated;
-            this.Analyzer.Connected += (s, e) => { this.CleanOvenChamber.O2AnalyzerConnected(); };
-            this.Analyzer.DisConnected += (s, e) =>
-            {
-                this.CleanOvenChamber.O2AnalyzerDisConnected();
-                Application.Current.Dispatcher.Invoke(() => {
-                    this.Analyzer.Close();
-                    Thread.Sleep(3000);
-                    int TryCnt = 5;
-                    do
-                    {
-                        if (this.Analyzer.Open())
-                        {
-                            this.Analyzer.StartMonitor();
-                            break;
-                        }
-                        TryCnt--;
-                        Thread.Sleep(3000);
-
-                    } while (TryCnt >= 0);
-                });
-            };
 
             // 패턴 모델 로딩...
             Model.Pattern model;
@@ -222,9 +195,6 @@ namespace DaesungEntCleanOven4.ViewModel
         public int CleanOvenLatencyQueryInterval { get; private set; }
         public string CleanOvenLatencyQueryItems { get; private set; }
         public string[] LatencyQueryItems { get; private set; }
-        public byte AnalyzerId { get; private set; }
-        public string AnalyzerPort { get; private set; }
-        public int AnalyzerBaudrate { get; private set; }
         public string PatternStorageDir { get; private set; }
         public int LastestSelectedPatternNo { get; private set; }
         public string CsvLogStorageDir { get; private set; }
@@ -261,9 +231,8 @@ namespace DaesungEntCleanOven4.ViewModel
         public DevExpress.Mvvm.DelegateCommand BackToIntegrateViewCommand { get; private set; }
 
         public System.Windows.Window NotifyDlg;
-        public bool IsConnected => CleanOvenChamber.IsConnected/* && Analyzer.IsOpen*/;
+        public bool IsConnected => CleanOvenChamber.IsConnected;
         public Equipment.CleanOven CleanOvenChamber { get; private set; }
-        public Equipment.O2Analyzer Analyzer { get; private set; }
         public PatternViewModel PatternForEdit { get; private set; }
         public PatternViewModel PatternForRun { get; private set; }
         public List<Model.PatternMetadata> PatternMetaDatas { get; private set; }
@@ -274,8 +243,6 @@ namespace DaesungEntCleanOven4.ViewModel
         {
             if (CleanOvenChamber != null && CleanOvenChamber.IsConnected)
                 CleanOvenChamber.DisConnect();
-            if (Analyzer != null && Analyzer.IsOpen)
-                Analyzer.Close();
         }
         public async void OpenComm()
         {
@@ -301,13 +268,6 @@ namespace DaesungEntCleanOven4.ViewModel
                             Log.Logger.Dispatch("i", "채널.{0} - CleanOvenChamber Connection Timeout", No);
                         CleanOvenChamber.ConnectionChanged -= OnConnectionChanged;
                     }
-
-                    if (Analyzer != null && !Analyzer.IsOpen)
-                    {
-                        if (Analyzer.Open())
-                            Analyzer.StartMonitor();
-                    }
-
                     RaisePropertiesChanged("IsConnected");
                 }
                 catch (Exception ex)
@@ -320,27 +280,28 @@ namespace DaesungEntCleanOven4.ViewModel
         }
         private bool CanOpenComm()
         {
-            return (CleanOvenChamber != null && !CleanOvenChamber.IsConnected) || (Analyzer != null && !Analyzer.IsOpen);
+            return CleanOvenChamber != null && !CleanOvenChamber.IsConnected;
         }
-        public async void CloseComm()
+        public /*async*/ void CloseComm()
         {
-            //View.Question Q = new View.Question(string.Format("채널.{0} - 통신 연결을 해제하시겠습니까?", No));
-//             if (!(bool)Q.ShowDialog())
-//                 return;
+            if (CleanOvenChamber != null && CleanOvenChamber.IsConnected)
+                CleanOvenChamber.DisConnect();
 
-//            View.ProgressWindow.ShowWindow("대성ENT - N2 CLEAN OVEN", string.Format("채널.{0} - 통신 연결 해제 중...", No));
-            await Task.Run(() =>
-            {
-                if (CleanOvenChamber != null && CleanOvenChamber.IsConnected)
-                    CleanOvenChamber.DisConnect();
-                if (Analyzer != null && Analyzer.IsOpen)
-                    Analyzer.Close();
-            });
+            //View.Question Q = new View.Question(string.Format("채널.{0} - 통신 연결을 해제하시겠습니까?", No));
+            //             if (!(bool)Q.ShowDialog())
+            //                 return;
+
+            //            View.ProgressWindow.ShowWindow("대성ENT - N2 CLEAN OVEN", string.Format("채널.{0} - 통신 연결 해제 중...", No));
+//             await Task.Run(() =>
+//             {
+//                 if (CleanOvenChamber != null && CleanOvenChamber.IsConnected)
+//                     CleanOvenChamber.DisConnect();
+//             });
 //            View.ProgressWindow.CloseWindow();
         }
         private bool CanCloseComm()
         {
-            return (CleanOvenChamber != null && CleanOvenChamber.IsConnected) || (Analyzer != null && Analyzer.IsOpen);
+            return CleanOvenChamber != null && CleanOvenChamber.IsConnected;
         }
         private void OpenOperationView()
         {
@@ -663,12 +624,6 @@ namespace DaesungEntCleanOven4.ViewModel
         private void BackToIntegrateView()
         {
             IntegrateViewReturnRequested?.Invoke(this, EventArgs.Empty);
-        }
-        private void Analyzer_MonitorDataUpdated(object sender, EventArgs e)
-        {
-            CleanOvenChamber.UpdateAnalyzerTemperature(Analyzer.SensorTemperature);
-            CleanOvenChamber.UpdateAnalyzerEmf(Analyzer.SensorEMF);
-            CleanOvenChamber.UpdateAnalyzerConcentrationPpm(Analyzer.O2ConcentrationPpm);
         }
         private void SaveSystemConfig()
         {

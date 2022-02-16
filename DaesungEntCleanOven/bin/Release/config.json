@@ -4,6 +4,10 @@
 		{
 			"addr": "192.168.0.10",
 			"port": 1234
+		},
+		"analyzer": {
+			"port": "COM6",
+			"baud_rate": 9600
 		}
 	}
 }

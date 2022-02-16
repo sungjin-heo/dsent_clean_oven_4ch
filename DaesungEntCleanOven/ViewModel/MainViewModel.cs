@@ -19,7 +19,7 @@ using Mp.Lib.IO;
 
 namespace DaesungEntCleanOven4.ViewModel
 {
-    class MainViewModel : DevExpress.Mvvm.ViewModelBase
+    internal class MainViewModel : DevExpress.Mvvm.ViewModelBase
     {
         public MainViewModel()
         {
@@ -86,6 +86,7 @@ namespace DaesungEntCleanOven4.ViewModel
         public string SystemTime { get; private set; }
         public List<ChannelViewModel> Channels { get; private set; }
         public ChannelViewModel SelectedChannel { get; private set; }
+        public Equipment.O2Analyzer Analyzer { get; private set; }
         public MpMessageClient CimClient { get; private set; }
         public event EventHandler DetailViewMoveRequested;
         public event EventHandler IntegrateViewReturnRequested;
@@ -140,6 +141,35 @@ namespace DaesungEntCleanOven4.ViewModel
                 CimClient.ClientConnectionChangedEvent += CimClient_ClientConnectionChangedEvent;
                 CimClient.MessageReceiveEvent += CimClient_MessageReceiveEvent;
                 CimClient.ReceiveErrorEvent += CimClient_ReceiveErrorEvent;
+
+                // O2 뷴석기.  RS485, 2W 멀티드랍통신(디바이스 아이디 : 1 ~ 4)
+                string COM = (string)json["device"]["analyzer"]["port"];
+                int Baudrate = (int)json["device"]["analyzer"]["baud_rate"];
+                this.Analyzer = new Equipment.O2Analyzer(COM, Baudrate, 1);
+                this.Analyzer.MeasureDataUpdated += Analyzer_MeasureDataUpdated;
+                this.Analyzer.Connected += (s, e) => 
+                {
+                    Channels.ForEach(o => o.CleanOvenChamber.O2AnalyzerConnected());
+                    Analyzer.StartMonitor();
+                };
+                this.Analyzer.DisConnected += (s, e) =>
+                {
+                    Channels.ForEach(o => o.CleanOvenChamber.O2AnalyzerDisConnected());
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        this.Analyzer.Close();
+                        Thread.Sleep(3000);
+                        int TryCnt = 5;
+                        do
+                        {
+                            if (this.Analyzer.Open())
+                                break;
+                            TryCnt--;
+                            Thread.Sleep(3000);
+
+                        } while (TryCnt >= 0);
+                    });
+                };
             }
             catch (Exception ex)
             {
@@ -153,11 +183,15 @@ namespace DaesungEntCleanOven4.ViewModel
         }
         private void OnClose()
         {
+            if (Analyzer != null && Analyzer.IsOpen)
+                Analyzer.Close();
             Channels.ForEach(o => o.Dispose());
         }
         private void OpenComm()
         {
             Channels.ForEach(o => o.OpenComm());
+            if (Analyzer != null && !Analyzer.IsOpen)
+                _ = Analyzer.Open();
         }
         private bool CanOpenComm()
         {
@@ -165,14 +199,16 @@ namespace DaesungEntCleanOven4.ViewModel
         }
         private void CloseComm()
         {
-//             View.Question Q = new View.Question("");
-//             if (!(bool)Q.ShowDialog())
-//                 return;
+            //             View.Question Q = new View.Question("");
+            //             if (!(bool)Q.ShowDialog())
+            //                 return;
+            if (Analyzer != null && Analyzer.IsOpen)
+                Analyzer.Close();
             Channels.ForEach(o => o.CloseComm());
         }
         private bool CanCloseComm()
         {
-            return Channels.All(o => o.IsConnected);
+            return Channels.Any(o => o.IsConnected);
         }
         private void MoveToChannelView(object parameter)
         {
@@ -214,6 +250,16 @@ namespace DaesungEntCleanOven4.ViewModel
         private void CimClient_ReceiveErrorEvent(MpMessageClient arg1, string arg2)
         {
             Log.Logger.Dispatch("e", "Robostar.CIM Error Occured : {0}", arg2);
+        }
+        private void Analyzer_MeasureDataUpdated(object sender, Equipment.MeasureDataUpdateEventArgs e)
+        {
+            ChannelViewModel Channel =  Channels[e.ChannelId - 1];
+            if (Channel != null)
+            {
+                Channel.CleanOvenChamber.UpdateAnalyzerTemperature(e.SensorTemperature);
+                Channel.CleanOvenChamber.UpdateAnalyzerEmf(e.SensorEMF);
+                Channel.CleanOvenChamber.UpdateAnalyzerConcentrationPpm(e.O2ConcentrationPpm);
+            }
         }
     }
 }
