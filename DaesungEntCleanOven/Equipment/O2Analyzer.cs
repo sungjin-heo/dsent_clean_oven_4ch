@@ -35,14 +35,9 @@ namespace DaesungEntCleanOven4.Equipment
         public readonly byte ADDR_SENSOR_MALFUNC_ALARM = 0x4B;
         public readonly byte ADDR_SENSOR_PWR = 0x4C;
         public readonly byte ADDR_MAIN_ALARM_CTL = 0x4D;
-        //         public readonly byte ADDR_SENSOR_TMP = 0x51;
-        //         public readonly byte ADDR_SENSOR_EMF = 0x57;
-        //         public readonly byte ADDR_O2_CONCENTRATION_PPM = 0x59;
-
-        public readonly byte ADDR_SENSOR_TMP = 0x30;
-        public readonly byte ADDR_SENSOR_EMF = 0x36;
-        public readonly byte ADDR_O2_CONCENTRATION_PPM = 0x38;
-
+        public readonly byte ADDR_SENSOR_TMP = 0x51;
+        public readonly byte ADDR_SENSOR_EMF = 0x57;
+        public readonly byte ADDR_O2_CONCENTRATION_PPM = 0x59;
         public readonly byte ADDR_O2_CONCENTRATION_PERC = 0x5B;
         public readonly byte ADDR_O2_CONCENTRATION_LOG = 0x5C;
 
@@ -198,9 +193,10 @@ namespace DaesungEntCleanOven4.Equipment
                 {
                     if (Monitor.TryEnter(SyncKey, 3000))
                     {
-                        for (int i = 0; i < 4; i++)
+                        try
                         {
-                            try
+                            // 4개 채널 데이터 쿼리...
+                            for (int i = 0; i < 4; i++)
                             {
                                 SessionMessage Message;
 
@@ -268,30 +264,23 @@ namespace DaesungEntCleanOven4.Equipment
                                 }
 
                                 MeasureDataUpdated?.Invoke(this, new MeasureDataUpdateEventArgs(i + 1, SensorTemperature, SensorEMF, O2ConcentrationPpm));
-
-//                                 Type ty = typeof(Analyzer);
-//                                 PropertyInfo[] Properties = ty.GetProperties();
-//                                 RaisePropertiesChanged(Properties.Select(p => p.Name).ToArray());
-//                                OnMonitorDataUpdated();
-                            }
-                            catch (Exception ex)
-                            {
-                                if (ex.Message == "DisConnected")
-                                {
-                                    Log.Logger.Dispatch("e", "O2 Analyzer DisConnected");
-                                    Close();
-                                }
-                            }
-                            finally
-                            {
-                                Monitor.Exit(SyncKey);
                             }
                         }
-                        
+                        catch (Exception ex)
+                        {
+                            if (ex.Message == "DisConnected")
+                            {
+                                Log.Logger.Dispatch("e", "O2 Analyzer DisConnected");
+                                Close();
+                            }
+                        }
+                        finally
+                        {
+                            Monitor.Exit(SyncKey);
+                        }
                     }
                     Thread.Sleep(3000);
                 }
-
                 if (!IsOpen && !Token.IsCancellationRequested)
                     OnDisConnected();
             }

@@ -57,6 +57,11 @@ namespace DaesungEntCleanOven4.Equipment
             this.AdvancePatternCommand = new DevExpress.Mvvm.DelegateCommand(AdvancePattern, CanAdvancePattern);
             this.ClearAlarmHistoryCommand = new DevExpress.Mvvm.DelegateCommand(ClearAlarmHistory, CanClearAlarmHistory);
             this.AutoTuneCommand = new DevExpress.Mvvm.DelegateCommand(AutoTune, CanAutoTune);
+            this.TurnOnPowerCommand = new DevExpress.Mvvm.DelegateCommand(TurnOnPower, CanTurnOnPower);
+            this.TurnOffPowerCommand = new DevExpress.Mvvm.DelegateCommand(TurnOffPower, CanTurnOffPower);
+            this.OpenDoorCommand = new DevExpress.Mvvm.DelegateCommand(OpenDoor, CanOpenDoor);
+            this.CloseDoorCommand = new DevExpress.Mvvm.DelegateCommand(CloseDoor, CanCloseDoor);
+
             if (!ConstructRegister(Ch.No))
                 throw new Exception("CleanOven Configuration Error.");
             this.SelectedZoneParameterGrpIndex = 0;
@@ -68,6 +73,10 @@ namespace DaesungEntCleanOven4.Equipment
         public DevExpress.Mvvm.DelegateCommand AdvancePatternCommand { get; private set; }
         public DevExpress.Mvvm.DelegateCommand ClearAlarmHistoryCommand { get; private set; }
         public DevExpress.Mvvm.DelegateCommand AutoTuneCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand TurnOnPowerCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand TurnOffPowerCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand OpenDoorCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand CloseDoorCommand { get; private set; }
 
         public bool IsInitialized { get; private set; }
         public ChannelViewModel Channel { get; private set; }
@@ -227,7 +236,7 @@ namespace DaesungEntCleanOven4.Equipment
                     if (!IoY[7].Value)
                     {
                         Q = new Question("OVEN POWER MC가 OFF 상태입니다.");
-                        Q.ShowDialog();
+                        _ = Q.ShowDialog();
                         return;
                     }
                     if (Monitor.TryEnter(SyncKey, 3000))
@@ -241,7 +250,7 @@ namespace DaesungEntCleanOven4.Equipment
                         {
                             Monitor.Exit(SyncKey);
                         }
-                    }   
+                    }
                 }
                 else
                 {
@@ -256,20 +265,29 @@ namespace DaesungEntCleanOven4.Equipment
                             // N2 BYPASS VALVE : B접점
                             NumericValues[42].Value = 0;
                             Thread.Sleep(500);
-                            var relays = new List<RegRelay> { Relays[14], Relays[15], Relays[16], Relays[17], Relays[18], Relays[19], Relays[20], Relays[21], Relays[124] };
-                            var w_addr = (from rel in relays select rel.WriteAddress).ToArray();
-                            WriteRandomBit(w_addr, new bool[] { false, true, false, false, false, false, false, false, false });
+                            List<RegRelay> relays = new List<RegRelay> { Relays[14], Relays[15], Relays[16], Relays[17], Relays[18], Relays[19], Relays[20], Relays[21], Relays[124] };
+                            string[] w_addr = (from rel in relays select rel.WriteAddress).ToArray();
+                            _ = WriteRandomBit(w_addr, new bool[] { false, true, false, false, false, false, false, false, false });
                             Thread.Sleep(500);
 
-                            var r_addr = (from rel in relays select rel.ReadAddress).ToArray();
+                            string[] r_addr = (from rel in relays select rel.ReadAddress).ToArray();
                             string Response = (string)ReadRandomBit(r_addr);
                             if (!Response.Contains("OK") || (Response.Length - 4 != r_addr.Length))
                                 throw new Exception("Fail to Update Manual Control Relay Values");
                             for (int i = 0; i < relays.Count; i++)
                                 relays[i].UpdateOnly(Response[4 + i] == '1');
 
-                            RaisePropertiesChanged("N2InputValve", "N2BypassValve", "ForceExhaustValve", "O2AnalyzerValve",
-                                "CoolingWaterValve", "MainHeaterValve", "CoolingFanValve", "MotorChamberValve", "EvaValve");
+                            RaisePropertiesChanged(
+                                "N2InputValve",
+                                "N2BypassValve",
+                                "ForceExhaustValve",
+                                "O2AnalyzerValve",
+                                "CoolingWaterValve",
+                                "MainHeaterValve",
+                                "CoolingFanValve",
+                                "MotorChamberValve",
+                                "EvaValve"
+                                );
                         }
                         finally
                         {
@@ -280,6 +298,29 @@ namespace DaesungEntCleanOven4.Equipment
                 }
                 
                 RaisePropertiesChanged("ManualCtrl");
+            }
+        }
+        public bool DoorOpen
+        {
+            get { return Relays[10].Value; }
+            set
+            {
+                string Message = string.Format("[수동운전] 도어를 \"{0}\" 하겠습니까?", value ? "OPEN" : "CLOSE");
+                Question Dlg = new Question(Message);
+                if (!(bool)Dlg.ShowDialog())
+                    return;
+
+                if (Monitor.TryEnter(SyncKey, 3000))
+                {
+                    try
+                    {
+                        Relays[14].Value = value;
+                    }
+                    finally
+                    {
+                        Monitor.Exit(SyncKey);
+                    }
+                }
             }
         }
         public bool N2InputValve
@@ -1617,11 +1658,113 @@ namespace DaesungEntCleanOven4.Equipment
             View.Question Q = new View.Question(Msg);
             _ = Q.ShowDialog();
         }
+        public void UpdateAnalyzerTemperature(double value)
+        {
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    NumericValues[29].Value = value;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        public void UpdateAnalyzerEmf(double value)
+        {
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    NumericValues[30].Value = value;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        public void UpdateAnalyzerConcentrationPpm(double value)
+        {
+            if (value > 1000.0)
+                value = 1000.0;
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    NumericValues[31].Value = value;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        public void O2AnalyzerConnected()
+        {
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    NumericValues[44].Value = 0;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        public void O2AnalyzerDisConnected()
+        {
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    NumericValues[44].Value = 1;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        public void BuzzerStop()
+        {
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[127].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        public void AlarmReset()
+        {
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[128].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+
         private void RunCtl()
         {
-            if (IsRunning)       
+            if (IsRunning)
             {
-                var Q = new View.Question("프로그램 운전을 정지하겠습니까?");
+                Question Q = new View.Question("프로그램 운전을 정지하겠습니까?");
                 if (!(bool)Q.ShowDialog())
                     return;
 
@@ -1663,14 +1806,14 @@ namespace DaesungEntCleanOven4.Equipment
                 xAxis.VisibleRange = new DateRange(First, Last);
                 xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
                 xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
-                foreach (var Series in TrendSeriesGrp1)
+                foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp1)
                     Series.DataSeries.Clear();
 
                 xAxis = TrendSeriesGrp2[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
                 xAxis.VisibleRange = new DateRange(First, Last);
                 xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
                 xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
-                foreach (var Series in TrendSeriesGrp2)
+                foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp2)
                     Series.DataSeries.Clear();
 
                 if (Monitor.TryEnter(SyncKey, 3000))
@@ -1801,7 +1944,95 @@ namespace DaesungEntCleanOven4.Equipment
         private bool CanAutoTune()
         {
             return IsConnected;
-        }        
+        }
+        private void TurnOnPower()
+        {
+            View.Question Q = new View.Question("[수동제어] 파워 \"ON\" 하시겠습니까?");
+            if (!(bool)Q.ShowDialog())
+                return;
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[125].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        private bool CanTurnOnPower()
+        {
+            return IsConnected;
+        }
+        private void TurnOffPower()
+        {
+            View.Question Q = new View.Question("[수동제어] 파워 \"OFF\" 하시겠습니까?");
+            if (!(bool)Q.ShowDialog())
+                return;
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[126].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        private bool CanTurnOffPower()
+        {
+            return IsConnected;
+        }
+        private void OpenDoor()
+        {
+            View.Question Q = new View.Question("[수동제어] 도어를 \"OPEN\" 하시겠습니까?");
+            if (!(bool)Q.ShowDialog())
+                return;
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[10].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        private bool CanOpenDoor()
+        {
+            return IsConnected;
+        }
+        private void CloseDoor()
+        {
+            View.Question Q = new View.Question("[수동제어] 도어를 \"CLOSE\" 하시겠습니까?");
+            if (!(bool)Q.ShowDialog())
+                return;
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[11].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        private bool CanCloseDoor()
+        {
+            return IsConnected;
+        }
         private void StartLOG()
         {
             CloseLOG();
@@ -1901,79 +2132,5 @@ namespace DaesungEntCleanOven4.Equipment
                 Log.Logger.Dispatch("e", "Exception is Occured in OnLogTimerCallback : {0}", ex.Message);
             }
         }       
-
-        public void UpdateAnalyzerTemperature(double value)
-        {
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    NumericValues[29].Value = value;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }                
-        }
-        public void UpdateAnalyzerEmf(double value)
-        {
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    NumericValues[30].Value = value;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }            
-        }
-        public void UpdateAnalyzerConcentrationPpm(double value)
-        {
-            if (value > 1000.0)
-                value = 1000.0;
-
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    NumericValues[31].Value = value;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }
-        }
-        public void O2AnalyzerConnected()
-        {
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    NumericValues[44].Value = 0;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }
-        }
-        public void O2AnalyzerDisConnected()
-        {
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    NumericValues[44].Value = 1;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }
-        }
     }
 }

@@ -750,6 +750,10 @@
       "name": "manctl_eva_valve",
       "w.addr": "I30314",
       "r.addr": "I30714"
-    }
+    },
+	{"idx": 125, "name": "power_on", "w.addr": "I30060", "r.addr": null },
+	{"idx": 126, "name": "power_off", "w.addr": "I30061", "r.addr": null },
+	{"idx": 127, "name": "buzzer_stop", "w.addr": "I62", "r.addr": null },
+	{"idx": 128, "name": "alarm_reset", "w.addr": "I63", "r.addr": null }
   ]
 }

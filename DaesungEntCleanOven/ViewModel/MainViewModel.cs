@@ -31,8 +31,8 @@ namespace DaesungEntCleanOven4.ViewModel
             this.OpenCommCommand = new DevExpress.Mvvm.DelegateCommand(OpenComm, CanOpenComm);
             this.CloseCommCommand = new DevExpress.Mvvm.DelegateCommand(CloseComm, CanCloseComm);
             this.MoveToChannelViewCommand = new DelegateCommand<object>(MoveToChannelView);
-            this.AlarmResetCommand = new DevExpress.Mvvm.DelegateCommand(AlarmReset);
-            this.BuzzerStopCommand = new DevExpress.Mvvm.DelegateCommand(BuzzerStop);
+            this.AlarmResetCommand = new DevExpress.Mvvm.DelegateCommand(AlarmReset, CanAlarmReset);
+            this.BuzzerStopCommand = new DevExpress.Mvvm.DelegateCommand(BuzzerStop, CanBuzzerStop);
 
             SystemTimer = new System.Timers.Timer() { Interval = 1000 };
             SystemTimer.Elapsed += (s, e) => {
@@ -147,7 +147,7 @@ namespace DaesungEntCleanOven4.ViewModel
                 int Baudrate = (int)json["device"]["analyzer"]["baud_rate"];
                 this.Analyzer = new Equipment.O2Analyzer(COM, Baudrate, 1);
                 this.Analyzer.MeasureDataUpdated += Analyzer_MeasureDataUpdated;
-                this.Analyzer.Connected += (s, e) => 
+                this.Analyzer.Connected += (s, e) =>
                 {
                     Channels.ForEach(o => o.CleanOvenChamber.O2AnalyzerConnected());
                     Analyzer.StartMonitor();
@@ -215,15 +215,33 @@ namespace DaesungEntCleanOven4.ViewModel
             int Ch = int.Parse(parameter as string);
             this.SelectedChannel = Channels[Ch - 1];
             RaisePropertiesChanged("SelectedChannel");
-            DetailViewMoveRequested?.Invoke(this, EventArgs.Empty);       
+            DetailViewMoveRequested?.Invoke(this, EventArgs.Empty);
         }
         private void AlarmReset()
         {
-
+            if (Channels != null && Channels.Count > 0)
+            {
+                ChannelViewModel Chan = Channels.FirstOrDefault(o => o.IsConnected);
+                if (Chan != null)
+                    Chan.CleanOvenChamber.AlarmReset();
+            }
+        }
+        private bool CanAlarmReset()
+        {
+            if (Channels != null && Channels.Count > 0)
+                return Channels.FirstOrDefault(o => o.IsConnected) != null;
+            return false;
         }
         private void BuzzerStop()
         {
-
+            if (Channels != null && Channels.Count > 0 && Channels[0].IsConnected)
+                Channels[0].CleanOvenChamber.BuzzerStop();
+        }
+        private bool CanBuzzerStop()
+        {
+            if (Channels != null && Channels.Count > 0)
+                return Channels.FirstOrDefault(o => o.IsConnected) != null;
+            return false;
         }
         private void Ch_DetailViewMoveRequested(object sender, EventArgs e)
         {

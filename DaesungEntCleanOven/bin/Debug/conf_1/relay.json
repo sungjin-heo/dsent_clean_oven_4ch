@@ -124,6 +124,10 @@
 		{"idx": 121, "name": "스모크 경보 L2", "w.addr": null, "r.addr": "I4425"},
 		{"idx": 122, "name": "챔버 퍼지 타임 초과 L2", "w.addr": null, "r.addr": "I4426"},		
 		{"idx": 123, "name": "패턴 전송 완료", "w.addr": "I51", "r.addr": null},
-		{"idx": 124, "name": "manctl_eva_valve", "w.addr": "I0314", "r.addr": "I714"}
+		{"idx": 124, "name": "manctl_eva_valve", "w.addr": "I0314", "r.addr": "I714"},
+		{"idx": 125, "name": "power_on", "w.addr": "I60", "r.addr": null },
+		{"idx": 126, "name": "power_off", "w.addr": "I61", "r.addr": null },
+		{"idx": 127, "name": "buzzer_stop", "w.addr": "I62", "r.addr": null },
+		{"idx": 128, "name": "alarm_reset", "w.addr": "I63", "r.addr": null }
 	],
 }

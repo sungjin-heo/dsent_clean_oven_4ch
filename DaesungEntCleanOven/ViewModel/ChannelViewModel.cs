@@ -231,7 +231,7 @@ namespace DaesungEntCleanOven4.ViewModel
         public DevExpress.Mvvm.DelegateCommand BackToIntegrateViewCommand { get; private set; }
 
         public System.Windows.Window NotifyDlg;
-        public bool IsConnected => CleanOvenChamber.IsConnected;
+        public bool IsConnected => CleanOvenChamber != null && CleanOvenChamber.IsConnected;
         public Equipment.CleanOven CleanOvenChamber { get; private set; }
         public PatternViewModel PatternForEdit { get; private set; }
         public PatternViewModel PatternForRun { get; private set; }

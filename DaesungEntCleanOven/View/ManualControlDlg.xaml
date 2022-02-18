@@ -301,7 +301,9 @@
                             </TransformGroup>
                         </CheckBox.RenderTransform>
                     </CheckBox>
-                    <ToggleButton x:Name="ChkPowerOn" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Left" Padding="10,2" Content="파워 켜기" />
+                    <dx:SimpleButton Grid.Column="1" Grid.Row="0" Content="파워 ON" Command="{Binding TurnOnPowerCommand}"/>
+                    
+                    <!--<ToggleButton x:Name="ChkPowerOn" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Left" Padding="10,2" Content="파워 켜기" />-->
                     <!--IsChecked="{Binding Relays[10].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
 
                     <CheckBox Grid.Column="0" Grid.Row="1"  HorizontalAlignment="Right" VerticalAlignment="Center" IsHitTestVisible="False"
@@ -315,7 +317,9 @@
                             </TransformGroup>
                         </CheckBox.RenderTransform>
                     </CheckBox>
-                    <ToggleButton x:Name="ChkPowerOff" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Left" Padding="10,2" Content="파워 끄기" />
+                    <dx:SimpleButton Grid.Column="1" Grid.Row="1" Content="파워 OFF" Command="{Binding TurnOffPowerCommand}"/>
+                    
+                    <!--<ToggleButton x:Name="ChkPowerOff" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Left" Padding="10,2" Content="파워 끄기" />-->
                     <!--IsChecked="{Binding Relays[11].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
 
                     <CheckBox Grid.Column="0" Grid.Row="2"  HorizontalAlignment="Right" VerticalAlignment="Center" IsHitTestVisible="False"
@@ -329,8 +333,9 @@
                             </TransformGroup>
                         </CheckBox.RenderTransform>
                     </CheckBox>
-                    <ToggleButton x:Name="ChkDoorOpen" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Left" Padding="10,2" Content="도어 오픈" 
-                                  IsChecked="{Binding Relays[10].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <dx:SimpleButton Grid.Column="1" Grid.Row="2" Content="도어 열기" Command="{Binding OpenDoorCommand}"/>
+                    <!--<ToggleButton x:Name="ChkDoorOpen" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Left" Padding="10,2" Content="도어 오픈" 
+                                  IsChecked="{Binding Relays[10].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
 
                     <CheckBox Grid.Column="0" Grid.Row="3"  HorizontalAlignment="Right" VerticalAlignment="Center" IsHitTestVisible="False"
                               IsChecked="{Binding ElementName=ChkDoorClose, Path=IsChecked, Mode=OneWay}" RenderTransformOrigin="0.5,0.5">
@@ -343,8 +348,9 @@
                             </TransformGroup>
                         </CheckBox.RenderTransform>
                     </CheckBox>
-                    <ToggleButton x:Name="ChkDoorClose" Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Left" Padding="10,2" Content="도어 닫기" 
-                                  IsChecked="{Binding Relays[11].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <dx:SimpleButton Grid.Column="1" Grid.Row="3" Content="도어 닫기" Command="{Binding CloseDoorCommand}"/>
+                    <!--<ToggleButton x:Name="ChkDoorClose" Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Left" Padding="10,2" Content="도어 닫기" 
+                                  IsChecked="{Binding Relays[11].Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
 
                     <!--<CheckBox Grid.Column="0" Grid.Row="2"  HorizontalAlignment="Right" IsHitTestVisible="False"
                               IsChecked="{Binding ElementName=ChkDoorLock, Path=IsChecked, Mode=OneWay}"/>
