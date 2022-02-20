@@ -38,7 +38,8 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="2,4,2,2">
                 <TextBlock Text="ZONE 선택"/>
-                <ComboBox Width="200" SelectedIndex="{Binding SelectedZoneParameterIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="cmbZoneParameter" IsSynchronizedWithCurrentItem="True"/>
+                <ComboBox Width="200" SelectedIndex="{Binding SelectedZoneParameterIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="cmbZoneParameter" IsSynchronizedWithCurrentItem="True"
+                          SelectionChanged="cmbZoneParameter_SelectionChanged"/>
 
             </StackPanel>
             <GroupBox Grid.Row="1" Header="파라미터" Margin="2" DataContext="{Binding SelectedZoneParameter}">
@@ -82,52 +83,52 @@
                     <TextBox Grid.Row="8"  Grid.Column="0" Text="Y2" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="9"  Grid.Column="0" Text="X3" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="10" Grid.Column="0" Text="Y3" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
-                    <TextBox Grid.Row="0"  Grid.Column="1" Text="{Binding Items[5].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="0"  Grid.Column="1" Text="{Binding Items[5].FormattedValue, Mode=TwoWay}" x:Name="tboxFL">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="1"  Grid.Column="1" Text="{Binding Items[6].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="1"  Grid.Column="1" Text="{Binding Items[6].FormattedValue, Mode=TwoWay}" x:Name="tboxSC">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="2"  Grid.Column="1" Text="{Binding Items[7].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="2"  Grid.Column="1" Text="{Binding Items[7].FormattedValue, Mode=TwoWay}" x:Name="tboxCT">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="4"  Grid.Column="1" Text="{Binding Items[8].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="4"  Grid.Column="1" Text="{Binding Items[8].FormattedValue, Mode=TwoWay}" x:Name="tboxBS">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="5"  Grid.Column="1" Text="{Binding Items[9].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="5"  Grid.Column="1" Text="{Binding Items[9].FormattedValue, Mode=TwoWay}" x:Name="tboxX1">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="6"  Grid.Column="1" Text="{Binding Items[10].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="6"  Grid.Column="1" Text="{Binding Items[10].FormattedValue, Mode=TwoWay}" x:Name="tboxY1">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="7"  Grid.Column="1" Text="{Binding Items[11].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="7"  Grid.Column="1" Text="{Binding Items[11].FormattedValue, Mode=TwoWay}" x:Name="tboxX2">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="8"  Grid.Column="1" Text="{Binding Items[12].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="8"  Grid.Column="1" Text="{Binding Items[12].FormattedValue, Mode=TwoWay}" x:Name="tboxY2">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="9"  Grid.Column="1" Text="{Binding Items[13].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="9"  Grid.Column="1" Text="{Binding Items[13].FormattedValue, Mode=TwoWay}" x:Name="tboxX3">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Items[14].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Items[14].FormattedValue, Mode=TwoWay}" x:Name="tboxY3">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
@@ -150,32 +151,32 @@
                     <TextBox Grid.Row="4"  Grid.Column="4" Text="MR" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="5"  Grid.Column="4" Text="OH" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="6"  Grid.Column="4" Text="OL" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
-                    <TextBox Grid.Row="0"  Grid.Column="5" Text="{Binding Items[15].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="0"  Grid.Column="5" Text="{Binding Items[15].FormattedValue, Mode=TwoWay}"  x:Name="tboxP">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="1"  Grid.Column="5" Text="{Binding Items[16].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="1"  Grid.Column="5" Text="{Binding Items[16].FormattedValue, Mode=TwoWay}" x:Name="tboxI">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="2"  Grid.Column="5" Text="{Binding Items[17].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="2"  Grid.Column="5" Text="{Binding Items[17].FormattedValue, Mode=TwoWay}" x:Name="tboxD">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="4"  Grid.Column="5" Text="{Binding Items[18].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="4"  Grid.Column="5" Text="{Binding Items[18].FormattedValue, Mode=TwoWay}" x:Name="tboxMR">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="5"  Grid.Column="5" Text="{Binding Items[19].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="5"  Grid.Column="5" Text="{Binding Items[19].FormattedValue, Mode=TwoWay}" x:Name="tboxOH">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="6"  Grid.Column="5" Text="{Binding Items[20].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="6"  Grid.Column="5" Text="{Binding Items[20].FormattedValue, Mode=TwoWay}" x:Name="tboxOL">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>

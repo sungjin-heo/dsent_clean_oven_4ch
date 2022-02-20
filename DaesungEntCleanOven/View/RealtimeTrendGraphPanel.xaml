@@ -189,11 +189,11 @@
                                />
                 <s:NumericAxis Id="y5"        
                                AxisAlignment="Left"
-                               VisibleRange="0,600"                               
+                               VisibleRange="0,300"                               
                                Visibility="Collapsed"                        
                                AutoTicks="False"
-                               MajorDelta="300"
-                               MinorDelta="60"
+                               MajorDelta="150"
+                               MinorDelta="30"
                                TickTextBrush="Magenta"                                                                                         
                                DrawMajorBands="False"                               
                                DrawMajorGridLines="False"
@@ -364,9 +364,9 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Text="파일명" Style="{StaticResource CaptionTextBox}" Background="SteelBlue" Margin="0"/>
+            <TextBox Grid.Column="0" Text="파일명" Style="{StaticResource CaptionTextBox}" Background="Red" Margin="0"/>
             <TextBox Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding TrendDataSaveName, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" HorizontalContentAlignment="Left" Padding="5,2" Foreground="Black"/>
-            <TextBox Grid.Column="8" Text="운전 패턴" Style="{StaticResource CaptionTextBox}" Background="SteelBlue" Margin="0"/>
+            <TextBox Grid.Column="8" Text="운전 패턴" Style="{StaticResource CaptionTextBox}" Background="Red" Margin="0"/>
             <TextBox Grid.Column="9" Text="{Binding UsePatternNo, Mode=OneWay}" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Foreground="Black"/>
         </Grid>
     

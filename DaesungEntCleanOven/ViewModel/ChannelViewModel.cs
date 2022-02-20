@@ -55,6 +55,9 @@ namespace DaesungEntCleanOven4.ViewModel
             this.OpenAnalyzerCommSetupCommand = new DevExpress.Mvvm.DelegateCommand(OpenAnalyzerCommSetup, CanOpenAnalyzerCommSetup);
             this.MoveToDetailViewCommand = new DevExpress.Mvvm.DelegateCommand(MoveToDetailView);
             this.BackToIntegrateViewCommand = new DevExpress.Mvvm.DelegateCommand(BackToIntegrateView);
+            this.PatternSelectionChangedCommand = new DevExpress.Mvvm.DelegateCommand<System.Collections.IList>(PatternSelectionChanged);
+            this.CopyPatternCommand = new DevExpress.Mvvm.DelegateCommand(CopyPattern, CanCopyPattern);
+            this.PastePatternCommand = new DevExpress.Mvvm.DelegateCommand(PastePattern, CanPastePattern);
 
             // 설정 정보 로딩.
             JToken json;
@@ -123,6 +126,7 @@ namespace DaesungEntCleanOven4.ViewModel
                     }
                 });
             };
+            this.CleanOvenChamber.PatternReloadRequested += CleanOvenChamber_PatternReloadRequested;
             this.CleanOvenChamber.Started += (s, e) => { MonitorTimeWatch.Restart(); };
             this.CleanOvenChamber.Stopped += (s, e) => { MonitorTimeWatch.Stop(); };
 
@@ -136,48 +140,10 @@ namespace DaesungEntCleanOven4.ViewModel
 
             this.PatternForRun = new PatternViewModel(this, model);
             this.PatternForEdit = new PatternViewModel(this, model);
-            PatternForEdit.PatternChanged += (s, e) =>
-            {
-                if (PatternForEdit.No == PatternForRun.No)
-                {
-                    if (CleanOvenChamber.IsConnected)
-                    {
-                        if (!CleanOvenChamber.IsRunning)
-                        {
-                            PatternForRun.Load(PatternForEdit.Model);
-                            CleanOvenChamber.TransferPattern(PatternForEdit);
-                        }
-                        else
-                        {
-                            if (PatternForEdit.WaitTemperatureAfterClose != PatternForRun.WaitTemperatureAfterClose)
-                            {
-                                CleanOvenChamber.TransferPatternWaitTemperatureAfterClose(PatternForEdit);
-                            }
-                        }
-                    }
-                }
-            };
+            this.PatternForEdit.PatternChanged += PatternForEdit_PatternChanged;
 
             // 패턴 메타데이터 로딩...
-            using (StreamReader Sr = System.IO.File.OpenText(string.Format(@".\conf_{0}\pattern_meta.json", Ch)))
-            {
-                using (JsonTextReader Jr = new JsonTextReader(Sr))
-                {
-                    json = JToken.ReadFrom(Jr);
-                }
-            }
-            this.PatternMetaDatas = new List<PatternMetadata>();
-            JToken[] metaDatas = json["pattern_metadata"].ToArray();
-            foreach (JToken Data in metaDatas)
-            {
-                PatternMetaDatas.Add(new PatternMetadata() {
-                    No = (int)Data["no"],
-                    Name = (string)Data["name"],
-                    IsAssigned = (int)Data["assigned"] == 1,
-                    Description = (string)Data["description"],
-                    RegisteredScanCode = (string)Data["registered_scancode"]
-                });
-            }
+            LoadPatternMetaData();
 
             MonitorTimeWatch = new System.Diagnostics.Stopwatch();
             SystemTimer = new System.Timers.Timer() { Interval = 1000 };
@@ -229,75 +195,63 @@ namespace DaesungEntCleanOven4.ViewModel
         public DevExpress.Mvvm.DelegateCommand OpenAnalyzerCommSetupCommand { get; private set; }
         public DevExpress.Mvvm.DelegateCommand MoveToDetailViewCommand { get; private set; }
         public DevExpress.Mvvm.DelegateCommand BackToIntegrateViewCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand<System.Collections.IList> PatternSelectionChangedCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand CopyPatternCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand PastePatternCommand { get; private set; }
 
         public System.Windows.Window NotifyDlg;
         public bool IsConnected => CleanOvenChamber != null && CleanOvenChamber.IsConnected;
         public Equipment.CleanOven CleanOvenChamber { get; private set; }
+        public bool IsAnalyzerConnected { get; private set; }
         public PatternViewModel PatternForEdit { get; private set; }
         public PatternViewModel PatternForRun { get; private set; }
         public List<Model.PatternMetadata> PatternMetaDatas { get; private set; }
+        public IEnumerable<Model.PatternMetadata> SelectedPatternDatas { get; private set; }
         public event EventHandler DetailViewMoveRequested;
         public event EventHandler IntegrateViewReturnRequested;
+        public event EventHandler PatternMetaDataChanged;
 
         public void Dispose()
         {
             if (CleanOvenChamber != null && CleanOvenChamber.IsConnected)
                 CleanOvenChamber.DisConnect();
         }
-        public async void OpenComm()
+        public void OpenComm()
         {
-           // View.ProgressWindow.ShowWindow("대성ENT - N2 CLEAN OVEN", string.Format("채널.{0} - 통신 연결 및 데이터 조회 중...", No));
-            await Task.Run(() => {
-
-                try
+            try
+            {
+                if (CleanOvenChamber != null && !CleanOvenChamber.IsConnected)
                 {
-                    if (CleanOvenChamber != null && !CleanOvenChamber.IsConnected)
+                    ManualResetEvent Waitor = new ManualResetEvent(false);
+                    void OnConnectionChanged(object sender, EventArgs e)
                     {
-                        ManualResetEvent Waitor = new ManualResetEvent(false);
-                        void OnConnectionChanged(object sender, EventArgs e)
+                        if (CleanOvenChamber.IsConnected)
                         {
-                            if (CleanOvenChamber.IsConnected)
-                            {
-                                CleanOvenCommErrorUserVerify = false;
-                                Waitor.Set();
-                            }
+                            CleanOvenCommErrorUserVerify = false;
+                            Waitor.Set();
                         }
-                        CleanOvenChamber.ConnectionChanged += OnConnectionChanged;
-                        CleanOvenChamber.Connect();
-                        if (!Waitor.WaitOne(3000))
-                            Log.Logger.Dispatch("i", "채널.{0} - CleanOvenChamber Connection Timeout", No);
-                        CleanOvenChamber.ConnectionChanged -= OnConnectionChanged;
                     }
-                    RaisePropertiesChanged("IsConnected");
+                    CleanOvenChamber.ConnectionChanged += OnConnectionChanged;
+                    CleanOvenChamber.Connect();
+                    if (!Waitor.WaitOne(1000))
+                        Log.Logger.Dispatch("i", "채널.{0} - CleanOvenChamber Connection Timeout", No);
+                    CleanOvenChamber.ConnectionChanged -= OnConnectionChanged;
                 }
-                catch (Exception ex)
-                {
-                    Log.Logger.Dispatch("e", "채널.{0} - Exception is Occured while to OpenComm() : {1}", No, ex.Message);
-                }
-            });
-
-           // View.ProgressWindow.CloseWindow();
+                RaisePropertiesChanged("IsConnected");
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Dispatch("e", "채널.{0} - Exception is Occured while to OpenComm() : {1}", No, ex.Message);
+            }
         }
         private bool CanOpenComm()
         {
             return CleanOvenChamber != null && !CleanOvenChamber.IsConnected;
         }
-        public /*async*/ void CloseComm()
+        public void CloseComm()
         {
             if (CleanOvenChamber != null && CleanOvenChamber.IsConnected)
                 CleanOvenChamber.DisConnect();
-
-            //View.Question Q = new View.Question(string.Format("채널.{0} - 통신 연결을 해제하시겠습니까?", No));
-            //             if (!(bool)Q.ShowDialog())
-            //                 return;
-
-            //            View.ProgressWindow.ShowWindow("대성ENT - N2 CLEAN OVEN", string.Format("채널.{0} - 통신 연결 해제 중...", No));
-//             await Task.Run(() =>
-//             {
-//                 if (CleanOvenChamber != null && CleanOvenChamber.IsConnected)
-//                     CleanOvenChamber.DisConnect();
-//             });
-//            View.ProgressWindow.CloseWindow();
         }
         private bool CanCloseComm()
         {
@@ -345,8 +299,8 @@ namespace DaesungEntCleanOven4.ViewModel
             {
                 if (Wind.PatternNo != null)
                 {
-                    int No = (int)Wind.PatternNo;
-                    SelectRunningPattern(No);
+                    int pNo = (int)Wind.PatternNo;
+                    SelectRunningPattern(pNo);
                 }
             }
         }
@@ -358,6 +312,7 @@ namespace DaesungEntCleanOven4.ViewModel
         {
             View.ManualControlDlg Dlg = new View.ManualControlDlg() { DataContext = CleanOvenChamber };
             _ = Dlg.ShowDialog();
+            CleanOvenChamber.ManualCtrl = false;
         }
         private bool CanOpenManualControlView()
         {
@@ -653,30 +608,115 @@ namespace DaesungEntCleanOven4.ViewModel
             }
         }
 
-        public void SelectRunningPattern(int No)
+        private Model.PatternMetadata CopiedPattern;
+        private void PatternSelectionChanged(System.Collections.IList param)
+        {
+            if (param != null && param.Count > 0)
+                this.SelectedPatternDatas = param.Cast<Model.PatternMetadata>();
+        }
+        private void CopyPattern()
+        {
+            if (SelectedPatternDatas != null && SelectedPatternDatas.Count() == 1)
+                CopiedPattern = SelectedPatternDatas.ToArray().First();
+        }
+        private bool CanCopyPattern()
+        {
+            return SelectedPatternDatas != null && SelectedPatternDatas.Count() == 1;
+        }
+        private void PastePattern()
+        {
+            if (SelectedPatternDatas != null && SelectedPatternDatas.Count() == 1 && CopiedPattern != null)
+            {
+                int SrcNo = CopiedPattern.No;
+                int DestNo = SelectedPatternDatas.ToArray().First().No;
+                if (SrcNo != DestNo)
+                {
+                    string Src = Path.Combine(PatternStorageDir, string.Format("{0:D3}.xml", SrcNo));
+                    Model.Pattern pattern = Pattern.LoadFrom(Src);
+                    if (pattern != null)
+                    {
+                        pattern.No = DestNo;
+                        Pattern.SaveTo(pattern, Path.Combine(PatternStorageDir, string.Format("{0:D3}.xml", DestNo)));
+                        PatternMetaDatas[DestNo - 1].Name = pattern.Name;
+                        SavePatternMetaData();
+                    }
+                }
+            }
+            CopiedPattern = null;
+        }
+        private bool CanPastePattern()
+        {
+            return CopiedPattern != null && SelectedPatternDatas != null && SelectedPatternDatas.Count() == 1;
+        }
+        private void PatternForEdit_PatternChanged(object sender, EventArgs e)
+        {
+            if (PatternForEdit.No == PatternForRun.No)
+            {
+                if (CleanOvenChamber.IsConnected)
+                {
+                    if (!CleanOvenChamber.IsRunning)
+                    {
+                        PatternForRun.Load(PatternForEdit.Model);
+                        CleanOvenChamber.TransferPattern(PatternForEdit);
+                    }
+                    else
+                    {
+                        if (PatternForEdit.WaitTemperatureAfterClose != PatternForRun.WaitTemperatureAfterClose)
+                        {
+                            CleanOvenChamber.TransferPatternWaitTemperatureAfterClose(PatternForEdit);
+                        }
+                    }
+                }
+            }
+        }
+        private void CleanOvenChamber_PatternReloadRequested(object sender, EventArgs e)
         {
             try
             {
-                if (No == PatternForRun.No)
+                string path = Path.Combine(this.PatternStorageDir, string.Format("{0:D3}.xml", PatternForRun.No));
+                if (System.IO.File.Exists(path))
+                {
+                    Model.Pattern pattern = Model.Pattern.LoadFrom(path);
+                    if (pattern != null)
+                    {
+                        PatternForRun.Load(pattern);
+                        PatternForEdit.Load(pattern);
+                        CleanOvenChamber.TransferPatternNoMsg(PatternForRun);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Dispatch("e", "Exception is Occured while to Load pattern config : " + ex.Message);
+            }
+        }
+        public void SelectRunningPattern(int pNo)
+        {
+            try
+            {
+                if (pNo == PatternForRun.No)
                     return;
 
-                string Message = string.Format("현재 패턴번호 : {0}\r\n변경 패턴번호 : {1}\r\n패턴을 변경 하겠습니까?", PatternForRun.No, No);
+                string Message = string.Format("현재 패턴번호 : {0}\r\n변경 패턴번호 : {1}\r\n패턴을 변경 하겠습니까?", PatternForRun.No, pNo);
                 View.Question Q = new View.Question(Message);
                 if (!(bool)Q.ShowDialog())
                     return;
 
                 Model.Pattern pattern;
-                string path = Path.Combine(this.PatternStorageDir, string.Format("{0:D3}.xml", No));
+                string path = Path.Combine(this.PatternStorageDir, string.Format("{0:D3}.xml", pNo));
                 if (File.Exists(path))
                     pattern = Model.Pattern.LoadFrom(path);
                 else
-                    pattern = new Model.Pattern(true) { No = No };
+                {
+                    pattern = new Model.Pattern(true);
+                    pattern.No = pNo;
+                }                   
 
                 if (pattern != null)
                 {
                     PatternForRun.Load(pattern);
                     PatternForEdit.Load(pattern);
-                    LastestSelectedPatternNo = No;
+                    LastestSelectedPatternNo = pNo;
                     SaveSystemConfig();
                     CleanOvenChamber.TransferPattern(PatternForRun);
                 }
@@ -686,30 +726,33 @@ namespace DaesungEntCleanOven4.ViewModel
                 Log.Logger.Dispatch("e", "Exception is Occured while to Load pattern config : " + ex.Message);
             }
         }
-        public void SelectEditPattern(int No)
+        public void SelectEditPattern(int pNo)
         {
             try
             {
-                if (No == PatternForEdit.No)
-                    return;
-
-                string Message = string.Format("현재 패턴번호 : {0}\r\n변경 패턴번호 : {1}\r\n패턴을 변경 하겠습니까?", PatternForEdit.No, No);
-                View.Question qDlg = new View.Question(Message);
-                if (!(bool)qDlg.ShowDialog())
-                    return;
+//                 if (pNo == PatternForEdit.No)
+//                     return;
+// 
+//                 string Message = string.Format("현재 패턴번호 : {0}\r\n변경 패턴번호 : {1}\r\n패턴을 변경 하겠습니까?", PatternForEdit.No, pNo);
+//                 View.Question qDlg = new View.Question(Message);
+//                 if (!(bool)qDlg.ShowDialog())
+//                     return;
 
                 Model.Pattern pattern;
-                string path = Path.Combine(PatternStorageDir, string.Format("{0:D3}.xml", No));
+                string path = Path.Combine(PatternStorageDir, string.Format("{0:D3}.xml", pNo));
                 if (File.Exists(path))
                     pattern = Model.Pattern.LoadFrom(path);
                 else
-                    pattern = new Model.Pattern(true) { No = No };
+                {
+                    pattern = new Model.Pattern(true);
+                    pattern.No = pNo;
+                }
 
                 if (pattern != null)
                 {
                     PatternForEdit.Load(pattern);
-                    PatternMetaDatas[No - 1].Name = PatternForEdit.Name;
-                    PatternMetaDatas[No - 1].IsAssigned = true;
+                    PatternMetaDatas[pNo - 1].Name = PatternForEdit.Name;
+                    PatternMetaDatas[pNo - 1].IsAssigned = true;
                     SavePatternMetaData();
                 }
             }
@@ -727,23 +770,54 @@ namespace DaesungEntCleanOven4.ViewModel
                 foreach (PatternMetadata metaData in PatternMetaDatas)
                 {
                     JsonObjectCollection joc = new JsonObjectCollection {
-                                 new JsonNumericValue("no", metaData.No),
-                                 new JsonStringValue("name", metaData.Name),
-                                 new JsonNumericValue("assigned", metaData.IsAssigned ? 1 : 0),
-                                 new JsonStringValue("description", metaData.Description),
-                                 new JsonStringValue("registered_scancode", metaData.RegisteredScanCode)
-                             };
+                        new JsonNumericValue("no", metaData.No),
+                        new JsonStringValue("name", metaData.Name),
+                        new JsonNumericValue("assigned", metaData.IsAssigned ? 1 : 0),
+                        new JsonStringValue("description", metaData.Description),
+                        new JsonStringValue("registered_scancode", metaData.RegisteredScanCode)
+                    };
                     jacServer.Add(joc);
                     metaData.Invalidate();
                 }
                 root.Add(jacServer);
                 string strRoot = root.ToString();
-                File.WriteAllText(string.Format(@".\conf_{0}\pattern_meta.json", No), strRoot);
+                File.WriteAllText(Path.Combine(PatternStorageDir, "pattern_meta.json"), strRoot);
+                PatternMetaDataChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception ex)
             {
                 Log.Logger.Dispatch("e", "Exception is Occured while to Save pattern metadata : " + ex.Message);
             }
+        }
+        public void LoadPatternMetaData()
+        {
+            JToken json;
+            using (StreamReader Sr = System.IO.File.OpenText(Path.Combine(PatternStorageDir, "pattern_meta.json")))
+            {
+                using (JsonTextReader Jr = new JsonTextReader(Sr))
+                {
+                    json = JToken.ReadFrom(Jr);
+                }
+            }
+            this.PatternMetaDatas = new List<PatternMetadata>();
+            JToken[] metaDatas = json["pattern_metadata"].ToArray();
+            foreach (JToken Data in metaDatas)
+            {
+                PatternMetaDatas.Add(new PatternMetadata()
+                {
+                    No = (int)Data["no"],
+                    Name = (string)Data["name"],
+                    IsAssigned = (int)Data["assigned"] == 1,
+                    Description = (string)Data["description"],
+                    RegisteredScanCode = (string)Data["registered_scancode"]
+                });
+            }
+        }
+        public void UpdateAnalyzerConnectionState(bool State)
+        {
+            this.IsAnalyzerConnected = State;
+            this.CleanOvenChamber.O2AnalyzerConnectStateUpdate(State);
+            RaisePropertiesChanged("IsAnalyzerConnected");
         }
     }
 }

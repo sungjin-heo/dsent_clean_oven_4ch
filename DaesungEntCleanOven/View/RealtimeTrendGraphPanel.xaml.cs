@@ -27,8 +27,8 @@ namespace DaesungEntCleanOven4.View
         {
             InitializeComponent();
 
-            var First = DateTime.Now;
-            var Last = First.Add(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
+            DateTime First = DateTime.Now;
+            DateTime Last = First.Add(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
 
             xAxis1.VisibleRange = new DateRange(First, Last);
             xAxis1.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));

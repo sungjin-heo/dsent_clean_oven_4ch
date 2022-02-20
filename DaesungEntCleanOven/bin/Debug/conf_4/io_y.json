@@ -3,450 +3,226 @@
     {
       "idx": 0,
       "name": "Y10217",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 0,
       "descript": "Door Open SOL Valve"
     },
     {
       "idx": 1,
       "name": "Y10218",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 1,
       "descript": "Door Close SOL Valve"
     },
     {
       "idx": 2,
       "name": "Y10219",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 2,
       "descript": "Door Lock SOL Valve"
     },
     {
       "idx": 3,
       "name": "Y10220",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 3,
       "descript": "Door Unlock SOL Valve"
     },
     {
       "idx": 4,
       "name": "Y10221",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 4,
       "descript": "Door Lock SOL Valve-2nd"
     },
     {
       "idx": 5,
       "name": "Y10222",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 5,
       "descript": null
     },
     {
       "idx": 6,
       "name": "Y10223",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 6,
       "descript": null
     },
     {
       "idx": 7,
       "name": "Y10224",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 7,
       "descript": "Oven Power MC"
     },
     {
       "idx": 8,
       "name": "Y10225",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 8,
       "descript": "N2 Input SOL Valve"
     },
     {
       "idx": 9,
       "name": "Y10226",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 9,
       "descript": "N2 Bypass SOL Valve"
     },
     {
       "idx": 10,
       "name": "Y10227",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 10,
       "descript": "Exhaust Actuator Valve"
     },
     {
       "idx": 11,
       "name": "Y10228",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 11,
       "descript": "O2 Analyzer SOL Valve"
     },
     {
       "idx": 12,
       "name": "Y10229",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 12,
       "descript": "Main Heater MC"
     },
     {
       "idx": 13,
       "name": "Y10230",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 13,
       "descript": "Blower Fan MC"
     },
     {
       "idx": 14,
       "name": "Y10231",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 14,
       "descript": "Cooling Fan MC"
     },
     {
       "idx": 15,
       "name": "Y10232",
-      "r.addr": "D53047",
+      "r.addr": "D53048",
       "offset": 15,
       "descript": "Program Run"
-    },
+    },   
     {
       "idx": 16,
-      "name": "Y10233",
-      "r.addr": "D53048",
+      "name": "Y10249",
+      "r.addr": "D53050",
       "offset": 0,
-      "descript": null
+      "descript": "Emergency Lamp"
     },
     {
       "idx": 17,
-      "name": "Y10234",
-      "r.addr": "D53048",
+      "name": "Y10250",
+      "r.addr": "D53050",
       "offset": 1,
-      "descript": null
+      "descript": "Power On Lamp"
     },
     {
       "idx": 18,
-      "name": "Y10235",
-      "r.addr": "D53048",
+      "name": "Y10251",
+      "r.addr": "D53050",
       "offset": 2,
-      "descript": null
+      "descript": "Power Off Lamp"
     },
     {
       "idx": 19,
-      "name": "Y10236",
-      "r.addr": "D53048",
+      "name": "Y10252",
+      "r.addr": "D53050",
       "offset": 3,
-      "descript": null
+      "descript": "Door Open Lamp"
     },
     {
       "idx": 20,
-      "name": "Y10237",
-      "r.addr": "D53048",
+      "name": "Y10253",
+      "r.addr": "D53050",
       "offset": 4,
-      "descript": null
+      "descript": "Door Close Lamp"
     },
     {
       "idx": 21,
-      "name": "Y10238",
-      "r.addr": "D53048",
+      "name": "Y10254",
+      "r.addr": "D53050",
       "offset": 5,
-      "descript": null
+      "descript": "Alarm Reset Lamp"
     },
     {
       "idx": 22,
-      "name": "Y10239",
-      "r.addr": "D53048",
+      "name": "Y10255",
+      "r.addr": "D53050",
       "offset": 6,
-      "descript": null
+      "descript": "Buzzer Stop Lamp"
     },
     {
       "idx": 23,
-      "name": "Y10240",
-      "r.addr": "D53048",
+      "name": "Y10256",
+      "r.addr": "D53050",
       "offset": 7,
       "descript": null
     },
     {
       "idx": 24,
-      "name": "Y10241",
-      "r.addr": "D53048",
+      "name": "Y10257",
+      "r.addr": "D53050",
       "offset": 8,
-      "descript": null
+      "descript": "Buzzer 1(Program End)"
     },
     {
       "idx": 25,
-      "name": "Y10242",
-      "r.addr": "D53048",
+      "name": "Y10258",
+      "r.addr": "D53050",
       "offset": 9,
-      "descript": null
+      "descript": "Buzzer 2(Emergency)"
     },
     {
       "idx": 26,
-      "name": "Y10243",
-      "r.addr": "D53048",
+      "name": "Y10259",
+      "r.addr": "D53050",
       "offset": 10,
-      "descript": null
+      "descript": "Buzzer 3(Temp Alarm)"
     },
     {
       "idx": 27,
-      "name": "Y10244",
-      "r.addr": "D53048",
+      "name": "Y10260",
+      "r.addr": "D53050",
       "offset": 11,
-      "descript": null
+      "descript": "Buzzer 4(Run Check)"
     },
     {
       "idx": 28,
-      "name": "Y10245",
-      "r.addr": "D53048",
+      "name": "Y10261",
+      "r.addr": "D53050",
       "offset": 12,
       "descript": null
     },
     {
       "idx": 29,
-      "name": "Y10246",
-      "r.addr": "D53048",
-      "offset": 13,
-      "descript": null
-    },
-    {
-      "idx": 30,
-      "name": "Y10247",
-      "r.addr": "D53048",
-      "offset": 14,
-      "descript": null
-    },
-    {
-      "idx": 31,
-      "name": "Y10248",
-      "r.addr": "D53048",
-      "offset": 15,
-      "descript": null
-    },
-    {
-      "idx": 32,
-      "name": "Y10249",
-      "r.addr": "D53049",
-      "offset": 0,
-      "descript": "Emergency Lamp"
-    },
-    {
-      "idx": 33,
-      "name": "Y10250",
-      "r.addr": "D53049",
-      "offset": 1,
-      "descript": "Power On Lamp"
-    },
-    {
-      "idx": 34,
-      "name": "Y10251",
-      "r.addr": "D53049",
-      "offset": 2,
-      "descript": "Power Off Lamp"
-    },
-    {
-      "idx": 35,
-      "name": "Y10252",
-      "r.addr": "D53049",
-      "offset": 3,
-      "descript": "Door Open Lamp"
-    },
-    {
-      "idx": 36,
-      "name": "Y10253",
-      "r.addr": "D53049",
-      "offset": 4,
-      "descript": "Door Close Lamp"
-    },
-    {
-      "idx": 37,
-      "name": "Y10254",
-      "r.addr": "D53049",
-      "offset": 5,
-      "descript": "Alarm Reset Lamp"
-    },
-    {
-      "idx": 38,
-      "name": "Y10255",
-      "r.addr": "D53049",
-      "offset": 6,
-      "descript": "Buzzer Stop Lamp"
-    },
-    {
-      "idx": 39,
-      "name": "Y10256",
-      "r.addr": "D53049",
-      "offset": 7,
-      "descript": null
-    },
-    {
-      "idx": 40,
-      "name": "Y10257",
-      "r.addr": "D53049",
-      "offset": 8,
-      "descript": "Buzzer 1(Program End)"
-    },
-    {
-      "idx": 41,
-      "name": "Y10258",
-      "r.addr": "D53049",
-      "offset": 9,
-      "descript": "Buzzer 2(Emergency)"
-    },
-    {
-      "idx": 42,
-      "name": "Y10259",
-      "r.addr": "D53049",
-      "offset": 10,
-      "descript": "Buzzer 3(Temp Alarm)"
-    },
-    {
-      "idx": 43,
-      "name": "Y10260",
-      "r.addr": "D53049",
-      "offset": 11,
-      "descript": "Buzzer 4(Run Check)"
-    },
-    {
-      "idx": 44,
-      "name": "Y10261",
-      "r.addr": "D53049",
-      "offset": 12,
-      "descript": null
-    },
-    {
-      "idx": 45,
       "name": "Y10262",
-      "r.addr": "D53049",
+      "r.addr": "D53050",
       "offset": 13,
       "descript": "Tower Lamp Red"
     },
     {
-      "idx": 46,
+      "idx": 30,
       "name": "Y10263",
-      "r.addr": "D53049",
+      "r.addr": "D53050",
       "offset": 14,
       "descript": "Tower Lamp Green"
     },
     {
-      "idx": 47,
+      "idx": 31,
       "name": "Y10264",
-      "r.addr": "D53049",
+      "r.addr": "D53050",
       "offset": 15,
       "descript": "Tower Lamp Yellow"
-    },
-    {
-      "idx": 48,
-      "name": "Y10265",
-      "r.addr": "D53050",
-      "offset": 0,
-      "descript": null
-    },
-    {
-      "idx": 49,
-      "name": "Y10266",
-      "r.addr": "D53050",
-      "offset": 1,
-      "descript": null
-    },
-    {
-      "idx": 50,
-      "name": "Y10267",
-      "r.addr": "D53050",
-      "offset": 2,
-      "descript": null
-    },
-    {
-      "idx": 51,
-      "name": "Y10268",
-      "r.addr": "D53050",
-      "offset": 3,
-      "descript": null
-    },
-    {
-      "idx": 52,
-      "name": "Y10269",
-      "r.addr": "D53050",
-      "offset": 4,
-      "descript": null
-    },
-    {
-      "idx": 53,
-      "name": "Y10270",
-      "r.addr": "D53050",
-      "offset": 5,
-      "descript": null
-    },
-    {
-      "idx": 54,
-      "name": "Y10271",
-      "r.addr": "D53050",
-      "offset": 6,
-      "descript": null
-    },
-    {
-      "idx": 55,
-      "name": "Y10272",
-      "r.addr": "D53050",
-      "offset": 7,
-      "descript": null
-    },
-    {
-      "idx": 56,
-      "name": "Y10273",
-      "r.addr": "D53050",
-      "offset": 8,
-      "descript": null
-    },
-    {
-      "idx": 57,
-      "name": "Y10274",
-      "r.addr": "D53050",
-      "offset": 9,
-      "descript": null
-    },
-    {
-      "idx": 58,
-      "name": "Y10275",
-      "r.addr": "D53050",
-      "offset": 10,
-      "descript": null
-    },
-    {
-      "idx": 59,
-      "name": "Y10276",
-      "r.addr": "D53050",
-      "offset": 11,
-      "descript": null
-    },
-    {
-      "idx": 60,
-      "name": "Y10277",
-      "r.addr": "D53050",
-      "offset": 12,
-      "descript": null
-    },
-    {
-      "idx": 61,
-      "name": "Y10278",
-      "r.addr": "D53050",
-      "offset": 13,
-      "descript": null
-    },
-    {
-      "idx": 62,
-      "name": "Y10279",
-      "r.addr": "D53050",
-      "offset": 14,
-      "descript": null
-    },
-    {
-      "idx": 63,
-      "name": "Y10280",
-      "r.addr": "D53050",
-      "offset": 15,
-      "descript": null
     }
   ]
 }

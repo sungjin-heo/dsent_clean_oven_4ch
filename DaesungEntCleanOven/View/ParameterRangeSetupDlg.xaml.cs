@@ -39,18 +39,48 @@ namespace DaesungEntCleanOven4.View
                         grpBox2.Header = "챔버 OT";
                         grpBox3.Header = "히터 OT";
                         grpBox4.Header = "차압 챔버";
+                        grpBox1.Visibility = Visibility.Visible;
+                        grpBox2.Visibility = Visibility.Visible;
+                        grpBox3.Visibility = Visibility.Visible;
+                        grpBox4.Visibility = Visibility.Visible;
+                        tboxRH1.IsEnabled = true;
+                        tboxRL1.IsEnabled = true;
+                        tboxRH2.IsEnabled = true;
+                        tboxRL2.IsEnabled = true;
+                        tboxRH3.IsEnabled = true;
+                        tboxRL3.IsEnabled = true;
                         break;
                     case 1:
                         grpBox1.Header = "MFC";
                         grpBox2.Header = "차압 필터";
                         grpBox3.Header = "모터 챔버";
-                        grpBox4.Header = "모터 쿨링";
+                        grpBox4.Header = "";
+                        grpBox1.Visibility = Visibility.Visible;
+                        grpBox2.Visibility = Visibility.Visible;
+                        grpBox3.Visibility = Visibility.Visible;
+                        grpBox4.Visibility = Visibility.Hidden;
+                        tboxRH1.IsEnabled = false;
+                        tboxRL1.IsEnabled = false;
+                        tboxRH2.IsEnabled = false;
+                        tboxRL2.IsEnabled = false;
+                        tboxRH3.IsEnabled = false;
+                        tboxRL3.IsEnabled = false;
                         break;
                     case 2:
                         grpBox1.Header = "내부 온도 #1";
                         grpBox2.Header = "내부 온도 #2";
-                        grpBox3.Header = "내부 온도 #3";
-                        grpBox4.Header = "내부 온도 #4";
+                        grpBox3.Header = "";
+                        grpBox4.Header = "";
+                        grpBox1.Visibility = Visibility.Visible;
+                        grpBox2.Visibility = Visibility.Visible;
+                        grpBox3.Visibility = Visibility.Hidden;
+                        grpBox4.Visibility = Visibility.Hidden;
+                        tboxRH1.IsEnabled = true;
+                        tboxRL1.IsEnabled = true;
+                        tboxRH2.IsEnabled = true;
+                        tboxRL2.IsEnabled = true;
+                        tboxRH3.IsEnabled = true;
+                        tboxRL3.IsEnabled = true;
                         break;
                 }
             }

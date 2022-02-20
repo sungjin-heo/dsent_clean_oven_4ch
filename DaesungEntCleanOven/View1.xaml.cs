@@ -34,6 +34,10 @@ namespace DaesungEntCleanOven4
 
             if (this.DataContext is ViewModel.ChannelViewModel Model)
             {
+                this.viewSystemOperateStatus.DataContext = Model.CleanOvenChamber;
+                this.viewPatternConfiguration.DataContext = Model.PatternForEdit;
+                this.viewRealtimeTrendGraph.DataContext = Model.CleanOvenChamber;
+                this.viewNone.DataContext = Model.CleanOvenChamber;
                 Model.PropertyChanged += Model_PropertyChanged;
                 prevModel = Model;
                 UpdateViewLayout(Model.ViewType);
@@ -47,35 +51,6 @@ namespace DaesungEntCleanOven4
                 {
                     case "ViewType":
                         UpdateViewLayout(Model.ViewType);
-                        {
-//                             switch (Model.ViewType)
-//                             {
-//                                 case ViewType.None:
-//                                     viewSystemOperateStatus.Visibility = Visibility.Hidden;
-//                                     viewPatternConfiguration.Visibility = Visibility.Hidden;
-//                                     viewRealtimeTrendGraph.Visibility = Visibility.Hidden;
-//                                     viewNone.Visibility = Visibility.Visible;
-//                                     break;
-//                                 case ViewType.SystemOperateStatus:
-//                                     viewSystemOperateStatus.Visibility = Visibility.Visible;
-//                                     viewPatternConfiguration.Visibility = Visibility.Hidden;
-//                                     viewRealtimeTrendGraph.Visibility = Visibility.Hidden;
-//                                     viewNone.Visibility = Visibility.Hidden;
-//                                     break;
-//                                 case ViewType.PatternConfiguration:
-//                                     viewSystemOperateStatus.Visibility = Visibility.Hidden;
-//                                     viewPatternConfiguration.Visibility = Visibility.Visible;
-//                                     viewRealtimeTrendGraph.Visibility = Visibility.Hidden;
-//                                     viewNone.Visibility = Visibility.Hidden;
-//                                     break;
-//                                 case ViewType.RealtimeTrendGraph:
-//                                     viewSystemOperateStatus.Visibility = Visibility.Hidden;
-//                                     viewPatternConfiguration.Visibility = Visibility.Hidden;
-//                                     viewRealtimeTrendGraph.Visibility = Visibility.Visible;
-//                                     viewNone.Visibility = Visibility.Hidden;
-//                                     break;
-//                             }
-                        }
                         break;
                 }
             }

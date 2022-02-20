@@ -120,7 +120,7 @@ namespace DaesungEntCleanOven4.Model
         public int SegmentCount => Segments.Count;
         public int No { get; set; }
         public string Name { get; set; }
-        public string Description => string.Format("패턴 번호 : {0}, 패턴 명 : {1}", No, Name);
+        public string Description => string.Format("패턴 번호 : {0},\t패턴 명 : {1}", No, Name);
         public int StartConditionUsage { get; set; }
         public double DifferencePressChamberSv { get; set; }
         public double DifferencePressChamberInitMv { get; set; }

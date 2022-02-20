@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic" FontSize="11"
         mc:Ignorable="d" Icon="{dx:DXImage Image=ConditionalFormatting_16x16.png}"  ResizeMode="NoResize"
-        Title="I/O 리스트 - XY" Height="850" Width="1200">
+        Title="I/O 리스트 - XY" Height="850" Width="800">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/><!--60-->
@@ -28,8 +28,8 @@
             </TextBlock>
         </StackPanel>
         <Rectangle Grid.Row="1" Fill="LightGray" Height="1" Margin="4,2"/>
-        <UniformGrid Grid.Row="2" Columns="3">
-            <DataGrid ItemsSource="{Binding IoXGrp1}"
+        <UniformGrid Grid.Row="2" Columns="2">
+            <DataGrid ItemsSource="{Binding IoX}"
                       AutoGenerateColumns="False"
                       HorizontalGridLinesBrush="LightGray"
                       VerticalGridLinesBrush="LightGray"
@@ -83,61 +83,7 @@
                 </DataGrid.Columns>
 
             </DataGrid>
-            <DataGrid ItemsSource="{Binding IoXGrp2}" Visibility="Collapsed"
-                      AutoGenerateColumns="False"
-                      HorizontalGridLinesBrush="LightGray"
-                      VerticalGridLinesBrush="LightGray"
-                      Background="DimGray"
-                      CanUserDeleteRows="False"
-                      CanUserSortColumns="False"
-                      CanUserReorderColumns="False"
-                      CanUserResizeRows="False" 
-                      CanUserAddRows="False"
-                      ColumnHeaderHeight="24"
-                      RowHeight="22"
-                      HorizontalContentAlignment="Center" 
-                      VerticalContentAlignment="Center"
-                      IsSynchronizedWithCurrentItem="False"
-                      Margin="2"
-                      x:Name="gridIoXGrp2"           
-                      >
-                <DataGrid.Resources>
-                    <Style x:Key="CellTextStyleCenter" TargetType="{x:Type TextBlock}">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                    </Style>
-                    <Style x:Key="CellTextStyleRight" TargetType="{x:Type TextBlock}">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="HorizontalAlignment" Value="Right"/>
-                        <Setter Property="Padding" Value="0,0,10,0"/>
-                    </Style>
-                    <Style x:Key="CellTextStyleLeft" TargetType="{x:Type TextBlock}">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="HorizontalAlignment" Value="Left"/>
-                        <Setter Property="Padding" Value="10,0,0,0"/>
-                    </Style>
-                    <Style x:Key="CellCheckStyle" TargetType="{x:Type CheckBox}">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                    </Style>
-                </DataGrid.Resources>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="50" Header="번호" Binding="{Binding Name, Mode=OneWay}" IsReadOnly="True" ElementStyle="{StaticResource CellTextStyleCenter}"/>
-                    <DataGridTemplateColumn Header="상태" Width="48">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Border Background="{Binding Value, Mode=OneWay, Converter={StaticResource BooleanToGreenBrushConverter}}" 
-                                            HorizontalAlignment="Center" VerticalAlignment="Center" Width="16" Height="16" BorderBrush="Black" BorderThickness="1"/>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="*" Header="내용" Binding="{Binding Description, Mode=OneWay}" IsReadOnly="True" ElementStyle="{StaticResource CellTextStyleLeft}"/>
-                </DataGrid.Columns>
-
-            </DataGrid>
-            <DataGrid ItemsSource="{Binding IoYGrp1}"
+            <DataGrid ItemsSource="{Binding IoY}"
                       AutoGenerateColumns="False"
                       HorizontalGridLinesBrush="LightGray"
                       VerticalGridLinesBrush="LightGray"
@@ -154,60 +100,6 @@
                       IsSynchronizedWithCurrentItem="False"
                       Margin="2"
                       x:Name="gridIoYGrp1"           
-                      >
-                <DataGrid.Resources>
-                    <Style x:Key="CellTextStyleCenter" TargetType="{x:Type TextBlock}">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                    </Style>
-                    <Style x:Key="CellTextStyleRight" TargetType="{x:Type TextBlock}">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="HorizontalAlignment" Value="Right"/>
-                        <Setter Property="Padding" Value="0,0,10,0"/>
-                    </Style>
-                    <Style x:Key="CellTextStyleLeft" TargetType="{x:Type TextBlock}">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="HorizontalAlignment" Value="Left"/>
-                        <Setter Property="Padding" Value="10,0,0,0"/>
-                    </Style>
-                    <Style x:Key="CellCheckStyle" TargetType="{x:Type CheckBox}">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                    </Style>
-                </DataGrid.Resources>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="50" Header="번호" Binding="{Binding Name, Mode=OneWay}" IsReadOnly="True" ElementStyle="{StaticResource CellTextStyleCenter}"/>
-                    <DataGridTemplateColumn Header="상태" Width="48">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <Border Background="{Binding Value, Mode=OneWay, Converter={StaticResource BooleanToGreenBrushConverter}}" 
-                                            HorizontalAlignment="Center" VerticalAlignment="Center" Width="16" Height="16" BorderBrush="Black" BorderThickness="1"/>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Width="*" Header="내용" Binding="{Binding Description, Mode=OneWay}" IsReadOnly="True" ElementStyle="{StaticResource CellTextStyleLeft}"/>
-                </DataGrid.Columns>
-
-            </DataGrid>
-            <DataGrid ItemsSource="{Binding IoYGrp2}"
-                      AutoGenerateColumns="False"
-                      HorizontalGridLinesBrush="LightGray"
-                      VerticalGridLinesBrush="LightGray"
-                      Background="DimGray"
-                      CanUserDeleteRows="False"
-                      CanUserSortColumns="False"
-                      CanUserReorderColumns="False"
-                      CanUserResizeRows="False" 
-                      CanUserAddRows="False"
-                      ColumnHeaderHeight="24"
-                      RowHeight="22"
-                      HorizontalContentAlignment="Center" 
-                      VerticalContentAlignment="Center"
-                      IsSynchronizedWithCurrentItem="False"
-                      Margin="2,2,4,2"
-                      x:Name="gridIoYGrp2"           
                       >
                 <DataGrid.Resources>
                     <Style x:Key="CellTextStyleCenter" TargetType="{x:Type TextBlock}">

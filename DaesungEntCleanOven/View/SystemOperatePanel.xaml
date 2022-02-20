@@ -18,7 +18,7 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.65*"/>
+                <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -115,7 +115,6 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
                 <TextBox Grid.Row="0" Grid.Column="0" Style="{StaticResource CaptionTextBox}" Margin="0" Background="LightSteelBlue" />
@@ -148,58 +147,58 @@
                 <cc:Indicator Grid.Row="3" Grid.Column="3" Margin="-1,-1,0,0"
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[17].FormattedValue, Mode=OneWay}" Unit="%" FontWeight="Bold"/>
 
-                <TextBox Grid.Row="0" Grid.Column="4" Text="모터 쿨링" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+                <!--<TextBox Grid.Row="0" Grid.Column="4" Text="모터 쿨링" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
                 <cc:Indicator Grid.Row="1" Grid.Column="4" Margin="-1,-1,0,0"
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[18].FormattedValue, Mode=OneWay}" Unit="Hz" FontWeight="Bold"/>
                 <cc:Indicator Grid.Row="2" Grid.Column="4" Margin="-1,-1,0,0"
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[19].FormattedValue, Mode=OneWay}" Unit="Hz" FontWeight="Bold"/>
                 <cc:Indicator Grid.Row="3" Grid.Column="4" Margin="-1,-1,0,0"
-                              TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[20].FormattedValue, Mode=OneWay}" Unit="%" FontWeight="Bold"/>
+                              TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[20].FormattedValue, Mode=OneWay}" Unit="%" FontWeight="Bold"/>-->
 
-                <TextBox Grid.Row="0" Grid.Column="5" Text="MFC" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
-                <cc:Indicator Grid.Row="1" Grid.Column="5" Margin="-1,-1,0,0"
+                <TextBox Grid.Row="0" Grid.Column="4" Text="MFC" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+                <cc:Indicator Grid.Row="1" Grid.Column="4" Margin="-1,-1,0,0"
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[21].FormattedValue, Mode=OneWay}" Unit="l/min" FontWeight="Bold"/>
-                <cc:Indicator Grid.Row="2" Grid.Column="5" Margin="-1,-1,0,0"
+                <cc:Indicator Grid.Row="2" Grid.Column="4" Margin="-1,-1,0,0"
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[22].FormattedValue, Mode=OneWay}" Unit="l/min" FontWeight="Bold"/>
-                <cc:Indicator Grid.Row="3" Grid.Column="5" Margin="-1,-1,0,0"
+                <cc:Indicator Grid.Row="3" Grid.Column="4" Margin="-1,-1,0,0"
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[43].FormattedValue, Mode=OneWay}" Unit="%" FontWeight="Bold"/>
 
                 <TextBox Grid.Row="5" Grid.Column="0" Style="{StaticResource CaptionTextBox}" Margin="0" Background="LightSteelBlue"/>
                 <TextBox Grid.Row="6" Grid.Column="0" Text="PV" Style="{StaticResource CaptionTextBox}" Margin="0,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
 
-                <TextBox Grid.Row="5" Grid.Column="1" Text="내부 온도 #1" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
-                <cc:Indicator Grid.Row="6" Grid.Column="1" Margin="-1,-1,0,0" 
+                <TextBox Grid.Row="5" Grid.Column="3" Text="내부 온도 #1" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+                <cc:Indicator Grid.Row="6" Grid.Column="3" Margin="-1,-1,0,0" 
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[23].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
 
-                <TextBox Grid.Row="5" Grid.Column="2" Text="내부 온도 #2" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
-                <cc:Indicator Grid.Row="6" Grid.Column="2" Margin="-1,-1,0,0" 
+                <TextBox Grid.Row="5" Grid.Column="4" Text="내부 온도 #2" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+                <cc:Indicator Grid.Row="6" Grid.Column="4" Margin="-1,-1,0,0" 
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[24].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
 
-                <TextBox Grid.Row="5" Grid.Column="3" Text="내부 온도 #3" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+                <!--<TextBox Grid.Row="5" Grid.Column="3" Text="내부 온도 #3" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
                 <cc:Indicator Grid.Row="6" Grid.Column="3" Margin="-1,-1,0,0" 
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[25].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
 
                 <TextBox Grid.Row="5" Grid.Column="4" Text="내부 온도 #4" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
                 <cc:Indicator Grid.Row="6" Grid.Column="4" Margin="-1,-1,0,0" 
-                              TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[26].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
+                              TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[26].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>-->
 
                 <TextBox Grid.Row="8" Grid.Column="0" Style="{StaticResource CaptionTextBox}" Margin="0" Background="LightSteelBlue"/>
                 <TextBox Grid.Row="9" Grid.Column="0" Text="PV" Style="{StaticResource CaptionTextBox}" Margin="0,-1,0,0" Background="LightSteelBlue" Foreground="Black"/>
 
-                <TextBox Grid.Row="8" Grid.Column="1" Text="챔버 OT" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
-                <cc:Indicator Grid.Row="9" Grid.Column="1" Margin="-1,-1,0,0" 
+                <TextBox Grid.Row="5" Grid.Column="1" Text="챔버 OT" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+                <cc:Indicator Grid.Row="6" Grid.Column="1" Margin="-1,-1,0,0" 
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[27].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
 
-                <TextBox Grid.Row="8" Grid.Column="2" Text="히터 OT" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
-                <cc:Indicator Grid.Row="9" Grid.Column="2" Margin="-1,-1,0,0" 
+                <TextBox Grid.Row="5" Grid.Column="2" Text="히터 OT" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+                <cc:Indicator Grid.Row="6" Grid.Column="2" Margin="-1,-1,0,0" 
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[28].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
 
-                <TextBox Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="3" Text="O2 분석기" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
-                <cc:Indicator Grid.Row="9" Grid.Column="3" Margin="-1,-1,0,0" 
+                <TextBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3" Text="O2 분석기" Style="{StaticResource CaptionTextBox}" Margin="-1,0,0,0" Background="LightSteelBlue" Foreground="Black"/>
+                <cc:Indicator Grid.Row="9" Grid.Column="1" Margin="-1,-1,0,0" 
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[29].FormattedValue, Mode=OneWay}" Unit="℃" FontWeight="Bold"/>
-                <cc:Indicator Grid.Row="9" Grid.Column="4" Margin="-1,-1,0,0" 
+                <cc:Indicator Grid.Row="9" Grid.Column="2" Margin="-1,-1,0,0" 
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[30].FormattedValue, Mode=OneWay}" Unit="mV" FontWeight="Bold"/>
-                <cc:Indicator Grid.Row="9" Grid.Column="5" Margin="-1,-1,0,0" 
+                <cc:Indicator Grid.Row="9" Grid.Column="3" Margin="-1,-1,0,0" 
                               TitleVisibility="Collapsed" RangeVisibility="Collapsed" FormattedValue="{Binding NumericValues[31].FormattedValue, Mode=OneWay}" Unit="ppm" FontWeight="Bold"/>
 
             </Grid>
@@ -224,10 +223,10 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
 
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -250,9 +249,11 @@
                 <Border  Grid.Row="4"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding Relays[7].Value, Mode=OneWay, Converter={StaticResource BooleanToGreenBrushConverter}}" Width="23" Height="23" Margin="2"/>
                 <Border  Grid.Row="5"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding Relays[1].Value, Mode=OneWay, Converter={StaticResource BooleanToGreenBrushConverter}}" Width="23" Height="23" Margin="2"/>
                 <Border  Grid.Row="6"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding IsAutoTune, Mode=OneWay, Converter={StaticResource BooleanToGreenBrushConverter}}" Width="23" Height="23" Margin="2"/>
-                <Border  Grid.Row="8"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding IoY[33].Value, Mode=OneWay, Converter={StaticResource BooleanToGreenBrushConverter}}" Width="23" Height="23" Margin="2"/>
-                <Border  Grid.Row="10" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding Relays[24].Value, Mode=OneWay, Converter={StaticResource BooleanToGreenBrushConverter}}" Width="23" Height="23" Margin="2"/>
-                <Border  Grid.Row="11" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding Relays[24].Value, Mode=OneWay, Converter={StaticResource BooleanToRedBrushReverseConverter}}" Width="23" Height="23" Margin="2"/>
+                <Border  Grid.Row="8"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding IoY[17].Value, Mode=OneWay, Converter={StaticResource BooleanToGreenBrushConverter}}" Width="23" Height="23" Margin="2"/>
+                
+                
+                <Border  Grid.Row="14" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding Relays[24].Value, Mode=OneWay, Converter={StaticResource BooleanToGreenBrushConverter}}" Width="23" Height="23" Margin="2"/>
+                <Border  Grid.Row="15" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding Relays[24].Value, Mode=OneWay, Converter={StaticResource BooleanToRedBrushReverseConverter}}" Width="23" Height="23" Margin="2"/>
                 <Border  Grid.Row="19" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding Relays[9].Value, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
 
                 <TextBox Grid.Row="0"  Grid.Column="1" IsReadOnly="True" Text="PROG - 초기 운전" HorizontalContentAlignment="Left" Padding="10,2" Background="PeachPuff"/>
@@ -263,8 +264,13 @@
                 <TextBox Grid.Row="5"  Grid.Column="1" IsReadOnly="True" Text="PROG - 운전 HOLD" HorizontalContentAlignment="Left" Padding="10,2" Background="PeachPuff" HorizontalAlignment="Right" Margin="0,2,1.667,2" Width="136"/>
                 <TextBox Grid.Row="6"  Grid.Column="1" IsReadOnly="True" Text="오토 튜닝" HorizontalContentAlignment="Left" Padding="10,2" Background="PeachPuff"/>
                 <TextBox Grid.Row="8"  Grid.Column="1" IsReadOnly="True" Text="POWER ON" HorizontalContentAlignment="Left" Padding="10,2" Background="SeaGreen" Foreground="White"/>
-                <TextBox Grid.Row="10" Grid.Column="1" IsReadOnly="True" Text="도어열기 - 가능" HorizontalContentAlignment="Left" Padding="10,2" Background="SeaGreen" Foreground="White"/>
-                <TextBox Grid.Row="11" Grid.Column="1" IsReadOnly="True" Text="도어열기 - 불가" HorizontalContentAlignment="Left" Padding="10,2" Background="Orange"/>
+                <dx:SimpleButton Grid.Row="9"  Grid.Column="1"  Content="파워 ON" Command="{Binding TurnOnPowerCommand}" Glyph="{dx:DXImage Image=IconSetRedToBlack4_16x16.png}"/>
+                <dx:SimpleButton Grid.Row="10" Grid.Column="1"  Content="파워 OFF" Command="{Binding TurnOffPowerCommand}" Glyph="{dx:DXImage Image=IconSetQuarters5_16x16.png}"/>
+
+                <dx:SimpleButton Grid.Row="12" Grid.Column="1" Content="도어 열기" Command="{Binding OpenDoorCommand}" Glyph="{dx:DXImage Image=Left_16x16.png}"/>
+                <dx:SimpleButton Grid.Row="13" Grid.Column="1" Content="도어 닫기" Command="{Binding CloseDoorCommand}" Glyph="{dx:DXImage Image=Right_16x16.png}"/>
+                <TextBox Grid.Row="14" Grid.Column="1" IsReadOnly="True" Text="도어열기 - 가능" HorizontalContentAlignment="Left" Padding="10,2" Background="SeaGreen" Foreground="White"/>
+                <TextBox Grid.Row="15" Grid.Column="1" IsReadOnly="True" Text="도어열기 - 불가" HorizontalContentAlignment="Left" Padding="10,2" Background="Orange"/>
                 <TextBox Grid.Row="19" Grid.Column="1" IsReadOnly="True" Text="경보" HorizontalContentAlignment="Left" Padding="10,2" Background="Orange"/>
             </Grid>
             <Grid Grid.Column="1" Margin="4,-10,4,0">
@@ -307,7 +313,7 @@
                 <Border  Grid.Row="1"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding IoY[12].Value, Mode=OneWay, Converter={StaticResource BooleanToBlueBrushConverter}}" Width="23" Height="23" Margin="2"/>
                 <Border  Grid.Row="2"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding IoY[13].Value, Mode=OneWay, Converter={StaticResource BooleanToBlueBrushConverter}}" Width="23" Height="23" Margin="2"/>
                 <Border  Grid.Row="3"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding IoY[7].Value, Mode=OneWay, Converter={StaticResource BooleanToBlueBrushConverter}}" Width="23" Height="23" Margin="2"/>
-                <Border  Grid.Row="4"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding IoY[14].Value, Mode=OneWay, Converter={StaticResource BooleanToBlueBrushConverter}}" Width="23" Height="23" Margin="2"/>
+                <!--<Border  Grid.Row="4"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding IoY[14].Value, Mode=OneWay, Converter={StaticResource BooleanToBlueBrushConverter}}" Width="23" Height="23" Margin="2"/>-->
                 <Border  Grid.Row="6"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding IoX[16].Value, Mode=OneWay, Converter={StaticResource BooleanToBlueBrushConverter}}" Width="23" Height="23" Margin="2"/>
                 <Border  Grid.Row="7"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding IoX[17].Value, Mode=OneWay, Converter={StaticResource BooleanToBlueBrushConverter}}" Width="23" Height="23" Margin="2"/>
                 <Border  Grid.Row="8"  Grid.Column="0" BorderBrush="Black" BorderThickness="1" Background="{Binding IoX[18].Value, Mode=OneWay, Converter={StaticResource BooleanToBlueBrushConverter}}" Width="23" Height="23" Margin="2"/>
@@ -323,7 +329,7 @@
                 <TextBox Grid.Row="1"  Grid.Column="1" IsReadOnly="True" FontWeight="Normal" Text="Main Heater MC" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
                 <TextBox Grid.Row="2"  Grid.Column="1" IsReadOnly="True" FontWeight="Normal" Text="Blower FAN MC" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
                 <TextBox Grid.Row="3"  Grid.Column="1" IsReadOnly="True" FontWeight="Normal" Text="Motor Chamber" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-                <TextBox Grid.Row="4"  Grid.Column="1" IsReadOnly="True" FontWeight="Normal" Text="Cooling FAN MC" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+                <!--<TextBox Grid.Row="4"  Grid.Column="1" IsReadOnly="True" FontWeight="Normal" Text="Cooling FAN MC" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>-->
                 <TextBox Grid.Row="6"  Grid.Column="1" IsReadOnly="True" FontWeight="Normal" Text="Door Unlock #1" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
                 <TextBox Grid.Row="7"  Grid.Column="1" IsReadOnly="True" FontWeight="Normal" Text="Door Unlock #2" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
                 <TextBox Grid.Row="8"  Grid.Column="1" IsReadOnly="True" FontWeight="Normal" Text="Door Unlock #3" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>

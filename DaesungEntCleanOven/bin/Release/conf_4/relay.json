@@ -64,13 +64,13 @@
     {
       "idx": 10,
       "name": "manctl_door_open",
-      "w.addr": "I45301",
+      "w.addr": "I45341",
       "r.addr": "I45642"
     },
     {
       "idx": 11,
       "name": "manctl_door_close",
-      "w.addr": "I45302",
+      "w.addr": "I45342",
       "r.addr": "I45641"
     },
     {

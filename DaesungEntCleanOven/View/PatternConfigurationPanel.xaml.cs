@@ -24,8 +24,8 @@ namespace DaesungEntCleanOven4.View
         public PatternConfigurationPanel()
         {
             InitializeComponent();
-            yaxis11.LabelProvider = new ColoredMultiRowLabelProvider(yaxis11, yaxis12, yaxis13, yaxis14, yaxis15);
-            yaxis21.LabelProvider = new ColoredMultiRowLabelProvider(yaxis21, yaxis22, yaxis23, yaxis24, yaxis25);
+            yaxis11.LabelProvider = new ColoredMultiRowLabelProvider(yaxis11, yaxis12, yaxis13, yaxis14/*, yaxis15*/);
+            yaxis21.LabelProvider = new ColoredMultiRowLabelProvider(yaxis21, yaxis22, yaxis23, yaxis24/*, yaxis25*/);
         }
     }
 }

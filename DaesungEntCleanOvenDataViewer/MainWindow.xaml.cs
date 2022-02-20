@@ -34,11 +34,11 @@ namespace DaesungEntCleanOvenDataViewer
     /// </summary>
     public partial class MainWindow : DXWindow
     {
-        protected readonly string BINARY_FILE_HEADER = "DAESUNG-ENT.N2-CLEANOVEN.V1";
+        protected readonly string BINARY_FILE_HEADER = "DAESUNG-ENT.4CH.N2-CLEANOVEN.V1";
         protected readonly int SCREEN_PTR_MAX = 1000;
         protected DateTime[] xSourceValues; // TOTAL X VALUES.
         protected Dictionary<int, double[]> ySourceValues = new Dictionary<int, double[]>();    // TOTAL Y VALUES.
-        protected int[] Scales = new int[] { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 1, 1 };
+        protected int[] Scales = new int[] { 10, 10, 10, 10, 10, 10, /*10,*/ 10, 10, 10, /*10, 10,*/ 10, 10, 1, 1, 1 };
         protected int OutputDataOffset = 0;
 
         public MainWindow()
@@ -61,12 +61,12 @@ namespace DaesungEntCleanOvenDataViewer
                 "차압챔버(mmH2O)",
                 "차압필터(mmH2O)",
                 "모터챔버(Hz)",
-                "쿨링챔버(Hz)",
+               /* "쿨링챔버(Hz)",*/
                 "MFC(ℓ/min)",
                 "내부온도-1(℃)",
                 "내부온도-2(℃)",
-                "내부온도-3(℃)",
-                "내부온도-4(℃)",
+//                 "내부온도-3(℃)",
+//                 "내부온도-4(℃)",
                 "챔버_OT(℃)",
                 "히터_OT(℃)",
                 "O2_온도(℃)",
@@ -80,12 +80,12 @@ namespace DaesungEntCleanOvenDataViewer
                 "y3",
                 "y3",
                 "y4",
-                "y4",
+               /* "y4",*/
                 "y5",
                 "y1",
                 "y1",
-                "y1",
-                "y1",
+//                 "y1",
+//                 "y1",
                 "y1",
                 "y1",
                 "y6",
@@ -99,12 +99,12 @@ namespace DaesungEntCleanOvenDataViewer
                 Colors.Aqua,        //
                 Colors.White,
                 Colors.Yellow,      //
-                Colors.LightBlue,
+          //      Colors.LightBlue,
                 Colors.Magenta,     //
                 Colors.Purple,
                 Colors.Brown,
-                Colors.Beige,
-                Colors.Teal,
+//                 Colors.Beige,
+//                 Colors.Teal,
                 Colors.SaddleBrown,
                 Colors.Plum,
                 Colors.RoyalBlue,   //
@@ -124,41 +124,6 @@ namespace DaesungEntCleanOvenDataViewer
                 ln.StrokeThickness = 1;
                 chartTrend.RenderableSeries.Add(ln);
                 LineRenderableSeries.Add(ln);
-//                 ln.PropertyChanged += (s, e) => {
-//                     if (e.PropertyName == "LineColor")
-//                     {
-//                         if (s is FastLineRenderableSeriesEx Sr)
-//                         {
-//                             switch (Sr.DataSeries.SeriesName)
-//                             {
-//                                 case "온도_PV(℃)":
-//                                     yaxis1.TickTextBrush = new SolidColorBrush(Sr.LineColor);
-//                                     break;
-//                                 case "온도_MV(%)":
-//                                     yaxis2.TickTextBrush = new SolidColorBrush(Sr.LineColor);
-//                                     break;
-//                                 case "차압챔버(mmH2O)":
-//                                     yaxis3.TickTextBrush = new SolidColorBrush(Sr.LineColor);
-//                                     break;
-//                                 case "모터챔버(Hz)":
-//                                     yaxis4.TickTextBrush = new SolidColorBrush(Sr.LineColor);
-//                                     break;
-//                                 case "MFC(ℓ/min)":
-//                                     yaxis5.TickTextBrush = new SolidColorBrush(Sr.LineColor);
-//                                     break;
-//                                 case "O2_온도(℃)":
-//                                     yaxis6.TickTextBrush = new SolidColorBrush(Sr.LineColor);
-//                                     break;
-//                                 case "O2_EMF(mV)":
-//                                     yaxis7.TickTextBrush = new SolidColorBrush(Sr.LineColor);
-//                                     break;
-//                                 case "O2_ppm(ppm)":
-//                                     yaxis8.TickTextBrush = new SolidColorBrush(Sr.LineColor);
-//                                     break;
-//                             }
-//                         }
- //                   }
- //               };
             }
 
             this.TrendChartParameter = new ChartParameter(this.chartTrend);
@@ -196,19 +161,19 @@ namespace DaesungEntCleanOvenDataViewer
         }
         protected async void OpenFile(string path)
         {
-            View.ProgressWindow.ShowWindow("대성ENT - N2 CLEAN OVEN", "로그 데이터 로드 중...");
+            View.ProgressWindow.ShowWindow("대성ENT - 4CH. N2 CLEAN OVEN", "로그 데이터 로드 중...");
            
             var T = Task<bool>.Run(() => {
 
                 try
                 {
-                    var Fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    var tmpBuf = new byte[Fs.Length];
-                    int ptrCnt = (int)((Fs.Length - 50) / 42);
+                    FileStream Fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    byte[] tmpBuf = new byte[Fs.Length];
+                    int ptrCnt = (int)((Fs.Length - 50) / 36/*42*/);
                     if (ptrCnt < 2)
                         throw new Exception("Ptr.Count is Invalid");
 
-                    using (var Br = new System.IO.BinaryReader(Fs))
+                    using (BinaryReader Br = new System.IO.BinaryReader(Fs))
                     {
                         if (Br.Read(tmpBuf, 0, tmpBuf.Length) != tmpBuf.Length)
                             throw new Exception("Fail to Read a Binary Data to Internal Buffer");
@@ -219,16 +184,16 @@ namespace DaesungEntCleanOvenDataViewer
                         throw new Exception("BinaryFile Header is Invalid");
 
                     xSourceValues = new DateTime[ptrCnt];
-                    for (int i = 0; i < 17; i++)
+                    for (int i = 0; i < 14/*17*/; i++)
                         ySourceValues[i] = new double[ptrCnt];
 
                     for (int i = 0; i < ptrCnt; i++)
                     {
-                        long Ticks = BitConverter.ToInt64(tmpBuf, 50 + (i * 42));
+                        long Ticks = BitConverter.ToInt64(tmpBuf, 50 + (i * 36/*42*/));
                         xSourceValues[i] = new DateTime(Ticks, DateTimeKind.Local);
                         for (int j = 0; j < LineRenderableSeries.Count; j++)
                         {
-                            var value = BitConverter.ToInt16(tmpBuf, 50 + (i * 42) + (8 + j * 2)) / Scales[j];
+                            var value = BitConverter.ToInt16(tmpBuf, 50 + (i * 36/*42*/) + (8 + j * 2)) / Scales[j];
                             ySourceValues[j][i] = value;
                         }
                     }
@@ -247,8 +212,8 @@ namespace DaesungEntCleanOvenDataViewer
             if (Res)
             {
                 OutputDataOffset = 0;
-                var First = xSourceValues[0];
-                var Last = new DateTime(First.Ticks + (long)(((xSourceValues[1].Ticks - First.Ticks) * SCREEN_PTR_MAX)));
+                DateTime First = xSourceValues[0];
+                DateTime Last = new DateTime(First.Ticks + (long)(((xSourceValues[1].Ticks - First.Ticks) * SCREEN_PTR_MAX)));
                 xAxis.VisibleRange = new DateRange(First, Last);
                 xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 20));
                 scrollbar.IsEnabled = (xSourceValues.Length > SCREEN_PTR_MAX);
@@ -287,7 +252,7 @@ namespace DaesungEntCleanOvenDataViewer
                 }
             }
 
-            var qDlg = new View.Question(Res ? "차트 데이터 로드 완료" : "차트 데이터 로드 실패.");
+            View.Question qDlg = new View.Question(Res ? "차트 데이터 로드 완료" : "차트 데이터 로드 실패.");
             qDlg.ShowDialog();
         }
         protected void ScrollBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -297,8 +262,8 @@ namespace DaesungEntCleanOvenDataViewer
             {
                 if (Offset < xSourceValues.Length)
                 {
-                    var First = xSourceValues[Offset];
-                    var Last = new DateTime(First.Ticks + (long)(((xSourceValues[1].Ticks - xSourceValues[0].Ticks) * SCREEN_PTR_MAX) * TrendChartParameter.ZoomRatio));
+                    DateTime First = xSourceValues[Offset];
+                    DateTime Last = new DateTime(First.Ticks + (long)(((xSourceValues[1].Ticks - xSourceValues[0].Ticks) * SCREEN_PTR_MAX) * TrendChartParameter.ZoomRatio));
                     xAxis.VisibleRange = new DateRange(First, Last);
                 }
                 OutputDataOffset = Offset;

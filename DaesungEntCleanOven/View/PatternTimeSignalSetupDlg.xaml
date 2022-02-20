@@ -6,7 +6,7 @@
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic"
         mc:Ignorable="d"  ResizeMode="NoResize"
-        Title="타임 시그널 설정" Height="400" Width="350" Icon="{dx:DXImage Image=TableOfContent_16x16.png}">
+        Title="타임 시그널 설정" Height="380" Width="350" Icon="{dx:DXImage Image=TableOfContent_16x16.png}">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -44,7 +44,7 @@
         <TextBox Grid.Row="6"  Grid.Column="0" Text="TS4 : 산소 분석기 밸브" Background="WhiteSmoke" HorizontalContentAlignment="Left" Padding="5,0"/>
         <TextBox Grid.Row="7"  Grid.Column="0" Text="TS5 : 냉각수 밸브" Background="WhiteSmoke" HorizontalContentAlignment="Left" Padding="5,0"/>
         <TextBox Grid.Row="8"  Grid.Column="0" Text="TS6 : 히터 차단" Background="WhiteSmoke" HorizontalContentAlignment="Left" Padding="5,0"/>
-        <TextBox Grid.Row="9"  Grid.Column="0" Text="TS7 : 냉각 팬" Background="WhiteSmoke" HorizontalContentAlignment="Left" Padding="5,0"/>
+        <!--<TextBox Grid.Row="9"  Grid.Column="0" Text="TS7 : 냉각 팬" Background="WhiteSmoke" HorizontalContentAlignment="Left" Padding="5,0"/>-->
         <TextBox Grid.Row="10" Grid.Column="0" Text="TS8 : EVA 밸브" Background="WhiteSmoke" HorizontalContentAlignment="Left" Padding="5,0"/>
         <ComboBox Grid.Row="3"  Grid.Column="1" SelectedIndex="{Binding DeviationAlarmUsed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="cmb1"/>
         <ComboBox Grid.Row="4"  Grid.Column="1" SelectedIndex="{Binding N2InputValve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="cmb2"/>
@@ -52,7 +52,7 @@
         <ComboBox Grid.Row="6"  Grid.Column="1" SelectedIndex="{Binding OxygenAnalyzerValve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="cmb4"/>
         <ComboBox Grid.Row="7"  Grid.Column="1" SelectedIndex="{Binding CoolingWaterValve, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="cmb5"/>
         <ComboBox Grid.Row="8"  Grid.Column="1" SelectedIndex="{Binding HeaterCutoffUsed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="cmb6"/>
-        <ComboBox Grid.Row="9"  Grid.Column="1" SelectedIndex="{Binding CoolingFanUsed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="cmb7"/>
+        <!--<ComboBox Grid.Row="9"  Grid.Column="1" SelectedIndex="{Binding CoolingFanUsed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="cmb7"/>-->
         <ComboBox Grid.Row="10" Grid.Column="1" SelectedIndex="{Binding CoolingChamberUsed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="cmb8"/>
         <dx:SimpleButton Grid.Row="12" Grid.Column="0" Content="저장" Glyph="{dx:DXImage Image=Save_16x16.png}" Click="SaveButton_Click"/>
         <dx:SimpleButton Grid.Row="12" Grid.Column="1" Content="취소" Glyph="{dx:DXImage Image=Cancel_16x16.png}" IsCancel="True"/>

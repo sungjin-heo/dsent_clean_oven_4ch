@@ -8,7 +8,7 @@
         xmlns:u="clr-namespace:Util"
         WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic"
         mc:Ignorable="d" Icon="{dx:DXImage Image=SwitchTimeScalesTo_16x16.png}"  ResizeMode="NoResize"
-        Title="패턴 설정" Height="576.653" Width="1150">
+        Title="패턴 설정" Height="550" Width="1150">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,17 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed">
-            <!--<Image Source="../Image/xxx.png" Stretch="Uniform" Margin="10,4"/>-->
-            <TextBlock>
-                <Run Text="######################################################################"/>
-                <LineBreak/>
-                <Run Text="######################################################################"/>
-                <LineBreak/>
-                <Run Text="######################################################################"/>
-            </TextBlock>
-        </StackPanel>
+        </Grid.RowDefinitions>      
         <Rectangle Grid.Row="1" Fill="LightGray" Height="1" Margin="4,2"/>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
@@ -181,7 +171,7 @@
                 <TextBox Grid.Row="1" Grid.Column="0" Text="온도" Style="{StaticResource CaptionTextBox}" Background="Red"/>
                 <TextBox Grid.Row="2" Grid.Column="0" Text="차압 챔버" Style="{StaticResource CaptionTextBox}" Background="Lime" Foreground="Black"/>
                 <TextBox Grid.Row="3" Grid.Column="0" Text="모터 챔버" Style="{StaticResource CaptionTextBox}" Background="Aqua" Foreground="Black"/>
-                <TextBox Grid.Row="4" Grid.Column="0" Text="모터 쿨링" Style="{StaticResource CaptionTextBox}" Background="Yellow" Foreground="Black"/>
+                <!--<TextBox Grid.Row="4" Grid.Column="0" Text="모터 쿨링" Style="{StaticResource CaptionTextBox}" Background="Yellow" Foreground="Black"/>-->
                 <TextBox Grid.Row="5" Grid.Column="0" Text="MFC" Style="{StaticResource CaptionTextBox}" Background="Magenta"/>
                 <TextBox Grid.Row="6" Grid.Column="0" Text="세그 시간" Style="{StaticResource CaptionTextBox}" Background="RoyalBlue"/>
                 <TextBox Grid.Row="7" Grid.Column="0" Text="TS" Style="{StaticResource CaptionTextBox}" Background="LightSkyBlue" Foreground="Black" Grid.RowSpan="2"/>
@@ -203,11 +193,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="1" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[0].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="1" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[0].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="1" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[0].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -247,11 +237,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="2" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[1].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="2" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[1].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="2" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[1].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -291,11 +281,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="3" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[2].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="3" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[2].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="3" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[2].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -335,11 +325,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="4" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[3].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="4" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[3].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="4" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[3].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -379,11 +369,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="5" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[4].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="5" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[4].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="5" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[4].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -423,11 +413,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="6" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[5].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="6" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[5].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="6" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[5].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -467,11 +457,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="7" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[6].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="7" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[6].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="7" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[6].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -511,11 +501,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="8" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[7].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="8" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[7].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="8" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[7].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -555,11 +545,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="9" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[8].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="9" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[8].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="9" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[8].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -599,11 +589,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="10" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[9].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="10" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[9].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="10" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[9].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -643,11 +633,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="11" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[10].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="11" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[10].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="11" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[10].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -687,11 +677,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="12" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[11].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="12" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[11].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="12" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[11].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -731,11 +721,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="13" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[12].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="13" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[12].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="13" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[12].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -775,11 +765,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="14" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[13].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="14" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[13].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="14" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[13].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -819,11 +809,11 @@
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="15" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[14].MotorCooling, Mode=TwoWay, StringFormat=F1}">
+                <!--<TextBox Grid.Row="4" Grid.Column="15" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[14].MotorCooling, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
                     </dxmvvm:Interaction.Behaviors>
-                </TextBox>
+                </TextBox>-->
                 <TextBox Grid.Row="5" Grid.Column="15" FontWeight="Bold" Text="{Binding SelectedSegmentGrp[14].MFC, Mode=TwoWay, StringFormat=F1}">
                     <dxmvvm:Interaction.Behaviors>
                         <u:TextBoxInputDoneBehavior/>
@@ -849,8 +839,8 @@
         </Grid>
 
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left">
-            <dx:SimpleButton Content="세그먼트 #01 ~ #15" Width="160" Command="{Binding SelectSegmentGrp1Command}" Glyph="{dx:DXImage Image=Left_16x16.png}"/>
-            <dx:SimpleButton Content="세그먼트 #15 ~ #30" Width="160" Command="{Binding SelectSegmentGrp2Command}" Glyph="{dx:DXImage Image=Right_16x16.png}" GlyphAlignment="Right"/>            
+            <dx:SimpleButton Content="세그먼트 #01 ~ #15" Width="160" Command="{Binding SelectSegmentGrp1Command}" Glyph="{dx:DXImage Image=LessThan_16x16.png}"/>
+            <dx:SimpleButton Content="세그먼트 #15 ~ #30" Width="160" Command="{Binding SelectSegmentGrp2Command}" Glyph="{dx:DXImage Image=GreaterThan_16x16.png}" GlyphAlignment="Right"/>            
         </StackPanel>
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
             <dx:SimpleButton Content="초기화" Width="140" Glyph="{dx:DXImage Image=Reset2_16x16.png}" Command="{Binding ResetCommand}"/>

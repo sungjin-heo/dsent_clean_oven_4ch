@@ -35,9 +35,9 @@ namespace DaesungEntCleanOven4.View
                 string ScanCode = tboxScanCode.Text;
                 if (!string.IsNullOrEmpty(ScanCode))
                 {
-                    var query = (from metaData in Ch.PatternMetaDatas
-                                 where metaData.Name == ScanCode
-                                 select metaData).ToArray();
+                    Model.PatternMetadata[] query = (from metaData in Ch.PatternMetaDatas
+                                                     where metaData.Name == ScanCode
+                                                     select metaData).ToArray();
 
                     if (query == null || query.Length == 0)
                         tboxSearchResult.Text = "현재 바코드에 등록된 패턴을 찾을 수 없습니다.";

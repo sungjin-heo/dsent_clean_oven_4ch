@@ -86,7 +86,7 @@
                 </TransformGroup>
             </Rectangle.RenderTransform>
         </Rectangle>
-        <Rectangle Fill="#FF0097FF" Height="10" Canvas.Left="241.253" StrokeThickness="3" Canvas.Top="534.332" Width="595.174"/>
+        <!--<Rectangle Fill="#FF0097FF" Height="10" Canvas.Left="241.253" StrokeThickness="3" Canvas.Top="534.332" Width="595.174"/>-->
         <ed:RegularPolygon Fill="Green" Height="10.758" InnerRadius="1" Canvas.Left="822.442" PointCount="3" Stretch="Fill" StrokeThickness="1" Canvas.Top="397.907" Width="25.166" RenderTransformOrigin="0.5,0.5">
             <ed:RegularPolygon.RenderTransform>
                 <TransformGroup>
@@ -1125,9 +1125,9 @@
             </ed:RegularPolygon.RenderTransform>
         </ed:RegularPolygon>
         <Rectangle Height="106.953" Canvas.Left="454.509" Stroke="Red" StrokeThickness="3" Canvas.Top="409.171" Width="117.741" StrokeDashArray="2 1"/>
-        <Rectangle Height="38.295" Canvas.Left="184.253" Stroke="Black" StrokeThickness="1" Canvas.Top="520.671" Width="57" Fill="#FF0074FF"/>
-        <TextBlock Height="32.553" Canvas.Left="193.253" Margin="0" TextWrapping="Wrap" Text="RING&#xA;BLOWER" Canvas.Top="526.413" Width="43" FontWeight="Bold" Foreground="White"/>
-        <ed:RegularPolygon Fill="#FF0074FF" Height="20.25" InnerRadius="1" Canvas.Left="159.313" PointCount="3" Stretch="Fill" StrokeThickness="1" Canvas.Top="530.229" Width="30.124" RenderTransformOrigin="0.5,0.5" Stroke="#FF040404">
+        <!--<Rectangle Height="38.295" Canvas.Left="184.253" Stroke="Black" StrokeThickness="1" Canvas.Top="520.671" Width="57" Fill="#FF0074FF"/>-->
+        <!--<TextBlock Height="32.553" Canvas.Left="193.253" Margin="0" TextWrapping="Wrap" Text="RING&#xA;BLOWER" Canvas.Top="526.413" Width="43" FontWeight="Bold" Foreground="White"/>-->
+        <!--<ed:RegularPolygon Fill="#FF0074FF" Height="20.25" InnerRadius="1" Canvas.Left="159.313" PointCount="3" Stretch="Fill" StrokeThickness="1" Canvas.Top="530.229" Width="30.124" RenderTransformOrigin="0.5,0.5" Stroke="#FF040404">
             <ed:RegularPolygon.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -1136,7 +1136,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </ed:RegularPolygon.RenderTransform>
-        </ed:RegularPolygon>
+        </ed:RegularPolygon>-->
         <Ellipse Fill="#FF1B1B1B" Height="12.375" Canvas.Left="345.635" StrokeThickness="1" Canvas.Top="501.077" Width="12.375"/>
         <ed:RegularPolygon Fill="#FF636363" Height="10.516" InnerRadius="1" Canvas.Left="347.289" PointCount="6" Stretch="Fill" StrokeThickness="1" Canvas.Top="501.875" Width="8.905" RenderTransformOrigin="0.5,0.5">
             <ed:RegularPolygon.RenderTransform>

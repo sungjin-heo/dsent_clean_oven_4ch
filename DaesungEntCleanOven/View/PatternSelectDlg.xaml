@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize"
         Title="패턴 선택 창" Height="800" Width="500" Icon="{dx:DXImage Image=ManageDatasource_16x16.png}">
     <Grid Margin="5">
@@ -34,6 +35,28 @@
                   IsSynchronizedWithCurrentItem="False"
                   x:Name="gridPatternMetaDatas"           
                   >
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="SelectionChanged" Command="{Binding PatternSelectionChangedCommand}"
+                                       CommandParameter="{Binding SelectedItems, ElementName=gridPatternMetaDatas}"/>
+            </dxmvvm:Interaction.Behaviors>
+            <DataGrid.InputBindings>
+                <KeyBinding Command="{Binding CopyPatternCommand}" Modifiers="Ctrl" Key="C"/>
+                <KeyBinding Command="{Binding PastePatternCommand}" Modifiers="Ctrl" Key="V"/>
+            </DataGrid.InputBindings>
+            <DataGrid.ContextMenu>
+                <ContextMenu FontFamily="Century Gothic">
+                    <MenuItem Header="패턴 복사" Command="{Binding CopyPatternCommand}" InputGestureText="Ctrl+C">
+                        <MenuItem.Icon>
+                            <Image Source="{dx:DXImage Image=Copy_16x16.png}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="복사된 패턴 적용..." Command="{Binding PastePatternCommand}" InputGestureText="Ctrl+V">
+                        <MenuItem.Icon>
+                            <Image Source="{dx:DXImage Image=Paste_16x16.png}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Resources>
                 <Style x:Key="CellTextStyleCenter" TargetType="{x:Type TextBlock}">
                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -87,16 +110,16 @@
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="140"/>
             </Grid.ColumnDefinitions>            
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="패턴 번호" HorizontalAlignment="Right" TextDecorations="Underline"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="패턴 명"  HorizontalAlignment="Right" TextDecorations="Underline"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="패턴 번호" HorizontalAlignment="Left" TextDecorations="Underline"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="패턴 명"  HorizontalAlignment="Left" TextDecorations="Underline"/>
             <TextBlock Grid.Row="2" Grid.Column="0" Text="등록 바코드"  HorizontalAlignment="Right" TextDecorations="Underline" Visibility="Collapsed"/>
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding No, StringFormat=D3}" FontWeight="Bold" Background="#FFDDDDDD"  HorizontalContentAlignment="Left" Padding="10,0"/>
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name}" FontWeight="Bold" Background="#FFDDDDDD"  HorizontalContentAlignment="Left" Padding="10,0"/>
             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding RegisteredScanCode}" FontWeight="Bold" Foreground="Red"  Background="#FFDDDDDD"  HorizontalContentAlignment="Left" Padding="10,0" Visibility="Collapsed"/>
             <!--<dx:SimpleButton Grid.Row="0" Grid.RowSpan="1" Grid.Column="3" Content="바코드 등록 해제" Glyph="{dx:DXImage Image=RemoveItem_16x16.png}" Click="UnregisterBarcodeButton_Click"/>-->
-            <dx:SimpleButton Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Content="패턴 로드" Glyph="{dx:DXImage Image=Inbox_16x16.png}" Click="OpenButton_Click"/>
+            <dx:SimpleButton Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Content="패턴 로드" Glyph="{dx:DXImage Image=LoadFrom_32x32.png}" Click="OpenButton_Click"/>
         </Grid>
     </Grid>
 </Window>

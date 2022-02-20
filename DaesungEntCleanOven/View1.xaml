@@ -11,7 +11,7 @@
              xmlns:appv="clr-namespace:DaesungEntCleanOven4.View"             
              d:DesignWidth="1280" d:DesignHeight="1024" mc:Ignorable="d"
              FontFamily="Century Gothic" Background="Transparent" SnapsToDevicePixels="True"                   
-             DataContext="{Binding SelectedChannel}" DataContextChanged="UserControl_DataContextChanged">    
+             DataContextChanged="UserControl_DataContextChanged">    
     <dxmvvm:Interaction.Behaviors>
         <dxmvvm:DispatcherService/>
     </dxmvvm:Interaction.Behaviors>
@@ -61,10 +61,10 @@
             </dxr:RibbonDefaultPageCategory>
         </dxr:RibbonControl>        
         <Grid>
-            <appv:SystemOperatePanel x:Name="viewSystemOperateStatus" DataContext="{Binding CleanOvenChamber}" Visibility="Hidden"/>
-            <appv:PatternConfigurationPanel x:Name="viewPatternConfiguration" DataContext="{Binding PatternForEdit}" Visibility="Hidden"/>
-            <appv:RealtimeTrendGraphPanel x:Name="viewRealtimeTrendGraph" DataContext="{Binding CleanOvenChamber}" Visibility="Hidden"/>
-            <appv:None x:Name="viewNone" DataContext="{Binding CleanOvenChamber}" Visibility="Visible"/>
+            <appv:SystemOperatePanel x:Name="viewSystemOperateStatus" Visibility="Hidden"/>
+            <appv:PatternConfigurationPanel x:Name="viewPatternConfiguration" Visibility="Hidden"/>
+            <appv:RealtimeTrendGraphPanel x:Name="viewRealtimeTrendGraph" Visibility="Hidden"/>
+            <appv:None x:Name="viewNone" Visibility="Visible"/>
         </Grid>
     </DockPanel>
     

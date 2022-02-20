@@ -50,7 +50,5 @@ namespace DaesungEntCleanOven4.View
             this.SelectedMetaData = gridPatternMetaDatas.SelectedItem as Model.PatternMetadata;
             Close();
         }
-
-      
     }
 }

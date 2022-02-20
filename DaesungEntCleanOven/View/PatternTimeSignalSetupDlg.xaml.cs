@@ -29,7 +29,7 @@ namespace DaesungEntCleanOven4.View
             cmb4.ItemsSource = Opt;
             cmb5.ItemsSource = Opt;
             cmb6.ItemsSource = Opt;
-            cmb7.ItemsSource = Opt;
+        //    cmb7.ItemsSource = Opt;
             cmb8.ItemsSource = Opt;
         }
         void SaveButton_Click(object sender, RoutedEventArgs e)

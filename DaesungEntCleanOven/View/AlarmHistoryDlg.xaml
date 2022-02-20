@@ -74,7 +74,7 @@
 
         </DataGrid>
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="4,0">
-            <dx:SimpleButton Content="클리어" Width="160" Glyph="{dx:DXImage Image=Add_16x16.png}" Command="{Binding ClearAlarmHistoryCommand}"/>
+            <dx:SimpleButton Content="클리어" Width="160" Glyph="{dx:DXImage Image=DeleteList_16x16.png}" Command="{Binding ClearAlarmHistoryCommand}"/>
         </StackPanel>
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="4,0">
             <dx:SimpleButton Content="닫기" Width="140" Glyph="{dx:DXImage Image=Close_16x16.png}" IsCancel="True" IsDefault="True" Click="CloseButton_Click"/>

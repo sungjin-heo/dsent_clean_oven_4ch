@@ -38,7 +38,7 @@
         <TextBlock Grid.Row="4" Grid.Column="2" Text="조회 결과" Margin="5" />
         <TextBox Grid.Row="5" Grid.Column="2" Background="#FFEEEEEE" Text="{Binding SearchResultToScanCode, Mode=OneWay}" IsReadOnly="True" HorizontalContentAlignment="Left" Padding="5" x:Name="tboxSearchResult" FontWeight="Bold"/>
         <UniformGrid Grid.Row="6" Grid.Column="2" Columns="2">
-            <dx:SimpleButton Content="패턴 적용" Glyph="{dx:DXImage Image=Download_32x32.png}" Click="ApplyPatternButton_Click"/>
+            <dx:SimpleButton Content="패턴 적용" Glyph="{dx:DXImage Image=LoadFrom_32x32.png}" Click="ApplyPatternButton_Click"/>
             <dx:SimpleButton Content="취소" Glyph="{dx:DXImage Image=Cancel_32x32.png}" Click="CloseButton_Click"/>
         </UniformGrid>
     </Grid>

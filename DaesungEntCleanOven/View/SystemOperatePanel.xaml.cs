@@ -22,7 +22,7 @@ namespace DaesungEntCleanOven4.View
     /// </summary>
     public partial class SystemOperatePanel : UserControl
     {
-        private ViewModel.ChannelViewModel prevModel;
+        private Equipment.CleanOven prevModel;
         public SystemOperatePanel()
         {
             InitializeComponent();
@@ -31,31 +31,56 @@ namespace DaesungEntCleanOven4.View
         {
             if (prevModel != null)
             {
-                prevModel.CleanOvenChamber.Started -= CleanOvenChamber_Started;
-                prevModel.CleanOvenChamber.Stopped -= CleanOvenChamber_Stopped;
+                prevModel.Started -= CleanOvenChamber_Started;
+                prevModel.Stopped -= CleanOvenChamber_Stopped;
             }
-            if (this.DataContext is ViewModel.ChannelViewModel Model)
+            if (this.DataContext is Equipment.CleanOven Model)
             {
-                Model.CleanOvenChamber.Started += CleanOvenChamber_Started;
-                Model.CleanOvenChamber.Stopped += CleanOvenChamber_Stopped;
+                Model.Started += CleanOvenChamber_Started;
+                Model.Stopped += CleanOvenChamber_Stopped;
                 prevModel = Model;
+                UpdateChamberOperateState(Model);
+            }
+        }
+        private void UpdateChamberOperateState(Equipment.CleanOven Chamber)
+        {
+            if (Chamber.Relays[0].Value)
+            {
+                btnStart.Content = "정지";
+                btnStart.Glyph = BitmapFrame.Create(new Uri("pack://application:,,,/DevExpress.Images.v17.1;component/Images/Arrows/Stop_16x16.png"));
+                btnChangePatter.IsEnabled = false;
+                btnPause.IsEnabled = true;
+                btnAdvance.IsEnabled = true;
+            }
+            else
+            {
+                btnStart.Content = "운전";
+                btnStart.Glyph = BitmapFrame.Create(new Uri("pack://application:,,,/DevExpress.Images.v17.1;component/Images/Arrows/Play_16x16.png"));
+                btnChangePatter.IsEnabled = true;
+                btnPause.IsEnabled = false;
+                btnAdvance.IsEnabled = false;
             }
         }
         private void CleanOvenChamber_Started(object sender, EventArgs e)
         {
-            btnStart.Content = "정지";
-            btnStart.Glyph = BitmapFrame.Create(new Uri("pack://application:,,,/DevExpress.Images.v17.1;component/Images/Arrows/Stop_16x16.png"));
-            btnChangePatter.IsEnabled = false;
-            btnPause.IsEnabled = true;
-            btnAdvance.IsEnabled = true;
+            if (this.DataContext is Equipment.CleanOven Model)
+                UpdateChamberOperateState(Model);
+
+            //             btnStart.Content = "정지";
+            //             btnStart.Glyph = BitmapFrame.Create(new Uri("pack://application:,,,/DevExpress.Images.v17.1;component/Images/Arrows/Stop_16x16.png"));
+            //             btnChangePatter.IsEnabled = false;
+            //             btnPause.IsEnabled = true;
+            //             btnAdvance.IsEnabled = true;
         }
         private void CleanOvenChamber_Stopped(object sender, EventArgs e)
         {
-            btnStart.Content = "운전";
-            btnStart.Glyph = BitmapFrame.Create(new Uri("pack://application:,,,/DevExpress.Images.v17.1;component/Images/Arrows/Play_16x16.png"));
-            btnChangePatter.IsEnabled = true;
-            btnPause.IsEnabled = false;
-            btnAdvance.IsEnabled = false;
+            if (this.DataContext is Equipment.CleanOven Model)
+                UpdateChamberOperateState(Model);
+//             btnStart.Content = "운전";
+//             btnStart.Glyph = BitmapFrame.Create(new Uri("pack://application:,,,/DevExpress.Images.v17.1;component/Images/Arrows/Play_16x16.png"));
+//             btnChangePatter.IsEnabled = true;
+//             btnPause.IsEnabled = false;
+//             btnAdvance.IsEnabled = false;
         }
     }
 }

@@ -100,11 +100,11 @@
             <Border  Grid.Row="5"  Grid.Column="3" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[18].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
             <Border  Grid.Row="6"  Grid.Column="3" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[19].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
             <Border  Grid.Row="7"  Grid.Column="3" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[20].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="8"  Grid.Column="3" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[21].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <!--<Border  Grid.Row="8"  Grid.Column="3" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[21].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
             <Border  Grid.Row="9"  Grid.Column="3" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[22].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
             <Border  Grid.Row="10" Grid.Column="3" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[23].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="11" Grid.Column="3" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[24].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="12" Grid.Column="3" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[25].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <Border  Grid.Row="11" Grid.Column="3" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[24].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>-->
+            <Border  Grid.Row="8" Grid.Column="3" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[25].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
 
             <TextBox Grid.Row="0"  Grid.Column="4" IsReadOnly="True" Text="모터 챔버 : 편차 상하한" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
             <TextBox Grid.Row="1"  Grid.Column="4" IsReadOnly="True" Text="모터 챔버 : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
@@ -114,40 +114,40 @@
             <TextBox Grid.Row="5"  Grid.Column="4" IsReadOnly="True" Text="내부 온도 #1 : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
             <TextBox Grid.Row="6"  Grid.Column="4" IsReadOnly="True" Text="내부 온도 #2 : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
             <TextBox Grid.Row="7"  Grid.Column="4" IsReadOnly="True" Text="내부 온도 #2 : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="8"  Grid.Column="4" IsReadOnly="True" Text="내부 온도 #3 : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <!--<TextBox Grid.Row="8"  Grid.Column="4" IsReadOnly="True" Text="내부 온도 #3 : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
             <TextBox Grid.Row="9"  Grid.Column="4" IsReadOnly="True" Text="내부 온도 #3 : 편차 상하한" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
             <TextBox Grid.Row="10" Grid.Column="4" IsReadOnly="True" Text="내부 온도 #4 : 센서 오픈" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="11" Grid.Column="4" IsReadOnly="True" Text="내부 온도 #4 : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="12" Grid.Column="4" IsReadOnly="True" Text="MFC : 편차 상하한" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <TextBox Grid.Row="11" Grid.Column="4" IsReadOnly="True" Text="내부 온도 #4 : 절대 상한" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>-->
+            <TextBox Grid.Row="8" Grid.Column="4" IsReadOnly="True" Text="MFC : 편차 상하한" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
 
             <!--GRP #3-->
             <Border  Grid.Row="0"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[26].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
             <Border  Grid.Row="1"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[27].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
             <Border  Grid.Row="2"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[28].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="3"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[29].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="4"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[30].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="5"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[31].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="6"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[32].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="7"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[33].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="8"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[34].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="9"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[35].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="10" Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[36].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="11" Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[37].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="12" Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[38].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <!--<Border  Grid.Row="3"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[29].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>-->
+            <Border  Grid.Row="3"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[30].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <!--<Border  Grid.Row="5"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[31].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>-->
+            <Border  Grid.Row="4"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[32].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <Border  Grid.Row="5"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[33].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <Border  Grid.Row="6"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[34].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <Border  Grid.Row="7"  Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[35].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <Border  Grid.Row="8" Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[36].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <Border  Grid.Row="9" Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[37].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <Border  Grid.Row="10" Grid.Column="6" BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[38].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
 
             <TextBox Grid.Row="0"  Grid.Column="7" IsReadOnly="True" Text="비상 정지 스위치 ON" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
             <TextBox Grid.Row="1"  Grid.Column="7" IsReadOnly="True" Text="메인 히터 EOCR 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
             <TextBox Grid.Row="2"  Grid.Column="7" IsReadOnly="True" Text="챔버 블로워 모터 EOCR 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="3"  Grid.Column="7" IsReadOnly="True" Text="냉각 블로워 모터 EOCR 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="4"  Grid.Column="7" IsReadOnly="True" Text="챔버 블로워 모터 인버터 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="5"  Grid.Column="7" IsReadOnly="True" Text="냉각 블로워 모터 인버터 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="6"  Grid.Column="7" IsReadOnly="True" Text="도어 잠금(Lock) 이상" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="7"  Grid.Column="7" IsReadOnly="True" Text="도어 잠금 해제(Unlock) 이상" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="8"  Grid.Column="7" IsReadOnly="True" Text="운전 중 도어 열림 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="9"  Grid.Column="7" IsReadOnly="True" Text="도어 열림 중 시간 초과" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="10" Grid.Column="7" IsReadOnly="True" Text="도어 닫힘 중 시간 초과" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="11" Grid.Column="7" IsReadOnly="True" Text="운전 불가 상태 중 운전 시도" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="12" Grid.Column="7" IsReadOnly="True" Text="O2 분석기 통신 이상" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <!--<TextBox Grid.Row="3"  Grid.Column="7" IsReadOnly="True" Text="냉각 블로워 모터 EOCR 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>-->
+            <TextBox Grid.Row="3"  Grid.Column="7" IsReadOnly="True" Text="챔버 블로워 모터 인버터 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <!--<TextBox Grid.Row="5"  Grid.Column="7" IsReadOnly="True" Text="냉각 블로워 모터 인버터 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>-->
+            <TextBox Grid.Row="4"  Grid.Column="7" IsReadOnly="True" Text="도어 잠금(Lock) 이상" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <TextBox Grid.Row="5"  Grid.Column="7" IsReadOnly="True" Text="도어 잠금 해제(Unlock) 이상" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <TextBox Grid.Row="6"  Grid.Column="7" IsReadOnly="True" Text="운전 중 도어 열림 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <TextBox Grid.Row="7"  Grid.Column="7" IsReadOnly="True" Text="도어 열림 중 시간 초과" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <TextBox Grid.Row="8" Grid.Column="7" IsReadOnly="True" Text="도어 닫힘 중 시간 초과" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <TextBox Grid.Row="9" Grid.Column="7" IsReadOnly="True" Text="운전 불가 상태 중 운전 시도" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <TextBox Grid.Row="10" Grid.Column="7" IsReadOnly="True" Text="O2 분석기 통신 이상" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
 
             <!--GRP #4-->
             <Border  Grid.Row="0"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[39].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
@@ -157,9 +157,9 @@
             <Border  Grid.Row="4"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[43].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
             <Border  Grid.Row="5"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[44].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
             <Border  Grid.Row="6"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[45].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="7"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[46].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="8"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[47].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="9"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[48].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <!--<Border  Grid.Row="7"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[46].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>-->
+            <Border  Grid.Row="7"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[47].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <Border  Grid.Row="8"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[48].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
             
             <TextBox Grid.Row="0"  Grid.Column="10" IsReadOnly="True" Text="에어 압력 낮음" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
             <TextBox Grid.Row="1"  Grid.Column="10" IsReadOnly="True" Text="N2 압력 낮음" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
@@ -168,9 +168,9 @@
             <TextBox Grid.Row="4"  Grid.Column="10" IsReadOnly="True" Text="배기 센서 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
             <TextBox Grid.Row="5"  Grid.Column="10" IsReadOnly="True" Text="리크(Leak) 센서 #1 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
             <TextBox Grid.Row="6"  Grid.Column="10" IsReadOnly="True" Text="리크(Leak) 센서 #2 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="7"  Grid.Column="10" IsReadOnly="True" Text="도어 구역 센서 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="8"  Grid.Column="10" IsReadOnly="True" Text="스모크 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="9"  Grid.Column="10" IsReadOnly="True" Text="챔버 퍼지 타임 초과" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <!--<TextBox Grid.Row="7"  Grid.Column="10" IsReadOnly="True" Text="도어 구역 센서 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>-->
+            <TextBox Grid.Row="7"  Grid.Column="10" IsReadOnly="True" Text="스모크 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <TextBox Grid.Row="8"  Grid.Column="10" IsReadOnly="True" Text="챔버 퍼지 타임 초과" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
         </Grid>                
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="4,0">
             <dx:SimpleButton Content="닫기" Width="140" Glyph="{dx:DXImage Image=Close_16x16.png}" IsCancel="True" Click="CloseButton_Click"/>

@@ -151,11 +151,11 @@
                                />
                 <s:NumericAxis Id="y5"        
                                AxisAlignment="Left"
-                               VisibleRange="0,600"                               
+                               VisibleRange="0,300"                               
                                Visibility="Collapsed"                        
                                AutoTicks="False"
-                               MajorDelta="150"
-                               MinorDelta="30"
+                               MajorDelta="75"
+                               MinorDelta="15"
                                TickTextBrush="Magenta"
                                x:Name="yaxis5"
                                />

@@ -3,450 +3,226 @@
     {
       "idx": 0,
       "name": "X10133",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 0,
       "descript": "Emergency S/W"
     },
     {
       "idx": 1,
       "name": "X10134",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 1,
       "descript": "Power On S/W"
     },
     {
       "idx": 2,
       "name": "X10135",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 2,
       "descript": "Power Off S/W"
     },
     {
       "idx": 3,
       "name": "X10136",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 3,
       "descript": "Door Open S/W"
     },
     {
       "idx": 4,
       "name": "X10137",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 4,
       "descript": "Door Close S/W"
     },
     {
       "idx": 5,
       "name": "X10138",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 5,
       "descript": "Alarm Reset S/W"
     },
     {
       "idx": 6,
       "name": "X10139",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 6,
       "descript": "Buzzer Stop S/W"
     },
     {
       "idx": 7,
       "name": "X10140",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 7,
       "descript": "SSR Bimetal Alarm"
     },
     {
       "idx": 8,
       "name": "X10141",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 8,
       "descript": null
     },
     {
       "idx": 9,
       "name": "X10142",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 9,
       "descript": null
     },
     {
       "idx": 10,
       "name": "X10143",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 10,
       "descript": null
     },
     {
       "idx": 11,
       "name": "X10144",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 11,
       "descript": "Main Heater EOCR Alarm"
     },
     {
       "idx": 12,
       "name": "X10145",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 12,
       "descript": "Chamber Blow Motor EOCR Alarm"
     },
     {
       "idx": 13,
       "name": "X10146",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 13,
       "descript": "Chamber Blow Inverter Alarm"
     },
     {
       "idx": 14,
       "name": "X10147",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 14,
       "descript": null
     },
     {
       "idx": 15,
       "name": "X10148",
-      "r.addr": "D53043",
+      "r.addr": "D53045",
       "offset": 15,
       "descript": "Exhaust Sensor(opt)"
     },
     {
       "idx": 16,
       "name": "X10149",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 0,
       "descript": "Door Lock #1 Unlock"
     },
     {
       "idx": 17,
       "name": "X10150",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 1,
       "descript": "Door Lock #2 Unlock"
     },
     {
       "idx": 18,
       "name": "X10151",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 2,
       "descript": "Door Lock #3 Unlock"
     },
     {
       "idx": 19,
       "name": "X10152",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 3,
       "descript": "Door Lock #4 Unlock"
     },
     {
       "idx": 20,
       "name": "X10153",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 4,
       "descript": "Door Lock #1 Lock"
     },
     {
       "idx": 21,
       "name": "X10154",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 5,
       "descript": "Door Lock #2 Lock"
     },
     {
       "idx": 22,
       "name": "X10155",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 6,
       "descript": "Door Lock #3 Lock"
     },
     {
       "idx": 23,
       "name": "X10156",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 7,
       "descript": "Door Lock #4 Lock"
     },
     {
       "idx": 24,
       "name": "X10157",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 8,
       "descript": "Door Close"
     },
     {
       "idx": 25,
       "name": "X10158",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 9,
       "descript": "Door Open"
     },
     {
       "idx": 26,
       "name": "X10159",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 10,
       "descript": "Door Close Over"
     },
     {
       "idx": 27,
       "name": "X10160",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 11,
       "descript": "Door Open Over"
     },
     {
       "idx": 28,
       "name": "X10161",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 12,
       "descript": "Leak Sensor #1"
     },
     {
       "idx": 29,
       "name": "X10162",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 13,
       "descript": "Leak Sensor #2"
     },
     {
       "idx": 30,
       "name": "X10163",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 14,
       "descript": "Door Area Sensor #1"
     },
     {
       "idx": 31,
       "name": "X10164",
-      "r.addr": "D53044",
+      "r.addr": "D53046",
       "offset": 15,
       "descript": "Door Area Sensor #2"
-    },
-    {
-      "idx": 32,
-      "name": "X10165",
-      "r.addr": "D53045",
-      "offset": 0,
-      "descript": null
-    },
-    {
-      "idx": 33,
-      "name": "X10166",
-      "r.addr": "D53045",
-      "offset": 1,
-      "descript": null
-    },
-    {
-      "idx": 34,
-      "name": "X10167",
-      "r.addr": "D53045",
-      "offset": 2,
-      "descript": null
-    },
-    {
-      "idx": 35,
-      "name": "X10168",
-      "r.addr": "D53045",
-      "offset": 3,
-      "descript": null
-    },
-    {
-      "idx": 36,
-      "name": "X10169",
-      "r.addr": "D53045",
-      "offset": 4,
-      "descript": null
-    },
-    {
-      "idx": 37,
-      "name": "X10170",
-      "r.addr": "D53045",
-      "offset": 5,
-      "descript": null
-    },
-    {
-      "idx": 38,
-      "name": "X10171",
-      "r.addr": "D53045",
-      "offset": 6,
-      "descript": null
-    },
-    {
-      "idx": 39,
-      "name": "X10172",
-      "r.addr": "D53045",
-      "offset": 7,
-      "descript": null
-    },
-    {
-      "idx": 40,
-      "name": "X10173",
-      "r.addr": "D53045",
-      "offset": 8,
-      "descript": null
-    },
-    {
-      "idx": 41,
-      "name": "X10174",
-      "r.addr": "D53045",
-      "offset": 9,
-      "descript": null
-    },
-    {
-      "idx": 42,
-      "name": "X10175",
-      "r.addr": "D53045",
-      "offset": 10,
-      "descript": null
-    },
-    {
-      "idx": 43,
-      "name": "X10176",
-      "r.addr": "D53045",
-      "offset": 11,
-      "descript": null
-    },
-    {
-      "idx": 44,
-      "name": "X10177",
-      "r.addr": "D53045",
-      "offset": 12,
-      "descript": null
-    },
-    {
-      "idx": 45,
-      "name": "X10178",
-      "r.addr": "D53045",
-      "offset": 13,
-      "descript": null
-    },
-    {
-      "idx": 46,
-      "name": "X10179",
-      "r.addr": "D53045",
-      "offset": 14,
-      "descript": null
-    },
-    {
-      "idx": 47,
-      "name": "X10180",
-      "r.addr": "D53045",
-      "offset": 15,
-      "descript": null
-    },
-    {
-      "idx": 48,
-      "name": "X10181",
-      "r.addr": "D53046",
-      "offset": 0,
-      "descript": null
-    },
-    {
-      "idx": 49,
-      "name": "X10182",
-      "r.addr": "D53046",
-      "offset": 1,
-      "descript": null
-    },
-    {
-      "idx": 50,
-      "name": "X10183",
-      "r.addr": "D53046",
-      "offset": 2,
-      "descript": null
-    },
-    {
-      "idx": 51,
-      "name": "X10184",
-      "r.addr": "D53046",
-      "offset": 3,
-      "descript": null
-    },
-    {
-      "idx": 52,
-      "name": "X10185",
-      "r.addr": "D53046",
-      "offset": 4,
-      "descript": null
-    },
-    {
-      "idx": 53,
-      "name": "X10186",
-      "r.addr": "D53046",
-      "offset": 5,
-      "descript": null
-    },
-    {
-      "idx": 54,
-      "name": "X10187",
-      "r.addr": "D53046",
-      "offset": 6,
-      "descript": null
-    },
-    {
-      "idx": 55,
-      "name": "X10188",
-      "r.addr": "D53046",
-      "offset": 7,
-      "descript": null
-    },
-    {
-      "idx": 56,
-      "name": "X10189",
-      "r.addr": "D53046",
-      "offset": 8,
-      "descript": null
-    },
-    {
-      "idx": 57,
-      "name": "X10190",
-      "r.addr": "D53046",
-      "offset": 9,
-      "descript": null
-    },
-    {
-      "idx": 58,
-      "name": "X10191",
-      "r.addr": "D53046",
-      "offset": 10,
-      "descript": null
-    },
-    {
-      "idx": 59,
-      "name": "X10192",
-      "r.addr": "D53046",
-      "offset": 11,
-      "descript": null
-    },
-    {
-      "idx": 60,
-      "name": "X10193",
-      "r.addr": "D53046",
-      "offset": 12,
-      "descript": null
-    },
-    {
-      "idx": 61,
-      "name": "X10194",
-      "r.addr": "D53046",
-      "offset": 13,
-      "descript": null
-    },
-    {
-      "idx": 62,
-      "name": "X10195",
-      "r.addr": "D53046",
-      "offset": 14,
-      "descript": null
-    },
-    {
-      "idx": 63,
-      "name": "X10196",
-      "r.addr": "D53046",
-      "offset": 15,
-      "descript": null
     }
   ]
 }

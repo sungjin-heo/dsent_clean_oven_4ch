@@ -45,7 +45,6 @@ namespace DaesungEntCleanOven4.Equipment
         private int __SelectedZoneParameterIndex;
         private bool __ManualCtrl;
         private double __AutoTuningCache;
-        
 
         public CleanOven(string Ip, int Port, ChannelViewModel Ch)
            : base(Ip, Port, null)
@@ -100,15 +99,12 @@ namespace DaesungEntCleanOven4.Equipment
         public List<IRenderableSeriesViewModel> TrendSeriesGrp2 { get; private set; }
         public List<ZoneParameters> SelectedZoneParameterGrp { get; private set; }
         public ZoneParameters SelectedZoneParameter { get; private set; }
-        public List<RegRelay> IoXGrp1 { get; private set; }
-        public List<RegRelay> IoXGrp2 { get; private set; }
-        public List<RegRelay> IoYGrp1 { get; private set; }
-        public List<RegRelay> IoYGrp2 { get; private set; }
         public List<Alarm> Alarms { get; private set; }
         public ObservableCollection<AlarmDescript> AlarmHistory { get; private set; }
         public System.Windows.Window AlarmDlg;
         public event EventHandler Started;
         public event EventHandler Stopped;
+        public event EventHandler PatternReloadRequested;
 
         public bool IsRunning { get; private set; }
         public bool IsHold => Relays[1].Value;
@@ -208,17 +204,23 @@ namespace DaesungEntCleanOven4.Equipment
             get { return __SelectedZoneParameterIndex; }
             set
             {
-                // 파라미터 중, MFC, 차압챔버, 모터챔버, 모터쿨링 아이템들은 UI상에서 선택 불가하도록 변경되어서...
-                //if (value >= 0 && value <= 11)
-                if (value >= 0 && value <= 7)
+                // 파라미터 중, MFC, 차압챔버, 모터챔버, 모터쿨링 아이템들은 UI상에서 선택 불가하도록 변경되어서... -> 원복.
+                if (value >= 0 && value <= 6)
                 {
-                    if (value >= 0 && value <= 3)
-                        this.SelectedZoneParameter = Parameters[value];
-                    else if (value >= 4 && value <= 7)
-                        this.SelectedZoneParameter = Parameters[value + 4];
-
+                    this.SelectedZoneParameter = Parameters[value];
                     __SelectedZoneParameterIndex = value;
                 }
+                else if (value >= 7 && value <= 8)
+                {
+                    this.SelectedZoneParameter = Parameters[value + 1];
+                    __SelectedZoneParameterIndex = value;
+                }
+// 
+//                 if (value >= 0 && value <= 11)
+//                 {
+//                     this.SelectedZoneParameter = Parameters[value];
+//                     __SelectedZoneParameterIndex = value;
+//                 }   
                 RaisePropertiesChanged("SelectedZoneParameterIndex", "SelectedZoneParameter");
             }
         }
@@ -227,6 +229,9 @@ namespace DaesungEntCleanOven4.Equipment
             get { return __ManualCtrl; }
             set
             {
+                if (value == __ManualCtrl) 
+                    return;
+
                 if (value)
                 {
                     Question Q = new Question("수동운전을 시작하시겠습니까?");
@@ -298,29 +303,6 @@ namespace DaesungEntCleanOven4.Equipment
                 }
                 
                 RaisePropertiesChanged("ManualCtrl");
-            }
-        }
-        public bool DoorOpen
-        {
-            get { return Relays[10].Value; }
-            set
-            {
-                string Message = string.Format("[수동운전] 도어를 \"{0}\" 하겠습니까?", value ? "OPEN" : "CLOSE");
-                Question Dlg = new Question(Message);
-                if (!(bool)Dlg.ShowDialog())
-                    return;
-
-                if (Monitor.TryEnter(SyncKey, 3000))
-                {
-                    try
-                    {
-                        Relays[14].Value = value;
-                    }
-                    finally
-                    {
-                        Monitor.Exit(SyncKey);
-                    }
-                }
             }
         }
         public bool N2InputValve
@@ -733,19 +715,14 @@ namespace DaesungEntCleanOven4.Equipment
                 }
 
                 // COPY LOG ITEM REFERENCE...    
-                int[] Index = new int[] { 0, 1, 3, 11, 14, 15, 18, 21, 23, 24, 25, 26, 27, 28, 29, 30, 31, 12, 13 };
+                int[] Index = new int[] { 0, 1, 3, 11, 14, 15, /*18,*/ 21, 23, 24, /*25, 26,*/ 27, 28, 29, 30, 31, 12, 13 };
                 for (int i = 0; i < Index.Length; i++)
                     this.CsvLoggingNumerics.Add(this.NumericValues[Index[i]]);
 
-                Index = new int[] { 0, 1, 3, 11, 14, 15, 18, 21, 23, 24, 25, 26, 27, 28, 29, 30, 31 };
+                Index = new int[] { 0, 1, 3, 11, 14, 15, /*18,*/ 21, 23, 24, /*25, 26,*/ 27, 28, 29, 30, 31 };
                 for (int i = 0; i < Index.Length; i++)
                     this.BinaryLoggingNumerics.Add(this.NumericValues[Index[i]]);
 
-                // COPY IO-X/Y ITEM REFERENCE GROUP.
-                this.IoXGrp1 = this.IoX.GetRange(0, 32);
-                this.IoXGrp2 = this.IoX.GetRange(32, IoX.Count - 32);
-                this.IoYGrp1 = this.IoY.GetRange(0, 32);
-                this.IoYGrp2 = this.IoY.GetRange(32, IoY.Count - 32);
                 for (int i = 25; i < 74; i++)
                 {
                     Alarm alarm = new Alarm(Relays[i].Name, Relays[i], Relays[i + 49]);
@@ -773,11 +750,11 @@ namespace DaesungEntCleanOven4.Equipment
                 }
 
                 // COPY REALTIME TREND ITEM REF.
-                Index = new int[] { 0, 1, 3, 11, 14, 15, 18, 21 };
-                string[] yIds = new string[] { "y1", "y1", "y2", "y3", "y3", "y4", "y4", "y5" };
+                Index = new int[] { 0, 1, 3, 11, 14, 15, /*18,*/ 21 };
+                string[] yIds = new string[] { "y1", "y1", "y2", "y3", "y3", "y4", /*"y4",*/ "y5" };
                 System.Windows.Media.Color[] sColor = new Color[] {
                     System.Windows.Media.Colors.Red, System.Windows.Media.Colors.Blue, System.Windows.Media.Colors.Orange, System.Windows.Media.Colors.Lime,
-                    System.Windows.Media.Colors.White, System.Windows.Media.Colors.Aqua, System.Windows.Media.Colors.Yellow, System.Windows.Media.Colors.Magenta
+                    System.Windows.Media.Colors.White, System.Windows.Media.Colors.Aqua, /*System.Windows.Media.Colors.Yellow, */System.Windows.Media.Colors.Magenta
                 };
                 TrendSeriesGrp1 = new List<IRenderableSeriesViewModel>();
                 TrendSeriesGrp1Numerics = new List<RegNumeric>();
@@ -791,10 +768,10 @@ namespace DaesungEntCleanOven4.Equipment
                     TrendSeriesGrp1.Add(Ln);
                 }
 
-                Index = new int[] { 23, 24, 25, 26, 27, 28, 29, 30, 31 };
-                yIds = new string[] { "y1", "y1", "y1", "y1", "y1", "y1", "y2", "y3", "y4" };
+                Index = new int[] { 23, 24, /*25, 26,*/ 27, 28, 29, 30, 31 };
+                yIds = new string[] { "y1", "y1", /*"y1", "y1",*/ "y1", "y1", "y2", "y3", "y4" };
                 sColor = new Color[] {
-                    System.Windows.Media.Colors.Red, System.Windows.Media.Colors.Blue, System.Windows.Media.Colors.Orange, System.Windows.Media.Colors.Lime,
+                    System.Windows.Media.Colors.Red, System.Windows.Media.Colors.Blue,/* System.Windows.Media.Colors.Orange, System.Windows.Media.Colors.Lime,*/
                     System.Windows.Media.Colors.White, System.Windows.Media.Colors.Aqua, System.Windows.Media.Colors.Yellow, System.Windows.Media.Colors.Magenta, System.Windows.Media.Colors.Green
                 };
                 TrendSeriesGrp2 = new List<IRenderableSeriesViewModel>();
@@ -840,26 +817,6 @@ namespace DaesungEntCleanOven4.Equipment
                 }
             }
         }
-//         protected override void ConnectionStateChanged(ConnectionState State)
-//         {
-//             if (base.ConnectState == State)
-//                 return;
-// 
-//             switch (State)
-//             {
-//                 case ConnectionState.Connecting:
-//                 case ConnectionState.Closed:
-//                 case ConnectionState.Retry:
-//                     StopMonitor();
-//                     break;
-//                 case ConnectionState.Connected:
-//                     if (!IsInitialized)
-//                         Initialize();
-//                     StartMonitor();
-//                     break;
-//             }
-//             base.ConnectionStateChanged(State);
-//         }      
         protected virtual void OnMonitorDataUpdated()
         {
             Application.Current.Dispatcher.Invoke(() => 
@@ -867,12 +824,12 @@ namespace DaesungEntCleanOven4.Equipment
                 // 운전 상태 업데이트.
                 if (Relays[0].Value)
                 {
-                    if(!IsRunning)
+                    if (!IsRunning)
                         Started?.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
-                    if(IsRunning)
+                    if (IsRunning)
                     {
                         CloseLOG();
                         Stopped?.Invoke(this, EventArgs.Empty);
@@ -958,8 +915,21 @@ namespace DaesungEntCleanOven4.Equipment
                 {
                     __Tracer.TraceError("Exception is Occured in OnMonitorDataUpdated() : " + ex.Message);
                 }
-                RaisePropertiesChanged("FormattedCleanOvenStatus", "FormattedPatten", "FormattedSegment", "FormattedSegmentTime",
-                    "FormattedTotalRunTime", "FormattedCloseTime", "IsRunning", "IsHold", "IsFixRun", "IsAutoTune", "TrendDataSaveName", "UsePatternNo", "TemperatureDifferenceAlertNotUsed");
+                RaisePropertiesChanged(
+                    "FormattedCleanOvenStatus", 
+                    "FormattedPatten",
+                    "FormattedSegment",
+                    "FormattedSegmentTime",
+                    "FormattedTotalRunTime", 
+                    "FormattedCloseTime",
+                    "IsRunning", 
+                    "IsHold", 
+                    "IsFixRun",
+                    "IsAutoTune", 
+                    "TrendDataSaveName", 
+                    "UsePatternNo", 
+                    "TemperatureDifferenceAlertNotUsed"
+                    );
             });
         }
 
@@ -989,7 +959,7 @@ namespace DaesungEntCleanOven4.Equipment
             if (CancelTokenSource != null)
             {
                 CancelTokenSource.Cancel();
-                Waitor.WaitOne(3000);
+                Waitor.WaitOne(1000);
             }
         }
         protected virtual void MonitorFunc(object State)
@@ -1395,10 +1365,10 @@ namespace DaesungEntCleanOven4.Equipment
                 PatternViewModel model = Channel.PatternForRun;
 
                 string[] condAddr = (from cond in PatternConf.Conditions
-                                select cond.WriteAddress).ToArray();
+                                     select cond.WriteAddress).ToArray();
 
                 int?[] condScale = (from cond in PatternConf.Conditions
-                                 select cond.Scale).ToArray();
+                                    select cond.Scale).ToArray();
 
                 short[] condValues = new short[condAddr.Length];
                 condValues[0] = (short)(condScale[0] * model.StartConditionUsage);
@@ -1417,7 +1387,7 @@ namespace DaesungEntCleanOven4.Equipment
                     try
                     {
                         NumericValues[4].Value = model.No;
-                        WriteRandomWord(condAddr, condValues);
+                        _ = WriteRandomWord(condAddr, condValues);
 
                         string[] segAddr = new string[7];
                         short[] segValues = new short[7];
@@ -1434,7 +1404,7 @@ namespace DaesungEntCleanOven4.Equipment
                             segValues[4] = (short)(Seg[4].Scale * model.Segments[i].MFC);
                             segValues[5] = (short)(Seg[5].Scale * model.Segments[i].ConvertedDurationTime);
                             segValues[6] = (short)(Seg[6].Scale * model.Segments[i].TimeSignalValue);
-                            WriteRandomWord(segAddr, segValues);
+                            _ = WriteRandomWord(segAddr, segValues);
                         }
                         Relays[123].Value = true;
 
@@ -1456,7 +1426,379 @@ namespace DaesungEntCleanOven4.Equipment
             }
             return false;
         }
-        
+        private void RunCtl()
+        {
+            if (IsRunning)
+            {
+                Question Q = new View.Question("프로그램 운전을 정지하겠습니까?");
+                if (!(bool)Q.ShowDialog())
+                    return;
+
+                if (Monitor.TryEnter(SyncKey, 3000))
+                {
+                    try
+                    {
+                        this.NumericValues[42].Value = 0;
+                        this.Relays[1].Value = false;       // 운전정지시 HOLD상태 해제.
+                    }
+                    finally
+                    {
+                        Monitor.Exit(SyncKey);
+                    }
+                }
+                CloseLOG();
+            }
+            else
+            {
+                string Message = string.Format("패턴 번호 : {0}\r\n패턴 명칭 : {1}\r\n프로그램 운전을 시작하겠습니까?", Channel.PatternForRun.No, Channel.PatternForRun.Name);
+                View.Question Q = new View.Question(Message);
+                if (!(bool)Q.ShowDialog())
+                    return;
+
+                //                 if (Channel.PatternForRun.No == Channel.PatternForEdit.No)
+                //                 {
+                //                     if (!Channel.PatternForRun.Equals(Channel.PatternForEdit))
+                //                     {
+                //                         Channel.PatternForRun.Load(Channel.PatternForEdit.Model);
+                //                         TransferPatternNoMsg(Channel.PatternForRun);
+                //                     }
+                //                 }
+                PatternReloadRequested?.Invoke(this, EventArgs.Empty);
+
+                // CURRETN : STOP STATE, SO START...
+                DateTime First = DateTime.Now;
+                DateTime Last = First.Add(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
+
+                SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = TrendSeriesGrp1[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
+                xAxis.VisibleRange = new DateRange(First, Last);
+                xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
+                xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
+                foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp1)
+                    Series.DataSeries.Clear();
+
+                xAxis = TrendSeriesGrp2[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
+                xAxis.VisibleRange = new DateRange(First, Last);
+                xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
+                xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
+                foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp2)
+                    Series.DataSeries.Clear();
+
+                if (Monitor.TryEnter(SyncKey, 3000))
+                {
+                    try
+                    {
+                        this.NumericValues[42].Value = (Channel.PatternForRun.StartConditionUsage == 1) ? 5 : 7;
+                    }
+                    finally
+                    {
+                        Monitor.Exit(SyncKey);
+                    }
+                }
+                __ManualCtrl = false;
+                RaisePropertiesChanged("ManualCtrl");
+                StartLOG();
+            }
+        }
+        private bool CanRunCtl()
+        {
+            return IsConnected/* && !IsHold;*/;
+        }
+        private void ChangePattern()
+        {
+            View.Password pwDlg = new View.Password();
+            if (!(bool)pwDlg.ShowDialog())
+                return;
+
+            string Password = pwDlg.UserPassword;
+            if (Password != Resources.AdministratorPassword && Password != Settings.Default.UserPassword)
+            {
+                var qDlg = new View.Question("패스워드 불일치");
+                qDlg.ShowDialog();
+                return;
+            }
+
+            View.PatternSelectDlg Dlg = new View.PatternSelectDlg() { DataContext = Channel };
+            if ((bool)Dlg.ShowDialog())
+            {
+                if (Dlg.SelectedMetaData is Model.PatternMetadata metaData)
+                    Channel.SelectRunningPattern(metaData.No);
+            }
+        }
+        private bool CanChangePattern()
+        {
+            return IsConnected;/* && !IsRunning;*/
+        }
+        private void Hold()
+        {
+            bool State = this.IsHold;
+            string Message = (State) ? "현재 세그먼트 HOLD를 해제 하겠습니까?" : "현재 세그먼트를 HOLD 하겠습니까?";
+            View.Question Q = new View.Question(Message);
+            if (!(bool)Q.ShowDialog())
+                return;
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[1].Value = !State;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        private bool CanHold()
+        {
+            return IsConnected/* && IsRunning;*/;
+        }
+        private void AdvancePattern()
+        {
+            View.Question Q = new View.Question("다음 세그먼트로 진행 하겠습니까?");
+            if (!(bool)Q.ShowDialog())
+                return;
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[2].Value = true;
+                    this.Relays[1].Value = false;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        private bool CanAdvancePattern()
+        {
+            return IsConnected /*&& IsRunning;*/;
+        }
+        private void ClearAlarmHistory()
+        {
+            var Q = new View.Question("알람 히스토리를 클리어 하시겠습니까?");
+            if ((bool)Q.ShowDialog())
+                this.AlarmHistory.Clear();
+        }
+        private bool CanClearAlarmHistory()
+        {
+            return this.AlarmHistory.Count > 0;
+        }
+        private void AutoTune()
+        {
+            var Message = IsAutoTune ? "오토튜닝을 정지하겠습니까?" : "오토튜닝을 시작하겠습니까?";
+            View.Question Q = new View.Question(Message);
+            if (!(bool)Q.ShowDialog())
+                return;
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    if (IsAutoTune)
+                        this.Relays[23].Value = true;
+                    else
+                        this.Relays[22].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        private bool CanAutoTune()
+        {
+            return IsConnected;
+        }
+        private void TurnOnPower()
+        {
+            View.Question Q = new View.Question("파워 \"ON\" 하시겠습니까?");
+            if (!(bool)Q.ShowDialog())
+                return;
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[125].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        private bool CanTurnOnPower()
+        {
+            return IsConnected/* && IoY[18].Value*/;
+        }
+        private void TurnOffPower()
+        {
+            View.Question Q = new View.Question("파워 \"OFF\" 하시겠습니까?");
+            if (!(bool)Q.ShowDialog())
+                return;
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[126].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        private bool CanTurnOffPower()
+        {
+            return IsConnected/* && IoY[17].Value*/;
+        }
+        private void OpenDoor()
+        {
+            View.Question Q = new View.Question("도어를 \"OPEN\" 하시겠습니까?");
+            if (!(bool)Q.ShowDialog())
+                return;
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[10].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        private bool CanOpenDoor()
+        {
+            return IsConnected/* && IoY[20].Value*/;
+        }
+        private void CloseDoor()
+        {
+            View.Question Q = new View.Question("도어를 \"CLOSE\" 하시겠습니까?");
+            if (!(bool)Q.ShowDialog())
+                return;
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[11].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        private bool CanCloseDoor()
+        {
+            return IsConnected/* && IoY[19].Value*/;
+        }
+        private void StartLOG()
+        {
+            CloseLOG();
+
+            // MAKE HEADER.
+            string[] Header = new string[] {
+                "DATE",
+                "TIME",
+                "온도_PV(℃)",
+                "온도_SV(℃)",
+                "온도_MV(%)",
+                "차압챔버(mmH2O)",
+                "차압필터(mmH2O)",
+                "모터챔버(Hz)",
+                //"쿨링챔버(Hz)",
+                "MFC(ℓ/min)",
+                "내부온도-1(℃)",
+                "내부온도-2(℃)",
+                //"내부온도-3(℃)",
+                //"내부온도-4(℃)",
+                "챔버_OT(℃)",
+                "히터_OT(℃)",
+                "O2_온도(℃)",
+                "O2_EMF(mV)","" +
+                "O2_ppm(ppm)",
+                "차압챔버_SV(mmH2O)",
+                "차압챔버_MV(%)"
+            };
+
+            // 1. CSV LOG.
+            StringBuilder Sb = new StringBuilder();
+            for (int i = 0; i < Header.Length; i++)
+                _ = Sb.AppendFormat("{0,15},", Header[i]);
+
+            DateTime Time = DateTime.Now;
+            string Name = string.Format("{0}_{1:D3}_{2}.csv", Helper.ToLogNameFormat(Time), Channel.PatternForRun.No, Channel.PatternForRun.Name);
+            string Path = System.IO.Path.Combine(Channel.CsvLogStorageDir, Name);
+            CsvWriter = new System.IO.StreamWriter(File.Open(Path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite), Encoding.Default);
+            CsvWriter.WriteLine(Sb.ToString().TrimEnd(','));
+
+            // 2. BINARY DATA LOG.
+            Name = string.Format("{0}_{1:D3}_{2}.dat", Helper.ToLogNameFormat(Time), Channel.PatternForRun.No, Channel.PatternForRun.Name);
+            this.TrendDataSaveName = Name;
+            Path = System.IO.Path.Combine(Channel.BinaryLogStorageDir, Name);
+            BinaryDataWriter = new System.IO.BinaryWriter(File.Open(Path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite));
+            var Tmp = Encoding.ASCII.GetBytes("DAESUNG-ENT.4CH.N2-CLEANOVEN.V1");
+            byte[] Buf = new byte[50];
+            Array.Copy(Tmp, 0, Buf, 0, Tmp.Length);
+            BinaryDataWriter.Write(Buf);
+
+            LogWriterTimer = new System.Threading.Timer(OnLogTimerCallback, null, 5000, (int)(Channel.BinaryLogSaveInterval * 1000));
+        }
+        private void CloseLOG()
+        {
+            if (LogWriterTimer != null)
+            {
+                LogWriterTimer.Dispose();
+                LogWriterTimer = null;
+            }
+            if (CsvWriter != null)
+            {
+                CsvWriter.Flush();
+                CsvWriter.Close();
+                CsvWriter = null;
+            }
+            if (BinaryDataWriter != null)
+            {
+                BinaryDataWriter.Flush();
+                BinaryDataWriter.Close();
+                BinaryDataWriter = null;
+            }
+        }
+        private void OnLogTimerCallback(object state)
+        {
+            try
+            {
+                DateTime Time = DateTime.Now;
+
+                // 1. CSV WRITE.
+                string[] Token = Helper.ToLogTimeFormat(Time).Split(' ');
+                var Sb = new StringBuilder();
+                Sb.AppendFormat("{0,15},{1,15},", Token[0], Token[1]);
+                foreach (var regNum in this.CsvLoggingNumerics)
+                    Sb.AppendFormat("{0,15},", regNum.FormattedValue);
+                if (CsvWriter != null)
+                    CsvWriter.WriteLine(Sb.ToString().TrimEnd(','));
+                CsvWriter.Flush();
+
+                // 2.BINARY WRITE.
+                BinaryDataWriter.Write(BitConverter.GetBytes(Time.Ticks));
+                foreach (var regNum in BinaryLoggingNumerics)
+                    BinaryDataWriter.Write(BitConverter.GetBytes((short)regNum.Value));  // 스케일링되기전 값으로 저장.
+                BinaryDataWriter.Flush();
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Dispatch("e", "Exception is Occured in OnLogTimerCallback : {0}", ex.Message);
+            }
+        }
+
         public void Initialize()
         {
             try
@@ -1703,27 +2045,13 @@ namespace DaesungEntCleanOven4.Equipment
                 }
             }
         }
-        public void O2AnalyzerConnected()
+        public void O2AnalyzerConnectStateUpdate(bool State)
         {
             if (Monitor.TryEnter(SyncKey, 3000))
             {
                 try
                 {
-                    NumericValues[44].Value = 0;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }
-        }
-        public void O2AnalyzerDisConnected()
-        {
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    NumericValues[44].Value = 1;
+                    NumericValues[44].Value = State ? 0 : 1;
                 }
                 finally
                 {
@@ -1759,378 +2087,5 @@ namespace DaesungEntCleanOven4.Equipment
                 }
             }
         }
-
-        private void RunCtl()
-        {
-            if (IsRunning)
-            {
-                Question Q = new View.Question("프로그램 운전을 정지하겠습니까?");
-                if (!(bool)Q.ShowDialog())
-                    return;
-
-                if (Monitor.TryEnter(SyncKey, 3000))
-                {
-                    try
-                    {
-                        this.NumericValues[42].Value = 0;
-                        this.Relays[1].Value = false;       // 운전정지시 HOLD상태 해제.
-                    }
-                    finally
-                    {
-                        Monitor.Exit(SyncKey);
-                    }
-                }
-                CloseLOG();
-            }
-            else  
-            {
-                string Message = string.Format("패턴 번호 : {0}\r\n패턴 명칭 : {1}\r\n프로그램 운전을 시작하겠습니까?", Channel.PatternForRun.No, Channel.PatternForRun.Name);
-                View.Question Q = new View.Question(Message);
-                if (!(bool)Q.ShowDialog())
-                    return;
-
-                if (Channel.PatternForRun.No == Channel.PatternForEdit.No)
-                {
-                    if (!Channel.PatternForRun.Equals(Channel.PatternForEdit))
-                    {
-                        Channel.PatternForRun.Load(Channel.PatternForEdit.Model);
-                        TransferPatternNoMsg(Channel.PatternForRun);
-                    }
-                }
-
-                // CURRETN : STOP STATE, SO START...
-                DateTime First = DateTime.Now;
-                DateTime Last = First.Add(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
-
-                SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = TrendSeriesGrp1[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals. Axes.DateTimeAxis;
-                xAxis.VisibleRange = new DateRange(First, Last);
-                xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
-                xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
-                foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp1)
-                    Series.DataSeries.Clear();
-
-                xAxis = TrendSeriesGrp2[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
-                xAxis.VisibleRange = new DateRange(First, Last);
-                xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
-                xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
-                foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp2)
-                    Series.DataSeries.Clear();
-
-                if (Monitor.TryEnter(SyncKey, 3000))
-                {
-                    try
-                    {
-                        this.NumericValues[42].Value = (Channel.PatternForRun.StartConditionUsage == 1) ? 5 : 7;
-                    }
-                    finally
-                    {
-                        Monitor.Exit(SyncKey);
-                    }
-                }
-                __ManualCtrl = false;
-                RaisePropertiesChanged("ManualCtrl");
-                StartLOG();                
-            }
-        }
-        private bool CanRunCtl()
-        {
-            return IsConnected/* && !IsHold;*/;
-        }
-        private void ChangePattern()
-        {
-            View.Password pwDlg = new View.Password();
-            if (!(bool)pwDlg.ShowDialog())
-                return;
-
-            string Password = pwDlg.UserPassword;
-            if (Password != Resources.AdministratorPassword && Password != Settings.Default.UserPassword)
-            {
-                var qDlg = new View.Question("패스워드 불일치");
-                qDlg.ShowDialog();
-                return;
-            }
-
-            // View.PatternSelectDlg Dlg = new View.PatternSelectDlg() { DataContext = Channel.PatternMetaDatas };
-            View.PatternSelectDlg Dlg = new View.PatternSelectDlg() { DataContext = Channel };
-            if ((bool)Dlg.ShowDialog())
-            {
-                if (Dlg.SelectedMetaData is Model.PatternMetadata metaData)
-                    Channel.SelectRunningPattern(metaData.No);
-            }
-        }
-        private bool CanChangePattern()
-        {
-            return IsConnected;/* && !IsRunning;*/
-        }
-        private void Hold()
-        {
-            bool State = this.IsHold;
-            string Message = (State) ? "현재 세그먼트 HOLD를 해제 하겠습니까?" : "현재 세그먼트를 HOLD 하겠습니까?";
-            View.Question Q = new View.Question(Message);
-            if (!(bool)Q.ShowDialog())
-                return;
-
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    this.Relays[1].Value = !State;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }
-        }
-        private bool CanHold()
-        {
-            return IsConnected/* && IsRunning;*/;
-        }
-        private void AdvancePattern()
-        {
-            View.Question Q = new View.Question("다음 세그먼트로 진행 하겠습니까?");
-            if (!(bool)Q.ShowDialog())
-                return;
-
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    this.Relays[2].Value = true;
-                    this.Relays[1].Value = false;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }
-        }
-        private bool CanAdvancePattern()
-        {
-            return IsConnected /*&& IsRunning;*/;
-        }
-        private void ClearAlarmHistory()
-        {
-            var Q = new View.Question("알람 히스토리를 클리어 하시겠습니까?");
-            if ((bool)Q.ShowDialog())
-                this.AlarmHistory.Clear();
-        }
-        private bool CanClearAlarmHistory()
-        {
-            return this.AlarmHistory.Count > 0;
-        }
-        private void AutoTune()
-        {
-            var Message = IsAutoTune ? "오토튜닝을 정지하겠습니까?" : "오토튜닝을 시작하겠습니까?";
-            View.Question Q = new View.Question(Message);
-            if (!(bool)Q.ShowDialog())
-                return;
-
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    if (IsAutoTune)
-                        this.Relays[23].Value = true;
-                    else
-                        this.Relays[22].Value = true;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }
-        }
-        private bool CanAutoTune()
-        {
-            return IsConnected;
-        }
-        private void TurnOnPower()
-        {
-            View.Question Q = new View.Question("[수동제어] 파워 \"ON\" 하시겠습니까?");
-            if (!(bool)Q.ShowDialog())
-                return;
-
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    this.Relays[125].Value = true;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }
-        }
-        private bool CanTurnOnPower()
-        {
-            return IsConnected;
-        }
-        private void TurnOffPower()
-        {
-            View.Question Q = new View.Question("[수동제어] 파워 \"OFF\" 하시겠습니까?");
-            if (!(bool)Q.ShowDialog())
-                return;
-
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    this.Relays[126].Value = true;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }
-        }
-        private bool CanTurnOffPower()
-        {
-            return IsConnected;
-        }
-        private void OpenDoor()
-        {
-            View.Question Q = new View.Question("[수동제어] 도어를 \"OPEN\" 하시겠습니까?");
-            if (!(bool)Q.ShowDialog())
-                return;
-
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    this.Relays[10].Value = true;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }
-        }
-        private bool CanOpenDoor()
-        {
-            return IsConnected;
-        }
-        private void CloseDoor()
-        {
-            View.Question Q = new View.Question("[수동제어] 도어를 \"CLOSE\" 하시겠습니까?");
-            if (!(bool)Q.ShowDialog())
-                return;
-
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
-                {
-                    this.Relays[11].Value = true;
-                }
-                finally
-                {
-                    Monitor.Exit(SyncKey);
-                }
-            }
-        }
-        private bool CanCloseDoor()
-        {
-            return IsConnected;
-        }
-        private void StartLOG()
-        {
-            CloseLOG();
-
-            // MAKE HEADER.
-            string[] Header = new string[] {
-                "DATE",
-                "TIME",
-                "온도_PV(℃)",
-                "온도_SV(℃)",
-                "온도_MV(%)",
-                "차압챔버(mmH2O)",
-                "차압필터(mmH2O)",
-                "모터챔버(Hz)",
-                "쿨링챔버(Hz)",
-                "MFC(ℓ/min)",
-                "내부온도-1(℃)",
-                "내부온도-2(℃)",
-                "내부온도-3(℃)",
-                "내부온도-4(℃)",
-                "챔버_OT(℃)",
-                "히터_OT(℃)",
-                "O2_온도(℃)",
-                "O2_EMF(mV)","" +
-                "O2_ppm(ppm)",
-                "차압챔버_SV(mmH2O)",
-                "차압챔버_MV(%)"
-            };
-
-            // 1. CSV LOG.
-            StringBuilder Sb = new StringBuilder();
-            for (int i = 0; i < Header.Length; i++)
-                _ = Sb.AppendFormat("{0,15},", Header[i]);
-
-            DateTime Time = DateTime.Now;
-            string Name = string.Format("{0}_{1:D3}_{2}.csv", Helper.ToLogNameFormat(Time), Channel.PatternForRun.No, Channel.PatternForRun.Name);
-            string Path = System.IO.Path.Combine(Channel.CsvLogStorageDir, Name);
-            CsvWriter = new System.IO.StreamWriter(File.Open(Path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite), Encoding.Default);
-            CsvWriter.WriteLine(Sb.ToString().TrimEnd(','));
-
-            // 2. BINARY DATA LOG.
-            Name = string.Format("{0}_{1:D3}_{2}.dat", Helper.ToLogNameFormat(Time), Channel.PatternForRun.No, Channel.PatternForRun.Name);
-            this.TrendDataSaveName = Name;
-            Path = System.IO.Path.Combine(Channel.BinaryLogStorageDir, Name);            
-            BinaryDataWriter = new System.IO.BinaryWriter(File.Open(Path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite));
-            var Tmp = Encoding.ASCII.GetBytes("DAESUNG-ENT.N2-CLEANOVEN.V1");
-            byte[] Buf = new byte[50];
-            Array.Copy(Tmp, 0, Buf, 0, Tmp.Length);
-            BinaryDataWriter.Write(Buf);
-
-            LogWriterTimer = new System.Threading.Timer(OnLogTimerCallback, null, 5000, (int)(Channel.BinaryLogSaveInterval * 1000));
-        }
-        private void CloseLOG()
-        {
-            if (LogWriterTimer != null)
-            {
-                LogWriterTimer.Dispose();
-                LogWriterTimer = null;
-            }
-            if (CsvWriter != null)
-            {
-                CsvWriter.Flush();
-                CsvWriter.Close();
-                CsvWriter = null;
-            }
-            if (BinaryDataWriter != null)
-            {
-                BinaryDataWriter.Flush();
-                BinaryDataWriter.Close();
-                BinaryDataWriter = null;
-            }
-        }
-        private void OnLogTimerCallback(object state)
-        {
-            try
-            {
-                var Time = DateTime.Now;
-
-                // 1. CSV WRITE.
-                var Token = Helper.ToLogTimeFormat(Time).Split(' ');
-                var Sb = new StringBuilder();
-                Sb.AppendFormat("{0,15},{1,15},", Token[0], Token[1]);
-                foreach (var regNum in this.CsvLoggingNumerics)
-                    Sb.AppendFormat("{0,15},", regNum.FormattedValue);                 
-                if (CsvWriter != null)
-                    CsvWriter.WriteLine(Sb.ToString().TrimEnd(','));
-                CsvWriter.Flush();
-
-                // 2.BINARY WRITE.
-                BinaryDataWriter.Write(BitConverter.GetBytes(Time.Ticks));
-                foreach (var regNum in BinaryLoggingNumerics)
-                    BinaryDataWriter.Write(BitConverter.GetBytes((short)regNum.Value));  // 스케일링되기전 값으로 저장.
-                BinaryDataWriter.Flush();
-            }
-            catch (Exception ex)
-            {
-                Log.Logger.Dispatch("e", "Exception is Occured in OnLogTimerCallback : {0}", ex.Message);
-            }
-        }       
     }
 }

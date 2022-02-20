@@ -22,17 +22,52 @@ namespace DaesungEntCleanOven4.View
         public ParameterZoneSetupDlg()
         {
             InitializeComponent();
-//             this.cmbZoneParameter.ItemsSource = new string[] {
-//                 "온도", "챔버  - OT", "히터 - OT", "차압 챔버", "MFC", "차압 필터", "모터 챔버", "모터 쿨링", "내부 온도 #1", "내부 온도 #2", "내부 온도 #3", "내부 온도 #4"
-//             };
-    
-            // MFC, 차압필터, 모터챔버는 모듈이 아날로그로 변경되어 파라미터 셋팅 불가하여 콤보박스에서 삭제.
             this.cmbZoneParameter.ItemsSource = new string[] {
-                "온도", "챔버  - OT", "히터 - OT", "차압 챔버", "내부 온도 #1", "내부 온도 #2", "내부 온도 #3", "내부 온도 #4"
-            };
+                 "온도", "챔버  - OT", "히터 - OT", "차압 챔버", "MFC", "차압 필터", "모터 챔버", /*"모터 쿨링", */"내부 온도 #1", "내부 온도 #2",/* "내부 온도 #3", "내부 온도 #4"*/
+             };
         }
-
-        void CloseButton_Click(object sender, RoutedEventArgs e)
+        private void cmbZoneParameter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbZoneParameter.SelectedIndex >= 4 && cmbZoneParameter.SelectedIndex <= 6)
+            {
+                tboxFL.IsEnabled = false;
+                tboxSC.IsEnabled = false;
+                tboxCT.IsEnabled = false;
+                tboxBS.IsEnabled = true;
+                tboxX1.IsEnabled = false;
+                tboxY1.IsEnabled = false;
+                tboxX2.IsEnabled = false;
+                tboxY2.IsEnabled = false;
+                tboxX3.IsEnabled = false;
+                tboxY3.IsEnabled = false;
+                tboxP.IsEnabled = false;
+                tboxI.IsEnabled = false;
+                tboxD.IsEnabled = false;
+                tboxMR.IsEnabled = false;
+                tboxOH.IsEnabled = false;
+                tboxOL.IsEnabled = false;
+            }
+            else
+            {
+                tboxFL.IsEnabled = true;
+                tboxSC.IsEnabled = true;
+                tboxCT.IsEnabled = true;
+                tboxBS.IsEnabled = true;
+                tboxX1.IsEnabled = true;
+                tboxY1.IsEnabled = true;
+                tboxX2.IsEnabled = true;
+                tboxY2.IsEnabled = true;
+                tboxX3.IsEnabled = true;
+                tboxY3.IsEnabled = true;
+                tboxP.IsEnabled = true;
+                tboxI.IsEnabled = true;
+                tboxD.IsEnabled = true;
+                tboxMR.IsEnabled = true;
+                tboxOH.IsEnabled = true;
+                tboxOL.IsEnabled = true;
+            }
+        }
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }

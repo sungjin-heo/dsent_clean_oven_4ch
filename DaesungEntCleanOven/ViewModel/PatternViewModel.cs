@@ -32,9 +32,9 @@ namespace DaesungEntCleanOven4.ViewModel
             this.ResetCommand = new DevExpress.Mvvm.DelegateCommand(Reset, CanReset);
             this.SaveCommand = new DevExpress.Mvvm.DelegateCommand(Save, CanSave);
 
-            string[] yIds = new string[] { "y1", "y2", "y3", "y4", "y5" };
-            string[] sNames = new string[] { "Temperature", "Difference Chamber", "Motor Chamber", "Motor Cooling", "MFC" };
-            System.Windows.Media.Color[] sColor = new Color[] { Colors.Red, Colors.Lime, Colors.Aqua, Colors.Yellow, Colors.Magenta };
+            string[] yIds = new string[] { "y1", "y2", "y3", "y4", /*"y5"*/ };
+            string[] sNames = new string[] { "Temperature", "Difference Chamber", "Motor Chamber", /*"Motor Cooling", */"MFC" };
+            System.Windows.Media.Color[] sColor = new Color[] { Colors.Red, Colors.Lime, Colors.Aqua, /*Colors.Yellow,*/ Colors.Magenta };
 
             this.Group1Series = new List<IRenderableSeriesViewModel>();
             for (int i = 0; i < yIds.Length; i++)
@@ -243,7 +243,7 @@ namespace DaesungEntCleanOven4.ViewModel
         }
         private void OpenPatternSelectDlg()
         {
-            View.PatternSelectDlg Dlg = new View.PatternSelectDlg() { DataContext = Channel.PatternMetaDatas };
+            View.PatternSelectDlg Dlg = new View.PatternSelectDlg() { DataContext = Channel };
             if ((bool)Dlg.ShowDialog())
             {
                 if (Dlg.SelectedMetaData is Model.PatternMetadata metaData)
@@ -344,8 +344,8 @@ namespace DaesungEntCleanOven4.ViewModel
             List<double> qry1 = (from Seg in Segments select Seg.Temperature).ToList();
             List<double> qry2 = (from Seg in Segments select Seg.DifferencePressureChamber).ToList();
             List<double> qry3 = (from Seg in Segments select Seg.MotorChamber).ToList();
-            List<double> qry4 = (from Seg in Segments select Seg.MotorCooling).ToList();
-            List<double> qry5 = (from Seg in Segments select Seg.MFC).ToList();
+     //       List<double> qry4 = (from Seg in Segments select Seg.MotorCooling).ToList();
+            List<double> qry4 = (from Seg in Segments select Seg.MFC).ToList();
 
             List<double> yValues;
             int[] xValues = new int[16];
@@ -361,12 +361,12 @@ namespace DaesungEntCleanOven4.ViewModel
             yValues = qry3.GetRange(0, 15);
             yValues.Add(yValues[14]);
             (Group1Series[2].DataSeries as XyDataSeries<int, double>).Append(xValues, yValues);
+//             yValues = qry4.GetRange(0, 15);
+//             yValues.Add(yValues[14]);
+//             (Group1Series[3].DataSeries as XyDataSeries<int, double>).Append(xValues, yValues);
             yValues = qry4.GetRange(0, 15);
             yValues.Add(yValues[14]);
             (Group1Series[3].DataSeries as XyDataSeries<int, double>).Append(xValues, yValues);
-            yValues = qry5.GetRange(0, 15);
-            yValues.Add(yValues[14]);
-            (Group1Series[4].DataSeries as XyDataSeries<int, double>).Append(xValues, yValues);
 
             yValues = qry1.GetRange(15, 15);
             yValues.Insert(0, 0);
@@ -377,12 +377,12 @@ namespace DaesungEntCleanOven4.ViewModel
             yValues = qry3.GetRange(15, 15);
             yValues.Add(yValues[14]);
             (Group2Series[2].DataSeries as XyDataSeries<int, double>).Append(xValues, yValues);
+//             yValues = qry4.GetRange(15, 15);
+//             yValues.Add(yValues[14]);
+//             (Group2Series[3].DataSeries as XyDataSeries<int, double>).Append(xValues, yValues);
             yValues = qry4.GetRange(15, 15);
             yValues.Add(yValues[14]);
             (Group2Series[3].DataSeries as XyDataSeries<int, double>).Append(xValues, yValues);
-            yValues = qry5.GetRange(15, 15);
-            yValues.Add(yValues[14]);
-            (Group2Series[4].DataSeries as XyDataSeries<int, double>).Append(xValues, yValues);
 
             System.Reflection.PropertyInfo[] Properties = typeof(PatternViewModel).GetProperties();
             RaisePropertiesChanged(Properties.Select(p => p.Name).ToArray());
