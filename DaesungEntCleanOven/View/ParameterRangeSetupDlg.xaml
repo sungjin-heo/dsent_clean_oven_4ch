@@ -55,23 +55,22 @@
                     <TextBox Grid.Row="3" Grid.Column="0" Text="SH"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="4" Grid.Column="0" Text="SL"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="5" Grid.Column="0" Text="SDP" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
-                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Items[0].FormattedValue, Mode=TwoWay}" x:Name="tboxRH1">
+                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Items[0].FormattedValue, Mode=TwoWay}" x:Name="tboxRH1" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Items[1].FormattedValue, Mode=TwoWay}" x:Name="tboxRL1">
+                    <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Items[1].FormattedValue, Mode=TwoWay}" x:Name="tboxRL1" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="3" Grid.Column="1"  DataContext="{Binding Items[2]}" Text="{Binding FormattedValue, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}">
+                    <TextBox Grid.Row="3" Grid.Column="1"  DataContext="{Binding Items[2]}" Text="{Binding FormattedValue, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
-                        </dxmvvm:Interaction.Behaviors>
+                        </dxmvvm:Interaction.Behaviors>                      
                     </TextBox>
-
-                    <TextBox Grid.Row="4" Grid.Column="1"  DataContext="{Binding Items[3]}" Text="{Binding FormattedValue, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}">
+                    <TextBox Grid.Row="4" Grid.Column="1"  DataContext="{Binding Items[3]}" Text="{Binding FormattedValue, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
@@ -98,22 +97,22 @@
                     <TextBox Grid.Row="3" Grid.Column="0" Text="SH"  Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>
                     <TextBox Grid.Row="4" Grid.Column="0" Text="SL"  Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>
                     <TextBox Grid.Row="5" Grid.Column="0" Text="SDP" Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>
-                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Items[0].FormattedValue, Mode=TwoWay}" x:Name="tboxRH2">
+                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Items[0].FormattedValue, Mode=TwoWay}" x:Name="tboxRH2" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Items[1].FormattedValue, Mode=TwoWay}" x:Name="tboxRL2">
+                    <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Items[1].FormattedValue, Mode=TwoWay}" x:Name="tboxRL2" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="3" Grid.Column="1"  DataContext="{Binding Items[2]}" Text="{Binding FormattedValue, Mode=TwoWay}"  IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}">
+                    <TextBox Grid.Row="3" Grid.Column="1"  DataContext="{Binding Items[2]}" Text="{Binding FormattedValue, Mode=TwoWay}"  IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}"  Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="4" Grid.Column="1"  DataContext="{Binding Items[3]}" Text="{Binding FormattedValue, Mode=TwoWay}"  IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}">
+                    <TextBox Grid.Row="4" Grid.Column="1"  DataContext="{Binding Items[3]}" Text="{Binding FormattedValue, Mode=TwoWay}"  IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}"  Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
@@ -140,22 +139,22 @@
                     <TextBox Grid.Row="3" Grid.Column="0" Text="SH"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="4" Grid.Column="0" Text="SL"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="5" Grid.Column="0" Text="SDP" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
-                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Items[0].FormattedValue, Mode=TwoWay}" x:Name="tboxRH3">
+                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Items[0].FormattedValue, Mode=TwoWay}" x:Name="tboxRH3" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Items[1].FormattedValue, Mode=TwoWay}" x:Name="tboxRL3">
+                    <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Items[1].FormattedValue, Mode=TwoWay}" x:Name="tboxRL3" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="3" Grid.Column="1"  DataContext="{Binding Items[2]}" Text="{Binding FormattedValue, Mode=TwoWay}"   IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}">
+                    <TextBox Grid.Row="3" Grid.Column="1"  DataContext="{Binding Items[2]}" Text="{Binding FormattedValue, Mode=TwoWay}"   IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}"  Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="4" Grid.Column="1"  DataContext="{Binding Items[3]}" Text="{Binding FormattedValue, Mode=TwoWay}"   IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}">
+                    <TextBox Grid.Row="4" Grid.Column="1"  DataContext="{Binding Items[3]}" Text="{Binding FormattedValue, Mode=TwoWay}"   IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}"  Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
@@ -182,22 +181,22 @@
                     <TextBox Grid.Row="3" Grid.Column="0" Text="SH"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="4" Grid.Column="0" Text="SL"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="5" Grid.Column="0" Text="SDP" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
-                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Items[0].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Items[0].FormattedValue, Mode=TwoWay}" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Items[1].FormattedValue, Mode=TwoWay}">
+                    <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Items[1].FormattedValue, Mode=TwoWay}" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="3" Grid.Column="1"  DataContext="{Binding Items[2]}" Text="{Binding FormattedValue, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}">
+                    <TextBox Grid.Row="3" Grid.Column="1"  DataContext="{Binding Items[2]}" Text="{Binding FormattedValue, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}"  Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <TextBox Grid.Row="4" Grid.Column="1"  DataContext="{Binding Items[3]}" Text="{Binding FormattedValue, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}">
+                    <TextBox Grid.Row="4" Grid.Column="1"  DataContext="{Binding Items[3]}" Text="{Binding FormattedValue, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}"  Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>

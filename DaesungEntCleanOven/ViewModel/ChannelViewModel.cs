@@ -30,6 +30,8 @@ namespace DaesungEntCleanOven4.ViewModel
 
     internal class ChannelViewModel : DevExpress.Mvvm.ViewModelBase, IDisposable
     {
+        public static bool[] ChamberRunningStates = new bool[4];
+
         public ChannelViewModel(int Ch)
         {
             this.No = Ch;
@@ -127,8 +129,16 @@ namespace DaesungEntCleanOven4.ViewModel
                 });
             };
             this.CleanOvenChamber.PatternReloadRequested += CleanOvenChamber_PatternReloadRequested;
-            this.CleanOvenChamber.Started += (s, e) => { MonitorTimeWatch.Restart(); };
-            this.CleanOvenChamber.Stopped += (s, e) => { MonitorTimeWatch.Stop(); };
+            this.CleanOvenChamber.Started += (s, e) =>
+            {
+                MonitorTimeWatch.Restart();
+                ChamberRunningStates[No - 1] = true;
+            };
+            this.CleanOvenChamber.Stopped += (s, e) =>
+            {
+                MonitorTimeWatch.Stop();
+                ChamberRunningStates[No - 1] = false;
+            };
 
             // 패턴 모델 로딩...
             Model.Pattern model;
@@ -346,7 +356,7 @@ namespace DaesungEntCleanOven4.ViewModel
             }
             System.Diagnostics.Process ps = new System.Diagnostics.Process();
             ps.StartInfo.FileName = "DaesungEntCleanOvenDataViewer.exe";
-            ps.StartInfo.WorkingDirectory = this.BinaryLogStorageDir;
+           // ps.StartInfo.WorkingDirectory = this.BinaryLogStorageDir;
             ps.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Maximized;
             _ = ps.Start();
         }
@@ -390,12 +400,22 @@ namespace DaesungEntCleanOven4.ViewModel
             }
 
             View.ParameterRangeSetupDlg Dlg = new View.ParameterRangeSetupDlg() { DataContext = CleanOvenChamber };
-            _ = CleanOvenChamber.WriteWord("D8900", 1);
+            _ = CleanOvenChamber.WriteWord(string.Format("D{0}", 8900 + (15000 * (No - 1))), 1);
             Dlg.ShowDialog();
-            _ = CleanOvenChamber.WriteWord("D8900", 0);
+            _ = CleanOvenChamber.WriteWord(string.Format("D{0}", 8900 + (15000 * (No - 1))), 0);
         }
         private bool CanOpenSensorRangeSetup()
         {
+            if (No == 1 || No == 2)
+            {
+                if (ChamberRunningStates[0] || ChamberRunningStates[1])
+                    return false;
+            }
+            else if (No == 3 || No == 4)
+            {
+                if (ChamberRunningStates[2] || ChamberRunningStates[3])
+                    return false;
+            }
             return CleanOvenChamber.IsConnected && !CleanOvenChamber.IsRunning;
         }
         private void OpenSensorParameterSetup()
@@ -413,9 +433,9 @@ namespace DaesungEntCleanOven4.ViewModel
             }
 
             View.ParameterZoneSetupDlg Dlg = new View.ParameterZoneSetupDlg() { DataContext = CleanOvenChamber };
-            _ = CleanOvenChamber.WriteWord("D8901", 1);
+            _ = CleanOvenChamber.WriteWord(string.Format("D{0}", 8901 + (15000 * (No - 1))), 1);
             Dlg.ShowDialog();
-            _ = CleanOvenChamber.WriteWord("D8901", 0);
+            _ = CleanOvenChamber.WriteWord(string.Format("D{0}", 8901 + (15000 * (No - 1))), 0);
         }
         private bool CanOpenSensorParameterSetup()
         {
@@ -503,9 +523,9 @@ namespace DaesungEntCleanOven4.ViewModel
             }
 
             View.DifferenceChamberInitSetupDlg Dlg = new View.DifferenceChamberInitSetupDlg() { DataContext = CleanOvenChamber };
-            _ = CleanOvenChamber.WriteWord("D8902", 1);
+            _ = CleanOvenChamber.WriteWord(string.Format("D{0}", 8902 + (15000 * (No - 1))), 1);
             Dlg.ShowDialog();
-            _ = CleanOvenChamber.WriteWord("D8902", 0);
+            _ = CleanOvenChamber.WriteWord(string.Format("D{0}", 8902 + (15000 * (No - 1))), 0);
         }
         private bool CanOpenDifferenceChammberInitSetup()
         {

@@ -15,9 +15,9 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <appv:ChannelSummaryPanel Grid.Row="0" Grid.Column="0" Margin="0,0,5,2" DataContext="{Binding Channels[2]}"/>
-        <appv:ChannelSummaryPanel Grid.Row="0" Grid.Column="1" Margin="5,0,0,2" DataContext="{Binding Channels[0]}"/>
-        <appv:ChannelSummaryPanel Grid.Row="1" Grid.Column="0" Margin="0,2,5,0" DataContext="{Binding Channels[3]}"/>
-        <appv:ChannelSummaryPanel Grid.Row="1" Grid.Column="1" Margin="5,2,0,2" DataContext="{Binding Channels[1]}"/>
+        <appv:ChannelSummaryPanel Grid.Row="0" Grid.Column="0" Margin="0,0,5,2" DataContext="{Binding Channels[0]}"/>
+        <appv:ChannelSummaryPanel Grid.Row="0" Grid.Column="1" Margin="5,0,0,2" DataContext="{Binding Channels[2]}"/>
+        <appv:ChannelSummaryPanel Grid.Row="1" Grid.Column="0" Margin="0,2,5,0" DataContext="{Binding Channels[1]}"/>
+        <appv:ChannelSummaryPanel Grid.Row="1" Grid.Column="1" Margin="5,2,0,2" DataContext="{Binding Channels[3]}"/>
     </Grid>
 </UserControl>

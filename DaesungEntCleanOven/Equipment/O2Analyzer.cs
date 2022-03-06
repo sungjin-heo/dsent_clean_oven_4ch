@@ -226,6 +226,8 @@ namespace DaesungEntCleanOven4.Equipment
                                     Temp = BitConverter.ToInt32(Response.Data, 3) * 0.1;
                                 }
 
+                                Thread.Sleep(300);
+
                                 // GET EMF.
                                 Message = MakeMessage((byte)(i + 1), CMD_READ, ADDR_SENSOR_EMF);
                                 Response = Send(Message);
@@ -238,6 +240,8 @@ namespace DaesungEntCleanOven4.Equipment
                                     Array.Reverse(Response.Data, 5, 2);
                                     Emf = BitConverter.ToInt32(Response.Data, 3) * 0.01;
                                 }
+
+                                Thread.Sleep(300);
 
                                 // GET RPM.
                                 Message = MakeMessage((byte)(i + 1), CMD_READ, ADDR_O2_CONCENTRATION_PPM);
@@ -257,6 +261,7 @@ namespace DaesungEntCleanOven4.Equipment
                             }
                             catch (Exception ex)
                             {
+                                MeasureDataUpdated?.Invoke(this, new MeasureDataUpdateEventArgs(i, 0, 0, 0));
                                 if (ex.Message == "DisConnected")
                                     ConnectionStateChanged?.Invoke(this, new AnalyzerConnectionStateEventArgs(i, false));
                             }
