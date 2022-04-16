@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="DaesungEntCleanOven4.Robostar.View.EfemMessageLogPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"       
+             FontFamily="Century Gothic"  SnapsToDevicePixels="True"
+             mc:Ignorable="d" 
+             xmlns:log="clr-namespace:Log"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="1"
+                 x:Name="textLogBox"
+                 IsReadOnly="True"
+                 HorizontalContentAlignment="Left"
+                 VerticalContentAlignment="Top"
+                 VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Auto"
+                 Height="Auto"
+                 FontFamily="Century Gothic"
+                 FontSize="12"
+                 Background="Black"
+                 Foreground="Gold"
+                 Margin="5"                                   
+                 >
+            <dxmvvm:Interaction.Behaviors>
+                <log:LogTextboxBehavior/>
+            </dxmvvm:Interaction.Behaviors>
+        </TextBox>
+    </Grid>
+</UserControl>

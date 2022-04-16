@@ -62,7 +62,9 @@ namespace DaesungEntCleanOven4.Equipment
             this.CloseDoorCommand = new DevExpress.Mvvm.DelegateCommand(CloseDoor, CanCloseDoor);
 
             if (!ConstructRegister(Ch.No))
+            {
                 throw new Exception("CleanOven Configuration Error.");
+            }
             this.SelectedZoneParameterGrpIndex = 0;
             this.SelectedZoneParameterIndex = 0;
         }
@@ -102,14 +104,19 @@ namespace DaesungEntCleanOven4.Equipment
         public List<Alarm> Alarms { get; private set; }
         public ObservableCollection<AlarmDescript> AlarmHistory { get; private set; }
         public System.Windows.Window AlarmDlg;
-        public event EventHandler Started;
-        public event EventHandler Stopped;
-        public event EventHandler PatternReloadRequested;
 
         public bool IsRunning { get; private set; }
         public bool IsHold => Relays[1].Value;
         public bool IsFixRun => Relays[7].Value;
         public bool IsAutoTune => __AutoTuningCache == 1;
+        public bool IsDoorOpenAvailable => Relays[24].Value;
+        public bool IsDoorClosed { get; private set; } //=> IoX[24].Value;
+        public bool IsDoorOpen { get; private set; } // => IoX[25].Value;
+        public bool IsAlarmState => Relays[9].Value;
+        public bool IsExternalAborted { get; private set; }     // 외부에서 정지한 경우.
+        public int CurrentSequenceNo => (int)NumericValues[5].Value;
+        public int TotalSequenceCount => (int)NumericValues[6].Value;
+
         public string TrendDataSaveName { get; private set; }
         public int UsePatternNo => Channel.PatternForRun.No;
         public string FormattedCleanOvenStatus
@@ -121,7 +128,7 @@ namespace DaesungEntCleanOven4.Equipment
                 else if (Relays[3].Value)
                     return string.Format("CH.{0} - TEMPERATURE : PROG. PRE-RUN", ChannelNumber);
                 else if (Relays[4].Value)
-                    return string.Format("CH.{0} - TEMPERATURE : PROG. RUN", ChannelNumber);
+                    return string.Format("CH.{0} - TEMPERATUR.E : PROG. RUN", ChannelNumber);
                 else if (Relays[5].Value)
                     return string.Format("CH.{0} - TEMPERATURE : PROG. CLOSING", ChannelNumber);
                 else if (Relays[6].Value)
@@ -147,9 +154,11 @@ namespace DaesungEntCleanOven4.Equipment
                 // 실제 : D8012(세그시간), D8014(남은시간)
                 int Hour, Minute;
 
+                // 남은시간
                 Hour = Math.DivRem((int)NumericValues[8].ScaledValue, 60, out Minute);
                 string remTime = string.Format("{0}h {1:d2}m", Hour, Minute);
 
+                // 세그먼트 설정 시간.
                 Hour = Math.DivRem((int)NumericValues[7].ScaledValue, 60, out Minute);
                 string segTime = string.Format("{0}h {1:d2}m", Hour, Minute);
 
@@ -174,18 +183,28 @@ namespace DaesungEntCleanOven4.Equipment
                 
                 int CurrSeg = (int)NumericValues[5].Value;
                 int SegTimes = 0;
-                foreach (var Seg in Channel.PatternForRun.Segments)
+                foreach (SegmentViewModel Seg in Channel.PatternForRun.Segments)
                 {
                     if (Seg.No == CurrSeg)
+                    {
                         SegTimes += (int)NumericValues[8].ScaledValue;
+                    }
                     else if (Seg.No > CurrSeg)
+                    {
                         SegTimes += Seg.ConvertedDurationTime;
+                    }
                 }
                 DateTime Now = DateTime.Now;
                 DateTime endTime = Now.AddMinutes(SegTimes);
                 return string.Format("{0:D4}.{1:D2}.{2:D2} {3:D2}:{4:D2}", endTime.Year, endTime.Month, endTime.Day, endTime.Hour, endTime.Minute);
             }
         }        
+
+        public double TotalSegmentTime => Channel.PatternForRun.Segments.Sum(o => o.ConvertedDurationTime);  // 단위 : 분.
+        public double TotalSegmentElapsedTime => NumericValues[9].Value / 60;
+        public double CurrentSegmentElapsedTime => CurrentSegmentDuration - NumericValues[8].ScaledValue;
+        public double CurrentSegmentDuration => NumericValues[7].ScaledValue;
+
         public int SelectedZoneParameterGrpIndex
         {
             get { return __SelectedZoneParameterGrpIndex; }
@@ -236,7 +255,9 @@ namespace DaesungEntCleanOven4.Equipment
                 {
                     Question Q = new Question("수동운전을 시작하시겠습니까?");
                     if (!(bool)Q.ShowDialog())
+                    {
                         return;
+                    }
 
                     if (!IoY[7].Value)
                     {
@@ -261,7 +282,9 @@ namespace DaesungEntCleanOven4.Equipment
                 {
                     Question Q = new Question("수동운전을 정지하시겠습니까?");
                     if (!(bool)Q.ShowDialog())
+                    {
                         return;
+                    }
 
                     if (Monitor.TryEnter(SyncKey, 3000))
                     {
@@ -536,6 +559,17 @@ namespace DaesungEntCleanOven4.Equipment
                 return false;
             }
         }
+        public double AnalyzerO2Temperature { get; private set; }
+        public double AnalyzerO2Emf { get; private set; }
+        public double AnalyzerO2Ppm { get; private set; }
+
+        public event EventHandler PatternReloadRequested;
+        public event EventHandler AlarmOccured;
+        public event EventHandler DoorOpenCompleted;
+        public event EventHandler DoorCloseCompleted;
+        public event EventHandler ProcessStarted;
+        public event EventHandler ProcessCompleted;
+        public event EventHandler ProcessAborted;
 
         private T[] GetChunk<T>(T[] Src, int Offset, int Cnt, ref int Index)
         {
@@ -734,9 +768,11 @@ namespace DaesungEntCleanOven4.Equipment
                             if (AlarmDlg == null)
                             {
                                 AlarmDlg = new View.AlarmRealtimeDlg() { DataContext = this };
+                                AlarmDlg.Title = string.Format("채널.{0} - 경보 상태 창", Channel.No);
                                 AlarmDlg.Closed += (snd, arg) => { AlarmDlg = null; };
                                 AlarmDlg.Show();
                             }
+                            AlarmOccured?.Invoke(this, EventArgs.Empty);
                         });
                     };
                     alarm.AlarmCleared += (s, e) =>
@@ -825,14 +861,24 @@ namespace DaesungEntCleanOven4.Equipment
                 if (Relays[0].Value)
                 {
                     if (!IsRunning)
-                        Started?.Invoke(this, EventArgs.Empty);
+                    {
+                        ProcessStarted?.Invoke(this, EventArgs.Empty);
+                        IsExternalAborted = false;
+                    }
                 }
                 else
                 {
                     if (IsRunning)
                     {
                         CloseLOG();
-                        Stopped?.Invoke(this, EventArgs.Empty);
+                        if (IsExternalAborted)
+                        {
+                            ProcessAborted?.Invoke(this, EventArgs.Empty);
+                        }
+                        else
+                        {
+                            ProcessCompleted?.Invoke(this, EventArgs.Empty);
+                        }
                     }
                 }
 
@@ -915,6 +961,27 @@ namespace DaesungEntCleanOven4.Equipment
                 {
                     __Tracer.TraceError("Exception is Occured in OnMonitorDataUpdated() : " + ex.Message);
                 }
+
+                // 도어 클로즈 이벤트.
+                if (IoX[24].Value)
+                {
+                    if (!IsDoorClosed)
+                    {
+                        DoorCloseCompleted?.Invoke(this, EventArgs.Empty);
+                    }
+                }
+                IsDoorClosed = IoX[24].Value;
+
+                // 도어 오픈 이벤트
+                if (IoX[25].Value)
+                {
+                    if (!IsDoorOpen)
+                    {
+                        DoorOpenCompleted?.Invoke(this, EventArgs.Empty);
+                    }
+                }
+                IsDoorOpen = IoX[25].Value;
+
                 RaisePropertiesChanged(
                     "FormattedCleanOvenStatus", 
                     "FormattedPatten",
@@ -1432,7 +1499,9 @@ namespace DaesungEntCleanOven4.Equipment
             {
                 Question Q = new View.Question("프로그램 운전을 정지하겠습니까?");
                 if (!(bool)Q.ShowDialog())
+                {
                     return;
+                }
 
                 if (Monitor.TryEnter(SyncKey, 3000))
                 {
@@ -1440,6 +1509,7 @@ namespace DaesungEntCleanOven4.Equipment
                     {
                         this.NumericValues[42].Value = 0;
                         this.Relays[1].Value = false;       // 운전정지시 HOLD상태 해제.
+                        this.IsExternalAborted = true;
                     }
                     finally
                     {
@@ -1453,7 +1523,9 @@ namespace DaesungEntCleanOven4.Equipment
                 string Message = string.Format("패턴 번호 : {0}\r\n패턴 명칭 : {1}\r\n프로그램 운전을 시작하겠습니까?", Channel.PatternForRun.No, Channel.PatternForRun.Name);
                 View.Question Q = new View.Question(Message);
                 if (!(bool)Q.ShowDialog())
+                {
                     return;
+                }
 
                 //                 if (Channel.PatternForRun.No == Channel.PatternForEdit.No)
                 //                 {
@@ -1740,7 +1812,7 @@ namespace DaesungEntCleanOven4.Equipment
             CsvWriter.WriteLine(Sb.ToString().TrimEnd(','));
 
             // 2. BINARY DATA LOG.
-            Name = string.Format("{0}_{1:D3}_{2}.dat", Helper.ToLogNameFormat(Time), Channel.PatternForRun.No, Channel.PatternForRun.Name);
+            Name = string.Format("CH.{0} - {1}_{2:D3}_{3}.dat", Channel.No, Helper.ToLogNameFormat(Time), Channel.PatternForRun.No, Channel.PatternForRun.Name);
             this.TrendDataSaveName = Name;
             Path = System.IO.Path.Combine(Channel.BinaryLogStorageDir, Name);
             BinaryDataWriter = new System.IO.BinaryWriter(File.Open(Path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite));
@@ -2007,6 +2079,7 @@ namespace DaesungEntCleanOven4.Equipment
                 try
                 {
                     NumericValues[29].Value = value;
+                    this.AnalyzerO2Temperature = value;
                 }
                 finally
                 {
@@ -2021,6 +2094,7 @@ namespace DaesungEntCleanOven4.Equipment
                 try
                 {
                     NumericValues[30].Value = value;
+                    this.AnalyzerO2Emf = value;
                 }
                 finally
                 {
@@ -2038,6 +2112,7 @@ namespace DaesungEntCleanOven4.Equipment
                 try
                 {
                     NumericValues[31].Value = value;
+                    this.AnalyzerO2Ppm = value;
                 }
                 finally
                 {
@@ -2086,6 +2161,93 @@ namespace DaesungEntCleanOven4.Equipment
                     Monitor.Exit(SyncKey);
                 }
             }
+        }
+
+        // EFEM 연동시 확인 메세지 상자 없이 동작하기 위해서...
+        public void OpenDoorNoVerify()
+        {
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[10].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        public void CloseDoorNoVerify()
+        {
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.Relays[11].Value = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+        }
+        public void StartBake()
+        {
+            DateTime First = DateTime.Now;
+            DateTime Last = First.Add(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
+
+            SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = TrendSeriesGrp1[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
+            xAxis.VisibleRange = new DateRange(First, Last);
+            xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
+            xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
+            foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp1)
+            {
+                Series.DataSeries.Clear();
+            }
+
+            xAxis = TrendSeriesGrp2[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
+            xAxis.VisibleRange = new DateRange(First, Last);
+            xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
+            xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
+            foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp2)
+            {
+                Series.DataSeries.Clear();
+            }
+
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.NumericValues[42].Value = (Channel.PatternForRun.StartConditionUsage == 1) ? 5 : 7;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+
+            __ManualCtrl = false;
+            RaisePropertiesChanged("ManualCtrl");
+            StartLOG();
+
+        }
+        public void AbortBake()
+        {
+            if (Monitor.TryEnter(SyncKey, 3000))
+            {
+                try
+                {
+                    this.NumericValues[42].Value = 0;
+                    this.Relays[1].Value = false;       // 운전정지시 HOLD상태 해제.
+                    this.IsExternalAborted = true;
+                }
+                finally
+                {
+                    Monitor.Exit(SyncKey);
+                }
+            }
+            CloseLOG();
         }
     }
 }

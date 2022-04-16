@@ -27,5 +27,45 @@ namespace DaesungEntCleanOven4.View
         {
             this.Close();
         }
+        void Window_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.DataContext is Equipment.CleanOven Chamber)
+            {
+                switch (Chamber.ChannelNumber)
+                {
+                    case 1:
+                        LampAirPressureLow.IsEnabled = true;
+                        LampCoolingPressureLow.IsEnabled = true;
+                        LampLeakSensor2.IsEnabled = true;
+                        LampSmokeAlarm.IsEnabled = true;
+                        TitleAirPressureLow.IsEnabled = true;
+                        TitleCoolingPressureLow.IsEnabled = true;
+                        TitleLeakSensor2.IsEnabled = true;
+                        TitleSmokeAlarm.IsEnabled = true;
+                        break;
+                    case 2:
+                    case 4:
+                        LampAirPressureLow.IsEnabled = false;
+                        LampCoolingPressureLow.IsEnabled = false;
+                        LampLeakSensor2.IsEnabled = false;
+                        LampSmokeAlarm.IsEnabled = false;
+                        TitleAirPressureLow.IsEnabled = false;
+                        TitleCoolingPressureLow.IsEnabled = false;
+                        TitleLeakSensor2.IsEnabled = false;
+                        TitleSmokeAlarm.IsEnabled = false;
+                        break;
+                    case 3:
+                        LampAirPressureLow.IsEnabled = false;
+                        LampCoolingPressureLow.IsEnabled = true;
+                        LampLeakSensor2.IsEnabled = true;
+                        LampSmokeAlarm.IsEnabled = true;
+                        TitleAirPressureLow.IsEnabled = false;
+                        TitleCoolingPressureLow.IsEnabled = true;
+                        TitleLeakSensor2.IsEnabled = true;
+                        TitleSmokeAlarm.IsEnabled = true;
+                        break;
+                }
+            }
+        }
     }
 }

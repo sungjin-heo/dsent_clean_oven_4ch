@@ -155,8 +155,8 @@ namespace DaesungEntCleanOven4.ViewModel
             {
                 // 단위 : 분.
                 string Tmp = string.Format("{0:F2}", this.Duration);
-                var Token = Tmp.Split('.');
-                return int.Parse(Token[0]) * 60 + int.Parse(Token[1]);
+                string[] Token = Tmp.Split('.');
+                return (int.Parse(Token[0]) * 60) + int.Parse(Token[1]);
             }
         }
         public string FormattedDurationTime

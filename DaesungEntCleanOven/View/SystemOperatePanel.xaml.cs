@@ -31,13 +31,16 @@ namespace DaesungEntCleanOven4.View
         {
             if (prevModel != null)
             {
-                prevModel.Started -= CleanOvenChamber_Started;
-                prevModel.Stopped -= CleanOvenChamber_Stopped;
+                prevModel.ProcessStarted -= CleanOvenChamber_Started;
+                prevModel.ProcessCompleted -= CleanOvenChamber_Stopped;
+                prevModel.ProcessAborted -= CleanOvenChamber_Stopped;
+
             }
             if (this.DataContext is Equipment.CleanOven Model)
             {
-                Model.Started += CleanOvenChamber_Started;
-                Model.Stopped += CleanOvenChamber_Stopped;
+                Model.ProcessStarted += CleanOvenChamber_Started;
+                Model.ProcessCompleted += CleanOvenChamber_Stopped;
+                Model.ProcessAborted += CleanOvenChamber_Stopped;
                 prevModel = Model;
                 UpdateChamberOperateState(Model);
             }
@@ -64,23 +67,16 @@ namespace DaesungEntCleanOven4.View
         private void CleanOvenChamber_Started(object sender, EventArgs e)
         {
             if (this.DataContext is Equipment.CleanOven Model)
+            {
                 UpdateChamberOperateState(Model);
-
-            //             btnStart.Content = "정지";
-            //             btnStart.Glyph = BitmapFrame.Create(new Uri("pack://application:,,,/DevExpress.Images.v17.1;component/Images/Arrows/Stop_16x16.png"));
-            //             btnChangePatter.IsEnabled = false;
-            //             btnPause.IsEnabled = true;
-            //             btnAdvance.IsEnabled = true;
+            }
         }
         private void CleanOvenChamber_Stopped(object sender, EventArgs e)
         {
             if (this.DataContext is Equipment.CleanOven Model)
+            {
                 UpdateChamberOperateState(Model);
-//             btnStart.Content = "운전";
-//             btnStart.Glyph = BitmapFrame.Create(new Uri("pack://application:,,,/DevExpress.Images.v17.1;component/Images/Arrows/Play_16x16.png"));
-//             btnChangePatter.IsEnabled = true;
-//             btnPause.IsEnabled = false;
-//             btnAdvance.IsEnabled = false;
+            }
         }
     }
 }

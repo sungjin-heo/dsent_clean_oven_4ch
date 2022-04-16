@@ -208,6 +208,9 @@ namespace Mp.Lib.IO
 							if (failure)
 								continue;
 
+
+							
+
 							// read len
 							var tmo = Stopwatch.StartNew();
 							var buf1 = new byte[4];
@@ -242,8 +245,11 @@ namespace Mp.Lib.IO
 							if (failure)
 								continue;
 
-							// read
-							using (var ms = new MemoryStream(data))
+                            string Xml = Encoding.UTF8.GetString(data);
+                            Log.Logger.Dispatch("i", Xml);
+
+                            // read
+                            using (var ms = new MemoryStream(data))
 							using (var r = new BinaryReader(ms))
 							{
 								var typename = r.ReadString();
@@ -426,6 +432,8 @@ namespace Mp.Lib.IO
 					MyStream.Flush();
 					SendMessageCount++;
 
+                    string Xml = Encoding.UTF8.GetString(arr);
+					Log.Logger.Dispatch("i", Xml);
 					return true;
 				}
 				catch (Exception ex)

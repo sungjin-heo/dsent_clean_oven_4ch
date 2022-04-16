@@ -22,11 +22,11 @@ namespace DaesungEntCleanOven4.View
         public ParameterRangeSetupDlg()
         {
             InitializeComponent();
-            int[] sdpArr = new int[] { 0, 1, 2, 3 };
-            cmbSdp1.ItemsSource = sdpArr;
-            cmbSdp2.ItemsSource = sdpArr;
-            cmbSdp3.ItemsSource = sdpArr;
-            cmbSdp4.ItemsSource = sdpArr;
+//             int[] sdpArr = new int[] { 0, 1, 2, 3 };
+//             cmbSdp1.ItemsSource = sdpArr;
+//             cmbSdp2.ItemsSource = sdpArr;
+//             cmbSdp3.ItemsSource = sdpArr;
+//             cmbSdp4.ItemsSource = sdpArr;
         }
         void RangeGrpComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

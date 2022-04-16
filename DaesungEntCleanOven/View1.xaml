@@ -32,7 +32,7 @@
                     <dxr:RibbonPageGroup Caption="제어">
                         <dxb:BarButtonItem Content="운전화면" Command="{Binding OpenOperationViewCommand}" LargeGlyph="{dx:DXImage Image=Example_32x32.png}" Glyph="{dx:DXImage Image=Example_16x16.png}" />
                         <dxb:BarButtonItem Content="패턴편집" Command="{Binding OpenPatternConfigurationViewCommand}" LargeGlyph="{dx:DXImage Image=SwitchTimeScalesTo_32x32.png}" Glyph="{dx:DXImage Image=SwitchTimeScalesTo_16x16.png}"/>
-                        <dxb:BarButtonItem Content="바코드" Command="{Binding OpenBarcodeScanViewCommand}" LargeGlyph="{dx:DXImage Image=Barcode2_32x32.png}" Glyph="{dx:DXImage Image=Barcode2_16x16.png}"/>
+                        <!--<dxb:BarButtonItem Content="바코드" Command="{Binding OpenBarcodeScanViewCommand}" LargeGlyph="{dx:DXImage Image=Barcode2_32x32.png}" Glyph="{dx:DXImage Image=Barcode2_16x16.png}"/>-->
                         <dxb:BarButtonItem Content="수동조작" Command="{Binding OpenManualControlViewCommand}" LargeGlyph="{dx:DXImage Image=HandTool_32x32.png}" Glyph="{dx:DXImage Image=HandTool_16x16.png}"/>
                         <dxb:BarButtonItem Content="IO상태" Command="{Binding OpenIoListViewCommand}" LargeGlyph="{dx:DXImage Image=ConditionalFormatting_32x32.png}" Glyph="{dx:DXImage Image=ConditionalFormatting_16x16.png}"/>
                     </dxr:RibbonPageGroup>

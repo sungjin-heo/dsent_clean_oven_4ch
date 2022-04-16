@@ -48,8 +48,17 @@ namespace DaesungEntCleanOven4.View
             {
                 if (CleanOven.TrendSeriesGrp1 != null && CleanOven.TrendSeriesGrp1.Count > 0)
                 {
-                    var Series = CleanOven.TrendSeriesGrp1[0].DataSeries as IXyDataSeries<DateTime, double>;
-                    Series.DataSeriesChanged += (s, arg) => {
+                    IXyDataSeries<DateTime, double> Series = CleanOven.TrendSeriesGrp1[0].DataSeries as IXyDataSeries<DateTime, double>;
+                    if (Series.XValues.Count > 0)
+                    {
+                        DateTime First = Series.XValues.First();
+                        DateTime Last = First.Add(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
+                        xAxis1.VisibleRange = new DateRange(First, Last);
+                        xAxis1.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
+                        xAxis1.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
+                    }
+                    Series.DataSeriesChanged += (s, arg) => 
+                    {
                         switch (arg.DataSeriesAction)
                         {
                             case DataSeriesAction.Append:
@@ -58,7 +67,7 @@ namespace DaesungEntCleanOven4.View
                                 {
                                     if (Series.XValues.Count > G.REALTIME_TREND_CAPACITY * 3600)
                                     {
-                                        var Now = Series.XValues[Series.Count - 1];
+                                        DateTime Now = Series.XValues[Series.Count - 1];
                                         int Cnt = Series.XValues.Count(o => o < Now - TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
                                         if (Cnt > 0)
                                         {
@@ -70,16 +79,25 @@ namespace DaesungEntCleanOven4.View
                                         {
                                             scrollbar1.IsEnabled = false;
                                         }
-                                    }                                    
+                                    }
                                 }
                                 break;
                         }
-                    };                   
+                    };
                 }
                 if (CleanOven.TrendSeriesGrp2 != null && CleanOven.TrendSeriesGrp2.Count > 0)
                 {
-                    var Series = CleanOven.TrendSeriesGrp2[0].DataSeries as IXyDataSeries<DateTime, double>;
-                    Series.DataSeriesChanged += (s, arg) => {
+                    IXyDataSeries<DateTime, double> Series = CleanOven.TrendSeriesGrp2[0].DataSeries as IXyDataSeries<DateTime, double>;
+                    if (Series.XValues.Count > 0)
+                    {
+                        DateTime First = Series.XValues.First();
+                        DateTime Last = First.Add(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
+                        xAxis1.VisibleRange = new DateRange(First, Last);
+                        xAxis1.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
+                        xAxis1.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
+                    }
+                    Series.DataSeriesChanged += (s, arg) => 
+                    {
                         switch (arg.DataSeriesAction)
                         {
                             case DataSeriesAction.Append:
@@ -88,7 +106,7 @@ namespace DaesungEntCleanOven4.View
                                 {
                                     if (Series.XValues.Count > G.REALTIME_TREND_CAPACITY * 3600)
                                     {
-                                        var Now = Series.XValues[Series.Count - 1];
+                                        DateTime Now = Series.XValues[Series.Count - 1];
                                         int Cnt = Series.XValues.Count(o => o < Now - TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
                                         if (Cnt > 0)
                                         {

@@ -36,6 +36,13 @@ namespace DaesungEntCleanOven4.Equipment
         public bool ConnectState { get; private set; }
     }
 
+    class MeasureValue
+    {
+        public double SensorTemperature { get; set; }
+        public double SensorEMF { get; set; }
+        public double O2ConcentrationPpm { get; set; }
+    }
+
     internal class O2Analyzer : Device.CMT.Analyzer
     {
         static object SyncKey = new object();
@@ -58,9 +65,15 @@ namespace DaesungEntCleanOven4.Equipment
         protected ushort __MainAlarmControl;
         protected int __ReplyErrorCount;
 
+
+       // private MeasureValue[] MeasurementValueCache = new MeasureValue[4];
+        
+
         public O2Analyzer(string portName, int baudRate, byte Id)
           : base(portName, baudRate, Id)
         {
+//             for (int i = 0; i < MeasurementValueCache.Length; i++)
+//                 this.MeasurementValueCache[i] = new MeasureValue();
         }
         public ushort TargetSensorTemperature
         {
@@ -195,6 +208,7 @@ namespace DaesungEntCleanOven4.Equipment
                 OnConnected();
             return base.IsOpen;
         }
+      
         protected override void MonitorFunc(object State)
         {
             __Sp.DiscardInBuffer();
@@ -218,7 +232,7 @@ namespace DaesungEntCleanOven4.Equipment
                                 Comm.IMessage Response = Send(Message);
                                 Log.Logger.Dispatch("i", "02 sensor temp : {0}", Response);
                                 if (Response == null)
-                                    throw new Exception("DisConnected");
+                                    throw new Exception("Analyzer return value is null");
                                 if (Response != null && Response.Data.Length == 9)
                                 {
                                     Array.Reverse(Response.Data, 3, 2);
@@ -226,14 +240,14 @@ namespace DaesungEntCleanOven4.Equipment
                                     Temp = BitConverter.ToInt32(Response.Data, 3) * 0.1;
                                 }
 
-                                Thread.Sleep(300);
+                                Thread.Sleep(500);
 
                                 // GET EMF.
                                 Message = MakeMessage((byte)(i + 1), CMD_READ, ADDR_SENSOR_EMF);
                                 Response = Send(Message);
                                 Log.Logger.Dispatch("i", "02 sensor emf : {0}", Response);
                                 if (Response == null)
-                                    throw new Exception("DisConnected");
+                                    throw new Exception("Analyzer return value is null");
                                 if (Response != null && Response.Data.Length == 9)
                                 {
                                     Array.Reverse(Response.Data, 3, 2);
@@ -241,41 +255,36 @@ namespace DaesungEntCleanOven4.Equipment
                                     Emf = BitConverter.ToInt32(Response.Data, 3) * 0.01;
                                 }
 
-                                Thread.Sleep(300);
+                                Thread.Sleep(500);
 
                                 // GET RPM.
                                 Message = MakeMessage((byte)(i + 1), CMD_READ, ADDR_O2_CONCENTRATION_PPM);
                                 Response = Send(Message);
                                 Log.Logger.Dispatch("i", "02 sensor ppm : {0}", Response);
                                 if (Response == null)
-                                    throw new Exception("DisConnected");
+                                    throw new Exception("Analyzer return value is null");
                                 if (Response != null && Response.Data.Length == 9)
                                 {
                                     Array.Reverse(Response.Data, 3, 2);
                                     Array.Reverse(Response.Data, 5, 2);
                                     Rpm = BitConverter.ToInt32(Response.Data, 3) * 0.01;
                                 }
-
                                 MeasureDataUpdated?.Invoke(this, new MeasureDataUpdateEventArgs(i, Temp, Emf, Rpm));
                                 ConnectionStateChanged?.Invoke(this, new AnalyzerConnectionStateEventArgs(i, true));
                             }
                             catch (Exception ex)
                             {
-                                MeasureDataUpdated?.Invoke(this, new MeasureDataUpdateEventArgs(i, 0, 0, 0));
+                              //  ClearBuffer();
+                                Log.Logger.Dispatch("e", ex.Message);
                                 if (ex.Message == "DisConnected")
                                     ConnectionStateChanged?.Invoke(this, new AnalyzerConnectionStateEventArgs(i, false));
                             }
-                            Thread.Sleep(300);
+                            Thread.Sleep(500);
                         }
                     }
                     catch (Exception ex)
                     {
                         Log.Logger.Dispatch("e", "Exception is Occured while to Update Analyzer Data : " + ex.Message);
-                        //                         if (ex.Message == "DisConnected")
-                        //                         {
-                        //                             Log.Logger.Dispatch("e", "O2 Analyzer DisConnected");
-                        //                             Close();
-                        //                         }
                     }
                     finally
                     {

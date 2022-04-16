@@ -54,7 +54,7 @@
                     <TextBox Grid.Row="1" Grid.Column="0" Text="RL"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="3" Grid.Column="0" Text="SH"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="4" Grid.Column="0" Text="SL"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
-                    <TextBox Grid.Row="5" Grid.Column="0" Text="SDP" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <!--<TextBox Grid.Row="5" Grid.Column="0" Text="SDP" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>-->
                     <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Items[0].FormattedValue, Mode=TwoWay}" x:Name="tboxRH1" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
@@ -75,7 +75,7 @@
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <ComboBox Grid.Row="5" Grid.Column="1" DataContext="{Binding Items[4]}" Text="{Binding Value, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}" x:Name="cmbSdp1"/>
+                    <!--<ComboBox Grid.Row="5" Grid.Column="1" DataContext="{Binding Items[4]}" Text="{Binding Value, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}" x:Name="cmbSdp1"/>-->
                 </Grid>                
             </GroupBox>
             <GroupBox x:Name="grpBox2" DataContext="{Binding SelectedZoneParameterGrp[1]}">
@@ -96,7 +96,7 @@
                     <TextBox Grid.Row="1" Grid.Column="0" Text="RL"  Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>
                     <TextBox Grid.Row="3" Grid.Column="0" Text="SH"  Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>
                     <TextBox Grid.Row="4" Grid.Column="0" Text="SL"  Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>
-                    <TextBox Grid.Row="5" Grid.Column="0" Text="SDP" Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>
+                    <!--<TextBox Grid.Row="5" Grid.Column="0" Text="SDP" Background="WhiteSmoke" IsReadOnly="True"  IsTabStop="False"/>-->
                     <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Items[0].FormattedValue, Mode=TwoWay}" x:Name="tboxRH2" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
@@ -117,7 +117,7 @@
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <ComboBox Grid.Row="5" Grid.Column="1" DataContext="{Binding Items[4]}" Text="{Binding Value, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}"  x:Name="cmbSdp2"/>
+                    <!--<ComboBox Grid.Row="5" Grid.Column="1" DataContext="{Binding Items[4]}" Text="{Binding Value, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}"  x:Name="cmbSdp2"/>-->
                 </Grid>
             </GroupBox>
             <GroupBox x:Name="grpBox3" DataContext="{Binding SelectedZoneParameterGrp[2]}">
@@ -138,7 +138,7 @@
                     <TextBox Grid.Row="1" Grid.Column="0" Text="RL"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="3" Grid.Column="0" Text="SH"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="4" Grid.Column="0" Text="SL"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
-                    <TextBox Grid.Row="5" Grid.Column="0" Text="SDP" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <!--<TextBox Grid.Row="5" Grid.Column="0" Text="SDP" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>-->
                     <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Items[0].FormattedValue, Mode=TwoWay}" x:Name="tboxRH3" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
@@ -159,7 +159,7 @@
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <ComboBox Grid.Row="5" Grid.Column="1" DataContext="{Binding Items[4]}" Text="{Binding Value, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}"  x:Name="cmbSdp3"/>
+                    <!--<ComboBox Grid.Row="5" Grid.Column="1" DataContext="{Binding Items[4]}" Text="{Binding Value, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}"  x:Name="cmbSdp3"/>-->
                 </Grid>
             </GroupBox>
             <GroupBox x:Name="grpBox4" DataContext="{Binding SelectedZoneParameterGrp[3]}">
@@ -180,7 +180,7 @@
                     <TextBox Grid.Row="1" Grid.Column="0" Text="RL"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="3" Grid.Column="0" Text="SH"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
                     <TextBox Grid.Row="4" Grid.Column="0" Text="SL"  Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
-                    <TextBox Grid.Row="5" Grid.Column="0" Text="SDP" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>
+                    <!--<TextBox Grid.Row="5" Grid.Column="0" Text="SDP" Background="WhiteSmoke" IsReadOnly="True" IsTabStop="False"/>-->
                     <TextBox Grid.Row="0" Grid.Column="1"  Text="{Binding Items[0].FormattedValue, Mode=TwoWay}" Background="LemonChiffon">
                         <dxmvvm:Interaction.Behaviors>
                             <u:TextBoxInputDoneBehavior/>
@@ -201,7 +201,7 @@
                             <u:TextBoxInputDoneBehavior/>
                         </dxmvvm:Interaction.Behaviors>
                     </TextBox>
-                    <ComboBox Grid.Row="5" Grid.Column="1" DataContext="{Binding Items[4]}" Text="{Binding Value, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}"  x:Name="cmbSdp4"/>
+                    <!--<ComboBox Grid.Row="5" Grid.Column="1" DataContext="{Binding Items[4]}" Text="{Binding Value, Mode=TwoWay}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BooleanToNegationConverter}}"  x:Name="cmbSdp4"/>-->
                 </Grid>
             </GroupBox>
         </UniformGrid>

@@ -5,7 +5,7 @@
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic" FontSize="11"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Topmost="True" DataContextChanged="Window_DataContextChanged"
         Title="경보 상태 창" Height="451" Width="1000" Icon="{dx:DXImage Image=Warning_16x16.png}">
     <Grid Margin="5">
         <Grid.RowDefinitions>
@@ -150,27 +150,27 @@
             <TextBox Grid.Row="10" Grid.Column="7" IsReadOnly="True" Text="O2 분석기 통신 이상" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
 
             <!--GRP #4-->
-            <Border  Grid.Row="0"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[39].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <Border  Grid.Row="0"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[39].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"  x:Name="LampAirPressureLow"/>
             <Border  Grid.Row="1"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[40].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="2"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[41].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <Border  Grid.Row="2"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[41].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2" x:Name="LampCoolingPressureLow"/>
             <Border  Grid.Row="3"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[42].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="4"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[43].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="5"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[44].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="6"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[45].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <!--<Border  Grid.Row="4"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[43].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>-->
+            <Border  Grid.Row="4"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[44].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <Border  Grid.Row="5"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[45].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2" x:Name="LampLeakSensor2"/>
             <!--<Border  Grid.Row="7"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[46].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>-->
-            <Border  Grid.Row="7"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[47].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
-            <Border  Grid.Row="8"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[48].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
+            <Border  Grid.Row="6"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[47].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2" x:Name="LampSmokeAlarm"/>
+            <Border  Grid.Row="7"  Grid.Column="9"  BorderBrush="Black" BorderThickness="1" Background="{Binding Alarms[48].State, Mode=OneWay, Converter={StaticResource BooleanToRedBrushConverter}}" Width="23" Height="23" Margin="2"/>
             
-            <TextBox Grid.Row="0"  Grid.Column="10" IsReadOnly="True" Text="에어 압력 낮음" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <TextBox Grid.Row="0"  Grid.Column="10" IsReadOnly="True" Text="에어 압력 낮음" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD" x:Name="TitleAirPressureLow"/>
             <TextBox Grid.Row="1"  Grid.Column="10" IsReadOnly="True" Text="N2 압력 낮음" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="2"  Grid.Column="10" IsReadOnly="True" Text="냉각 압력 낮음" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <TextBox Grid.Row="2"  Grid.Column="10" IsReadOnly="True" Text="냉각 압력 낮음" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD" x:Name="TitleCoolingPressureLow"/>
             <TextBox Grid.Row="3"  Grid.Column="10" IsReadOnly="True" Text="SSR 바이메탈 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="4"  Grid.Column="10" IsReadOnly="True" Text="배기 센서 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="5"  Grid.Column="10" IsReadOnly="True" Text="리크(Leak) 센서 #1 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="6"  Grid.Column="10" IsReadOnly="True" Text="리크(Leak) 센서 #2 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <!--<TextBox Grid.Row="4"  Grid.Column="10" IsReadOnly="True" Text="배기 센서 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>-->
+            <TextBox Grid.Row="4"  Grid.Column="10" IsReadOnly="True" Text="리크(Leak) 센서 #1 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <TextBox Grid.Row="5"  Grid.Column="10" IsReadOnly="True" Text="리크(Leak) 센서 #2 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD" x:Name="TitleLeakSensor2"/>
             <!--<TextBox Grid.Row="7"  Grid.Column="10" IsReadOnly="True" Text="도어 구역 센서 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>-->
-            <TextBox Grid.Row="7"  Grid.Column="10" IsReadOnly="True" Text="스모크 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
-            <TextBox Grid.Row="8"  Grid.Column="10" IsReadOnly="True" Text="챔버 퍼지 타임 초과" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
+            <TextBox Grid.Row="6"  Grid.Column="10" IsReadOnly="True" Text="스모크 경보" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD" x:Name="TitleSmokeAlarm"/>
+            <TextBox Grid.Row="7"  Grid.Column="10" IsReadOnly="True" Text="챔버 퍼지 타임 초과" HorizontalContentAlignment="Left" Padding="10,2" Background="#FFDDDDDD"/>
         </Grid>                
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="4,0">
             <dx:SimpleButton Content="닫기" Width="140" Glyph="{dx:DXImage Image=Close_16x16.png}" IsCancel="True" Click="CloseButton_Click"/>

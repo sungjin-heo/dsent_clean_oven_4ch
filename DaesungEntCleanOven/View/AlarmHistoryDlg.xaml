@@ -35,7 +35,7 @@
                   VerticalGridLinesBrush="LightGray"
                   Background="DimGray"
                   CanUserDeleteRows="False"
-                  CanUserSortColumns="False"
+                  CanUserSortColumns="True"
                   CanUserReorderColumns="False"
                   CanUserResizeRows="False" 
                   CanUserAddRows="False"
@@ -67,9 +67,9 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Width="160" Header="시간" Binding="{Binding Time, Mode=OneWay}" IsReadOnly="True" ElementStyle="{StaticResource CellTextStyleCenter}"/>
-                <DataGridTextColumn Width="80" Header="상태" Binding="{Binding State, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource CellTextStyleCenter}"/>
-                <DataGridTextColumn Width="*" Header="내용" Binding="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource CellTextStyleLeft}"/>
+                <DataGridTextColumn Width="160" Header="시간" Binding="{Binding Time, Mode=OneWay}" IsReadOnly="True" ElementStyle="{StaticResource CellTextStyleCenter}" SortDirection="Ascending"/>
+                <DataGridTextColumn Width="80" Header="상태" Binding="{Binding State, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource CellTextStyleCenter}" CanUserSort="False"/>
+                <DataGridTextColumn Width="*" Header="내용" Binding="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource CellTextStyleLeft}" CanUserSort="False"/>
             </DataGrid.Columns>
 
         </DataGrid>

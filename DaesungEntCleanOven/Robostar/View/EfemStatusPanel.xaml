@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="DaesungEntCleanOven4.Robostar.View.EfemStatusPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cc="clr-namespace:CustomControls"
+             xmlns:rv="clr-namespace:DaesungEntCleanOven4.Robostar.View"
+             mc:Ignorable="d" SnapsToDevicePixels="True" Background="White"
+             
+             d:DesignHeight="1024" d:DesignWidth="1024">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--EFEM 시스템 상태 정보-->
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="EFFM 서버 IP 주소"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ServerIpAddress, Mode=OneWay}" IsReadOnly="True"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="EFFM TCP 포트"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ServerTcpPort, Mode=OneWay}" IsReadOnly="True"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="통신 연결 상태"/>
+            <cc:Lamp Grid.Row="2" Grid.Column="1" State="{Binding IsServerConnected}" TrueStateBackground="Lime" InnerMargin="2" Width="24" Height="24" HorizontalAlignment="Left"/>
+
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="로봇 연결 상태"/>
+            <cc:Lamp Grid.Row="0" Grid.Column="4" State="{Binding IsRobotConnected}" TrueStateBackground="Lime" InnerMargin="2" Width="24" Height="24" HorizontalAlignment="Left"/>
+            
+            <TextBlock Grid.Row="1" Grid.Column="3" Text="로봇 동작 상태"/>
+            <cc:Lamp Grid.Row="1" Grid.Column="4" State="{Binding IsRobotBusy}" TrueStateBackground="Lime" InnerMargin="2" Width="24" Height="24" HorizontalAlignment="Left"/>
+            
+            <TextBlock Grid.Row="2" Grid.Column="3" Text="로봇 원점 동작 완료 여부"/>
+            <cc:Lamp Grid.Row="2" Grid.Column="4" State="{Binding IsRobotOrigined}" TrueStateBackground="Lime" InnerMargin="2" Width="24" Height="24" HorizontalAlignment="Left"/>
+            
+            <TextBlock Grid.Row="3" Grid.Column="3" Text="로봇 에러 상태"/>
+            <cc:Lamp Grid.Row="3" Grid.Column="4" State="{Binding HasRobotError}" TrueStateBackground="Lime" InnerMargin="2" Width="24" Height="24" HorizontalAlignment="Left"/>
+            
+            <TextBlock Grid.Row="4" Grid.Column="3" Text="ARM 1번 패널 유무"/>
+            <cc:Lamp Grid.Row="4" Grid.Column="4" State="{Binding HasPanel1}" TrueStateBackground="Lime" InnerMargin="2" Width="24" Height="24" HorizontalAlignment="Left"/>
+            
+            <TextBlock Grid.Row="5" Grid.Column="3" Text="ARM 2번 패널 유무"/>
+            <cc:Lamp Grid.Row="5" Grid.Column="4" State="{Binding HasPanel2}" TrueStateBackground="Lime" InnerMargin="2" Width="24" Height="24" HorizontalAlignment="Left"/>
+
+
+            <TextBlock Grid.Row="0" Grid.Column="6" Text="EAP 연결 상태"/>
+            <cc:Lamp Grid.Row="0" Grid.Column="7" State="{Binding IsHostConnected}" TrueStateBackground="Lime" InnerMargin="2" Width="24" Height="24" HorizontalAlignment="Left"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="6" Text="작업 예약 상태"/>
+            <cc:Lamp Grid.Row="1" Grid.Column="7" State="{Binding IsJobReserved}" TrueStateBackground="Lime" InnerMargin="2" Width="24" Height="24" HorizontalAlignment="Left"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="6" Text="작업 중."/>
+            <cc:Lamp Grid.Row="2" Grid.Column="7" State="{Binding IsJobNow}" TrueStateBackground="Lime" InnerMargin="2" Width="24" Height="24" HorizontalAlignment="Left"/>
+
+        </Grid>
+
+        <Rectangle Grid.Row="1" Height="1" Fill="Gray" Margin="2,5"/>
+
+        <!--포트1~4 정보-->
+        <UniformGrid Grid.Row="2" Columns="4">
+            <GroupBox Header="포트.1 상태" Margin="2">
+                <rv:EfemPortDataPanel DataContext="{Binding PortDatas[0]}"/>
+            </GroupBox>
+
+            <GroupBox Header="포트.2 상태" Margin="2">
+                <rv:EfemPortDataPanel DataContext="{Binding PortDatas[1]}"/>
+            </GroupBox>
+
+            <GroupBox Header="포트.3 상태" Margin="2">
+                <rv:EfemPortDataPanel DataContext="{Binding PortDatas[2]}"/>
+            </GroupBox>
+
+            <GroupBox Header="포트.4 상태" Margin="2">
+                <rv:EfemPortDataPanel DataContext="{Binding PortDatas[3]}"/>
+            </GroupBox>
+        </UniformGrid>
+        
+        <!--패널 공급 정보-->
+        <GroupBox Grid.Row="4" Header="패널 공급 정보" Margin="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="패널 Lot ID"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PanelLotID, Mode=OneWay}" IsReadOnly="True"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="패널 캐리어 아이디"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding PanelCarrierID, Mode=OneWay}" IsReadOnly="True"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="패널 레시피 이름"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PanelRecipeName, Mode=OneWay}" IsReadOnly="True"/>
+
+
+                <TextBlock Grid.Row="0" Grid.Column="3" Text="패널 아이디"/>
+                <TextBox Grid.Row="0" Grid.Column="4" Text="{Binding PanelLotID, Mode=OneWay}" IsReadOnly="True"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="3" Text="패널 슬롯 번호"/>
+                <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding PanelCarrierID, Mode=OneWay}" IsReadOnly="True"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="3" Text="패널 포트 번호"/>
+                <TextBox Grid.Row="2" Grid.Column="4" Text="{Binding PanelRecipeName, Mode=OneWay}" IsReadOnly="True"/>
+
+
+            </Grid>
+           
+        </GroupBox>
+
+    </Grid>
+</UserControl>

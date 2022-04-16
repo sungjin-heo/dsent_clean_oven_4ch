@@ -129,16 +129,12 @@ namespace DaesungEntCleanOven4.ViewModel
                 });
             };
             this.CleanOvenChamber.PatternReloadRequested += CleanOvenChamber_PatternReloadRequested;
-            this.CleanOvenChamber.Started += (s, e) =>
-            {
-                MonitorTimeWatch.Restart();
-                ChamberRunningStates[No - 1] = true;
-            };
-            this.CleanOvenChamber.Stopped += (s, e) =>
-            {
-                MonitorTimeWatch.Stop();
-                ChamberRunningStates[No - 1] = false;
-            };
+            this.CleanOvenChamber.AlarmOccured += CleanOvenChamber_AlarmOccured;
+            this.CleanOvenChamber.DoorOpenCompleted += CleanOvenChamber_DoorOpenCompleted;
+            this.CleanOvenChamber.DoorCloseCompleted += CleanOvenChamber_DoorCloseCompleted;
+            this.CleanOvenChamber.ProcessStarted += CleanOvenChamber_ProcessStarted;
+            this.CleanOvenChamber.ProcessCompleted += CleanOvenChamber_ProcessCompleted;
+            this.CleanOvenChamber.ProcessAborted += CleanOvenChamber_ProcessAborted;
 
             // 패턴 모델 로딩...
             Model.Pattern model;
@@ -163,7 +159,7 @@ namespace DaesungEntCleanOven4.ViewModel
             };
             SystemTimer.Start();
         }
-
+             
         private System.Timers.Timer SystemTimer;
         private System.Diagnostics.Stopwatch MonitorTimeWatch;
         public string CleanOvenIpAddr { get; private set; }
@@ -220,6 +216,12 @@ namespace DaesungEntCleanOven4.ViewModel
         public event EventHandler DetailViewMoveRequested;
         public event EventHandler IntegrateViewReturnRequested;
         public event EventHandler PatternMetaDataChanged;
+        public event EventHandler AlarmOccured;
+        public event EventHandler DoorOpenCompleted;
+        public event EventHandler DoorCloseCompleted;
+        public event EventHandler ProcessStarted;
+        public event EventHandler ProcessCompleted;
+        public event EventHandler ProcessAborted;
 
         public void Dispose()
         {
@@ -354,9 +356,14 @@ namespace DaesungEntCleanOven4.ViewModel
                 _ = Q.ShowDialog();
                 return;
             }
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(@".\ch.txt"))
+            {
+                sw.WriteLine(No);
+            }
+
             System.Diagnostics.Process ps = new System.Diagnostics.Process();
             ps.StartInfo.FileName = "DaesungEntCleanOvenDataViewer.exe";
-           // ps.StartInfo.WorkingDirectory = this.BinaryLogStorageDir;
+            //ps.StartInfo.Arguments = this.BinaryLogStorageDir;
             ps.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Maximized;
             _ = ps.Start();
         }
@@ -370,7 +377,8 @@ namespace DaesungEntCleanOven4.ViewModel
                 return;
 
             View.AlarmRealtimeDlg Dlg = new View.AlarmRealtimeDlg() { DataContext = CleanOvenChamber };
-            _ = Dlg.ShowDialog();
+            Dlg.Title = string.Format("채널.{0} - 경보 상태 창", No);
+            Dlg.Show();
         }
         private bool CanOpenCurrentAlarmView()
         {
@@ -477,7 +485,7 @@ namespace DaesungEntCleanOven4.ViewModel
             }
 
             View.AlarmParameterSetupDlg Dlg = new View.AlarmParameterSetupDlg() { DataContext = CleanOvenChamber };
-            _ = Dlg.ShowDialog();
+            Dlg.Show();
         }
         private bool CanOpenAlertParameterSetup()
         {
@@ -710,6 +718,37 @@ namespace DaesungEntCleanOven4.ViewModel
                 Log.Logger.Dispatch("e", "Exception is Occured while to Load pattern config : " + ex.Message);
             }
         }
+        private void CleanOvenChamber_AlarmOccured(object sender, EventArgs e)
+        {
+            AlarmOccured?.Invoke(this, EventArgs.Empty);
+        }
+        private void CleanOvenChamber_DoorOpenCompleted(object sender, EventArgs e)
+        {
+            DoorOpenCompleted?.Invoke(this, EventArgs.Empty);
+        }
+        private void CleanOvenChamber_DoorCloseCompleted(object sender, EventArgs e)
+        {
+            DoorCloseCompleted?.Invoke(this, EventArgs.Empty);
+        }
+        private void CleanOvenChamber_ProcessStarted(object sender, EventArgs e)
+        {
+            MonitorTimeWatch.Restart();
+            ChamberRunningStates[No - 1] = true;
+            ProcessStarted?.Invoke(this, EventArgs.Empty);
+        }
+        private void CleanOvenChamber_ProcessCompleted(object sender, EventArgs e)
+        {
+            MonitorTimeWatch.Stop();
+            ChamberRunningStates[No - 1] = false;
+            ProcessCompleted?.Invoke(this, EventArgs.Empty);
+        }
+        private void CleanOvenChamber_ProcessAborted(object sender, EventArgs e)
+        {
+            MonitorTimeWatch.Stop();
+            ChamberRunningStates[No - 1] = false;
+            ProcessAborted?.Invoke(this, EventArgs.Empty);
+        }
+
         public void SelectRunningPattern(int pNo)
         {
             try
@@ -761,7 +800,9 @@ namespace DaesungEntCleanOven4.ViewModel
                 Model.Pattern pattern;
                 string path = Path.Combine(PatternStorageDir, string.Format("{0:D3}.xml", pNo));
                 if (File.Exists(path))
+                {
                     pattern = Model.Pattern.LoadFrom(path);
+                }
                 else
                 {
                     pattern = new Model.Pattern(true);

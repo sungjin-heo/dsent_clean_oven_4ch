@@ -2,8 +2,8 @@
 	"device": {
 		"efem":
 		{
-			"addr": "192.168.0.10",
-			"port": 1234
+			"addr": "127.0.0.1",
+			"port": 4001
 		},
 		"analyzer": {
 			"port": "COM6",

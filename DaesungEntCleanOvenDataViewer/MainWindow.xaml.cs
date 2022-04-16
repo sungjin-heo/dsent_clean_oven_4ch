@@ -44,6 +44,7 @@ namespace DaesungEntCleanOvenDataViewer
         public MainWindow()
         {
             InitializeComponent();
+
             this.DataContext = this;
 
             var F = DateTime.Now;
@@ -146,12 +147,18 @@ namespace DaesungEntCleanOvenDataViewer
         public ChartParameter TrendChartParameter { get; protected set; }
         protected void OpenFileButton_Click(object sender, RoutedEventArgs e)
         {
+            int Ch = 1;
+            using (System.IO.StreamReader Sr = new StreamReader(@".\ch.txt"))
+            {
+                Ch = int.Parse(Sr.ReadLine());
+            }
+
             using (OpenFileDialog Ofd = new OpenFileDialog())
             {
-                Ofd.InitialDirectory = @"D:\DAESUNG-ENT\CLEAN_OVEN\LOG\GRAPH\";
+                Ofd.InitialDirectory = string.Format(@"D:\APP\DAESUNG-ENT\CLEAN_OVEN\CH{0}\LOG\GRAPH", Ch);
                 Ofd.Filter = "Data files (*.dat)|*.dat|All files (*.*)|*.*";
                 Ofd.FilterIndex = 1;
-                Ofd.RestoreDirectory = true;
+                Ofd.RestoreDirectory = false;
                 if (Ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     this.tboxFileName.Text = Ofd.FileName;

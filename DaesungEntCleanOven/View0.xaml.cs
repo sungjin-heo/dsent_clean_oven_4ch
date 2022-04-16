@@ -37,13 +37,17 @@ namespace DaesungEntCleanOven4
         private void Model_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "SelectedChannel")
+            {
                 Title = string.Format("N2 클린 오븐 - 대성이앤티 Co. Ltd - {0}채널", (sender as MainViewModel).SelectedChannel.No);
+            }
         }
         private void Model_IntegrateViewReturnRequested(object sender, EventArgs e)
         {
             view1.Visibility = Visibility.Hidden;
             view2.Visibility = Visibility.Visible;
             toolBar.Visibility = Visibility.Visible;
+            efemStateView.Visibility = Visibility.Hidden;
+            efemLogView.Visibility = Visibility.Hidden;
             Title = "N2 클린 오븐 - 대성이앤티 Co. Ltd";
         }
         private void Model_DetailViewMoveRequested(object sender, EventArgs e)
@@ -51,6 +55,27 @@ namespace DaesungEntCleanOven4
             view1.Visibility = Visibility.Visible;
             view2.Visibility = Visibility.Hidden;
             toolBar.Visibility = Visibility.Collapsed;
+            efemStateView.Visibility = Visibility.Hidden;
+            efemLogView.Visibility = Visibility.Hidden;
+        }
+
+        private void ShowEfemSystemStateView_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            view1.Visibility = Visibility.Hidden;
+            view2.Visibility = Visibility.Hidden;
+            toolBar.Visibility = Visibility.Visible;
+            efemStateView.Visibility = Visibility.Visible;
+            efemLogView.Visibility = Visibility.Hidden;
+            Title = "N2 클린 오븐 - 대성이앤티 Co. Ltd";
+        }
+        private void ShowEfemMessageLogView_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            view1.Visibility = Visibility.Hidden;
+            view2.Visibility = Visibility.Hidden;
+            toolBar.Visibility = Visibility.Visible;
+            efemStateView.Visibility = Visibility.Hidden;
+            efemLogView.Visibility = Visibility.Visible;
+            Title = "N2 클린 오븐 - 대성이앤티 Co. Ltd";
         }
     }
 }
