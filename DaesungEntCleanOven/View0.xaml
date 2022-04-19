@@ -41,6 +41,9 @@
                         <dxb:BarButtonItem Content="온라인"  Command="{Binding OpenCommCommand}" LargeGlyph="{dx:DXImage Image=Hyperlink_32x32.png}" Glyph="{dx:DXImage Image=Hyperlink_16x16.png}"/>
                         <dxb:BarButtonItem Content="오프라인" Command="{Binding CloseCommCommand}" LargeGlyph="{dx:DXImage Image=DeleteHyperlink_32x32.png}" Glyph="{dx:DXImage Image=DeleteHyperlink_16x16.png}" />
                     </dxr:RibbonPageGroup>
+                    <dxr:RibbonPageGroup Caption="">
+                        <dxb:BarButtonItem Content="통합화면 이동"  Command="{Binding MoveToIntegratedViewCommand}" LargeGlyph="{dx:DXImage Image=BordersAll_32x32.png}" Glyph="{dx:DXImage Image=Home_16x16.png}" />
+                    </dxr:RibbonPageGroup>
                     <dxr:RibbonPageGroup Caption="채널 상세 뷰">
                         <dxb:BarButtonItem Content="채널뷰 1" Glyph="{dx:DXImage Image=LegendTop_32x32.png}" LargeGlyph="{dx:DXImage Image=LegendTop_32x32.png}"
                                            Command="{Binding MoveToChannelViewCommand}" CommandParameter="1"/>

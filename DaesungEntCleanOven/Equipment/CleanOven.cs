@@ -105,14 +105,19 @@ namespace DaesungEntCleanOven4.Equipment
         public ObservableCollection<AlarmDescript> AlarmHistory { get; private set; }
         public System.Windows.Window AlarmDlg;
 
+        public bool IsInitRunning => Relays[3].Value;
         public bool IsRunning { get; private set; }
-        public bool IsHold => Relays[1].Value;
+        public bool IsStopping => Relays[5].Value;
+        public bool IsStop => !Relays[0].Value;
         public bool IsFixRun => Relays[7].Value;
+        public bool IsHold => Relays[1].Value;
         public bool IsAutoTune => __AutoTuningCache == 1;
         public bool IsDoorOpenAvailable => Relays[24].Value;
-        public bool IsDoorClosed { get; private set; } //=> IoX[24].Value;
-        public bool IsDoorOpen { get; private set; } // => IoX[25].Value;
+        public bool IsDoorOpenUnavailable => !Relays[24].Value;
+        public bool IsDoorClosed { get; private set; }      //=> IoX[24].Value;
+        public bool IsDoorOpen { get; private set; }        // => IoX[25].Value;
         public bool IsAlarmState => Relays[9].Value;
+        public bool IsReady => IsStop && !IsAlarmState;
         public bool IsExternalAborted { get; private set; }     // 외부에서 정지한 경우.
         public int CurrentSequenceNo => (int)NumericValues[5].Value;
         public int TotalSequenceCount => (int)NumericValues[6].Value;
@@ -858,7 +863,8 @@ namespace DaesungEntCleanOven4.Equipment
             Application.Current.Dispatcher.Invoke(() => 
             {
                 // 운전 상태 업데이트.
-                if (Relays[0].Value)
+                bool curr_run_state = Relays[0].Value;
+                if (curr_run_state)
                 {
                     if (!IsRunning)
                     {
@@ -871,7 +877,7 @@ namespace DaesungEntCleanOven4.Equipment
                     if (IsRunning)
                     {
                         CloseLOG();
-                        if (IsExternalAborted)
+                        if (IsExternalAborted)      // 사용자에 의한 정지.
                         {
                             ProcessAborted?.Invoke(this, EventArgs.Empty);
                         }
@@ -881,8 +887,7 @@ namespace DaesungEntCleanOven4.Equipment
                         }
                     }
                 }
-
-                IsRunning = Relays[0].Value;
+                IsRunning = Relays[0].Value;  // IsRunning은 운전상태에 대한 캐쉬.
 
                 // OVEN POWER MC가 OFF 상태에선 수동 제어 불가.
                 if (!IoY[7].Value)
@@ -894,19 +899,19 @@ namespace DaesungEntCleanOven4.Equipment
                 }
 
                 // AUTOTUING이 완료되면, TEMPERATURE P,I,D 갱신.
-                double Tmp = NumericValues[39].Value;
-                if (__AutoTuningCache != Tmp)
+                double curr_autotune_state = NumericValues[39].Value;
+                if (__AutoTuningCache != curr_autotune_state)
                 {
-                    if (__AutoTuningCache == 1 && Tmp == 0)
+                    if (__AutoTuningCache == 1 && curr_autotune_state == 0)
                     {
                         // AUTOTUNE DONE. UPDATE TEMPERATURE ZONE P,I,D
                         if (Monitor.TryEnter(SyncKey, 3000))
                         {
                             try
                             {
-                                var list = Parameters[0].Items.GetRange(15, 3);
+                                List<RegNumeric> list = Parameters[0].Items.GetRange(15, 3);
                                 string[] r_addr = (from reg in list select reg.ReadAddress).ToArray();
-                                var Response = (string)ReadRandomWord(r_addr);
+                                string Response = (string)ReadRandomWord(r_addr);
                                 if (!Response.Contains("OK") || (Response.Length - 4 != r_addr.Length * 4))
                                     throw new Exception("Fail to Update Temperature P,I,D Values");
                                 for (int i = 0; i < r_addr.Length; i++)
@@ -922,7 +927,7 @@ namespace DaesungEntCleanOven4.Equipment
                             }
                         }                        
                     }
-                    __AutoTuningCache = Tmp;
+                    __AutoTuningCache = curr_autotune_state;
                 }
 
                 try
@@ -936,9 +941,9 @@ namespace DaesungEntCleanOven4.Equipment
                         if (ElapsedTime.TotalMinutes > G.REALTIME_TREND_CAPACITY * 60.0 && !G.REALTIME_TREND_ON_SEARCH)
                         {
                             // CHANGE VISIBLE RANGE.
-                            var First = Now.Subtract(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
-                            var Last = Now;
-                            var xAxis = Series1.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
+                            DateTime First = Now.Subtract(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
+                            DateTime Last = Now;
+                            SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = Series1.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
                             xAxis.VisibleRange = new DateRange(First, Last);
                             xAxis = Series2.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
                             xAxis.VisibleRange = new DateRange(First, Last);
@@ -948,12 +953,12 @@ namespace DaesungEntCleanOven4.Equipment
                     DateTime Time = DateTime.Now;
                     for (int i = 0; i < TrendSeriesGrp1Numerics.Count; i++)
                     {
-                        var dataSeries = (TrendSeriesGrp1[i].DataSeries as IXyDataSeries<DateTime, double>);
+                        IXyDataSeries<DateTime, double> dataSeries = (TrendSeriesGrp1[i].DataSeries as IXyDataSeries<DateTime, double>);
                         dataSeries.Append(Time, TrendSeriesGrp1Numerics[i].ScaledValue);
                     }
                     for (int i = 0; i < TrendSeriesGrp2Numerics.Count; i++)
                     {
-                        var dataSeries = (TrendSeriesGrp2[i].DataSeries as IXyDataSeries<DateTime, double>);
+                        IXyDataSeries<DateTime, double> dataSeries = (TrendSeriesGrp2[i].DataSeries as IXyDataSeries<DateTime, double>);
                         dataSeries.Append(Time, TrendSeriesGrp2Numerics[i].ScaledValue);
                     }
                 }
@@ -963,7 +968,7 @@ namespace DaesungEntCleanOven4.Equipment
                 }
 
                 // 도어 클로즈 이벤트.
-                if (IoX[24].Value)
+                if (IoX[24].Value)      // 현재 도어 Close 상태.
                 {
                     if (!IsDoorClosed)
                     {
@@ -973,7 +978,7 @@ namespace DaesungEntCleanOven4.Equipment
                 IsDoorClosed = IoX[24].Value;
 
                 // 도어 오픈 이벤트
-                if (IoX[25].Value)
+                if (IoX[25].Value)      // 현재 도어 Open 상태.
                 {
                     if (!IsDoorOpen)
                     {
@@ -2164,7 +2169,7 @@ namespace DaesungEntCleanOven4.Equipment
         }
 
         // EFEM 연동시 확인 메세지 상자 없이 동작하기 위해서...
-        public void OpenDoorNoVerify()
+        public void OpenDoorNoMsg()
         {
             if (Monitor.TryEnter(SyncKey, 3000))
             {
@@ -2178,7 +2183,7 @@ namespace DaesungEntCleanOven4.Equipment
                 }
             }
         }
-        public void CloseDoorNoVerify()
+        public void CloseDoorNoMsg()
         {
             if (Monitor.TryEnter(SyncKey, 3000))
             {
@@ -2194,43 +2199,51 @@ namespace DaesungEntCleanOven4.Equipment
         }
         public void StartBake()
         {
-            DateTime First = DateTime.Now;
-            DateTime Last = First.Add(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
-
-            SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = TrendSeriesGrp1[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
-            xAxis.VisibleRange = new DateRange(First, Last);
-            xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
-            xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
-            foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp1)
+            Application.Current.Dispatcher.Invoke(() => 
             {
-                Series.DataSeries.Clear();
-            }
+                DateTime First = DateTime.Now;
+                DateTime Last = First.Add(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
 
-            xAxis = TrendSeriesGrp2[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
-            xAxis.VisibleRange = new DateRange(First, Last);
-            xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
-            xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
-            foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp2)
-            {
-                Series.DataSeries.Clear();
-            }
-
-            if (Monitor.TryEnter(SyncKey, 3000))
-            {
-                try
+                if (TrendSeriesGrp1[0].DataSeries.ParentSurface != null)
                 {
-                    this.NumericValues[42].Value = (Channel.PatternForRun.StartConditionUsage == 1) ? 5 : 7;
+                    SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = TrendSeriesGrp1[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
+                    xAxis.VisibleRange = new DateRange(First, Last);
+                    xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
+                    xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
                 }
-                finally
+                foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp1)
                 {
-                    Monitor.Exit(SyncKey);
+                    Series.DataSeries.Clear();
                 }
-            }
 
-            __ManualCtrl = false;
-            RaisePropertiesChanged("ManualCtrl");
-            StartLOG();
+                if (TrendSeriesGrp2[0].DataSeries.ParentSurface != null)
+                {
+                    SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = TrendSeriesGrp2[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
+                    xAxis.VisibleRange = new DateRange(First, Last);
+                    xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
+                    xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
+                }                  
+                foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp2)
+                {
+                    Series.DataSeries.Clear();
+                }
 
+                if (Monitor.TryEnter(SyncKey, 3000))
+                {
+                    try
+                    {
+                        this.NumericValues[42].Value = (Channel.PatternForRun.StartConditionUsage == 1) ? 5 : 7;
+                    }
+                    finally
+                    { 
+                        Monitor.Exit(SyncKey);
+                    }
+                }
+
+                __ManualCtrl = false;
+                RaisePropertiesChanged("ManualCtrl");
+                StartLOG();
+            });
         }
         public void AbortBake()
         {

@@ -310,12 +310,6 @@ namespace DsFourChamberLib.DataComm
 	/// </summary>
 	public class BakeOvenCommDataStatus : CommonData
 	{
-		public bool IsInitOperation { get; set; }	// 초기운전
-		public bool IsRun { get; set; }				// 운전
-		public bool IsStopping { get; set; }		// 종료중
-		public bool IsStop { get; set; }			// 정지
-		public bool IsAutoTune { get; set; }		// 오토튜닝
-
 		public BakeOvenCommDataChamberStatusData Chamber1 { get; set; }
 		public BakeOvenCommDataChamberStatusData Chamber2 { get; set; }
 		public BakeOvenCommDataChamberStatusData Chamber3 { get; set; }
@@ -343,17 +337,22 @@ namespace DsFourChamberLib.DataComm
 		// alarm
 		public bool[] AlarmBits { get; set; }
 
-		// interface
-		public bool IsReady { get; set; } // 작업 시작 준비됨
-		public bool IsPrepared { get; set; } // 작업 준비 완료 (패널 투입 가능)
-		public bool IsRun { get; set; }
+        public bool IsInitOperation { get; set; }   // 초기운전
+        public bool IsRun { get; set; }             // 운전
+        public bool IsStopping { get; set; }        // 종료중
+        public bool IsStop { get; set; }            // 정지
+        public bool IsAutoTune { get; set; }        // 오토튜닝
+
+        // interface
+        public bool IsReady { get; set; }			// 작업 시작 준비됨 => 정지 상태이면서 알람이 없는 상태.
+// 		public bool IsPrepared { get; set; }		// 작업 준비 완료 (패널 투입 가능) => 협의하여 삭제하기로 함.
 		public bool IsAlarm { get; set; }
 		public bool IsDoorOpenAvailable { get; set; }
 		public bool IsDoorOpen { get; set; }
 		public bool IsDoorClosed { get; set; }
 
 		// recipe
-		public string RecipeName { get; set; } // pattern no.
+		public string RecipeName { get; set; }			// pattern no.
 		public int SequenceTotal { get; set; }
 		public int SequenceNo { get; set; }
 		public double ProcessStartTime { get; set; } // sec

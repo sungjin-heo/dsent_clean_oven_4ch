@@ -46,6 +46,7 @@ namespace DaesungEntCleanOven4.Equipment
     internal class O2Analyzer : Device.CMT.Analyzer
     {
         static object SyncKey = new object();
+        
 
         // ADDRESS.
         public readonly byte ADDR_TARGET_SENSOR_TMP = 0x1E;
@@ -227,6 +228,11 @@ namespace DaesungEntCleanOven4.Equipment
                                 double Temp = .0, Emf = .0, Rpm = .0;
                                 SessionMessage Message;
 
+                                // 하나의 세션에서 4개 채널에 대한 데이터를 받는다.
+                                // 메세지 디코더에서 패킷의 시작을 구분하기 위한 유일한 수단은 디바이스 아이디. 따라서 현재 요청하는 디바이스 아이디를 전역변수로 설정.
+                                // 메세지 디코더에서 전역변수의 값에 해당하는 디바이스 식별자를 이용해 패킷의 시작점 구분.
+                                Device.CMT.Analyzer.RequestedDeviceId = i + 1;
+
                                 // GET TEMPERATURE.
                                 Message = MakeMessage((byte)(i + 1), CMD_READ, ADDR_SENSOR_TMP);
                                 Comm.IMessage Response = Send(Message);
@@ -279,6 +285,8 @@ namespace DaesungEntCleanOven4.Equipment
                                 if (ex.Message == "DisConnected")
                                     ConnectionStateChanged?.Invoke(this, new AnalyzerConnectionStateEventArgs(i, false));
                             }
+
+                            // 채널 데이터 요청 딜레이 : 500 ms
                             Thread.Sleep(500);
                         }
                     }
@@ -487,16 +495,18 @@ namespace DaesungEntCleanOven4.Equipment
                 {
                     byte addrCnt = 1;
                     if (Addr == ADDR_SENSOR_TMP || Addr == ADDR_SENSOR_EMF || Addr == ADDR_O2_CONCENTRATION_PPM)
+                    {
                         addrCnt = 2;
+                    }
 
-                    var Bytes = new byte[8];
+                    byte[] Bytes = new byte[8];
                     Bytes[0] = Id;
                     Bytes[1] = Cmd;
                     Bytes[2] = 0x0;
                     Bytes[3] = Addr;
                     Bytes[4] = 0x0;
                     Bytes[5] = addrCnt;
-                    var Crc = BitConverter.GetBytes(CRC16.MODBUS(Bytes, 0, 6));
+                    byte[] Crc = BitConverter.GetBytes(CRC16.MODBUS(Bytes, 0, 6));
                     Bytes[6] = Crc[0];
                     Bytes[7] = Crc[1];
                     return new SessionMessage(Bytes);
@@ -504,9 +514,11 @@ namespace DaesungEntCleanOven4.Equipment
                 else if (Cmd == CMD_WRITE)
                 {
                     if (value == null)
+                    {
                         throw new ArgumentNullException("Setting Value");
+                    }
 
-                    var Bytes = new byte[11];
+                    byte[] Bytes = new byte[11];
                     Bytes[0] = Id;
                     Bytes[1] = Cmd;
                     Bytes[2] = 0x0;
@@ -514,10 +526,10 @@ namespace DaesungEntCleanOven4.Equipment
                     Bytes[4] = 0x0;
                     Bytes[5] = 0x1;
                     Bytes[6] = 0x2;
-                    var Tmp = BitConverter.GetBytes((ushort)value);
+                    byte[] Tmp = BitConverter.GetBytes((ushort)value);
                     Tmp.Reverse();
                     Array.Copy(Tmp, 0, Bytes, 7, Tmp.Length);
-                    var Crc = BitConverter.GetBytes(CRC16.MODBUS(Bytes, 0, 6));
+                    byte[] Crc = BitConverter.GetBytes(CRC16.MODBUS(Bytes, 0, 6));
                     Bytes[9] = Crc[0];
                     Bytes[10] = Crc[1];
                     return new SessionMessage(Bytes);
@@ -537,16 +549,18 @@ namespace DaesungEntCleanOven4.Equipment
                 {
                     byte addrCnt = 1;
                     if (Addr == ADDR_SENSOR_TMP || Addr == ADDR_SENSOR_EMF || Addr == ADDR_O2_CONCENTRATION_PPM)
+                    {
                         addrCnt = 2;
+                    }
 
-                    var Bytes = new byte[8];
+                    byte[] Bytes = new byte[8];
                     Bytes[0] = DevId;
                     Bytes[1] = Cmd;
                     Bytes[2] = 0x0;
                     Bytes[3] = Addr;
                     Bytes[4] = 0x0;
                     Bytes[5] = addrCnt;
-                    var Crc = BitConverter.GetBytes(CRC16.MODBUS(Bytes, 0, 6));
+                    byte[] Crc = BitConverter.GetBytes(CRC16.MODBUS(Bytes, 0, 6));
                     Bytes[6] = Crc[0];
                     Bytes[7] = Crc[1];
                     return new SessionMessage(Bytes);
@@ -556,7 +570,7 @@ namespace DaesungEntCleanOven4.Equipment
                     if (value == null)
                         throw new ArgumentNullException("Setting Value");
 
-                    var Bytes = new byte[11];
+                    byte[] Bytes = new byte[11];
                     Bytes[0] = DevId;
                     Bytes[1] = Cmd;
                     Bytes[2] = 0x0;
@@ -564,10 +578,10 @@ namespace DaesungEntCleanOven4.Equipment
                     Bytes[4] = 0x0;
                     Bytes[5] = 0x1;
                     Bytes[6] = 0x2;
-                    var Tmp = BitConverter.GetBytes((ushort)value);
+                    byte[] Tmp = BitConverter.GetBytes((ushort)value);
                     Tmp.Reverse();
                     Array.Copy(Tmp, 0, Bytes, 7, Tmp.Length);
-                    var Crc = BitConverter.GetBytes(CRC16.MODBUS(Bytes, 0, 6));
+                    byte[] Crc = BitConverter.GetBytes(CRC16.MODBUS(Bytes, 0, 6));
                     Bytes[9] = Crc[0];
                     Bytes[10] = Crc[1];
                     return new SessionMessage(Bytes);

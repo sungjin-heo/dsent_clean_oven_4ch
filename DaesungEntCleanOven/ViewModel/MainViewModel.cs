@@ -35,6 +35,7 @@ namespace DaesungEntCleanOven4.ViewModel
             this.MoveToChannelViewCommand = new DelegateCommand<object>(MoveToChannelView);
             this.AlarmResetCommand = new DevExpress.Mvvm.DelegateCommand(AlarmReset, CanAlarmReset);
             this.BuzzerStopCommand = new DevExpress.Mvvm.DelegateCommand(BuzzerStop, CanBuzzerStop);
+            this.MoveToIntegratedViewCommand = new DelegateCommand(MoveToIntegratedView, CanMoveToIntegratedView);
 
             SystemTimer = new System.Timers.Timer() { Interval = 1000 };
             SystemTimer.Elapsed += (s, e) => {
@@ -85,6 +86,8 @@ namespace DaesungEntCleanOven4.ViewModel
         public DevExpress.Mvvm.DelegateCommand<object> MoveToChannelViewCommand { get; private set; }
         public DevExpress.Mvvm.DelegateCommand AlarmResetCommand { get; private set; }
         public DevExpress.Mvvm.DelegateCommand BuzzerStopCommand { get; private set; }
+        public DevExpress.Mvvm.DelegateCommand MoveToIntegratedViewCommand { get; private set; }
+
         public string AppCaption { get; private set; }
         public string AppVersion { get; private set; }
         public string SystemTime { get; private set; }
@@ -158,9 +161,9 @@ namespace DaesungEntCleanOven4.ViewModel
                 CimClient.ClientConnectionChangedEvent += CimClient_ClientConnectionChangedEvent;
                 CimClient.MessageReceiveEvent += CimClient_MessageReceiveEvent;
                 CimClient.ReceiveErrorEvent += CimClient_ReceiveErrorEvent;
-                CimClient.Start();
+              //  CimClient.Start();
 
-                // EFE 서버의 상태 값을 출력하기 위한 모델.
+                // EFEM 서버의 상태 값을 출력하기 위한 모델.
                 this.EfemServer = new Robostar.ViewModel.EfemServer();
                 EfemServer.ServerIpAddress = Ip;
                 EfemServer.ServerTcpPort = Port;
@@ -201,7 +204,6 @@ namespace DaesungEntCleanOven4.ViewModel
                 RaisePropertiesChanged("Channels", "EfemServer");
             }
         }
-
         private void OnClose()
         {
             if (Analyzer != null && Analyzer.IsOpen)
@@ -236,6 +238,9 @@ namespace DaesungEntCleanOven4.ViewModel
                     Channels.ForEach(o => o.OpenComm());
                     if (Analyzer != null && !Analyzer.IsOpen)
                         _ = Analyzer.Open();
+
+                    if (CimClient != null)
+                        CimClient.Start();
                 });                
             }
             finally
@@ -254,8 +259,13 @@ namespace DaesungEntCleanOven4.ViewModel
                 View.ProgressWindow.ShowWindow("대성ENT - 4CH. N2 CLEAN OVEN", "모니터링 정지 및 통신 해제 중...");
                 await Task.Run(() => {
                     if (Analyzer != null && Analyzer.IsOpen)
+                    {
                         Analyzer.Close();
+                    }
+                    Channels.ForEach(o => o.UpdateAnalyzerConnectionState(false));
                     Channels.ForEach(o => o.CloseComm());
+                    if (CimClient != null)
+                        CimClient.Stop();
                 });
             }
             finally
@@ -280,7 +290,9 @@ namespace DaesungEntCleanOven4.ViewModel
             {
                 ChannelViewModel Chan = Channels.FirstOrDefault(o => o.IsConnected);
                 if (Chan != null)
+                {
                     Chan.CleanOvenChamber.AlarmReset();
+                }
             }
         }
         private bool CanAlarmReset()
@@ -303,6 +315,14 @@ namespace DaesungEntCleanOven4.ViewModel
             if (Channels != null && Channels.Count > 0)
                 return Channels.FirstOrDefault(o => o.IsConnected) != null;
             return false;
+        }
+        private void MoveToIntegratedView()
+        {
+            IntegrateViewReturnRequested?.Invoke(this, EventArgs.Empty);
+        }
+        private bool CanMoveToIntegratedView()
+        {
+            return true;
         }
         private void Ch_DetailViewMoveRequested(object sender, EventArgs e)
         {
@@ -362,12 +382,6 @@ namespace DaesungEntCleanOven4.ViewModel
                     {
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-
-                            if (m.GetType() == typeof(CommonData))
-                            {
-
-                            }
-
                             if (m.GetType() == typeof(EfemCommDataStatus))
                             {
                                 EfemCommDataStatus Msg = m as EfemCommDataStatus;
@@ -386,18 +400,22 @@ namespace DaesungEntCleanOven4.ViewModel
                             }
                             else if (m.GetType() == typeof(EfemRequest))
                             {
-                                // 챔버는 반드시 EFEM 서버측으로 응답 메세지를 보내야 한다.
+                                // 요청 메세지를 받을 경우, 챔버는 반드시 EFEM 서버측으로 응답 메세지를 보내야 한다.
                                 EfemRequest Msg = m as EfemRequest;
                                 if (!Msg.IsEFEM)
+                                {
                                     return;
-
+                                }
+                                    
                                 switch (Msg.Req)
                                 {
                                     case eEfemMessage.None:
                                         break;
 
-                                    case eEfemMessage.ReqResetAlarm:            // 알람 해제 요청, EFEM에서는 채널 아이디가 넘어오나 알람해제는 공통.
+                                    case eEfemMessage.ReqResetAlarm:
                                         {
+                                            // 알람 해제 요청, EFEM에서는 채널 아이디가 넘어오나 알람해제는 공통.
+                                            // 4채널 중 PLC가 연결된 설비만 알람 리셋을 한다.
                                             AlarmReset();
                                             BakeOvenResponse Reply = new BakeOvenResponse()
                                             {
@@ -414,7 +432,7 @@ namespace DaesungEntCleanOven4.ViewModel
                                         {
                                             // 설비가 가지고 있는 전체 레시피 리스트를 보내야 하는지, 아님, 요청된 레시피 NO에 해당하는 값만 보내면 되는지?
                                             // 레시피는 채널에 상관없이 공통으로 사용한다.
-                                            // # 시뮬레이션 프로그램과 연동시 레시피 리스트를 전송할 경우 에러발생. 단일 레피시 전송 시 OK.
+                                           
 #if SEND_ALL_RECIPE
                                             // #1. 전체 레시피를 보내는 경우.
                                             BakeOvenRecipeList Reply = new BakeOvenRecipeList
@@ -440,7 +458,6 @@ namespace DaesungEntCleanOven4.ViewModel
                                                         RecipeName = pattern.Name,
                                                         Segments = new BakeOvenSegmentData[pattern.SegmentCount]
                                                     };
-
                                                     int k = 0;
                                                     foreach (Model.Segment Seg in pattern.Segments)
                                                     {
@@ -522,18 +539,28 @@ namespace DaesungEntCleanOven4.ViewModel
 
                                     case eEfemMessage.ReqStatus:				// 상태정보 요청
                                         {
+                                            ChannelViewModel xCh = Channels.Find(o => o.IsConnected == false);
+                                            if (xCh != null)
+                                            {
+                                                BakeOvenResponse reponse = new BakeOvenResponse()
+                                                {
+                                                    IsEFEM = false,
+                                                    MessageSeqNo = Msg.MessageSeqNo
+                                                };
+                                                reponse.Req = Msg.Req;
+                                                reponse.Ack = eBakeOvenAck.NG;
+                                                reponse.ErrorCode = string.Format("PLC.#{0} Disconnected", xCh.No);
+                                                _ = CimClient.Send(reponse);
+                                                return;
+                                            }
+
                                             BakeOvenCommDataStatus Reply = new BakeOvenCommDataStatus()
                                             {
                                                 IsEFEM = false,
                                                 MessageSeqNo = Msg.MessageSeqNo
                                             };
-
-                                            // 각 채널별로 동작함으로 응답 메세지의 아래 전역 파라미터는 의미가 없어 보임...
-                                            // Reply.IsInitOperation = ;
-                                            // Reply.IsRun = ;
-                                            // Reply.IsStopping =;
-                                            // Reply.IsStop = ;
-                                            // Reply.IsAutoTune = 
+                                            // 설비가 채널별로 동작함으로 응답 메세지에서 아래 전역 파라미터들은 로보스타와 협의하여 채널 단으로 이동.
+                                            // 채널단에 있던 IsRun은 중복되어 삭제, IsPrepared는 의미가 모호하여 삭제.
 
                                             // #1 챔버 데이터
                                             ChannelViewModel Ch = Channels[0];
@@ -541,10 +568,15 @@ namespace DaesungEntCleanOven4.ViewModel
                                             List<RegNumeric> Values = Chamber.NumericValues;
                                             BakeOvenCommDataChamberStatusData d = new BakeOvenCommDataChamberStatusData
                                             {
-                                                // d.IsReady = ;            // Ready와 Prepared 상태는 어떤값을 기준으로 판단?
-                                                // d.IsPrepared = ;
-                                                //AlarmBits = (from alarm in Chamber.Alarms select alarm.State).ToArray(),
+                                                // d.IsReady = ;            // IsReady는 설비가 정지되어 있고 알람이 없는 상태
+                                                // d.IsPrepared = ;         // 삭제.
+
+                                                IsInitOperation = Chamber.IsInitRunning,
                                                 IsRun = Chamber.IsRunning,
+                                                IsStopping =Chamber.IsStopping,
+                                                IsStop = Chamber.IsStop,
+                                                IsAutoTune = Chamber.IsAutoTune,
+                                                IsReady = Chamber.IsStop && !Chamber.IsAlarmState,
                                                 IsAlarm = Chamber.IsAlarmState,
                                                 IsDoorOpenAvailable = Chamber.IsDoorOpenAvailable,
                                                 IsDoorOpen = Chamber.IsDoorOpen,
@@ -589,11 +621,13 @@ namespace DaesungEntCleanOven4.ViewModel
                                             Chamber = Ch.CleanOvenChamber;
                                             Values = Chamber.NumericValues;
                                             d = new BakeOvenCommDataChamberStatusData
-                                            {
-                                                // d.IsReady = ;            // Ready와 Prepared 상태는 어떤값을 기준으로 판단?
-                                                // d.IsPrepared = ;
-                                                //AlarmBits = (from alarm in Chamber.Alarms select alarm.State).ToArray(),
+                                            {                                              
+                                                IsInitOperation = Chamber.IsInitRunning,
                                                 IsRun = Chamber.IsRunning,
+                                                IsStopping = Chamber.IsStopping,
+                                                IsStop = Chamber.IsStop,
+                                                IsAutoTune = Chamber.IsAutoTune,
+                                                IsReady = Chamber.IsStop && !Chamber.IsAlarmState,
                                                 IsAlarm = Chamber.IsAlarmState,
                                                 IsDoorOpenAvailable = Chamber.IsDoorOpenAvailable,
                                                 IsDoorOpen = Chamber.IsDoorOpen,
@@ -639,10 +673,12 @@ namespace DaesungEntCleanOven4.ViewModel
                                             Values = Chamber.NumericValues;
                                             d = new BakeOvenCommDataChamberStatusData
                                             {
-                                                // d.IsReady = ;            // Ready와 Prepared 상태는 어떤값을 기준으로 판단?
-                                                // d.IsPrepared = ;
-                                                //AlarmBits = (from alarm in Chamber.Alarms select alarm.State).ToArray(),
+                                                IsInitOperation = Chamber.IsInitRunning,
                                                 IsRun = Chamber.IsRunning,
+                                                IsStopping = Chamber.IsStopping,
+                                                IsStop = Chamber.IsStop,
+                                                IsAutoTune = Chamber.IsAutoTune,
+                                                IsReady = Chamber.IsStop && !Chamber.IsAlarmState,
                                                 IsAlarm = Chamber.IsAlarmState,
                                                 IsDoorOpenAvailable = Chamber.IsDoorOpenAvailable,
                                                 IsDoorOpen = Chamber.IsDoorOpen,
@@ -682,16 +718,18 @@ namespace DaesungEntCleanOven4.ViewModel
                                             }
                                             Reply.Chamber3 = d;
 
-                                            // #3 챔버 데이터
+                                            // #4 챔버 데이터
                                             Ch = Channels[3];
                                             Chamber = Ch.CleanOvenChamber;
                                             Values = Chamber.NumericValues;
                                             d = new BakeOvenCommDataChamberStatusData
                                             {
-                                                // d.IsReady = ;            // Ready와 Prepared 상태는 어떤값을 기준으로 판단?
-                                                // d.IsPrepared = ;
-                                                //AlarmBits = (from alarm in Chamber.Alarms select alarm.State).ToArray(),
+                                                IsInitOperation = Chamber.IsInitRunning,
                                                 IsRun = Chamber.IsRunning,
+                                                IsStopping = Chamber.IsStopping,
+                                                IsStop = Chamber.IsStop,
+                                                IsAutoTune = Chamber.IsAutoTune,
+                                                IsReady = Chamber.IsStop && !Chamber.IsAlarmState,
                                                 IsAlarm = Chamber.IsAlarmState,
                                                 IsDoorOpenAvailable = Chamber.IsDoorOpenAvailable,
                                                 IsDoorOpen = Chamber.IsDoorOpen,
@@ -735,9 +773,79 @@ namespace DaesungEntCleanOven4.ViewModel
                                         }
                                         break;
 
-                                    case eEfemMessage.PreCheckChamberReady:	    // 챔버 작업가능한지 요청
+                                    case eEfemMessage.PreCheckChamberReady:	    // 챔버 작업가능한지 요청 => IsReady 상태에 대한 요청
                                         {
-
+                                            if (Msg.ChamberNo >= 1 && Msg.ChamberNo <= 4)
+                                            {
+                                                ChannelViewModel Ch = Channels[Msg.ChamberNo - 1];
+                                                if (!Ch.CleanOvenChamber.IsConnected)
+                                                {
+                                                    BakeOvenResponse Reply = new BakeOvenResponse()
+                                                    {
+                                                        IsEFEM = false,
+                                                        MessageSeqNo = Msg.MessageSeqNo
+                                                    };
+                                                    Reply.ChamberNo = Ch.No;
+                                                    Reply.Req = Msg.Req;
+                                                    Reply.Ack = eBakeOvenAck.NG;
+                                                    Reply.ErrorCode = "PLC Disconnected";
+                                                    _ = CimClient.Send(Reply);
+                                                }
+                                                else
+                                                {
+                                                    if (Ch.CleanOvenChamber.IsStop && !Ch.CleanOvenChamber.IsAlarmState)
+                                                    {
+                                                        BakeOvenResponse Reply = new BakeOvenResponse()
+                                                        {
+                                                            IsEFEM = false,
+                                                            MessageSeqNo = Msg.MessageSeqNo
+                                                        };
+                                                        Reply.ChamberNo = Ch.No;
+                                                        Reply.Req = Msg.Req;
+                                                        Reply.Ack = eBakeOvenAck.OK;
+                                                        bool v = CimClient.Send(Reply);
+                                                    }
+                                                    else if (!Ch.CleanOvenChamber.IsStop)
+                                                    {
+                                                        BakeOvenResponse Reply = new BakeOvenResponse()
+                                                        {
+                                                            IsEFEM = false,
+                                                            MessageSeqNo = Msg.MessageSeqNo
+                                                        };
+                                                        Reply.ChamberNo = Ch.No;
+                                                        Reply.Req = Msg.Req;
+                                                        Reply.Ack = eBakeOvenAck.NG;
+                                                        Reply.ErrorCode = "Not Stop";
+                                                        bool v = CimClient.Send(Reply);
+                                                    }
+                                                    else if (Ch.CleanOvenChamber.IsAlarmState)
+                                                    {
+                                                        BakeOvenResponse Reply = new BakeOvenResponse()
+                                                        {
+                                                            IsEFEM = false,
+                                                            MessageSeqNo = Msg.MessageSeqNo
+                                                        };
+                                                        Reply.ChamberNo = Ch.No;
+                                                        Reply.Req = Msg.Req;
+                                                        Reply.Ack = eBakeOvenAck.NG;
+                                                        Reply.ErrorCode = "Alarm State";
+                                                        bool v = CimClient.Send(Reply);
+                                                    }
+                                                    else
+                                                    {
+                                                        BakeOvenResponse Reply = new BakeOvenResponse()
+                                                        {
+                                                            IsEFEM = false,
+                                                            MessageSeqNo = Msg.MessageSeqNo
+                                                        };
+                                                        Reply.ChamberNo = Ch.No;
+                                                        Reply.Req = Msg.Req;
+                                                        Reply.Ack = eBakeOvenAck.NG;
+                                                        Reply.ErrorCode = "Unknown";
+                                                        bool v = CimClient.Send(Reply);
+                                                    }
+                                                }
+                                            }
                                         }
                                         break;
 
@@ -746,15 +854,46 @@ namespace DaesungEntCleanOven4.ViewModel
                                             if (Msg.ChamberNo >= 1 && Msg.ChamberNo <= 4)
                                             {
                                                 ChannelViewModel Ch = Channels[Msg.ChamberNo - 1];
-                                                Ch.CleanOvenChamber.OpenDoorNoVerify();
-                                                BakeOvenResponse Reply = new BakeOvenResponse()
+                                                if (!Ch.CleanOvenChamber.IsConnected)
                                                 {
-                                                    IsEFEM = false,
-                                                    MessageSeqNo = Msg.MessageSeqNo
-                                                };
-                                                Reply.Req = Msg.Req;
-                                                Reply.Ack = eBakeOvenAck.OK;
-                                                bool v = CimClient.Send(Reply);
+                                                    BakeOvenResponse Reply = new BakeOvenResponse()
+                                                    {
+                                                        IsEFEM = false,
+                                                        MessageSeqNo = Msg.MessageSeqNo
+                                                    };
+                                                    Reply.ChamberNo = Ch.No;
+                                                    Reply.Req = Msg.Req;
+                                                    Reply.Ack = eBakeOvenAck.NG;
+                                                    Reply.ErrorCode = "PLC Disconnected";
+                                                    _ = CimClient.Send(Reply);
+                                                }
+                                                else
+                                                {
+                                                    if (Ch.CleanOvenChamber.IsDoorOpenAvailable)
+                                                    {
+                                                        Ch.CleanOvenChamber.OpenDoorNoMsg();
+                                                        BakeOvenResponse Reply = new BakeOvenResponse()
+                                                        {
+                                                            IsEFEM = false,
+                                                            MessageSeqNo = Msg.MessageSeqNo
+                                                        };
+                                                        Reply.Req = Msg.Req;
+                                                        Reply.Ack = eBakeOvenAck.OK;
+                                                        bool v = CimClient.Send(Reply);
+                                                    }
+                                                    else
+                                                    {
+                                                        BakeOvenResponse Reply = new BakeOvenResponse()
+                                                        {
+                                                            IsEFEM = false,
+                                                            MessageSeqNo = Msg.MessageSeqNo
+                                                        };
+                                                        Reply.Req = Msg.Req;
+                                                        Reply.Ack = eBakeOvenAck.NG;
+                                                        Reply.ErrorCode = "DoorOpen Not Available";
+                                                        bool v = CimClient.Send(Reply);
+                                                    }
+                                                }                                               
                                             }
                                         }
                                         break;
@@ -764,34 +903,64 @@ namespace DaesungEntCleanOven4.ViewModel
                                             if (Msg.ChamberNo >= 1 && Msg.ChamberNo <= 4)
                                             {
                                                 ChannelViewModel Ch = Channels[Msg.ChamberNo - 1];
-                                                Ch.CleanOvenChamber.CloseDoorNoVerify();
-                                                BakeOvenResponse Reply = new BakeOvenResponse()
+                                                if (!Ch.CleanOvenChamber.IsConnected)
                                                 {
-                                                    IsEFEM = false,
-                                                    MessageSeqNo = Msg.MessageSeqNo
-                                                };
-                                                Reply.Req = Msg.Req;
-                                                Reply.Ack = eBakeOvenAck.OK;
-                                                bool v = CimClient.Send(Reply);
+                                                    BakeOvenResponse Reply = new BakeOvenResponse()
+                                                    {
+                                                        IsEFEM = false,
+                                                        MessageSeqNo = Msg.MessageSeqNo
+                                                    };
+                                                    Reply.ChamberNo = Ch.No;
+                                                    Reply.Req = Msg.Req;
+                                                    Reply.Ack = eBakeOvenAck.NG;
+                                                    Reply.ErrorCode = "PLC Disconnected";
+                                                    _ = CimClient.Send(Reply);
+                                                }
+                                                else
+                                                {
+                                                    if (Ch.CleanOvenChamber.IsDoorClosed)
+                                                    {
+
+                                                        BakeOvenResponse Reply = new BakeOvenResponse()
+                                                        {
+                                                            IsEFEM = false,
+                                                            MessageSeqNo = Msg.MessageSeqNo
+                                                        };
+                                                        Reply.Req = Msg.Req;
+                                                        Reply.Ack = eBakeOvenAck.NG;
+                                                        Reply.ErrorCode = "Already Closed";
+                                                        bool v = CimClient.Send(Reply);
+                                                    }
+                                                    else
+                                                    {
+                                                        Ch.CleanOvenChamber.CloseDoorNoMsg();
+                                                        BakeOvenResponse Reply = new BakeOvenResponse()
+                                                        {
+                                                            IsEFEM = false,
+                                                            MessageSeqNo = Msg.MessageSeqNo
+                                                        };
+                                                        Reply.Req = Msg.Req;
+                                                        Reply.Ack = eBakeOvenAck.OK;
+                                                        bool v = CimClient.Send(Reply);
+                                                    }                                               
+                                                }
                                             }
                                         }
                                         break;
 
-                                    case eEfemMessage.ReqPrepareBakeProcess:    // 작업 준비 요청
-                                        {
-
-                                        }
-                                        break;
-
-                                    case eEfemMessage.ReqStartTransfer:		    // 패널 이송준비 요청
-                                        {
-
-                                        }
-                                        break;
-
+                                    case eEfemMessage.ReqPrepareBakeProcess:    // 작업 준비 요청                                   
+                                    case eEfemMessage.ReqStartTransfer:		    // 패널 이송준비 요청                                      
                                     case eEfemMessage.ReqCompleteTransfer:	    // 패널 이송완료 요청
                                         {
-
+                                            // 별다른 액션이 필요없음.
+                                            BakeOvenResponse Reply = new BakeOvenResponse()
+                                            {
+                                                IsEFEM = false,
+                                                MessageSeqNo = Msg.MessageSeqNo
+                                            };
+                                            Reply.Req = Msg.Req;
+                                            Reply.Ack = eBakeOvenAck.OK;
+                                            bool v = CimClient.Send(Reply);
                                         }
                                         break;
 
@@ -800,30 +969,69 @@ namespace DaesungEntCleanOven4.ViewModel
                                             if (Msg.ChamberNo >= 1 && Msg.ChamberNo <= 4)
                                             {
                                                 ChannelViewModel Ch = Channels[Msg.ChamberNo - 1];
-                                                if (Ch.CleanOvenChamber.IsConnected)
+                                                if (!Ch.CleanOvenChamber.IsConnected)
                                                 {
-                                                    Ch.CleanOvenChamber.StartBake();
                                                     BakeOvenResponse Reply = new BakeOvenResponse()
                                                     {
                                                         IsEFEM = false,
                                                         MessageSeqNo = Msg.MessageSeqNo
                                                     };
+                                                    Reply.ChamberNo = Ch.No;
                                                     Reply.Req = Msg.Req;
-                                                    Reply.Ack = eBakeOvenAck.OK;
+                                                    Reply.Ack = eBakeOvenAck.NG;
+                                                    Reply.ErrorCode = "PLC Disconnected";
                                                     bool v = CimClient.Send(Reply);
+                                                  
                                                 }
                                                 else
                                                 {
-                                                    BakeOvenResponse Reply = new BakeOvenResponse()
+                                                    if (!Ch.CleanOvenChamber.IsReady)
                                                     {
-                                                        IsEFEM = false,
-                                                        MessageSeqNo = Msg.MessageSeqNo
-                                                    };
-                                                    Reply.Req = Msg.Req;
-                                                    Reply.Ack = eBakeOvenAck.NG;
-                                                    Reply.ErrorCode = "Chamber Controller DisConnected.";
-                                                    bool v = CimClient.Send(Reply);
-                                                }                                               
+                                                        BakeOvenResponse Reply = new BakeOvenResponse()
+                                                        {
+                                                            IsEFEM = false,
+                                                            MessageSeqNo = Msg.MessageSeqNo
+                                                        };
+                                                        Reply.ChamberNo = Ch.No;
+                                                        Reply.Req = Msg.Req;
+                                                        Reply.Ack = eBakeOvenAck.NG;
+                                                        Reply.ErrorCode = "Not Ready";
+                                                        _ = CimClient.Send(Reply);
+                                                    }
+                                                    else
+                                                    {
+                                                        string dir = @"D:\APP\DAESUNG-ENT\CLEAN_OVEN\PATTERN";
+                                                        string path = Path.Combine(dir, string.Format("{0:D3}.xml", Msg.RecipeNo));
+                                                        if (!File.Exists(path))
+                                                        {
+                                                            BakeOvenResponse Reply = new BakeOvenResponse()
+                                                            {
+                                                                IsEFEM = false,
+                                                                MessageSeqNo = Msg.MessageSeqNo
+                                                            };
+                                                            Reply.ChamberNo = Ch.No;
+                                                            Reply.Req = Msg.Req;
+                                                            Reply.Ack = eBakeOvenAck.NG;
+                                                            Reply.ErrorCode = "No Recipe File";
+                                                            _ = CimClient.Send(Reply);
+                                                        }
+                                                        else
+                                                        {
+                                                            Ch.SelectRunningPatternNoMsg(Msg.RecipeNo);
+                                                            Thread.Sleep(3000);
+                                                            Ch.CleanOvenChamber.StartBake();
+                                                            BakeOvenResponse Reply = new BakeOvenResponse()
+                                                            {
+                                                                IsEFEM = false,
+                                                                MessageSeqNo = Msg.MessageSeqNo
+                                                            };
+                                                            Reply.ChamberNo = Ch.No;
+                                                            Reply.Req = Msg.Req;
+                                                            Reply.Ack = eBakeOvenAck.OK;
+                                                            bool v = CimClient.Send(Reply);
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                         break;
@@ -833,7 +1041,20 @@ namespace DaesungEntCleanOven4.ViewModel
                                             if (Msg.ChamberNo >= 1 && Msg.ChamberNo <= 4)
                                             {
                                                 ChannelViewModel Ch = Channels[Msg.ChamberNo - 1];
-                                                if (Ch.CleanOvenChamber.IsConnected)
+                                                if (!Ch.CleanOvenChamber.IsConnected)
+                                                {
+                                                    BakeOvenResponse Reply = new BakeOvenResponse()
+                                                    {
+                                                        IsEFEM = false,
+                                                        MessageSeqNo = Msg.MessageSeqNo
+                                                    };
+                                                    Reply.ChamberNo = Ch.No;
+                                                    Reply.Req = Msg.Req;
+                                                    Reply.Ack = eBakeOvenAck.NG;
+                                                    Reply.ErrorCode = "PLC DisConnected.";
+                                                    bool v = CimClient.Send(Reply);
+                                                }
+                                                else
                                                 {
                                                     Ch.CleanOvenChamber.AbortBake();
                                                     BakeOvenResponse Reply = new BakeOvenResponse()
@@ -841,20 +1062,9 @@ namespace DaesungEntCleanOven4.ViewModel
                                                         IsEFEM = false,
                                                         MessageSeqNo = Msg.MessageSeqNo
                                                     };
+                                                    Reply.ChamberNo = Ch.No;
                                                     Reply.Req = Msg.Req;
                                                     Reply.Ack = eBakeOvenAck.OK;
-                                                    bool v = CimClient.Send(Reply);
-                                                }
-                                                else
-                                                {
-                                                    BakeOvenResponse Reply = new BakeOvenResponse()
-                                                    {
-                                                        IsEFEM = false,
-                                                        MessageSeqNo = Msg.MessageSeqNo
-                                                    };
-                                                    Reply.Req = Msg.Req;
-                                                    Reply.Ack = eBakeOvenAck.NG;
-                                                    Reply.ErrorCode = "Chamber Controller DisConnected.";
                                                     bool v = CimClient.Send(Reply);
                                                 }
                                             }

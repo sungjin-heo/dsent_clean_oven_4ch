@@ -34,6 +34,7 @@ namespace DaesungEntCleanOven4.ViewModel
 
         public ChannelViewModel(int Ch)
         {
+            // 채널 번호 1 베이스.
             this.No = Ch;
             this.OpenCommCommand = new DevExpress.Mvvm.DelegateCommand(OpenComm, CanOpenComm);
             this.CloseCommCommand = new DevExpress.Mvvm.DelegateCommand(CloseComm, CanCloseComm);
@@ -764,7 +765,9 @@ namespace DaesungEntCleanOven4.ViewModel
                 Model.Pattern pattern;
                 string path = Path.Combine(this.PatternStorageDir, string.Format("{0:D3}.xml", pNo));
                 if (File.Exists(path))
+                {
                     pattern = Model.Pattern.LoadFrom(path);
+                }
                 else
                 {
                     pattern = new Model.Pattern(true);
@@ -879,6 +882,41 @@ namespace DaesungEntCleanOven4.ViewModel
             this.IsAnalyzerConnected = State;
             this.CleanOvenChamber.O2AnalyzerConnectStateUpdate(State);
             RaisePropertiesChanged("IsAnalyzerConnected");
+        }
+        public void SelectRunningPatternNoMsg(int pNo)
+        {
+            try
+            {
+                if (pNo == PatternForRun.No)
+                {
+                    return;
+                }
+
+                Model.Pattern pattern;
+                string path = Path.Combine(this.PatternStorageDir, string.Format("{0:D3}.xml", pNo));
+                if (File.Exists(path))
+                {
+                    pattern = Model.Pattern.LoadFrom(path);
+                }
+                else
+                {
+                    pattern = new Model.Pattern(true);
+                    pattern.No = pNo;
+                }
+
+                if (pattern != null)
+                {
+                    PatternForRun.Load(pattern);
+                    PatternForEdit.Load(pattern);
+                    LastestSelectedPatternNo = pNo;
+                    SaveSystemConfig();
+                    CleanOvenChamber.TransferPatternNoMsg(PatternForRun);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Dispatch("e", "Exception is Occured while to Load pattern config : " + ex.Message);
+            }
         }
     }
 }

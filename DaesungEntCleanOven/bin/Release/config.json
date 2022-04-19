@@ -2,11 +2,11 @@
 	"device": {
 		"efem":
 		{
-			"addr": "127.0.0.1",
+			"addr": "192.168.100.100",
 			"port": 4001
 		},
 		"analyzer": {
-			"port": "COM6",
+			"port": "COM3",
 			"baud_rate": 9600
 		}
 	}

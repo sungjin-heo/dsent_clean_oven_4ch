@@ -204,7 +204,10 @@ namespace DaesungEntCleanOven4.ViewModel
             this.Model = model;
             this.Segments.Clear();
             for (int i = 0; i < model.SegmentCount; i++)
+            {
                 Segments.Add(new SegmentViewModel(model.Segments[i]));
+            }
+
             UpdateSegmentChart();
             System.Reflection.PropertyInfo[] Properties = typeof(PatternViewModel).GetProperties();
             RaisePropertiesChanged(Properties.Select(p => p.Name).ToArray());
