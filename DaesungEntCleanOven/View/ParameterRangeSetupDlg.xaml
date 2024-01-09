@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"      
         xmlns:u="clr-namespace:Util"         
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-        WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic" 
+        WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic"
         mc:Ignorable="d" Icon="{dx:DXImage Image=SelectAll_16x16.png}"  ResizeMode="NoResize"
         Title="Setup Range" Height="296" Width="900">
     <Grid Margin="5">

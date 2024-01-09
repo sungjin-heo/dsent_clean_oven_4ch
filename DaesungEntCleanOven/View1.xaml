@@ -10,7 +10,7 @@
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
              xmlns:appv="clr-namespace:DaesungEntCleanOven4.View"             
              d:DesignWidth="1280" d:DesignHeight="1024" mc:Ignorable="d"
-             FontFamily="Century Gothic" Background="Transparent" SnapsToDevicePixels="True"                   
+             FontFamily="Century Gothic" Background="Transparent" SnapsToDevicePixels="True"                
              DataContextChanged="UserControl_DataContextChanged">    
     <dxmvvm:Interaction.Behaviors>
         <dxmvvm:DispatcherService/>

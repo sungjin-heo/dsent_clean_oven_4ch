@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" FontFamily="Century Gothic" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize"
+        mc:Ignorable="d" FontFamily="Century Gothic" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize" 
         Title="바코드 입력 및 패턴 로드 창" Height="300" Width="650" Icon="{dx:DXImage Image=BOSale_16x16.png}">
     <Grid Margin="5">
         <Grid.RowDefinitions>

@@ -65,11 +65,7 @@ namespace DaesungEntCleanOven4.Equipment
         protected ushort __SensorPower;
         protected ushort __MainAlarmControl;
         protected int __ReplyErrorCount;
-
-
-       // private MeasureValue[] MeasurementValueCache = new MeasureValue[4];
         
-
         public O2Analyzer(string portName, int baudRate, byte Id)
           : base(portName, baudRate, Id)
         {
@@ -206,12 +202,16 @@ namespace DaesungEntCleanOven4.Equipment
         public override bool Open()
         {
             if (base.Open())
+            {
                 OnConnected();
+            }
             return base.IsOpen;
         }
       
         protected override void MonitorFunc(object State)
         {
+            int[] comm_chk_try_cnt = new int[4];
+
             __Sp.DiscardInBuffer();
             CancellationToken Token = (CancellationToken)State;
             while (!Token.IsCancellationRequested && IsOpen)
@@ -238,7 +238,9 @@ namespace DaesungEntCleanOven4.Equipment
                                 Comm.IMessage Response = Send(Message);
                                 Log.Logger.Dispatch("i", "02 sensor temp : {0}", Response);
                                 if (Response == null)
-                                    throw new Exception("Analyzer return value is null");
+                                {
+                                    throw new Exception("02 sensor temp's return value null");
+                                }
                                 if (Response != null && Response.Data.Length == 9)
                                 {
                                     Array.Reverse(Response.Data, 3, 2);
@@ -246,14 +248,16 @@ namespace DaesungEntCleanOven4.Equipment
                                     Temp = BitConverter.ToInt32(Response.Data, 3) * 0.1;
                                 }
 
-                                Thread.Sleep(500);
+                                Thread.Sleep(300);
 
                                 // GET EMF.
                                 Message = MakeMessage((byte)(i + 1), CMD_READ, ADDR_SENSOR_EMF);
                                 Response = Send(Message);
                                 Log.Logger.Dispatch("i", "02 sensor emf : {0}", Response);
                                 if (Response == null)
-                                    throw new Exception("Analyzer return value is null");
+                                {
+                                    throw new Exception("02 sensor emf's return value null");
+                                }
                                 if (Response != null && Response.Data.Length == 9)
                                 {
                                     Array.Reverse(Response.Data, 3, 2);
@@ -261,33 +265,43 @@ namespace DaesungEntCleanOven4.Equipment
                                     Emf = BitConverter.ToInt32(Response.Data, 3) * 0.01;
                                 }
 
-                                Thread.Sleep(500);
+                                Thread.Sleep(300);
 
                                 // GET RPM.
                                 Message = MakeMessage((byte)(i + 1), CMD_READ, ADDR_O2_CONCENTRATION_PPM);
                                 Response = Send(Message);
                                 Log.Logger.Dispatch("i", "02 sensor ppm : {0}", Response);
                                 if (Response == null)
-                                    throw new Exception("Analyzer return value is null");
+                                {
+                                    throw new Exception("02 sensor ppm's return value null");
+                                }
                                 if (Response != null && Response.Data.Length == 9)
                                 {
                                     Array.Reverse(Response.Data, 3, 2);
                                     Array.Reverse(Response.Data, 5, 2);
                                     Rpm = BitConverter.ToInt32(Response.Data, 3) * 0.01;
                                 }
+
                                 MeasureDataUpdated?.Invoke(this, new MeasureDataUpdateEventArgs(i, Temp, Emf, Rpm));
                                 ConnectionStateChanged?.Invoke(this, new AnalyzerConnectionStateEventArgs(i, true));
+                                comm_chk_try_cnt[i] = 0;
                             }
                             catch (Exception ex)
                             {
-                              //  ClearBuffer();
                                 Log.Logger.Dispatch("e", ex.Message);
-                                if (ex.Message == "DisConnected")
-                                    ConnectionStateChanged?.Invoke(this, new AnalyzerConnectionStateEventArgs(i, false));
+                                if (ex.Message.Contains("return value null"))
+                                {
+                                    comm_chk_try_cnt[i]++;
+                                    if (comm_chk_try_cnt[i] >= 3)
+                                    {
+                                        ConnectionStateChanged?.Invoke(this, new AnalyzerConnectionStateEventArgs(i, false));
+                                        comm_chk_try_cnt[i] = 0;
+                                    }
+                                }
                             }
 
                             // 채널 데이터 요청 딜레이 : 500 ms
-                            Thread.Sleep(500);
+                            Thread.Sleep(300);
                         }
                     }
                     catch (Exception ex)
@@ -302,189 +316,8 @@ namespace DaesungEntCleanOven4.Equipment
                 Thread.Sleep(1000);
             }
             if (!IsOpen && !Token.IsCancellationRequested)
+            {
                 OnDisConnected();
-        }
-        protected void MonitorFuncOrg(object State)
-        {
-            try
-            {
-                __Sp.DiscardInBuffer();
-                CancellationToken Token = (CancellationToken)State;
-                while (!Token.IsCancellationRequested && IsOpen)
-                {
-                    if (Monitor.TryEnter(SyncKey, 3000))
-                    {
-                        try
-                        {
-                            SessionMessage Message;
-#if false
-                    Message = MakeMessage(CMD_READ, ADDR_TARGET_SENSOR_TMP);
-                    if (Message != null)
-                    {
-                        var Response = Send(Message);
-                        if (Response != null && Response.Data.Length == 7)
-                        {
-                            Array.Reverse(Response.Data, 3, 2);
-                            __TargetSensorTemperature = BitConverter.ToUInt16(Response.Data, 3);
-                        }
-                    }
-                    
-                    Message = MakeMessage(CMD_READ, ADDR_ALARM_LIMIT);
-                    if(Message != null)
-                    {
-                        var Response = Send(Message);
-                        if (Response != null && Response.Data.Length == 7)
-                        {
-                            Array.Reverse(Response.Data, 3, 2);
-                            AlarmLimitState = BitConverter.ToUInt16(Response.Data, 3);
-                        }
-                    }
-                    
-                    Message = MakeMessage(CMD_READ, ADDR_SENSOR_MALFUNC_ALARM);
-                    if(Message != null)
-                    {
-                        var Response = Send(Message);
-                        if (Response != null && Response.Data.Length == 7)
-                        {
-                            Array.Reverse(Response.Data, 3, 2);
-                            __SensorMalfunctionAlarm = BitConverter.ToUInt16(Response.Data, 3);
-                        }
-                    }
-                    
-                    Message = MakeMessage(CMD_READ, ADDR_SENSOR_PWR);
-                    if(Message != null)
-                    {
-                        var Response = Send(Message);
-                        if (Response != null && Response.Data.Length == 7)
-                        {
-                            Array.Reverse(Response.Data, 3, 2);
-                            __SensorPower = BitConverter.ToUInt16(Response.Data, 3);
-                        }
-                    }
-                  
-                    Message = MakeMessage(CMD_READ, ADDR_MAIN_ALARM_CTL);
-                    if(Message != null)
-                    {
-                        var Response = Send(Message);
-                        if (Response != null && Response.Data.Length == 7)
-                        {
-                            Array.Reverse(Response.Data, 3, 2);
-                            __MainAlarmControl = BitConverter.ToUInt16(Response.Data, 3);
-                        }
-                    }
-#endif
-                            Message = MakeMessage(CMD_READ, ADDR_SENSOR_TMP);
-                            var Response = Send(Message);
-                            Log.Logger.Dispatch("i", "02 sensor temp : {0}", Response);
-                            if (Response == null)
-                            {
-                                __ReplyErrorCount++;
-                                if (__ReplyErrorCount >= 10)
-                                    throw new Exception("DisConnected");
-                            }
-                            else
-                            {
-                                __ReplyErrorCount = 0;
-                            }
-
-                            if (Response != null && Response.Data.Length == 9)
-                            {
-                                Array.Reverse(Response.Data, 3, 2);
-                                Array.Reverse(Response.Data, 5, 2);
-                                SensorTemperature = BitConverter.ToInt32(Response.Data, 3) * 0.1;
-                            }
-
-                            Message = MakeMessage(CMD_READ, ADDR_SENSOR_EMF);
-                            Response = Send(Message);
-                            Log.Logger.Dispatch("i", "02 sensor emf : {0}", Response);
-                            if (Response == null)
-                            {
-                                __ReplyErrorCount++;
-                                if (__ReplyErrorCount >= 10)
-                                    throw new Exception("DisConnected");
-                            }
-                            else
-                            {
-                                __ReplyErrorCount = 0;
-                            }
-
-                            if (Response != null && Response.Data.Length == 9)
-                            {
-                                Array.Reverse(Response.Data, 3, 2);
-                                Array.Reverse(Response.Data, 5, 2);
-                                SensorEMF = BitConverter.ToInt32(Response.Data, 3) * 0.01;
-                            }
-
-                            Message = MakeMessage(CMD_READ, ADDR_O2_CONCENTRATION_PPM);
-                            Response = Send(Message);
-                            Log.Logger.Dispatch("i", "02 sensor ppm : {0}", Response);
-                            if (Response == null)
-                            {
-                                __ReplyErrorCount++;
-                                if (__ReplyErrorCount >= 10)
-                                    throw new Exception("DisConnected");
-                            }
-                            else
-                            {
-                                __ReplyErrorCount = 0;
-                            }
-                            if (Response != null && Response.Data.Length == 9)
-                            {
-                                Array.Reverse(Response.Data, 3, 2);
-                                Array.Reverse(Response.Data, 5, 2);
-                                O2ConcentrationPpm = BitConverter.ToInt32(Response.Data, 3) * 0.01;
-                            }
-
-#if false
-                    Message = MakeMessage(CMD_READ, ADDR_O2_CONCENTRATION_PERC);
-                    if (Message != null)
-                    {
-                        var Response = Send(Message);
-                        if (Response != null && Response.Data.Length == 7)
-                        {
-                            Array.Reverse(Response.Data, 3, 2);
-                            O2ConcentrationPercentage = BitConverter.ToUInt16(Response.Data, 3) * 0.01;
-                        }
-                    }                   
-                    Message = MakeMessage(CMD_READ, ADDR_O2_CONCENTRATION_LOG);
-                    if(Message != null)
-                    {
-                        var Response = Send(Message);
-                        if (Response != null && Response.Data.Length == 7)
-                        {
-                            Array.Reverse(Response.Data, 3, 2);
-                            O2ConcentrationLog = BitConverter.ToInt16(Response.Data, 3) * 0.01;
-                        }
-                    }
-#endif
-
-                            Type ty = typeof(Analyzer);
-                            PropertyInfo[] Properties = ty.GetProperties();
-                            RaisePropertiesChanged(Properties.Select(p => p.Name).ToArray());
-                            OnMonitorDataUpdated();
-                        }
-                        catch(Exception ex)
-                        {
-                            if (ex.Message == "DisConnected")
-                            {
-                                Log.Logger.Dispatch("e", "O2 Analyzer DisConnected");
-                                Close();
-                            }                                
-                        }
-                        finally
-                        {
-                            Monitor.Exit(SyncKey);
-                        }
-                    }
-                    Thread.Sleep(3000);
-                }
-
-                if (!IsOpen && !Token.IsCancellationRequested)
-                    OnDisConnected();
-            }
-            catch (Exception ex)
-            {
-                Log.Logger.Dispatch("i", "O2Analyzer Monitor Aborted : " + ex.Message);
             }
         }
         protected SessionMessage MakeMessage(byte Cmd, byte Addr, ushort? value = null)

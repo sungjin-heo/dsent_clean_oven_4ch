@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
-        WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic" FontSize="11"
+        WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic" FontSize="11" 
         mc:Ignorable="d" Icon="{dx:DXImage Image=ConditionalFormatting_16x16.png}"  ResizeMode="NoResize"
         Title="I/O 리스트 - XY" Height="850" Width="800">
     <Grid Margin="5">

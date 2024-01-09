@@ -14,7 +14,7 @@
                     xmlns:cc="clr-namespace:CustomControls"
                     Title="N2 클린 오븐.4채널 - 대성이앤티 Co. Ltd" Width="1280" Height="1024" 
                     FontFamily="Century Gothic" Background="Transparent" SnapsToDevicePixels="True" 
-                    WindowStartupLocation="CenterScreen" WindowState="Maximized" IsAeroMode="False"
+                    WindowStartupLocation="CenterScreen" WindowState="Maximized" IsAeroMode="False" AllowsTransparency="False"
                     DataContextChanged="DXRibbonWindow_DataContextChanged">
     <dx:DXWindow.DataContext>
         <appvm:MainViewModel/>
@@ -57,8 +57,8 @@
                     <dxr:RibbonPageGroup Caption="EFEM">
                         <dxb:BarButtonItem Content="시스템 상태" LargeGlyph="{dx:DXImage Image=GroupFieldCollection_32x32.png}" Glyph="{dx:DXImage Image=GroupFieldCollection_16x16.png}"
                                            ItemClick="ShowEfemSystemStateView_ItemClick"/>
-                        <dxb:BarButtonItem Content="메세지 로그" Glyph="{dx:DXImage Image=Example_32x32.png}" LargeGlyph="{dx:DXImage Image=Edit_32x32.png}" 
-                                           ItemClick="ShowEfemMessageLogView_ItemClick"/>
+                        <!--<dxb:BarButtonItem Content="메세지 로그" Glyph="{dx:DXImage Image=Example_32x32.png}" LargeGlyph="{dx:DXImage Image=Edit_32x32.png}" 
+                                           ItemClick="ShowEfemMessageLogView_ItemClick"/>-->
                     </dxr:RibbonPageGroup>
                 </dxr:RibbonPage>               
             </dxr:RibbonDefaultPageCategory>
@@ -233,7 +233,7 @@
             <local:View1 x:Name="view1" Visibility="Hidden" DataContext="{Binding SelectedChannel}"/>
             <local:View2 x:Name="view2" Margin="0,2"/>
             <rv:EfemStatusPanel x:Name="efemStateView" Visibility="Hidden" DataContext="{Binding EfemServer}" />
-            <rv:EfemMessageLogPanel x:Name="efemLogView" Visibility="Hidden" />
+            <!--<rv:EfemMessageLogPanel x:Name="efemLogView" Visibility="Hidden" />-->
         </Grid>
         
     </DockPanel>

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaesungEntCleanOvenDataView
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{E8E869AF-273E-4D6F-A75B-ACD86E8C15AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "daesung_4chamber_watcher", "daesung_4chamber_watcher\daesung_4chamber_watcher.csproj", "{9D2697F8-E448-498A-BDF5-F7D37E828FA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{E8E869AF-273E-4D6F-A75B-ACD86E8C15AC}.Release|x64.Build.0 = Release|Any CPU
 		{E8E869AF-273E-4D6F-A75B-ACD86E8C15AC}.Release|x86.ActiveCfg = Release|Any CPU
 		{E8E869AF-273E-4D6F-A75B-ACD86E8C15AC}.Release|x86.Build.0 = Release|Any CPU
+		{9D2697F8-E448-498A-BDF5-F7D37E828FA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D2697F8-E448-498A-BDF5-F7D37E828FA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D2697F8-E448-498A-BDF5-F7D37E828FA6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9D2697F8-E448-498A-BDF5-F7D37E828FA6}.Debug|x64.Build.0 = Debug|Any CPU
+		{9D2697F8-E448-498A-BDF5-F7D37E828FA6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9D2697F8-E448-498A-BDF5-F7D37E828FA6}.Debug|x86.Build.0 = Debug|Any CPU
+		{9D2697F8-E448-498A-BDF5-F7D37E828FA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D2697F8-E448-498A-BDF5-F7D37E828FA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D2697F8-E448-498A-BDF5-F7D37E828FA6}.Release|x64.ActiveCfg = Release|Any CPU
+		{9D2697F8-E448-498A-BDF5-F7D37E828FA6}.Release|x64.Build.0 = Release|Any CPU
+		{9D2697F8-E448-498A-BDF5-F7D37E828FA6}.Release|x86.ActiveCfg = Release|Any CPU
+		{9D2697F8-E448-498A-BDF5-F7D37E828FA6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

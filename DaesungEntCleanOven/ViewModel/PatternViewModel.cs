@@ -218,9 +218,13 @@ namespace DaesungEntCleanOven4.ViewModel
             {
                 PatternViewModel Copy = this.Clone();
                 if (Id == "1")
+                {
                     Copy.SelectSegmentGrp1();
+                }
                 else if (Id == "2")
+                {
                     Copy.SelectSegmentGrp2();
+                }
 
                 View.PatternSetupDlg Dlg = new View.PatternSetupDlg() { DataContext = Copy };
                 if ((bool)Dlg.ShowDialog())
@@ -232,6 +236,17 @@ namespace DaesungEntCleanOven4.ViewModel
                         View.Question qDlg = new View.Question("패턴 정보가 변경되었습니다.\r\n변경된 내용을 저장하시겠습니까?");
                         if ((bool)qDlg.ShowDialog())
                         {
+                            // 네패스 요청에 의해 패턴이름이 중복되지 않도록 반영...
+                            if (Channel != null && Channel.PatternMetaDatas != null)
+                            {
+                                List<PatternMetadata> patt_meta = Channel.PatternMetaDatas;
+                                PatternMetadata pattern = patt_meta.Find(o => o.Name == Copy.Name);
+                                if (pattern != null)
+                                {
+                                    View.Question Q = new View.Question("동일한 이름의 패턴이 이미 존재합니다.\n패턴이름을 변경해주시기 바랍니다.");
+                                    Q.ShowDialog();
+                                }
+                            }
                             Copy.Save();
                             Load(Copy.Model);
                             PatternChanged?.Invoke(this, EventArgs.Empty);

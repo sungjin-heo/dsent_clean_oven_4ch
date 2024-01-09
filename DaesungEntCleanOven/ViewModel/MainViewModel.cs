@@ -44,6 +44,7 @@ namespace DaesungEntCleanOven4.ViewModel
             };
             SystemTimer.Start();
 
+#if false
             LogRemoveTimer = new System.Timers.Timer();
             LogRemoveTimer.Interval = TimeSpan.FromDays(1).TotalMilliseconds;
             LogRemoveTimer.Elapsed += (s, e) =>
@@ -59,8 +60,10 @@ namespace DaesungEntCleanOven4.ViewModel
                         if (Tokens.Length == 4)
                         {
                             DateTime Tmp = new DateTime(int.Parse(Tokens[1]), int.Parse(Tokens[2]), int.Parse(Tokens[3]));
-                            if ((Today - Tmp).TotalDays > 60)
+                            if ((Today - Tmp).TotalDays > 30)
+                            {
                                 System.IO.File.Delete(f);
+                            }
                         }
                     }
                 }
@@ -69,13 +72,15 @@ namespace DaesungEntCleanOven4.ViewModel
                     Log.Logger.Dispatch("e", "Exception is Occured in LogRemover Handler : " + ex.Message);
                 }
             };
-            LogRemoveTimer.Start();
+            LogRemoveTimer.Start(); 
+#endif
         }
 
         private System.Timers.Timer SystemTimer;
         private System.Timers.Timer LogRemoveTimer;
         private System.Threading.Tasks.Task MpMessageProcTask;
         private System.Threading.CancellationTokenSource MpMessageProcTaskCancelSource;
+        private System.Timers.Timer CommOpenTimer;
 
         public ISplashScreenService SplashScreenService => GetService<ISplashScreenService>();
         public IDispatcherService DispatcherService => GetService<IDispatcherService>();
@@ -109,6 +114,7 @@ namespace DaesungEntCleanOven4.ViewModel
             View.Question Q = new View.Question("프로그램을 종료하시겠습니까?");
             if ((bool)Q.ShowDialog())
             {
+                Log.Logger.Dispatch("i", "사용자에 의한 시스템 정지...");
                 OnClose();
                 App.Current.Shutdown();
             }
@@ -176,7 +182,6 @@ namespace DaesungEntCleanOven4.ViewModel
                 MpMessageProcTask = Task.Factory.StartNew(() => MpMessageHandlerFunc(MpMessageProcTaskCancelSource.Token),
                     MpMessageProcTaskCancelSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
 
-
                 // O2 뷴석기.  RS485, 2W 멀티드랍통신(디바이스 아이디 : 1 ~ 4)
                 string COM = (string)json["device"]["analyzer"]["port"];
                 int Baudrate = (int)json["device"]["analyzer"]["baud_rate"];
@@ -187,11 +192,22 @@ namespace DaesungEntCleanOven4.ViewModel
                 }
                 this.Analyzer = new Equipment.O2Analyzer(COM, Baudrate, 1);
                 this.Analyzer.MeasureDataUpdated += Analyzer_MeasureDataUpdated;
-                this.Analyzer.ConnectionStateChanged += (s, e) => {
+                this.Analyzer.ConnectionStateChanged += (s, e) =>
+                {
                     Channels[e.DeviceId].UpdateAnalyzerConnectionState(e.ConnectState);
                 };
                 this.Analyzer.Connected += (s, e) => { Analyzer.StartMonitor(); };
 
+                Log.Logger.Dispatch("i", "Create Communication Open Timer...");
+                CommOpenTimer = new System.Timers.Timer();
+                CommOpenTimer.Interval = 5000;
+                CommOpenTimer.Elapsed += (s, e) =>
+                {
+                    Log.Logger.Dispatch("i", "Communication Open Timer Callback Called.");
+                    CommOpenTimer.Enabled = false;
+                    Application.Current.Dispatcher.Invoke(() => OpenComm());
+                };
+                CommOpenTimer.Start();
             }
             catch (Exception ex)
             {
@@ -207,7 +223,9 @@ namespace DaesungEntCleanOven4.ViewModel
         private void OnClose()
         {
             if (Analyzer != null && Analyzer.IsOpen)
+            {
                 Analyzer.Close();
+            }
             Channels.ForEach(o => o.Dispose());
 
             // EFEM 연동 클라이언트 정지.
@@ -235,13 +253,16 @@ namespace DaesungEntCleanOven4.ViewModel
                 View.ProgressWindow.ShowWindow("대성ENT - 4CH. N2 CLEAN OVEN", "통신 연결 및 데이터 조회 중...");
                 await Task.Run(() =>
                 {
-                    Channels.ForEach(o => o.OpenComm());
                     if (Analyzer != null && !Analyzer.IsOpen)
+                    {
                         _ = Analyzer.Open();
-
+                    }
+                    Channels.ForEach(o => o.OpenComm());
                     if (CimClient != null)
+                    {
                         CimClient.Start();
-                });                
+                    }
+                });
             }
             finally
             {
@@ -256,16 +277,26 @@ namespace DaesungEntCleanOven4.ViewModel
         {
             try
             {
+                View.Question Q = new View.Question("통신 연결을 해제 하시겠습니까?");
+                if (!(bool)Q.ShowDialog())
+                {
+                    return;
+                }
+                Log.Logger.Dispatch("i", "사용자에 의한 통신 연결 해제...");
+
                 View.ProgressWindow.ShowWindow("대성ENT - 4CH. N2 CLEAN OVEN", "모니터링 정지 및 통신 해제 중...");
-                await Task.Run(() => {
+                await Task.Run(() => 
+                {
+                    if (CimClient != null)
+                    {
+                        CimClient.Stop();
+                    }
                     if (Analyzer != null && Analyzer.IsOpen)
                     {
                         Analyzer.Close();
-                    }
+                    }                    
                     Channels.ForEach(o => o.UpdateAnalyzerConnectionState(false));
                     Channels.ForEach(o => o.CloseComm());
-                    if (CimClient != null)
-                        CimClient.Stop();
                 });
             }
             finally
@@ -341,18 +372,27 @@ namespace DaesungEntCleanOven4.ViewModel
                 foreach (ChannelViewModel Channel in Channels)
                 {
                     if (Channel != Ch)
+                    {
                         Channel.LoadPatternMetaData();
+                    }
                 }
             }
         }
         private void Analyzer_MeasureDataUpdated(object sender, Equipment.MeasureDataUpdateEventArgs e)
         {
-            ChannelViewModel Channel = Channels[e.DeviceId];
-            if (Channel != null)
+            try
             {
-                Channel.CleanOvenChamber.UpdateAnalyzerTemperature(e.SensorTemperature);
-                Channel.CleanOvenChamber.UpdateAnalyzerEmf(e.SensorEMF);
-                Channel.CleanOvenChamber.UpdateAnalyzerConcentrationPpm(e.O2ConcentrationPpm);
+                ChannelViewModel Channel = Channels[e.DeviceId];
+                if (Channel != null)
+                {
+                    Channel.CleanOvenChamber.UpdateAnalyzerTemperature(e.SensorTemperature);
+                    Channel.CleanOvenChamber.UpdateAnalyzerEmf(e.SensorEMF);
+                    Channel.CleanOvenChamber.UpdateAnalyzerConcentrationPpm(e.O2ConcentrationPpm);
+                }
+            }
+            catch(Exception ex)
+            {
+                Log.Logger.Dispatch("e", "Analyzer_MeasureDataUpdated() Exception : " + ex.Message);
             }
         }
         private void CimClient_ClientConnectionChangedEvent(MpMessageClient arg1, bool arg2)
@@ -371,6 +411,7 @@ namespace DaesungEntCleanOven4.ViewModel
         {
             Log.Logger.Dispatch("e", "Robostar.CIM Error Occured : {0}", arg2);
         }
+
         private void MpMessageHandlerFunc(CancellationToken Token)
         {
             try
@@ -447,8 +488,7 @@ namespace DaesungEntCleanOven4.ViewModel
                                                 string path = Path.Combine(dir, string.Format("{0:D3}.xml", i + 1));
                                                 if (File.Exists(path))
                                                 {
-                                                    Model.Pattern pattern;
-                                                    pattern = Model.Pattern.LoadFrom(path);
+                                                    Model.Pattern pattern = Model.Pattern.LoadFrom(path);
 
                                                     BakeOvenRecipe recipe = new BakeOvenRecipe
                                                     {
@@ -458,9 +498,15 @@ namespace DaesungEntCleanOven4.ViewModel
                                                         RecipeName = pattern.Name,
                                                         Segments = new BakeOvenSegmentData[pattern.SegmentCount]
                                                     };
+
                                                     int k = 0;
                                                     foreach (Model.Segment Seg in pattern.Segments)
                                                     {
+                                                        // 네패스 요청에 의해 Duration이 0이 아닌, 실제 사용되는 세그먼트만 전송하도록 변경.
+                                                        if (Seg.Duration == 0)
+                                                        {
+                                                            break;
+                                                        }
                                                         BakeOvenSegmentData d = new BakeOvenSegmentData
                                                         {
                                                             SegmentNo = Seg.No,
@@ -1096,12 +1142,11 @@ namespace DaesungEntCleanOven4.ViewModel
                                     case eEfemEvent.StopGetPanelEvent:          // 패널 배출 중단.
                                         break;
                                 }
-                            }
-                        
+                            }                        
                         });
                     }
 
-                    Thread.Sleep(1);
+                    Thread.Sleep(10);
                 }
             }
             catch (Exception ex)
@@ -1111,87 +1156,128 @@ namespace DaesungEntCleanOven4.ViewModel
         }
         private void Ch_AlarmOccured(object sender, EventArgs e)
         {
-            if (sender is ChannelViewModel Ch)
+            try
             {
-                if (CimClient != null && CimClient.IsConnected)
+                if (sender is ChannelViewModel Ch)
                 {
-                    BakeOvenEventData Msg = new BakeOvenEventData();
-                    Msg.IsEFEM = false;
-                    Msg.ChamberNo = Ch.No;
-                    Msg.EventID = eOvenEvent.Alarm;
-                    _ = CimClient.Send(Msg);
+                    if (CimClient != null && CimClient.IsConnected)
+                    {
+                        BakeOvenEventData Msg = new BakeOvenEventData();
+                        Msg.IsEFEM = false;
+                        Msg.ChamberNo = Ch.No;
+                        Msg.EventID = eOvenEvent.Alarm;
+                        _ = CimClient.Send(Msg);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Dispatch("e", "Exception is occured to process Ch_AlarmOccured() : " + ex.Message);
             }
         }
         private void Ch_DoorOpenCompleted(object sender, EventArgs e)
         {
-            if (sender is ChannelViewModel Ch)
+            try
             {
-                if (CimClient != null && CimClient.IsConnected)
+                if (sender is ChannelViewModel Ch)
                 {
-                    BakeOvenEventData Msg = new BakeOvenEventData();
-                    Msg.IsEFEM = false;
-                    Msg.ChamberNo = Ch.No;
-                    Msg.EventID = eOvenEvent.DoorOpenComplete;
-                    _ = CimClient.Send(Msg);
+                    if (CimClient != null && CimClient.IsConnected)
+                    {
+                        BakeOvenEventData Msg = new BakeOvenEventData();
+                        Msg.IsEFEM = false;
+                        Msg.ChamberNo = Ch.No;
+                        Msg.EventID = eOvenEvent.DoorOpenComplete;
+                        _ = CimClient.Send(Msg);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Dispatch("e", "Exception is occured to process Ch_DoorOpenCompleted() : " + ex.Message);
             }
         }
         private void Ch_DoorCloseCompleted(object sender, EventArgs e)
         {
-            if (sender is ChannelViewModel Ch)
+            try
             {
-                if (CimClient != null && CimClient.IsConnected)
+                if (sender is ChannelViewModel Ch)
                 {
-                    BakeOvenEventData Msg = new BakeOvenEventData();
-                    Msg.IsEFEM = false;
-                    Msg.ChamberNo = Ch.No;
-                    Msg.EventID = eOvenEvent.DoorCloseComplete;
-                    _ = CimClient.Send(Msg);
+                    if (CimClient != null && CimClient.IsConnected)
+                    {
+                        BakeOvenEventData Msg = new BakeOvenEventData();
+                        Msg.IsEFEM = false;
+                        Msg.ChamberNo = Ch.No;
+                        Msg.EventID = eOvenEvent.DoorCloseComplete;
+                        _ = CimClient.Send(Msg);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Dispatch("e", "Exception is occured to process Ch_DoorCloseCompleted() : " + ex.Message);
             }
         }
         private void Ch_ProcessStarted(object sender, EventArgs e)
         {
-            if (sender is ChannelViewModel Ch)
+            try
             {
-                if (CimClient != null && CimClient.IsConnected)
+                if (sender is ChannelViewModel Ch)
                 {
-                    BakeOvenEventData Msg = new BakeOvenEventData();
-                    Msg.IsEFEM = false;
-                    Msg.ChamberNo = Ch.No;
-                    Msg.EventID = eOvenEvent.ProcessStart;
-                    _ = CimClient.Send(Msg);
+                    if (CimClient != null && CimClient.IsConnected)
+                    {
+                        BakeOvenEventData Msg = new BakeOvenEventData();
+                        Msg.IsEFEM = false;
+                        Msg.ChamberNo = Ch.No;
+                        Msg.EventID = eOvenEvent.ProcessStart;
+                        _ = CimClient.Send(Msg);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Dispatch("e", "Exception is occured to process Ch_ProcessStarted() : " + ex.Message);
             }
         }
         private void Ch_ProcessCompleted(object sender, EventArgs e)
         {
-            if (sender is ChannelViewModel Ch)
+            try
             {
-                if (CimClient != null && CimClient.IsConnected)
+                if (sender is ChannelViewModel Ch)
                 {
-                    BakeOvenEventData Msg = new BakeOvenEventData();
-                    Msg.IsEFEM = false;
-                    Msg.ChamberNo = Ch.No;
-                    Msg.EventID = eOvenEvent.ProcessComplete;
-                    _ = CimClient.Send(Msg);
+                    if (CimClient != null && CimClient.IsConnected)
+                    {
+                        BakeOvenEventData Msg = new BakeOvenEventData();
+                        Msg.IsEFEM = false;
+                        Msg.ChamberNo = Ch.No;
+                        Msg.EventID = eOvenEvent.ProcessComplete;
+                        _ = CimClient.Send(Msg);
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                Log.Logger.Dispatch("e", "Exception is occured to process Ch_ProcessCompleted() : " + ex.Message);
+            }
         }
         private void Ch_ProcessAborted(object sender, EventArgs e)
         {
-            if (sender is ChannelViewModel Ch)
+            try
             {
-                if (CimClient != null && CimClient.IsConnected)
+                if (sender is ChannelViewModel Ch)
                 {
-                    BakeOvenEventData Msg = new BakeOvenEventData();
-                    Msg.IsEFEM = false;
-                    Msg.ChamberNo = Ch.No;
-                    Msg.EventID = eOvenEvent.ProcessAbort;
-                    _ = CimClient.Send(Msg);
+                    if (CimClient != null && CimClient.IsConnected)
+                    {
+                        BakeOvenEventData Msg = new BakeOvenEventData();
+                        Msg.IsEFEM = false;
+                        Msg.ChamberNo = Ch.No;
+                        Msg.EventID = eOvenEvent.ProcessAbort;
+                        _ = CimClient.Send(Msg);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Dispatch("e", "Exception is occured to process Ch_ProcessAborted() : " + ex.Message);
             }
         }
     }

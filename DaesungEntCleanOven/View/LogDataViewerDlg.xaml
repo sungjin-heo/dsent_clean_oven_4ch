@@ -5,7 +5,7 @@
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:s="http://schemas.abtsoftware.co.uk/scichart" WindowState="Maximized"
+        xmlns:s="http://schemas.abtsoftware.co.uk/scichart" WindowState="Maximized" 
         WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic" FontSize="11"
         mc:Ignorable="d" Title="측정 데이터 뷰어" Height="450" Width="800"
         Icon="{dx:DXImage Image=MailMerge_16x16.png}">

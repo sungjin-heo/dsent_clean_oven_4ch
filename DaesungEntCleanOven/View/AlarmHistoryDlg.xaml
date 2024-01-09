@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic"
+        WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic" 
         mc:Ignorable="d"
         Title="알람 이력 조회" Height="450" Width="800" Icon="{dx:DXImage Image=SelectDataMember_16x16.png}" ResizeMode="NoResize">
     <Grid Margin="5">

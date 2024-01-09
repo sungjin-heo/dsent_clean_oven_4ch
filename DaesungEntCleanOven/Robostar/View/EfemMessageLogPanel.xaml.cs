@@ -23,7 +23,7 @@ namespace DaesungEntCleanOven4.Robostar.View
         public EfemMessageLogPanel()
         {
             InitializeComponent();
-            Log.TextBoxLogAppender.ConfigureTextboxAppender(this.textLogBox);
+         //   Log.TextBoxLogAppender.ConfigureTextboxAppender(this.textLogBox);
         }
     }
 }

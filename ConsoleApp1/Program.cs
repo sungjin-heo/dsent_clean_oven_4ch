@@ -14,7 +14,21 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            JToken jsonData;
+
+            string[] files = System.IO.Directory.GetFiles(@"D:\APP\DAESUNG-ENT\CLEAN_OVEN\LOG");
+            foreach (string f in files)
+            {
+                string fName = f.Substring(f.LastIndexOf('\\') + 1, f.Length - f.LastIndexOf('\\') - 1);
+                string[] Tokens = fName.Split('-');
+                if (Tokens.Length == 4)
+                {
+                    DateTime Tmp = new DateTime(int.Parse(Tokens[1]), int.Parse(Tokens[2]), int.Parse(Tokens[3]));
+                    if ((DateTime.Now - Tmp).TotalDays > 30)
+                        System.IO.File.Delete(f);
+                }
+            }
+
+      //      JToken jsonData;
 
 
 //             string RegDir = @".\conf_2";
@@ -25,7 +39,7 @@ namespace ConsoleApp1
 //                 jsonData = JToken.ReadFrom(j);
 //             }
 
-            JToken[] Items;
+        //    JToken[] Items;
 
 #if false
             using (StreamReader Sr = System.IO.File.OpenText(@".\conf_1\alert_param_setup.json"))
@@ -67,7 +81,7 @@ namespace ConsoleApp1
 #endif
 
             int N = 10133;
-#if true
+#if false
             using (StreamReader Sr = System.IO.File.OpenText(@".\conf_3\io_x.json"))
             {
                 using (JsonTextReader Jr = new JsonTextReader(Sr))
@@ -96,7 +110,7 @@ namespace ConsoleApp1
 
 #endif
 
-#if true
+#if false
             N = 10217;
             using (StreamReader Sr = System.IO.File.OpenText(@".\conf_3\io_y.json"))
             {

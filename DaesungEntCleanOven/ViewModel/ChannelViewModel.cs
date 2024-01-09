@@ -86,13 +86,21 @@ namespace DaesungEntCleanOven4.ViewModel
 
             // 채널 데이터 저장을 위한 디렉토리 생성.
             if (!Directory.Exists(PatternStorageDir))
+            {
                 Directory.CreateDirectory(PatternStorageDir);
+            }
             if (!Directory.Exists(CsvLogStorageDir))
+            {
                 Directory.CreateDirectory(CsvLogStorageDir);
+            }
             if (!Directory.Exists(BinaryLogStorageDir))
+            {
                 Directory.CreateDirectory(BinaryLogStorageDir);
+            }
             if (!Directory.Exists(AlarmStorageDir))
+            {
                 Directory.CreateDirectory(AlarmStorageDir);
+            }
 
             // 디바이스 통신 연결...
             this.CleanOvenChamber = new Equipment.CleanOven(CleanOvenIpAddr, CleanOvenTcp, this);
@@ -102,14 +110,16 @@ namespace DaesungEntCleanOven4.ViewModel
                     switch (CleanOvenChamber.ConnectState)
                     {
                         case Comm.ConnectionState.Closed:
-                        case Comm.ConnectionState.Connecting:
+                        //case Comm.ConnectionState.Connecting:
                             this.CleanOvenChamber.StopMonitor();
                             OpenEmptyView();
                             break;
                         case Comm.ConnectionState.Connected:
                             {
                                 if (!CleanOvenChamber.IsInitialized)
+                                {
                                     CleanOvenChamber.Initialize();
+                                }
                                 CleanOvenChamber.StartMonitor();
                             }
                             OpenOperationView();
@@ -140,10 +150,7 @@ namespace DaesungEntCleanOven4.ViewModel
             // 패턴 모델 로딩...
             Model.Pattern model;
             string path = Path.Combine(PatternStorageDir, string.Format("{0:D3}.xml", LastestSelectedPatternNo));
-            if (System.IO.File.Exists(path))
-                model = Model.Pattern.LoadFrom(path);
-            else
-                model = new Model.Pattern() { No = LastestSelectedPatternNo };
+            model = System.IO.File.Exists(path) ? Model.Pattern.LoadFrom(path) : new Model.Pattern() { No = LastestSelectedPatternNo };
 
             this.PatternForRun = new PatternViewModel(this, model);
             this.PatternForEdit = new PatternViewModel(this, model);
@@ -227,7 +234,9 @@ namespace DaesungEntCleanOven4.ViewModel
         public void Dispose()
         {
             if (CleanOvenChamber != null && CleanOvenChamber.IsConnected)
+            {
                 CleanOvenChamber.DisConnect();
+            }
         }
         public void OpenComm()
         {
@@ -379,7 +388,7 @@ namespace DaesungEntCleanOven4.ViewModel
 
             View.AlarmRealtimeDlg Dlg = new View.AlarmRealtimeDlg() { DataContext = CleanOvenChamber };
             Dlg.Title = string.Format("채널.{0} - 경보 상태 창", No);
-            Dlg.Show();
+            Dlg.ShowDialog();
         }
         private bool CanOpenCurrentAlarmView()
         {
@@ -641,12 +650,16 @@ namespace DaesungEntCleanOven4.ViewModel
         private void PatternSelectionChanged(System.Collections.IList param)
         {
             if (param != null && param.Count > 0)
+            {
                 this.SelectedPatternDatas = param.Cast<Model.PatternMetadata>();
+            }
         }
         private void CopyPattern()
         {
             if (SelectedPatternDatas != null && SelectedPatternDatas.Count() == 1)
+            {
                 CopiedPattern = SelectedPatternDatas.ToArray().First();
+            }
         }
         private bool CanCopyPattern()
         {

@@ -6,7 +6,7 @@
         xmlns:u="clr-namespace:Util"         
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic"
+        WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True" FontFamily="Century Gothic" 
         mc:Ignorable="d" Icon="{dx:DXImage Image=HandTool_16x16.png}"  ResizeMode="NoResize"
         Title="수동 운전" Height="400" Width="600">
     <Grid Margin="5">

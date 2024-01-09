@@ -128,23 +128,41 @@ namespace DaesungEntCleanOven4.Equipment
         {
             get
             {
-                if (Relays[1].Value)
-                    return string.Format("CH.{0} - TEMPERATURE : PROG. HOLD", ChannelNumber);
-                else if (Relays[3].Value)
-                    return string.Format("CH.{0} - TEMPERATURE : PROG. PRE-RUN", ChannelNumber);
-                else if (Relays[4].Value)
-                    return string.Format("CH.{0} - TEMPERATUR.E : PROG. RUN", ChannelNumber);
-                else if (Relays[5].Value)
-                    return string.Format("CH.{0} - TEMPERATURE : PROG. CLOSING", ChannelNumber);
-                else if (Relays[6].Value)
-                    return string.Format("CH.{0} - TEMPERATURE : PROG. STOP", ChannelNumber);
-                else if (Relays[7].Value)
-                    return string.Format("CH.{0} - TEMPERATURE : FIX. RUN", ChannelNumber);
-                else if (NumericValues[39].Value == 1)
-                    return string.Format("CH.{0} - TEMPERATURE : AUTO-TUNE", ChannelNumber);
-                else if (NumericValues[42].Value == 0)
+                if (NumericValues[42].Value == 0.0)
+                {
                     return string.Format("CH.{0} - TEMPERATURE : STOP", ChannelNumber);
-
+                }
+                else if (NumericValues[39].Value == 1.0)
+                {
+                    return string.Format("CH.{0} - TEMPERATURE : AUTO-TUNE", ChannelNumber);
+                }
+                else
+                {
+                    if (Relays[1].Value)
+                    {
+                        return string.Format("CH.{0} - TEMPERATURE : PROG. HOLD", ChannelNumber);
+                    }
+                    else if (Relays[3].Value)
+                    {
+                        return string.Format("CH.{0} - TEMPERATURE : PROG. PRE-RUN", ChannelNumber);
+                    }
+                    else if (Relays[4].Value)
+                    {
+                        return string.Format("CH.{0} - TEMPERATURE : PROG. RUN", ChannelNumber);
+                    }
+                    else if (Relays[5].Value)
+                    {
+                        return string.Format("CH.{0} - TEMPERATURE : PROG. CLOSING", ChannelNumber);
+                    }
+                    else if (Relays[6].Value)
+                    {
+                        return string.Format("CH.{0} - TEMPERATURE : PROG. STOP", ChannelNumber);
+                    }
+                    else if (Relays[7].Value)
+                    {
+                        return string.Format("CH.{0} - TEMPERATURE : FIX. RUN", ChannelNumber);
+                    }
+                }
                 return string.Format("CH.{0} - TEMPERATURE : UNKNOWN", ChannelNumber);
             }
         }
@@ -756,12 +774,14 @@ namespace DaesungEntCleanOven4.Equipment
                 // COPY LOG ITEM REFERENCE...    
                 int[] Index = new int[] { 0, 1, 3, 11, 14, 15, /*18,*/ 21, 23, 24, /*25, 26,*/ 27, 28, 29, 30, 31, 12, 13 };
                 for (int i = 0; i < Index.Length; i++)
+                {
                     this.CsvLoggingNumerics.Add(this.NumericValues[Index[i]]);
-
+                }
                 Index = new int[] { 0, 1, 3, 11, 14, 15, /*18,*/ 21, 23, 24, /*25, 26,*/ 27, 28, 29, 30, 31 };
                 for (int i = 0; i < Index.Length; i++)
+                {
                     this.BinaryLoggingNumerics.Add(this.NumericValues[Index[i]]);
-
+                }
                 for (int i = 25; i < 74; i++)
                 {
                     Alarm alarm = new Alarm(Relays[i].Name, Relays[i], Relays[i + 49]);
@@ -770,14 +790,17 @@ namespace DaesungEntCleanOven4.Equipment
                         Application.Current.Dispatcher.Invoke(() =>
                         {
                             this.AlarmHistory.Add((s as Alarm).GetDescript());
+                            AlarmOccured?.Invoke(this, EventArgs.Empty);        // 알람 발생을 알람창 보다 먼저 발생시켜, EFEM측에 알람 발생을 전달하도록 한다.
                             if (AlarmDlg == null)
                             {
                                 AlarmDlg = new View.AlarmRealtimeDlg() { DataContext = this };
                                 AlarmDlg.Title = string.Format("채널.{0} - 경보 상태 창", Channel.No);
                                 AlarmDlg.Closed += (snd, arg) => { AlarmDlg = null; };
+                                AlarmDlg.Topmost = true;
                                 AlarmDlg.Show();
+                                //AlarmDlg.ShowDialog();
                             }
-                            AlarmOccured?.Invoke(this, EventArgs.Empty);
+                            //AlarmOccured?.Invoke(this, EventArgs.Empty);
                         });
                     };
                     alarm.AlarmCleared += (s, e) =>
@@ -847,9 +870,9 @@ namespace DaesungEntCleanOven4.Equipment
                         if (Alarm != null)
                         {
                             DateTime Now = DateTime.Now;
-                            string Name = string.Format("ALARM_LOG - {0:D4}{1:D2}{2:D2}.csv", Now.Year, Now.Month, Now.Day);
+                            string Name = string.Format("ALARM_LOG - {0:D4}{1:D2}{2:D2}.txt", Now.Year, Now.Month, Now.Day);
                             string Path = System.IO.Path.Combine(Channel.AlarmStorageDir, Name);
-                            using (var Sw = new System.IO.StreamWriter(Path, true))
+                            using (var Sw = new System.IO.StreamWriter(Path, true, Encoding.Default))
                             {
                                 Sw.WriteLine(Alarm.ToString());
                             }
@@ -883,7 +906,15 @@ namespace DaesungEntCleanOven4.Equipment
                         }
                         else
                         {
-                            ProcessCompleted?.Invoke(this, EventArgs.Empty);
+                            // 알람상태이거나 또는 전체 세그먼트가 돌지 않은 상태에서 STOP 된 경우 Abort 발생.
+                            if (IsAlarmState /*|| TotalSegmentElapsedTime < TotalSegmentTime*/)
+                            {
+                                ProcessAborted?.Invoke(this, EventArgs.Empty);
+                            }
+                            else
+                            {
+                                ProcessCompleted?.Invoke(this, EventArgs.Empty);
+                            }
                         }
                     }
                 }
@@ -932,11 +963,13 @@ namespace DaesungEntCleanOven4.Equipment
 
                 try
                 {
+                    DateTime Now = DateTime.Now;
+
                     IXyDataSeries<DateTime, double> Series1 = TrendSeriesGrp1[0].DataSeries as IXyDataSeries<DateTime, double>;
                     IXyDataSeries<DateTime, double> Series2 = TrendSeriesGrp2[0].DataSeries as IXyDataSeries<DateTime, double>;
-                    if (Series1.HasValues)
+                    if (Series1 != null && Series1.HasValues)
                     {
-                        DateTime Now = DateTime.Now;
+                        
                         TimeSpan ElapsedTime = Now - Series1.XValues[0];
                         if (ElapsedTime.TotalMinutes > G.REALTIME_TREND_CAPACITY * 60.0 && !G.REALTIME_TREND_ON_SEARCH)
                         {
@@ -945,21 +978,45 @@ namespace DaesungEntCleanOven4.Equipment
                             DateTime Last = Now;
                             SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = Series1.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
                             xAxis.VisibleRange = new DateRange(First, Last);
-                            xAxis = Series2.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
+// 
+//                             xAxis = Series2.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
+//                             xAxis.VisibleRange = new DateRange(First, Last);
+                        }
+                    }
+
+                    if (Series2 != null && Series2.HasValues)
+                    {
+                        TimeSpan ElapsedTime = Now - Series2.XValues[0];
+                        if (ElapsedTime.TotalMinutes > G.REALTIME_TREND_CAPACITY * 60.0 && !G.REALTIME_TREND_ON_SEARCH)
+                        {
+                            // CHANGE VISIBLE RANGE.
+                            DateTime First = Now.Subtract(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
+                            DateTime Last = Now;
+//                             SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = Series1.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
+//                             xAxis.VisibleRange = new DateRange(First, Last);
+
+                            SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = Series2.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
                             xAxis.VisibleRange = new DateRange(First, Last);
                         }
                     }
 
-                    DateTime Time = DateTime.Now;
+
+                //    DateTime Time = DateTime.Now;
                     for (int i = 0; i < TrendSeriesGrp1Numerics.Count; i++)
                     {
-                        IXyDataSeries<DateTime, double> dataSeries = (TrendSeriesGrp1[i].DataSeries as IXyDataSeries<DateTime, double>);
-                        dataSeries.Append(Time, TrendSeriesGrp1Numerics[i].ScaledValue);
+                        IXyDataSeries<DateTime, double> dataSeries = TrendSeriesGrp1[i].DataSeries as IXyDataSeries<DateTime, double>;
+                        if (dataSeries != null && TrendSeriesGrp1Numerics[i] != null)
+                        {
+                            dataSeries.Append(Now, TrendSeriesGrp1Numerics[i].ScaledValue);
+                        }
                     }
                     for (int i = 0; i < TrendSeriesGrp2Numerics.Count; i++)
                     {
-                        IXyDataSeries<DateTime, double> dataSeries = (TrendSeriesGrp2[i].DataSeries as IXyDataSeries<DateTime, double>);
-                        dataSeries.Append(Time, TrendSeriesGrp2Numerics[i].ScaledValue);
+                        IXyDataSeries<DateTime, double> dataSeries = TrendSeriesGrp2[i].DataSeries as IXyDataSeries<DateTime, double>;
+                        if (dataSeries != null && TrendSeriesGrp2Numerics[i] != null)
+                        {
+                            dataSeries.Append(Now, TrendSeriesGrp2Numerics[i].ScaledValue);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -1006,20 +1063,29 @@ namespace DaesungEntCleanOven4.Equipment
         }
 
         private CancellationTokenSource CancelTokenSource;
-        private System.Threading.AutoResetEvent Waitor = new AutoResetEvent(false);
-        public async void StartMonitor()
+        private System.Threading.Tasks.Task MonitoringTask;
+
+      //  private System.Threading.AutoResetEvent Waitor = new AutoResetEvent(false);
+        public /*async*/ void StartMonitor()
         {
             try
             {
                 if (!IsConnected)
+                {
                     throw new Exception("YokogawaSequence Session Closed.");
+                }
 
-                CancelTokenSource = new CancellationTokenSource();
-                CancellationToken Token = CancelTokenSource.Token;
-                await Task.Factory.StartNew(MonitorFunc, Token, TaskCreationOptions.LongRunning);
-                CancelTokenSource.Dispose();
-                CancelTokenSource = null;
-                Waitor.Set();
+                if (CancelTokenSource == null)
+                    CancelTokenSource = new CancellationTokenSource();
+                MonitoringTask = Task.Factory.StartNew(() => MonitorFunc(CancelTokenSource.Token),
+                    CancelTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+
+//                 CancelTokenSource = new CancellationTokenSource();
+//                 CancellationToken Token = CancelTokenSource.Token;
+//                 await Task.Factory.StartNew(MonitorFunc, Token, TaskCreationOptions.LongRunning);
+//                 CancelTokenSource.Dispose();
+//                 CancelTokenSource = null;
+//                 Waitor.Set();
             }
             catch (Exception ex)
             {
@@ -1031,15 +1097,26 @@ namespace DaesungEntCleanOven4.Equipment
             if (CancelTokenSource != null)
             {
                 CancelTokenSource.Cancel();
-                Waitor.WaitOne(1000);
+                if (MonitoringTask != null)
+                {
+                    if (MonitoringTask.Wait(3000))
+                        MonitoringTask = null;
+                }
+                CancelTokenSource = null;
             }
+
+            //             if (CancelTokenSource != null)
+            //             {
+            //                 CancelTokenSource.Cancel();
+            //                 Waitor.WaitOne(1000);
+            //             }
         }
-        protected virtual void MonitorFunc(object State)
+        protected virtual void MonitorFunc(CancellationToken Token)
         {
             try
             {
-                CancellationToken Token = (CancellationToken)State;
-                while (!Token.IsCancellationRequested && IsConnected)
+                Token.ThrowIfCancellationRequested();
+                while (!Token.IsCancellationRequested)
                 {
                     try
                     {
@@ -1056,6 +1133,24 @@ namespace DaesungEntCleanOven4.Equipment
                     }
                     Thread.Sleep(1000);
                 }
+//                     CancellationToken Token = (CancellationToken)State;
+//                 while (!Token.IsCancellationRequested && IsConnected)
+//                 {
+//                     try
+//                     {
+//                         // 소요시간 : 약 0.02 sec
+//                         UpdateNumericRo();
+//                         UpdateRelayRo();
+//                         UpdateIoX();
+//                         UpdateIoY();
+//                         OnMonitorDataUpdated();
+//                     }
+//                     catch (Exception ex)
+//                     {
+//                         Log.Logger.Dispatch("i", "Exception is Occured while to Monitor CleanOvenChamber : " + ex.Message);
+//                     }
+//                     Thread.Sleep(1000);
+//                 }
             }
             catch (Exception ex)
             {
@@ -1532,14 +1627,7 @@ namespace DaesungEntCleanOven4.Equipment
                     return;
                 }
 
-                //                 if (Channel.PatternForRun.No == Channel.PatternForEdit.No)
-                //                 {
-                //                     if (!Channel.PatternForRun.Equals(Channel.PatternForEdit))
-                //                     {
-                //                         Channel.PatternForRun.Load(Channel.PatternForEdit.Model);
-                //                         TransferPatternNoMsg(Channel.PatternForRun);
-                //                     }
-                //                 }
+                // 다른 채널에서 현재 채널에서 사용되는 패턴을 편집했을 가능성이 있기 때문에 시작전 패턴을 재로딩한다.
                 PatternReloadRequested?.Invoke(this, EventArgs.Empty);
 
                 // CURRETN : STOP STATE, SO START...
@@ -1551,14 +1639,18 @@ namespace DaesungEntCleanOven4.Equipment
                 xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
                 xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
                 foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp1)
+                {
                     Series.DataSeries.Clear();
+                }
 
                 xAxis = TrendSeriesGrp2[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
                 xAxis.VisibleRange = new DateRange(First, Last);
                 xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
                 xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
                 foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp2)
+                {
                     Series.DataSeries.Clear();
+                }
 
                 if (Monitor.TryEnter(SyncKey, 3000))
                 {
@@ -2199,8 +2291,11 @@ namespace DaesungEntCleanOven4.Equipment
         }
         public void StartBake()
         {
-            Application.Current.Dispatcher.Invoke(() => 
+            Application.Current.Dispatcher.Invoke(() =>
             {
+                // 다른 채널에서 패턴이 편집되어 있을수 있기 때문에.. 시작전 패턴 재 로딩.
+                PatternReloadRequested?.Invoke(this, EventArgs.Empty);
+
                 DateTime First = DateTime.Now;
                 DateTime Last = First.Add(TimeSpan.FromHours(G.REALTIME_TREND_CAPACITY));
 
@@ -2208,8 +2303,8 @@ namespace DaesungEntCleanOven4.Equipment
                 {
                     SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = TrendSeriesGrp1[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
                     xAxis.VisibleRange = new DateRange(First, Last);
-                    xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
-                    xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
+                    xAxis.MajorDelta = new TimeSpan((Last.Ticks - First.Ticks) / 10);
+                    xAxis.MinorDelta = new TimeSpan((Last.Ticks - First.Ticks) / 50);
                 }
                 foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp1)
                 {
@@ -2220,9 +2315,9 @@ namespace DaesungEntCleanOven4.Equipment
                 {
                     SciChart.Charting.Visuals.Axes.DateTimeAxis xAxis = TrendSeriesGrp2[0].DataSeries.ParentSurface.XAxis as SciChart.Charting.Visuals.Axes.DateTimeAxis;
                     xAxis.VisibleRange = new DateRange(First, Last);
-                    xAxis.MajorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 10));
-                    xAxis.MinorDelta = new TimeSpan((long)((Last.Ticks - First.Ticks) / 50));
-                }                  
+                    xAxis.MajorDelta = new TimeSpan((Last.Ticks - First.Ticks) / 10);
+                    xAxis.MinorDelta = new TimeSpan((Last.Ticks - First.Ticks) / 50);
+                }
                 foreach (IRenderableSeriesViewModel Series in TrendSeriesGrp2)
                 {
                     Series.DataSeries.Clear();
@@ -2235,7 +2330,7 @@ namespace DaesungEntCleanOven4.Equipment
                         this.NumericValues[42].Value = (Channel.PatternForRun.StartConditionUsage == 1) ? 5 : 7;
                     }
                     finally
-                    { 
+                    {
                         Monitor.Exit(SyncKey);
                     }
                 }

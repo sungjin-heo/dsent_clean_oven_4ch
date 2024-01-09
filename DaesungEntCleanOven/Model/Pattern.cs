@@ -111,7 +111,9 @@ namespace DaesungEntCleanOven4.Model
             if (autoSegCreate)
             {
                 for (int i = 0; i < MAX_SEGMENT_CNT; i++)
+                {
                     Segments.Add(new Segment(this) { No = i + 1 });
+                }
             }
             this.Name = "NO-NAME";
             this.WaitTemperatureAfterClose = 50.0;

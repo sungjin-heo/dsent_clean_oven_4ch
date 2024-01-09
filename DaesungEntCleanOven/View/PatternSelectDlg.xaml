@@ -5,7 +5,7 @@
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize"  
         Title="패턴 선택 창" Height="800" Width="500" Icon="{dx:DXImage Image=ManageDatasource_16x16.png}">
     <Grid Margin="5">
         <Grid.RowDefinitions>

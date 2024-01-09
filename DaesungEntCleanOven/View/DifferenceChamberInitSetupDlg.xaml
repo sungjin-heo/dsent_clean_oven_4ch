@@ -6,7 +6,7 @@
         xmlns:u="clr-namespace:Util"         
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DaesungEntCleanOven4.View" FontFamily="Century Gothic" WindowStartupLocation="CenterScreen"
+        xmlns:local="clr-namespace:DaesungEntCleanOven4.View" FontFamily="Century Gothic" WindowStartupLocation="CenterScreen" 
         mc:Ignorable="d" Icon="{dx:DXImage Image=GroupFieldCollection_16x16.png}"  ResizeMode="NoResize"
         Title="차압 챔버 초기 동작 설정" Height="195" Width="440.572">
     <Grid Margin="5">
